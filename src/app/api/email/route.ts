@@ -5,7 +5,7 @@ export async function POST(req: NextRequest) {
   const { recipients } = await req.json();
   const sec = process.env.NODE_ENV !== 'development';
   const transport = nodemailer.createTransport({
-    host: process.env.HOST,
+    host: process.env.SMTP_HOST,
     secure: sec,
     port: sec ? process.env.SEC_PORT : process.env.NSEC_PORT,
     auth: {
