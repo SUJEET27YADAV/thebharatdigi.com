@@ -20,7 +20,7 @@ export default function Footer() {
             </h2>
             <ul className="w-full text-xs 2xs:text-sm sm:text-base pl-4 md:pl-12 lg:w-[unset] lg:p-0 space-y-1">
               <li className="">
-                <FooterLink href="/pages/aboutus">About us</FooterLink>
+                <FooterLink href="/aboutus">About us</FooterLink>
               </li>
             </ul>
           </div>

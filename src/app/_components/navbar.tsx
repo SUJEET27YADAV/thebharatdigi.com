@@ -89,8 +89,8 @@ export default function Navbar() {
   }, [drawerOpen]);
 
   return (
-    <nav className="relative w-full top-0 z-50 text-zinc-900">
-      <div className="relative h-16 px-2 sm:px-5 flex items-center justify-between bg-gradient-to-r from-zinc-800 via-zinc-400 to-zinc-800">
+    <nav className="relative w-full top-0 z-50">
+      <div className="relative h-16 px-2 sm:px-5 flex items-center justify-between bg-gradient-to-r from-zinc-800 via-zinc-500 to-zinc-800">
         <button
           type="button"
           title="Menu Button"
