@@ -90,7 +90,7 @@ export default function Navbar() {
 
   return (
     <nav className="relative w-full top-0 z-50 text-zinc-900">
-      <div className="relative h-16 px-2 xs:px-5 flex items-center justify-between bg-gradient-to-r from-zinc-600 via-zinc-400 to-blue-600">
+      <div className="relative h-16 px-2 sm:px-5 flex items-center justify-between bg-gradient-to-r from-zinc-800 via-zinc-400 to-zinc-800">
         <button
           type="button"
           title="Menu Button"

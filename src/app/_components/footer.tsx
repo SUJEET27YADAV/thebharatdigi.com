@@ -11,7 +11,7 @@ import Logo from './ui/logo';
 export default function Footer() {
   return (
     <div className="w-full">
-      <div className="w-full flex flex-col items-center p-4 xs:px-6 sm:px-4 lg:px-10 gap-2 bg-gradient-to-br from-indigo-300 form-[40%] via-yellow-200 via-[50%] to-green-400 dark:bg-gradient-to-br dark:from-indigo-800 dark:form-[40%] dark:via-yellow-600 dark:via-[50%] dark:to-green-700">
+      <div className="w-full flex flex-col items-center p-4 xs:px-6 sm:px-4 lg:px-10 gap-2 bg-gradient-to-br from-orange-400 from-[15%] via-white/75 to-green-600 to-[85%]">
         <Logo className="w-30 sm:w-36" />
         <div className="w-full flex flex-col sm:flex-row max-sm:pb-2 dark:text-white">
           <div className="w-full sm:w-[33%] flex flex-col sm:items-center py-1 sm:py-3 sm:border-r-3 sm:border-zinc-700/50 dark:sm:border-zinc-300/50">
@@ -53,7 +53,7 @@ export default function Footer() {
             <ul className="w-full text-xs 2xs:text-sm sm:text-base pl-4 md:pl-12 lg:w-[unset] lg:p-0 space-y-1">
               <li>
                 <FooterLink href="mailto:support@thebharatdigi.com">
-                  <EmailIcon fontSize="inherit" className="text-blue-900" />
+                  <EmailIcon fontSize="inherit" className="text-white" />
                   <span className="flex-1 line-clamp-1 break-words">
                     support@thebharatdigi.com
                   </span>
@@ -61,7 +61,7 @@ export default function Footer() {
               </li>
               <li>
                 <FooterLink href="tel:9999239307">
-                  <PhoneIcon fontSize="inherit" className="text-blue-900" />
+                  <PhoneIcon fontSize="inherit" className="text-white" />
                   <span>+91 - 99992 39307</span>
                 </FooterLink>
               </li>

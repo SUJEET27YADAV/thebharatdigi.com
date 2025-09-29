@@ -12,7 +12,7 @@ export default function Logo({ className }: { className?: string }) {
         width={1200}
         height={1200}
         priority
-        className="h-full w-auto object-contain"
+        className="h-full w-auto object-contain rounded-xl"
       />
     </Link>
   );
