@@ -36,13 +36,13 @@ export default function Footer() {
                 <FooterLink href="/privacypolicy">Privacy Policy</FooterLink>
               </li>
               <li>
-                <FooterLink href="/returnpolicy">Privacy Policy</FooterLink>
+                <FooterLink href="/returnpolicy">Return Policy</FooterLink>
               </li>
               <li>
-                <FooterLink href="/refundpolicy">Privacy Policy</FooterLink>
+                <FooterLink href="/refundpolicy">Refund Policy</FooterLink>
               </li>
               <li>
-                <FooterLink href="/shippingpolicy">Privacy Policy</FooterLink>
+                <FooterLink href="/shippingpolicy">Shipping Policy</FooterLink>
               </li>
             </ul>
           </div>
