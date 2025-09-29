@@ -17,8 +17,9 @@ export default function Page() {
         (1) of the Information Technology (Intermediaries guidelines) Rules,
         2011 that require publishing the rules and regulations, privacy policy
         and Terms of Use for access or usage of domain name
-        www.thebharatdigi.com ('Website'), including the related mobile site and
-        mobile application (hereinafter referred to as 'Platform').
+        www.thebharatdigi.com (&lsquo;Website&rsquo;), including the related
+        mobile site and mobile application (hereinafter referred to as
+        &lsquo;Platform&rsquo;).
       </p>
 
       <p>
@@ -26,7 +27,7 @@ export default function Page() {
         under the Companies Act, 1956 with its registered office at 1848,
         Ward-17, Arun Vihar, Sector -37, Noida ,Gautam Buddha Nagar, Uttar
         Pradesh, India Pin - 201301 (hereinafter referred to as ?Platform
-        Owner?, 'we', 'us', 'our')..
+        Owner?, &lsquo;we&rsquo;, &lsquo;us&rsquo;, &lsquo;our&rsquo;)..
       </p>
 
       <p>
@@ -39,18 +40,18 @@ export default function Page() {
         the Platform Owner and these terms and conditions including the policies
         constitute Your binding obligations, with Platform Owner. These Terms of
         Use relate to your use of our website, goods (as applicable) or services
-        (as applicable) (collectively, 'Services'). Any terms and conditions
-        proposed by You which are in addition to or which conflict with these
-        Terms of Use are expressly rejected by the Platform Owner and shall be
-        of no force or effect. These Terms of Use can be modified at any time
-        without assigning any reason. It is your responsibility to periodically
-        review these Terms of Use to stay informed of updates..
+        (as applicable) (collectively, &lsquo;Services&rsquo;). Any terms and
+        conditions proposed by You which are in addition to or which conflict
+        with these Terms of Use are expressly rejected by the Platform Owner and
+        shall be of no force or effect. These Terms of Use can be modified at
+        any time without assigning any reason. It is your responsibility to
+        periodically review these Terms of Use to stay informed of updates..
       </p>
 
       <p>
         For the purpose of these Terms of Use, wherever the context so requires
-        ?you?, 'your' or ?user? shall mean any natural or legal person who has
-        agreed to become a user/buyer on the Platform..
+        ?you?, &lsquo;your&rsquo; or ?user? shall mean any natural or legal
+        person who has agreed to become a user/buyer on the Platform..
       </p>
 
       <p>
@@ -130,11 +131,11 @@ export default function Page() {
         You shall indemnify and hold harmless Platform Owner, its affiliates,
         group companies (as applicable) and their respective officers,
         directors, agents, and employees, from any claim or demand, or actions
-        including reasonable attorney's fees, made by any third party or penalty
-        imposed due to or arising out of Your breach of this Terms of Use,
-        privacy Policy and other Policies, or Your violation of any law, rules
-        or regulations or the rights (including infringement of intellectual
-        property rights) of a third party.
+        including reasonable attorney&apos;s fees, made by any third party or
+        penalty imposed due to or arising out of Your breach of this Terms of
+        Use, privacy Policy and other Policies, or Your violation of any law,
+        rules or regulations or the rights (including infringement of
+        intellectual property rights) of a third party.
       </p>
 
       <p>
