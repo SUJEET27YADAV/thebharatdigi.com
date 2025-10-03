@@ -96,7 +96,7 @@ export default function Footer() {
         </div>
       </div>
       <p className="w-full p-2 text-center text-xs sm:text-base">
-        &copy; 2025 The Bharat Digital. All rights reserved.
+        &copy; 2025 The Bharat Digital (Sujeet Yadav). All rights reserved.
       </p>
     </div>
   );
