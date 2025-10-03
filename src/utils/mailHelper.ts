@@ -1,3 +1,4 @@
+"use server";
 import nodemailer, { TransportOptions } from 'nodemailer';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
 
@@ -17,7 +18,7 @@ async function verifyTransport(): Promise<{
   success: boolean;
   msg: string;
   info: unknown;
-  error: unknown;
+  error: string;
 }> {
   try {
     await transport.verify();
@@ -25,14 +26,14 @@ async function verifyTransport(): Promise<{
       success: true,
       msg: 'Server is ready to take our messages',
       info: null,
-      error: null,
+      error: 'Error sending Email',
     };
   } catch (e) {
     return {
       success: false,
       msg: 'Error, Server not ready to take our messages',
       info: null,
-      error: e,
+      error: 'Error sending Email',
     };
   }
 }
@@ -44,7 +45,7 @@ export async function sendEmail(
   success: boolean;
   msg: string;
   info: SMTPTransport.SentMessageInfo | null;
-  error: unknown;
+  error: string;
 }> {
   try {
     const { success, msg, error } = await verifyTransport();
@@ -53,7 +54,7 @@ export async function sendEmail(
         success,
         msg,
         info: null,
-        error,
+        error:'Error sending Email',
       };
     }
     console.log(msg);
@@ -69,14 +70,14 @@ export async function sendEmail(
         success: false,
         msg: 'Error sending Email',
         info: info,
-        error: null,
+        error: 'Error sending Email',
       };
     } else {
       return {
         success: true,
         msg: 'Email sent successfully',
         info: info,
-        error: null,
+        error: '',
       };
     }
   } catch (err) {
@@ -84,7 +85,7 @@ export async function sendEmail(
       success: false,
       msg: 'Error sending Email',
       info: null,
-      error: err,
+      error: 'Error sending Email',
     };
   }
 }
