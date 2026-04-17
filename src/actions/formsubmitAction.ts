@@ -12,7 +12,7 @@ export default async function SubmitAction(
   const mail = {
     subject: "Query from website",
     text: `${name} (${email}) has sent a query regarding ${pType} project category. Their message is: "${message}"`,
-    html: `<p>${name} (${email}) has sent a query regarding ${pType} project category.</p><p>Their message is: "${message}"</p>`,
+    html: `<p>${name} (${email}) has sent a query regarding ${pType} project category.</p><p>Their message is:<br>${message}</p>`,
   };
   await sendEmail(
     [{ name: "TheBharatDigital", address: "tdbhelpcenter@gmail.com" }],
