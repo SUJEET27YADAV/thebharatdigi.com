@@ -1,21 +1,23 @@
-'use client';
-import { useEffect, useRef, useState } from 'react';
+"use client";
+import { useEffect, useRef, useState } from "react";
 // import { useTheme } from 'next-themes';
 // import { signOut } from 'next-auth/react';
-import Link from 'next/link';
+import Link from "next/link";
 // import ToggleButton from './ui/togglebtn';
 // import LoginIcon from '@mui/icons-material/Login';
 // import LogoutIcon from '@mui/icons-material/Logout';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import MenuIcon from '@mui/icons-material/Menu';
-import Home from '@mui/icons-material/Home';
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import MenuIcon from "@mui/icons-material/Menu";
+import Home from "@mui/icons-material/Home";
 // import Signup from '@mui/icons-material/AppRegistration';
 // import Gallery from '@mui/icons-material/PhotoAlbum';
-import About from '@mui/icons-material/Description';
-import Contact from '@mui/icons-material/ContactPage';
+import About from "@mui/icons-material/Description";
+import Contact from "@mui/icons-material/ContactPage";
+import Services from "@mui/icons-material/DesignServices";
 // import ProfileIcon from '@mui/icons-material/Person';
-import PolicyIcon from '@mui/icons-material/Policy';
-import Logo from './ui/logo';
+import PorfolioIcon from "@mui/icons-material/Person3";
+import Logo from "./ui/logo";
+import ThemeToggle from "./ThemeToggle";
 // import { User } from 'next-auth';
 // import Image from 'next/image';
 
@@ -39,23 +41,28 @@ export default function Navbar() {
   const links: NavLink[] = [
     {
       icon: <Home fontSize="inherit" />,
-      label: 'home',
-      path: '/',
+      label: "home",
+      path: "/",
+    },
+    {
+      icon: <Services fontSize="inherit" />,
+      label: "services",
+      path: "/services",
     },
     {
       icon: <About fontSize="inherit" />,
-      label: 'about',
-      path: '/aboutus',
+      label: "about",
+      path: "/aboutus",
+    },
+    {
+      icon: <PorfolioIcon fontSize="inherit" />,
+      label: "portfolio",
+      path: "/portfolio",
     },
     {
       icon: <Contact fontSize="inherit" />,
-      label: 'contact',
-      path: '/contactus',
-    },
-    {
-      icon: <PolicyIcon fontSize="inherit" />,
-      label: 'Privacy Policy',
-      path: '/privacypolicy',
+      label: "contact",
+      path: "/contactus",
     },
   ];
 
@@ -68,9 +75,9 @@ export default function Navbar() {
           if (
             !db.contains(event.target as Node) &&
             (!d.contains(event.target as Node) ||
-              (event.target as HTMLElement).closest('#list'))
+              (event.target as HTMLElement).closest("#list"))
           ) {
-            if ((event.target as HTMLElement).closest('#list')) {
+            if ((event.target as HTMLElement).closest("#list")) {
               setTimeout(() => {
                 setDrawerOpen(false);
               }, 500);
@@ -81,52 +88,59 @@ export default function Navbar() {
         }
       };
 
-      document.addEventListener('mousedown', handleDrawerClose);
+      document.addEventListener("mousedown", handleDrawerClose);
       return () => {
-        document.removeEventListener('mousedown', handleDrawerClose);
+        document.removeEventListener("mousedown", handleDrawerClose);
       };
     }
   }, [drawerOpen]);
 
+  // useEffect(() => {
+  //   if (dbref.current && window && window.innerWidth === 768) {
+  //     dbref.current.style.display = "none";
+  //   }
+  // });
+
   return (
-    <nav className="relative w-full top-0 z-50">
-      <div className="relative h-16 px-2 sm:px-5 flex items-center justify-between bg-gradient-to-r from-zinc-800 via-zinc-500 to-zinc-800">
+    <nav className="fixed w-full z-50 transition-all duration-500 py-2 bg-gray-200 dark:bg-slate-900">
+      <div className="relative max-w-7xl mx-auto h-16 px-2 md:px-5 flex items-center justify-between">
         <button
           type="button"
           title="Menu Button"
           ref={dbref}
           onClick={() => setDrawerOpen(!drawerOpen)}
-          className="max-sm:flex text-2xl hidden items-center justify-center cursor-pointer"
+          className="max-md:flex md:hidden text-2xl items-center justify-center cursor-pointer"
         >
           <MenuIcon fontSize="inherit" />
         </button>
-        <div className="max-sm:absolute max-sm:left-1/2 max-sm:-translate-x-1/2 h-16 flex items-center justify-center overflow-hidden">
+        <div className="max-md:absolute max-md:left-1/2 max-md:-translate-x-1/2 h-16 flex items-center justify-center gap-2 text-xl md:text-2xl font-bold gradient-text overflow-hidden">
           <Logo className="h-full py-1" />
+          <h3 className="max-md:hidden">The Bharat Digital</h3>
         </div>
         <div
           ref={dref}
-          className={`max-sm:absolute max-sm:left-0 max-sm:top-16 max-xs:w-[60%] max-sm:w-1/2 max-sm:min-h-screen max-sm:bg-gray-400/40 max-sm:p-2 max-sm:dark:bg-gray-700/40 max-sm:z-30 max-sm:backdrop-blur-md max-sm:drop-shadow-xl ${
-            drawerOpen ? 'max-sm:block' : 'max-sm:hidden'
+          className={`max-md:absolute max-md:left-0 max-md:top-18 max-xs:w-[60%] max-md:w-1/2 max-md:min-h-screen max-md:bg-gray-400/40 max-md:p-2 max-md:dark:bg-gray-700/40 max-md:z-30 max-md:backdrop-blur-md max-md:drop-shadow-xl ${
+            drawerOpen ? "max-md:block" : "max-md:hidden"
           }`}
         >
           <ul
             id="list"
-            className="flex max-sm:flex-col items-center sm:justify-center gap-1 sm:gap-3 list-none"
+            className="flex max-md:flex-col items-center md:justify-center max-md:gap-1 md:gap-8 list-none"
           >
             {links.map((l, i) => (
               <li
                 key={i}
-                className="max-sm:w-full max-sm:bg-white/30 rounded-md"
+                className="max-md:w-full max-md:bg-white/30 rounded-md"
               >
                 <Link
                   href={l.path}
-                  className="w-full p-3 flex items-center font-bold justify-between sm:p-0 sm:py-1 max-xs:text-sm max-sm:dark:text-zinc-300"
+                  className="w-full p-3 flex items-center font-semibold justify-between md:p-0 md:py-1 max-xs:text-sm"
                 >
                   <p className="w-full flex items-center gap-1 capitalize">
-                    <span className="sm:hidden">{l.icon}</span>
+                    <span className="md:hidden">{l.icon}</span>
                     {l.label}
                   </p>
-                  <span className="sm:hidden">
+                  <span className="md:hidden">
                     <ChevronRightIcon fontSize="inherit" />
                   </span>
                 </Link>
@@ -134,73 +148,9 @@ export default function Navbar() {
             ))}
           </ul>
         </div>
-        {/* <div className="flex items-center justify-end gap-3">
-          {user ? (
-            <>
-              <Link
-                href="/profile"
-                className="flex flex-col items-center justify-center text-2xl cursor-pointer"
-              >
-                {user?.image ? (
-                  <Image
-                    src={user?.image ?? '/logo.png'}
-                    alt="profile Pic"
-                    width={500}
-                    height={500}
-                    className="w-6 aspect-square object-contain rounded-full border-1 border-zinc-600 bg-white"
-                  />
-                ) : (
-                  <ProfileIcon fontSize="inherit" />
-                )}
-                <span className="font-semibold text-[8px]">Profile</span>
-              </Link>
-              <div
-                onClick={() => {
-                  signOut({ redirectTo: '/?r=login' });
-                }}
-                className="flex flex-col items-center justify-center text-2xl cursor-pointer"
-              >
-                <LogoutIcon fontSize="inherit" />
-                <span className="font-semibold text-[8px]">Logout</span>
-              </div>
-            </>
-          ) : (
-            <>
-              <Link
-                href="/login"
-                className="flex flex-col items-center justify-center text-2xl cursor-pointer"
-              >
-                <LoginIcon fontSize="inherit" />
-                <span className="font-semibold text-[8px]">Login</span>
-              </Link>
-              <Link
-                href="/signup"
-                className="flex flex-col items-center justify-center text-2xl cursor-pointer"
-              >
-                <Signup fontSize="inherit" />
-                <span className="font-semibold text-[8px]">SignUp</span>
-              </Link>
-            </>
-          )}
-        </div> */}
-        <div className="w-16 h-16 flex items-center justify-end gap-3"></div>
+        {/* <div className="w-16 h-16 bg-blue-100 flex items-center justify-end gap-3"></div> */}
+        <ThemeToggle />
       </div>
-      {/* <div
-        className={`w-full flex items-center justify-center gap-2 p-2 ${
-          resolvedTheme === 'dark' ? 'bg-blue-400' : 'bg-red-400'
-        }`}
-      >
-        <span className="text-sm font-semibold italic font-sans">
-          Bright Mode
-        </span>
-        <ToggleButton
-          enabled={resolvedTheme === 'dark'}
-          setEnabled={(val: boolean) => setTheme(val ? 'dark' : 'light')}
-        />
-        <span className="text-sm font-semibold italic font-sans">
-          Dark Mode
-        </span>
-      </div> */}
     </nav>
   );
 }
