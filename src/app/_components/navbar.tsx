@@ -1,29 +1,16 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-// import { useTheme } from 'next-themes';
-// import { signOut } from 'next-auth/react';
 import Link from "next/link";
-// import ToggleButton from './ui/togglebtn';
-// import LoginIcon from '@mui/icons-material/Login';
-// import LogoutIcon from '@mui/icons-material/Logout';
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import MenuIcon from "@mui/icons-material/Menu";
 import Home from "@mui/icons-material/Home";
-// import Signup from '@mui/icons-material/AppRegistration';
-// import Gallery from '@mui/icons-material/PhotoAlbum';
 import About from "@mui/icons-material/Description";
 import Contact from "@mui/icons-material/ContactPage";
+import Shop from "@mui/icons-material/Shop2";
 import Services from "@mui/icons-material/DesignServices";
-// import ProfileIcon from '@mui/icons-material/Person';
 import PorfolioIcon from "@mui/icons-material/Person3";
 import Logo from "./ui/logo";
 import ThemeToggle from "./ThemeToggle";
-// import { User } from 'next-auth';
-// import Image from 'next/image';
-
-// interface NavProps {
-//   user: User | undefined;
-// }
 
 interface NavLink {
   icon: React.ReactNode;
@@ -63,6 +50,11 @@ export default function Navbar() {
       icon: <Contact fontSize="inherit" />,
       label: "contact",
       path: "/contactus",
+    },
+    {
+      icon: <Shop fontSize="inherit" />,
+      label: "Shop",
+      path: "/shop",
     },
   ];
 

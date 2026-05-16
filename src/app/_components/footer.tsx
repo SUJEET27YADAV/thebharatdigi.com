@@ -110,9 +110,9 @@ export default function Footer() {
                 </a>
               </li>
               <li className="flex items-center gap-3">
-                <a href="mailto:tbdhelpcenter@gmail.com">
+                <a href="mailto:support@thebharatdigi.com">
                   <span className="text-indigo-400">✉️</span>{" "}
-                  tbdhelpcenter@gmail.com
+                  support@thebharatdigi.com
                 </a>
               </li>
               <li className="flex items-center gap-3">

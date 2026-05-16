@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import Navbar from "@/app/_components/navbar";
-import Footer from "@/app/_components/footer";
+import Navbar from "@/app/_components/Navbar";
+import Footer from "@/app/_components/Footer";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "./_components/CustomCursor";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import { ToastContainer } from "react-toastify";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,6 +43,7 @@ export default function RootLayout({
           <Navbar />
           {children}
           <Footer />
+          <ToastContainer />
         </ThemeProvider>
       </body>
     </html>

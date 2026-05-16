@@ -1,8 +1,8 @@
 "use server";
-import nodemailer, { TransportOptions } from 'nodemailer';
-import SMTPTransport from 'nodemailer/lib/smtp-transport';
+import nodemailer, { TransportOptions } from "nodemailer";
+import SMTPTransport from "nodemailer/lib/smtp-transport";
 
-const sec = process.env.NODE_ENV !== 'development';
+const sec = process.env.NODE_ENV !== "development";
 
 const transport = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
@@ -17,75 +17,80 @@ const transport = nodemailer.createTransport({
 async function verifyTransport(): Promise<{
   success: boolean;
   msg: string;
-  info: unknown;
-  error: string;
 }> {
   try {
     await transport.verify();
     return {
       success: true,
-      msg: 'Server is ready to take our messages',
-      info: null,
-      error: 'Error sending Email',
+      msg: "Server is ready to take our messages",
     };
   } catch (e) {
     return {
       success: false,
-      msg: 'Error, Server not ready to take our messages',
-      info: null,
-      error: 'Error sending Email',
+      msg: "Error, Server not ready to take our messages",
     };
   }
 }
 
 export async function sendEmail(
   recipients: { name: string; address: string }[],
-  email: { subject: string; text: string; html: string }
+  email: {
+    subject: string;
+    text?: string;
+    html: string;
+    attachments?: {
+      filename: string;
+      path?: string;
+      content?: string | Buffer;
+      contentType?: string;
+    }[];
+  },
 ): Promise<{
   success: boolean;
   msg: string;
   info: SMTPTransport.SentMessageInfo | null;
-  error: string;
+  error: string | null;
 }> {
   try {
-    const { success, msg, error } = await verifyTransport();
+    const { success, msg } = await verifyTransport();
     if (!success) {
       return {
         success,
         msg,
         info: null,
-        error:'Error sending Email',
+        error: "Error sending Email",
       };
     }
-    console.log(msg);
     const info = await transport.sendMail({
-      from: { name: 'TheBharatDigi', address: process.env.APP_USER! },
+      from: { name: "TheBharatDigi", address: process.env.APP_USER! },
       to: recipients,
       subject: email.subject,
       text: email.text,
       html: email.html,
+      attachments: email.attachments,
     });
     if (info.rejected.length >= 1) {
       return {
         success: false,
-        msg: 'Error sending Email',
+        msg: "Error sending Email",
         info: info,
-        error: 'Error sending Email',
+        error: "Error sending Email",
       };
     } else {
       return {
         success: true,
-        msg: 'Email sent successfully',
+        msg: "Email sent successfully",
         info: info,
-        error: '',
+        error: null,
       };
     }
   } catch (err) {
+    console.log("Error sending email: ", err);
     return {
       success: false,
-      msg: 'Error sending Email',
+      msg: "Error sending Email",
       info: null,
-      error: 'Error sending Email',
+      error: "Error sending Email",
     };
   }
 }

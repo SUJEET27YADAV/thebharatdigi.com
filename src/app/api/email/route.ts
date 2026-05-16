@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
     );
   }
   return NextResponse.json(
-    { success, msg, reason: info ?? error },
+    { success, msg, reason: info },
     { status: 200 }
   );
 }

@@ -36,8 +36,8 @@ const contactMethods = [
   {
     icon: Mail,
     title: "Email",
-    value: "tbdhelpcenter@gmail.com",
-    href: "mailto:tbdhelpcenter@gmail.com",
+    value: "support@thebharatdigi.com",
+    href: "mailto:support@thebharatdigi.com",
     color: "purple",
   },
   {
@@ -143,10 +143,7 @@ export default function Contact() {
   }, [formState]);
 
   return (
-    <section
-      id="contact"
-      className="relative py-24 overflow-hidden bg-slate-50 dark:bg-slate-900"
-    >
+    <section className="relative py-24 overflow-hidden bg-slate-50 dark:bg-slate-900">
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 rounded-full blur-3xl bg-indigo-200/50 dark:bg-indigo-500/5" />

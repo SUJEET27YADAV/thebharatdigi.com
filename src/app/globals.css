@@ -11,7 +11,7 @@
 
 /* 3. Define the values and their toggle logic */
 :root {
-  --background: #ffffff;
+  --background: #f8fafc;
   --foreground: #020617;
 
   /* This tells Tailwind: when the 'dark' variant is active, swap these */

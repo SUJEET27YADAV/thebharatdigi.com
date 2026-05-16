@@ -85,7 +85,7 @@ export default function Contact() {
               </a>
 
               <a
-                href="mailto:tbdhelpcenter@gmail.com"
+                href="mailto:support@thebharatdigi.com"
                 className="flex items-center gap-6 group"
               >
                 <div className="w-14 h-14 bg-purple-100 dark:bg-purple-600/20 rounded-2xl flex items-center justify-center group-hover:bg-purple-200 dark:group-hover:bg-purple-600/30 transition-colors">
@@ -96,7 +96,7 @@ export default function Contact() {
                     Email
                   </h4>
                   <div className="text-slate-600 dark:text-gray-400 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
-                    tbdhelpcenter@gmail.com
+                    support@thebharatdigi.com
                   </div>
                 </div>
               </a>
