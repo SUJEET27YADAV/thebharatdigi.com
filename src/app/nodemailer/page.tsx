@@ -1,8 +1,9 @@
-'use client';
-import Image from 'next/image';
-import SMTPTransport from 'nodemailer/lib/smtp-transport';
-import { useState } from 'react';
-import Emoji from 'react-emoji-render';
+"use client";
+import { Celebration } from "@mui/icons-material";
+import { Circle, Cross } from "lucide-react";
+import Image from "next/image";
+import SMTPTransport from "nodemailer/lib/smtp-transport";
+import { useState } from "react";
 
 interface ApiResponse {
   success: boolean | null;
@@ -23,7 +24,7 @@ interface EmailType {
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
-  const [err, setErr] = useState('');
+  const [err, setErr] = useState("");
   const [recipients, setRecipients] = useState<Recipients[]>([]);
   const [email, setEmail] = useState<EmailType>({
     subject: null,
@@ -32,18 +33,18 @@ export default function Home() {
   });
   const [res, setRes] = useState<ApiResponse>({
     success: null,
-    msg: '',
-    error: '',
+    msg: "",
+    error: "",
     info: null,
   });
 
   function parseRecipients(formData: FormData) {
-    const name = formData.get('rname') as string;
-    const address = formData.get('raddress') as string;
+    const name = formData.get("rname") as string;
+    const address = formData.get("raddress") as string;
     if (!name || !address) {
-      setErr('Both Name and address are required !');
+      setErr("Both Name and address are required !");
     } else {
-      setErr('');
+      setErr("");
       setRecipients((p) => {
         return [...p, { name, address }];
       });
@@ -52,13 +53,13 @@ export default function Home() {
   function sendMail(e: React.FormEvent) {
     e.preventDefault();
     if (recipients.length === 0)
-      return setErr('Please add a recipient to send Email !');
+      return setErr("Please add a recipient to send Email !");
     if (!email.text || !email.html)
-      return setErr('Add Some text to Email body to send Email !');
-    if (!email.subject) return setErr('Add a Subject to describe your Email !');
+      return setErr("Add Some text to Email body to send Email !");
+    if (!email.subject) return setErr("Add a Subject to describe your Email !");
     setLoading(true);
-    fetch('/api/email', {
-      method: 'POST',
+    fetch("/api/email", {
+      method: "POST",
       body: JSON.stringify({ recipients, email }),
     })
       .then((res) => res.json())
@@ -133,7 +134,7 @@ export default function Home() {
               recipients.map((r, i) => (
                 <span key={i} className="text-white">
                   {`<${r.name}:${r.address}>` +
-                    (recipients.length === 1 ? '' : ', ')}
+                    (recipients.length === 1 ? "" : ", ")}
                 </span>
               ))
             )}
@@ -178,15 +179,15 @@ export default function Home() {
               res.success !== null && (
                 <>
                   {res.success ? (
-                    <Emoji text=":green_circle:" />
+                    <Circle size={20} className="text-green-500" />
                   ) : (
-                    <Emoji text=":negative_squared_cross_mark:" />
+                    <Cross size={20} className="text-red-500" />
                   )}
                   <span>{res.msg}</span>
                   {res.success ? (
-                    <Emoji text=":tada:" />
+                    <Celebration fontSize="medium" />
                   ) : (
-                    <Emoji text=":crossed_swords:" />
+                    <Cross size={20} className="text-red-500" />
                   )}
                 </>
               )
