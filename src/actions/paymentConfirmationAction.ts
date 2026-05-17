@@ -1,9 +1,5 @@
 "use server";
-
-import { db } from "@/db/db";
-import { customers, payments } from "@/db/schema";
 import client from "@/utils/phonepeClient";
-import { eq } from "drizzle-orm";
 import { sendEmail } from "@/utils/mailHelper";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
