@@ -6,36 +6,83 @@ import client from "@/utils/phonepeClient";
 import { eq } from "drizzle-orm";
 import { sendEmail } from "@/utils/mailHelper";
 import jwt from "jsonwebtoken";
+import { cookies } from "next/headers";
+import { createClient } from "@/utils/supabase/server";
 
 export default async function paymentConfirmationAction(
   previousState: { msg: string },
   formData: FormData,
 ) {
-  const JWT_SECRET = process.env.JWT_SECRET || "";
-  const BASE_URL =
-    process.env.NEXT_PUBLIC_APP_URL || "https://thebharatdigi.com";
-  const merchantOrderId = formData.get("merchantOrderId") as string;
-  const productData = formData.getAll("product").map((p) => String(p));
-  const phone = merchantOrderId.slice(3, 13);
-  const response = await client.getOrderStatus(merchantOrderId);
-  const state = response.state;
+  const cookieStore = await cookies();
+  const supabase = createClient(cookieStore);
   try {
+    const JWT_SECRET = process.env.JWT_SECRET || "";
+    const BASE_URL =
+      process.env.NEXT_PUBLIC_APP_URL || "https://thebharatdigi.com";
+    const merchantOrderId = formData.get("merchantOrderId") as string;
+    const productData = formData.getAll("product").map((p) => String(p));
+    const userId = merchantOrderId.slice(3, 39);
+    const response = await client.getOrderStatus(merchantOrderId);
+    const state = response.state;
     if (state === "COMPLETED") {
-      await db
-        .update(payments)
-        .set({
-          paymentStatus: "completed",
-          gatewayResponse: JSON.stringify(response),
+      const { data: res, error: er } = await supabase
+        .from("payments")
+        .update({
+          payment_status: "completed",
+          gateway_response: JSON.stringify(response),
         })
-        .where(eq(payments.transactionId, merchantOrderId));
-      await db
-        .update(customers)
-        .set({ paid: true })
-        .where(eq(customers.phone, phone));
-      const emailArr = await db
-        .select({ name: customers.name, email: customers.email })
-        .from(customers)
-        .where(eq(customers.phone, phone));
+        .eq("transaction_id", merchantOrderId)
+        .select()
+        .single();
+
+      if (!res || er) {
+        console.log("Failed to update database (er) :", er);
+        return {
+          msg: `Your payment of ₹ ${response.amount / 100} has been successfully processed but we failed to update the database.`,
+          status: "COMPLETED",
+          amount: response.amount,
+          paymentMode: response.paymentDetails[0].paymentMode,
+          transactionId: response.paymentDetails[0].transactionId,
+        };
+      }
+
+      const { data: resp, error: err } = await supabase
+        .from("customers")
+        .update({
+          paid: true,
+        })
+        .eq("id", userId)
+        .select()
+        .single();
+
+      if (!resp || err) {
+        console.log("Failed to update database");
+        return {
+          msg: `Your payment of ₹ ${response.amount / 100} has been successfully processed but we failed to update the database.`,
+          status: "COMPLETED",
+          amount: response.amount,
+          paymentMode: response.paymentDetails[0].paymentMode,
+          transactionId: response.paymentDetails[0].transactionId,
+        };
+      }
+
+      const { data: nameEmail, error } = await supabase
+        .from("customers")
+        .select("name,email")
+        .eq("id", userId)
+        .select()
+        .single();
+
+      if (!nameEmail || error) {
+        console.error("Customer email not found: ", error);
+        return {
+          msg: `Your payment of ₹ ${response.amount / 100} has been successfully processed but there was an error fetching details from database.`,
+          status: "COMPLETED",
+          amount: response.amount,
+          paymentMode: response.paymentDetails[0].paymentMode,
+          transactionId: response.paymentDetails[0].transactionId,
+        };
+      }
 
       const downloadLinks = productData.map((product) => {
         const token = jwt.sign(
@@ -60,7 +107,7 @@ export default async function paymentConfirmationAction(
         .join("<br/><br/>");
 
       const emailResult = await sendEmail(
-        [{ name: emailArr[0].name, address: emailArr[0].email }],
+        [{ name: nameEmail.name, address: nameEmail.email }],
         {
           subject: `Your access to Order id #[${merchantOrderId}]) is here! 🚀`,
           html: `<p>Thank you for your purchase! (Order #[${merchantOrderId}]). Here are the secure download links to your products :</p><br/><br/><p><b>Your secure download links are active only for the next 48 hours</b></p>${linksHtml}`,
@@ -68,30 +115,53 @@ export default async function paymentConfirmationAction(
       );
       if (!emailResult.success) {
         console.error("Error sending email: ", emailResult.error);
+        return {
+          msg: `Your payment of ₹ ${response.amount / 100} has been successfully processed but there was an error sending the email.`,
+          status: "COMPLETED",
+          amount: response.amount,
+          paymentMode: response.paymentDetails[0].paymentMode,
+          transactionId: response.paymentDetails[0].transactionId,
+        };
       }
       return {
-        msg: "COMPLETED",
+        msg: `Your payment of ₹ ${response.amount / 100} has been successfully processed. Your order has been confirmed and shipped on your email address.`,
+        status: "COMPLETED",
         amount: response.amount,
         paymentMode: response.paymentDetails[0].paymentMode,
         transactionId: response.paymentDetails[0].transactionId,
       };
     } else if (state === "FAILED") {
-      await db
-        .update(payments)
-        .set({
-          paymentStatus: "failed",
-          gatewayResponse: JSON.stringify(response),
+      const { data: res, error: erro } = await supabase
+        .from("payments")
+        .update({
+          payment_status: "failed",
+          gateway_response: JSON.stringify(response),
         })
-        .where(eq(payments.transactionId, merchantOrderId));
+        .eq("transactionId", merchantOrderId)
+        .select()
+        .single();
+
+      if (!res || erro) {
+        console.error("Failed to update Database: ", erro);
+        return {
+          msg: `Your Payment of ₹ ${response.amount / 100} has failed and there was an error updating the database.`,
+          status: "FAILED",
+          amount: response.amount,
+          paymentMode: response.paymentDetails[0].paymentMode,
+          transactionId: response.paymentDetails[0].transactionId,
+        };
+      }
       return {
-        msg: "FAILED",
+        msg: `Your Payment of ₹ ${response.amount / 100} has failed.`,
+        status: "FAILED",
         amount: response.amount,
         paymentMode: response.paymentDetails[0].paymentMode,
         transactionId: response.paymentDetails[0].transactionId,
       };
     } else {
       return {
-        msg: "PENDING",
+        msg: "Your payment is still pending. Waiting for payment gateway response...",
+        status: "PENDING",
         amount: response.amount,
         paymentMode: response.paymentDetails[0].paymentMode,
         transactionId: response.paymentDetails[0].transactionId,
@@ -99,6 +169,12 @@ export default async function paymentConfirmationAction(
     }
   } catch (error) {
     console.error("Internal Server Error:", error);
-    return { msg: "FAILED", amount: 0, paymentMode: "", transactionId: "" };
+    return {
+      msg: "Internal Server Error.",
+      status: "FAILED",
+      amount: 0,
+      paymentMode: "",
+      transactionId: "",
+    };
   }
 }

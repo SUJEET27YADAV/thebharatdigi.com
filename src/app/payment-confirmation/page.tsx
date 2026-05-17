@@ -8,6 +8,7 @@ import { useActionState, useEffect, useRef } from "react";
 
 const initialState = {
   msg: "",
+  status: "PENDING",
   amount: 0,
   paymentMode: "",
   transactionId: "",
@@ -34,10 +35,10 @@ export default function ConfirmationPage() {
   }, [merchantOrderId]);
 
   useEffect(() => {
-    if (!pending && state.msg === "COMPLETED") {
+    if (!pending && state.status === "COMPLETED") {
       clearCart();
     }
-  }, [state.msg, pending]);
+  }, [state.status, pending]);
 
   if (!merchantOrderId || typeof merchantOrderId !== "string") {
     return (
@@ -83,26 +84,22 @@ export default function ConfirmationPage() {
           Payment Confirmation
         </h1>
         <div
-          className={`w-30 h-30 aspect-square ${state.msg === "FAILED" ? "bg-red-500" : state.msg === "COMPLETED" ? "bg-green-500" : "bg-yellow-500"} flex items-center justify-center rounded-full text-white font-bold text-8xl`}
+          className={`w-30 h-30 aspect-square ${state.status === "FAILED" ? "bg-red-500" : state.status === "COMPLETED" ? "bg-green-500" : "bg-yellow-500"} flex items-center justify-center rounded-full text-white font-bold text-8xl`}
         >
-          {state.msg === "FAILED" ? (
+          {state.status === "FAILED" ? (
             <X className="w-24 h-24 font-bold" />
-          ) : state.msg === "COMPLETED" ? (
+          ) : state.status === "COMPLETED" ? (
             <Check className="w-24 h-24 font-bold" />
           ) : (
             <MoreHorizontal className="w-24 h-24 font-bold" />
           )}
         </div>
-        <p className="w-full text-center text-xl min-h-12">
-          {state.msg === "FAILED"
-            ? `Your Payment of ₹ ${state.amount / 100} has failed.`
-            : state.msg === "COMPLETED"
-              ? `Your payment of ₹ ${state.amount / 100} has been successfully processed.`
-              : "Waiting for payment gateway response..."}
-        </p>
-        <p className="text-green-500 font-bold min-h-12">
-          {state.msg === "COMPLETED" &&
-            "Your order has been confirmed and shipped on your email address."}
+        <p
+          className={`w-full min-h-24 text-center text-xl font-bold ${state.status === "COMPLETED" ? "text-green-500" : state.status === "FAILED" ? "text-red-500" : ""}`}
+        >
+          {state.msg === ""
+            ? "Your payment is still pending. Waiting for payment gateway response..."
+            : state.msg}
         </p>
         <div>
           <p className="font-bold">Payment Details:</p>
@@ -110,7 +107,7 @@ export default function ConfirmationPage() {
           <p>Payment Mode: {state.paymentMode}</p>
           <p>Transaction Id: {state.transactionId}</p>
         </div>
-        {state.msg === "PENDING" || state.msg === "" ? (
+        {state.status === "PENDING" || state.status === "" ? (
           <button
             onClick={() => window.location.reload()}
             className="w-full py-4 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-900 font-bold text-lg rounded-xl hover:from-amber-400 hover:to-amber-500 transition-all shadow-xl shadow-amber-500/30 hover:shadow-amber-500/50 hover:scale-[1.02] flex items-center justify-center gap-2"

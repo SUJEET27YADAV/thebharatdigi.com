@@ -1,18 +1,18 @@
 "use server";
 import { CreateSdkOrderRequest } from "@phonepe-pg/pg-sdk-node";
 import client from "@/utils/phonepeClient";
-import { db } from "@/db/db";
-import { customers, payments } from "@/db/schema";
-import { eq } from "drizzle-orm";
 import { FormState } from "@/types/types";
 import { CheckoutSchema } from "@/utils/zodSchema";
+import { cookies } from "next/headers";
+import { createClient } from "@/utils/supabase/server";
 
 export async function CheckoutAction(
   previousState: FormState,
   formData: FormData,
 ) {
+  const cookieStore = await cookies();
+  const supabase = createClient(cookieStore);
   try {
-    console.log("Received form data:", Object.fromEntries(formData.entries()));
     const validData = CheckoutSchema.safeParse({
       name: formData.get("name"),
       email: formData.get("email"),
@@ -32,22 +32,27 @@ export async function CheckoutAction(
     const amount = validData.data.amount * 100; // Convert to paise
     const productIds = validData.data.productIds;
 
-    const customerDataArr = await db
-      .insert(customers)
-      .values({
+    const { data: customerData, error } = await supabase
+      .from("customers")
+      .insert({
         name,
         email,
         phone,
         amount: amount.toString(),
-        productIds,
+        product_id: productIds,
       })
-      .returning();
-    if (!customerDataArr || customerDataArr.length === 0) {
+      .select("*")
+      .single();
+
+    if (error) {
+      console.error("Database Error:", error);
+      return { success: false, message: "Database Error" };
+    }
+    if (!customerData) {
       return { success: false, message: "Failed to initiate payment process" };
     }
 
-    const merchantOrderId = `MT_${phone}_${Date.now()}`;
-
+    const merchantOrderId = `MT_${customerData.id}_${Date.now()}`;
     const orderRequest = CreateSdkOrderRequest.StandardCheckoutBuilder()
       .merchantOrderId(merchantOrderId)
       .amount(amount)
@@ -56,41 +61,47 @@ export async function CheckoutAction(
       )
       .disablePaymentRetry(true)
       .expireAfter(3600)
-      .message("Trial Registration Fee")
+      .message("Order Total")
       .build();
 
     const response = await client.pay(orderRequest);
     console.log("PhonePe Response:", response);
     if (response.redirectUrl) {
-      const dbexists = await db
+      const { data: dbexists, error } = await supabase
+        .from("payments")
+        .select("*")
+        .eq("customer_id", customerData.id)
         .select()
-        .from(payments)
-        .where(eq(payments.customerId, customerDataArr[0].id));
-      if (dbexists && dbexists.length > 0) {
-        await db
-          .update(payments)
-          .set({
+        .single();
+
+      if (dbexists && error === null) {
+        await supabase
+          .from("payments")
+          .update({
             amount: amount.toString(),
-            transactionId: merchantOrderId,
-            paymentDate: new Date(),
-            PaymentMethod: "PhonePePG",
-            gatewayResponse: JSON.stringify(response),
+            transaction_id: merchantOrderId,
+            payment_date: new Date(),
+            Payment_method: "PhonePePG",
+            gateway_response: JSON.stringify(response),
           })
-          .where(eq(payments.customerId, customerDataArr[0].id));
+          .eq("customer_id", customerData.id);
       } else {
-        const dbres = await db
-          .insert(payments)
-          .values({
+        const { data: dbres, error: err } = await supabase
+          .from("payments")
+          .insert({
             amount: amount.toString(),
-            customerId: customerDataArr[0].id,
-            paymentStatus: "pending",
-            transactionId: merchantOrderId,
-            paymentDate: new Date(),
-            PaymentMethod: "PhonePePG",
-            gatewayResponse: JSON.stringify(response),
+            customer_id: customerData.id,
+            payment_status: "pending",
+            transaction_id: merchantOrderId,
+            payment_date: new Date(),
+            payment_method: "PhonePePG",
+            gateway_response: JSON.stringify(response),
           })
-          .returning();
-        if (!dbres || dbres.length !== 1) {
+          .select()
+          .single();
+
+        if (!dbres || err) {
+          console.log(err);
           return {
             success: false,
             message: "Failed to initiate payment process",
