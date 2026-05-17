@@ -133,7 +133,7 @@ export default async function paymentConfirmationAction(
           payment_status: "failed",
           gateway_response: JSON.stringify(response),
         })
-        .eq("transactionId", merchantOrderId)
+        .eq("transaction_id", merchantOrderId)
         .select()
         .single();
 
