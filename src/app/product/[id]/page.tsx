@@ -66,7 +66,7 @@ export default function ProductPage() {
       ) : (
         product && (
           <div className="w-full flex flex-col md:flex-row gap-10">
-            <div className="w-full md:w-4xl border-2 border-slate-300 rounded-2xl p-4">
+            <div className="w-full h-fit md:w-4xl border-2 border-slate-300 rounded-2xl p-4">
               <Image
                 src={product.image_url}
                 alt={product.name}
