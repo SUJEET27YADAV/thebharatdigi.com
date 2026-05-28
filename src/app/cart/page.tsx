@@ -26,13 +26,13 @@ export default function CartPage() {
           </p>
         ) : (
           <ul className="min-h-30 mt-4 space-y-4 border-b border-slate-300">
-            {cart.map((item) => (
+            {cart.map((item, idx) => (
               <li
                 key={item.id}
                 className="p-1 flex items-center justify-between"
               >
                 <div className="flex items-center gap-1 flex-1">
-                  <span className="text-lg text-slate-500">{item.id}.</span>
+                  <span className="text-lg text-slate-500">{idx + 1}.</span>
                   <h2 className="font-semibold">{item.name}</h2>
                 </div>
                 <p className="min-w-20 text-end text-lg font-bold">

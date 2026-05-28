@@ -1,81 +1,117 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-import AdminTable from '@/app/_components/admin/AdminTable';
-import Link from 'next/link';
-import { Plus, Search } from 'lucide-react';
-
-interface Service {
-  id: number;
-  title: string;
-  description: string;
-  icon?: string;
-}
+"use client";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import AdminTable from "@/app/_components/admin/AdminTable";
+import { Loader2, Plus, Search } from "lucide-react";
+import { Service } from "@/types/types";
+import AddServiceModal from "./_components/AddServiceModal";
+import { toast } from "react-toastify";
+import EditServiceModal from "./_components/EditServiceModal";
 
 export default function ServicesPage() {
   const [services, setServices] = useState<Service[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [service, setService] = useState<Record<
+    string,
+    string | number | boolean
+  > | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const [filteredServices, setFilteredServices] = useState<Service[]>([]);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+
+  const fetchServices = async () => {
+    try {
+      const response = await fetch("/api/getServices");
+      const res = await response.json();
+      if (res.success) {
+        setServices(res.data);
+        setFilteredServices(res.data);
+      } else {
+        setServices([]);
+        toast.error(res.msg || "Failed to fetch services");
+      }
+    } catch (err) {
+      console.error("Failed to fetch services:", err);
+      toast.error("Failed to fetch services");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    // Mock data
-    const mockServices: Service[] = [
-      {
-        id: 1,
-        title: 'Web Design',
-        description: 'Modern and responsive website design',
-        icon: '🎨',
-      },
-      {
-        id: 2,
-        title: 'Web Development',
-        description: 'Full-stack web development services',
-        icon: '💻',
-      },
-      {
-        id: 3,
-        title: 'Mobile Apps',
-        description: 'Native and cross-platform mobile apps',
-        icon: '📱',
-      },
-    ];
-    setServices(mockServices);
-    setFilteredServices(mockServices);
-    setLoading(false);
+    fetchServices();
   }, []);
 
   useEffect(() => {
     const filtered = services.filter((service) =>
-      service.title.toLowerCase().includes(searchTerm.toLowerCase())
+      service.title.toLowerCase().includes(searchTerm.toLowerCase()),
     );
     setFilteredServices(filtered);
   }, [searchTerm, services]);
 
-  const handleEdit = (service: Service) => {
-    window.location.href = `/admin/services/${service.id}`;
+  const handleEdit = (service: Record<string, string | number | boolean>) => {
+    setService(service);
+    setShowEditModal(true);
   };
 
-  const handleDelete = (service: Service) => {
+  const handleDelete = async (
+    service: Record<string, string | number | boolean>,
+  ) => {
     if (confirm(`Are you sure you want to delete "${service.title}"?`)) {
-      setServices(services.filter((s) => s.id !== service.id));
+      try {
+        const response = await fetch("/api/deleteService", {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: service.id }),
+        });
+        const res = await response.json();
+        if (res.success) {
+          toast.success(res.msg || "Service deleted successfully!");
+          fetchServices();
+        } else {
+          toast.error(res.msg || "Failed to delete service, please try again.");
+        }
+      } catch (err) {
+        console.error(err);
+        toast.error("Failed to delete service. Please try again.");
+      }
     }
   };
 
+  const onAddModalClose = () => {
+    setShowAddModal(false);
+    fetchServices();
+  };
+
+  const onEditModalClose = () => {
+    setShowEditModal(false);
+    fetchServices();
+  };
+
   const tableColumns = [
-    { key: 'title', label: 'Service Name' },
-    { key: 'description', label: 'Description' },
+    { key: "icon", label: "Icon", width: "max-w-[100px]" },
+    { key: "title", label: "Service Name", width: "max-w-[200px]" },
+    { key: "shortdesc", label: "Short Description", width: "max-w-[200px]" },
+    { key: "fulldesc", label: "Full Description", width: "max-w-[200px]" },
+    { key: "features", label: "Features", width: "max-w-[200px]" },
+    { key: "color", label: "Color", width: "max-w-[100px]" },
+    { key: "popular", label: "Popular", width: "max-w-[200px]" },
   ];
 
-  const tableData = filteredServices;
+  const tableData = filteredServices.map((service) => ({
+    ...service,
+    features: Array.isArray(service.features)
+      ? service.features.join(", ")
+      : service.features,
+    popular: service.popular ? "Yes" : "No",
+  }));
 
   if (loading) {
     return (
-      <div
-        className="flex items-center justify-center h-screen"
-        style={{ color: '#314158' }}
-      >
-        Loading...
+      <div className="flex flex-col items-center justify-center h-[calc(100dvh-160px)] text-[#314158] dark:text-white text-lg font-medium">
+        <Loader2 size={40} className="animate-spin" />
+        <span>Loading...</span>
       </div>
     );
   }
@@ -84,57 +120,26 @@ export default function ServicesPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h1
-            className="text-3xl font-bold mb-1"
-            style={{
-              color: '#ffffff',
-              fontFamily: 'Inter, sans-serif',
-            }}
-          >
-            Services
-          </h1>
-          <p
-            className="text-sm"
-            style={{
-              color: '#314158',
-              fontFamily: 'Geist, sans-serif',
-            }}
-          >
-            Manage your services
-          </p>
+          <h1 className="text-3xl font-bold mb-1">Services</h1>
+          <p className="text-sm text-[#314158]">Manage your services</p>
         </div>
-        <Link
-          href="/admin/services/new"
-          className="flex items-center gap-2 px-4 py-2 rounded font-medium transition-opacity hover:opacity-90"
-          style={{
-            backgroundColor: '#ac4bff',
-            color: '#ffffff',
-            fontFamily: 'Inter, sans-serif',
-          }}
+        <button
+          onClick={() => setShowAddModal(true)}
+          className="flex items-center gap-2 px-4 py-2 rounded font-medium bg-[#ac4bff] transition-opacity hover:opacity-90"
         >
           <Plus size={18} />
-          New Service
-        </Link>
+          <span>New Service</span>
+        </button>
       </div>
 
-      <div
-        className="px-4 py-3 rounded flex items-center gap-2 border"
-        style={{
-          backgroundColor: '#0f172b',
-          borderColor: '#444444',
-        }}
-      >
-        <Search size={18} style={{ color: '#314158' }} />
+      <div className="px-4 py-3 rounded flex items-center gap-2 border border-[#444444] text-[#314158] dark:bg-[#0f172b] dark:text-white">
+        <Search size={18} className="text-[#314158] dark:text-white" />
         <input
           type="text"
           placeholder="Search services..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="flex-1 bg-transparent outline-none text-sm"
-          style={{
-            color: '#ffffff',
-            fontFamily: 'Geist, sans-serif',
-          }}
         />
       </div>
 
@@ -144,6 +149,12 @@ export default function ServicesPage() {
         onEdit={handleEdit}
         onDelete={handleDelete}
       />
+      {/* New Service Modal */}
+      {showAddModal && <AddServiceModal onClose={onAddModalClose} />}
+      {/* Edit Service Modal */}
+      {showEditModal && (
+        <EditServiceModal service={service!} onClose={onEditModalClose} />
+      )}
     </div>
   );
 }

@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 interface CheckoutModalProps {
   onClose: () => void;
   totalAmount: number;
-  productIds: number[];
+  productIds: string[];
 }
 
 const initialstate: FormState = {

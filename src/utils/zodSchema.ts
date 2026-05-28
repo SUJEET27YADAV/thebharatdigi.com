@@ -6,6 +6,6 @@ export const CheckoutSchema = z.object({
   phone: z.string().regex(/^\d{10}$/, "Phone number must be exactly 10 digits"),
   amount: z.number().min(1, "Amount must be greater than 0"),
   productIds: z
-    .array(z.number().min(1, "Product ID must be atleast 1"))
+    .array(z.string().min(8, "Product ID must be atleast 8 characters long"))
     .min(1, "At least one product ID is required"),
 });

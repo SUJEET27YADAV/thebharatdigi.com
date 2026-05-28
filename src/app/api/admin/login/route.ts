@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@/utils/supabase/server";
-import { cookies } from "next/headers";
+import { createServerClient } from "@/utils/supabase/server";
 import { verifyPassword, createAdminToken } from "@/utils/admin/auth";
 
 export async function POST(request: NextRequest) {
@@ -14,8 +13,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const cookieStore = await cookies();
-    const supabase = createClient(cookieStore);
+    const supabase = createServerClient();
 
     // Query admin_users table
     const { data: adminUser, error } = await supabase

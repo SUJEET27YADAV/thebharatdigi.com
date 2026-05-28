@@ -14,15 +14,16 @@ export default function ProductPage() {
   const [product, setProduct] = useState<Product | null>(null);
   const [err, setErr] = useState("");
   const { cart, addToCart, removeFromCart } = useCartStore();
-  const isInCart = (id: number) => cart.filter((p) => p.id === id).length > 0;
+  const isInCart = (serial: number) =>
+    cart.filter((p) => p.serial === serial).length > 0;
   const getProduct = async () => {
     try {
-      const res = await fetch("/api/getProductById", {
+      const res = await fetch("/api/getSingleProduct", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id }),
+        body: JSON.stringify({ serial: id }),
       });
       const result = await res.json();
       if (!result.success) {
@@ -52,7 +53,7 @@ export default function ProductPage() {
 
   const handleRemoveFromCart = (
     e: React.MouseEvent<HTMLButtonElement>,
-    productId: number,
+    productId: string,
   ) => {
     e.stopPropagation();
     removeFromCart(productId);
@@ -79,7 +80,7 @@ export default function ProductPage() {
               <p className="text-4xl font-bold">{product.name}</p>
               <p className="text-lg">{product.description}</p>
               <div className="flex flex-wrap gap-2 mb-6">
-                {product.features.split(",").map((f) => (
+                {product.features.map((f) => (
                   <span
                     key={f}
                     className="uppercase tracking-wider font-semibold bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-500"
@@ -95,7 +96,7 @@ export default function ProductPage() {
                 Price : ₹{product.price}
               </p>
               <div className="flex items-center gap-4">
-                {isInCart(product.id) ? (
+                {isInCart(product.serial) ? (
                   <button
                     onClick={(e) => handleRemoveFromCart(e, product.id)}
                     className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 transition-colors"

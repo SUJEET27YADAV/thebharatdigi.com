@@ -3,14 +3,14 @@ import client from "@/utils/phonepeClient";
 import { sendEmail } from "@/utils/mailHelper";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
-import { createClient } from "@/utils/supabase/server";
+import { createServerClient } from "@/utils/supabase/server";
 
 export default async function paymentConfirmationAction(
   previousState: { msg: string },
   formData: FormData,
 ) {
   const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = createServerClient();
   try {
     const JWT_SECRET = process.env.JWT_SECRET || "";
     const BASE_URL =

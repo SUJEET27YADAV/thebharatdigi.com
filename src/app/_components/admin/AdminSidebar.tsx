@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   BarChart3,
   Package,
@@ -9,112 +9,128 @@ import {
   Briefcase,
   Image,
   Settings,
-  Menu,
   X,
-} from 'lucide-react';
-import { useState } from 'react';
+  LogOut,
+  Loader2,
+} from "lucide-react";
+import { Dispatch, SetStateAction, useState } from "react";
+import { getAdminCookie } from "@/utils/admin/auth";
+import { useAdmin } from "@/contexts/AdminAuthContext";
 
 interface NavItem {
   label: string;
-  href: string;
+  href?: string;
+  onClick?: () => void;
   icon: React.ReactNode;
 }
 
-const navItems: NavItem[] = [
-  { label: 'Dashboard', href: '/admin', icon: <BarChart3 size={18} /> },
-  { label: 'Products', href: '/admin/products', icon: <Package size={18} /> },
-  { label: 'Orders', href: '/admin/orders', icon: <ShoppingCart size={18} /> },
-  { label: 'Services', href: '/admin/services', icon: <Briefcase size={18} /> },
-  {
-    label: 'Portfolio',
-    href: '/admin/portfolio',
-    icon: <Image size={18} />,
-  },
-  { label: 'Settings', href: '/admin/settings', icon: <Settings size={18} /> },
-];
+interface AdminSidebarProps {
+  isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+}
 
-export default function AdminSidebar() {
+export default function AdminSidebar({ isOpen, setIsOpen }: AdminSidebarProps) {
   const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
+  const { user, logout, loading, error } = useAdmin();
 
-  const isActive = (href: string) => {
-    if (href === '/admin') return pathname === '/admin';
-    return pathname.startsWith(href);
-  };
+  const navItems: NavItem[] = [
+    { label: "Dashboard", href: "/admin", icon: <BarChart3 size={18} /> },
+    { label: "Products", href: "/admin/products", icon: <Package size={18} /> },
+    {
+      label: "Orders",
+      href: "/admin/orders",
+      icon: <ShoppingCart size={18} />,
+    },
+    {
+      label: "Services",
+      href: "/admin/services",
+      icon: <Briefcase size={18} />,
+    },
+    {
+      label: "Portfolio",
+      href: "/admin/portfolio",
+      icon: <Image size={18} />,
+    },
+    {
+      label: "Settings",
+      href: "/admin/settings",
+      icon: <Settings size={18} />,
+    },
+    { label: "Logout", onClick: () => logout(), icon: <LogOut size={18} /> },
+  ];
+
+  if (loading) {
+    return (
+      <div className="fixed left-0 top-20 h-screen w-64 z-30 flex items-center justify-center bg-white dark:bg-[#0f172b] border-r border-[#444444]">
+        <Loader2 size={24} className="animate-spin text-[#ac4bff]" />
+      </div>
+    );
+  }
 
   return (
     <>
-      {/* Mobile menu button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 left-4 z-40 md:hidden p-2 rounded"
-        style={{
-          backgroundColor: '#0f172b',
-          border: '1px solid #444444',
-          color: '#ffffff',
-        }}
-      >
-        {isOpen ? <X size={20} /> : <Menu size={20} />}
-      </button>
-
       {/* Sidebar */}
       <aside
-        className={`fixed left-0 top-0 h-screen w-64 z-30 transition-transform duration-300 md:translate-x-0 ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
+        className={`fixed left-0 top-20 h-screen w-64 z-30 transition-transform duration-300 md:translate-x-0 bg-white dark:bg-[#0f172b] border-r border-[#444444] ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
-        style={{
-          backgroundColor: '#0f172b',
-          borderRight: '1px solid #444444',
-        }}
       >
-        <div className="p-6">
+        <div className="p-5 mb-2 flex items-center justify-between border-b border-[#444444]">
           <Link href="/admin" className="flex items-center gap-3">
-            <div
-              className="w-10 h-10 rounded flex items-center justify-center font-bold text-lg"
-              style={{
-                backgroundColor: '#ac4bff',
-                color: '#ffffff',
-              }}
-            >
-              TB
+            <div className="w-10 h-10 rounded flex items-center justify-center font-bold text-lg bg-[#ac4bff] text-white uppercase">
+              {user?.name
+                ? user.name.split(" ")[0].charAt(0) +
+                  user.name.split(" ")[1].charAt(0)
+                : "TB"}
             </div>
-            <span
-              className="font-bold text-lg"
-              style={{ color: '#ffffff', fontFamily: 'Inter, sans-serif' }}
-            >
-              Admin
-            </span>
+            <span className="font-bold text-lg">{user?.name || "Admin"}</span>
           </Link>
+          <button
+            onClick={() => setIsOpen(false)}
+            className="md:hidden p-2 rounded dark:bg-[#0f172b] border border-[#444444] text-[#0f172b] dark:text-white"
+          >
+            <X size={20} />
+          </button>
         </div>
 
         <nav className="px-4 space-y-2">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => setIsOpen(false)}
-              className="flex items-center gap-3 px-4 py-3 rounded transition-colors text-sm"
-              style={{
-                backgroundColor: isActive(item.href) ? '#1d293d' : 'transparent',
-                color: isActive(item.href) ? '#ac4bff' : '#314158',
-                borderLeft: isActive(item.href)
-                  ? '3px solid #ac4bff'
-                  : '3px solid transparent',
-                fontFamily: 'Geist, sans-serif',
-              }}
-            >
-              <span>{item.icon}</span>
-              <span>{item.label}</span>
-            </Link>
-          ))}
+          {navItems.map((item) => {
+            if (item.label === "Logout") {
+              if (user) {
+                return (
+                  <button
+                    key={item.label}
+                    onClick={item.onClick}
+                    className={`w-full flex items-center gap-3 px-4 py-3 rounded transition-colors text-sm ${pathname === item.href ? "bg-slate-300 dark:bg-[#1d293d] text-[#ac4bff] border-l-3 border-[#ac4bff]" : "hover:bg-gray-100 dark:hover:bg-[#1d293d] text-[#314158]"} `}
+                  >
+                    <span>{item.icon}</span>
+                    <span>{item.label}</span>
+                  </button>
+                );
+              } else {
+                return null;
+              }
+            } else {
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href!}
+                  onClick={() => setIsOpen(false)}
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded transition-colors text-sm ${pathname === item.href ? "bg-slate-300 dark:bg-[#1d293d] text-[#ac4bff] border-l-3 border-[#ac4bff]" : "hover:bg-gray-100 dark:hover:bg-[#1d293d] text-[#314158]"} `}
+                >
+                  <span>{item.icon}</span>
+                  <span>{item.label}</span>
+                </Link>
+              );
+            }
+          })}
         </nav>
       </aside>
 
       {/* Mobile overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-20 md:hidden"
-          style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+          className="fixed inset-0 z-20 md:hidden bg-black/50"
           onClick={() => setIsOpen(false)}
         />
       )}

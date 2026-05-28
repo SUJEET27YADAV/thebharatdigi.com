@@ -4,21 +4,21 @@ import client from "@/utils/phonepeClient";
 import { FormState } from "@/types/types";
 import { CheckoutSchema } from "@/utils/zodSchema";
 import { cookies } from "next/headers";
-import { createClient } from "@/utils/supabase/server";
+import { createServerClient } from "@/utils/supabase/server";
 
 export async function CheckoutAction(
   previousState: FormState,
   formData: FormData,
 ) {
   const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = createServerClient();
   try {
     const validData = CheckoutSchema.safeParse({
       name: formData.get("name"),
       email: formData.get("email"),
       phone: formData.get("phone"),
       amount: Number(formData.get("amount")),
-      productIds: formData.getAll("productIds").map((id) => Number(id)),
+      productIds: formData.getAll("productIds").map((id) => String(id)),
     });
     if (!validData.success) {
       return {
@@ -65,7 +65,6 @@ export async function CheckoutAction(
       .build();
 
     const response = await client.pay(orderRequest);
-    console.log("PhonePe Response:", response);
     if (response.redirectUrl) {
       const { data: dbexists, error } = await supabase
         .from("payments")

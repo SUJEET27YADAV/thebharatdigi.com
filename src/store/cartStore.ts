@@ -6,7 +6,7 @@ import { persist } from "zustand/middleware";
 interface CartState {
   cart: Product[];
   addToCart: (product: Product) => void;
-  removeFromCart: (productId: number) => void;
+  removeFromCart: (productId: string) => void;
   clearCart: () => void;
 }
 

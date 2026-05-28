@@ -9,7 +9,8 @@ import { toast } from "react-toastify";
 export default function ProductCard({ product }: { product: Product }) {
   const router = useRouter();
   const { cart, addToCart, removeFromCart } = useCartStore();
-  const isInCart = (id: number) => cart.filter((p) => p.id === id).length > 0;
+  const isInCart = (serial: number) =>
+    cart.filter((p) => p.serial === serial).length > 0;
   const handleAddToCart = (
     e: React.MouseEvent<HTMLButtonElement>,
     product: Product,
@@ -21,7 +22,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
   const handleRemoveFromCart = (
     e: React.MouseEvent<HTMLButtonElement>,
-    productId: number,
+    productId: string,
   ) => {
     e.stopPropagation();
     removeFromCart(productId);
@@ -30,8 +31,8 @@ export default function ProductCard({ product }: { product: Product }) {
 
   return (
     <div
-      key={product.id}
-      onClick={() => router.push(`/product/${product.id}`)}
+      key={product.serial}
+      onClick={() => router.push(`/product/${product.serial}`)}
       className="relative group flex flex-col bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden hover:shadow-xl transition-all"
     >
       {/* Product Badge */}
@@ -62,7 +63,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
         {/* Feature Tags */}
         <div className="flex flex-wrap gap-2">
-          {product.features.split(",").map((f) => (
+          {product.features.map((f) => (
             <span
               key={f}
               className="w-fit h-fit text-[10px] uppercase tracking-wider font-semibold bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-500"
@@ -76,7 +77,7 @@ export default function ProductCard({ product }: { product: Product }) {
         <span className="text-2xl font-bold text-slate-900 dark:text-white">
           ₹{product.price}
         </span>
-        {isInCart(product.id) ? (
+        {isInCart(product.serial) ? (
           <button
             onClick={(e) => handleRemoveFromCart(e, product.id)}
             className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 transition-colors"

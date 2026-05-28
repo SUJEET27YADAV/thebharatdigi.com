@@ -1,17 +1,15 @@
-import { createClient } from "@/utils/supabase/server";
-import { cookies } from "next/headers";
+import { createServerClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const { id } = await req.json();
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
+  const { serial } = await req.json();
+  const supabase = createServerClient();
 
   try {
     const { data, error } = await supabase
       .from("products")
       .select("*")
-      .eq("id", id);
+      .eq("serial", serial);
     if (error) {
       console.error(error);
       return NextResponse.json(

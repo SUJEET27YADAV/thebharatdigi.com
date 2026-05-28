@@ -1,13 +1,13 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 
 interface StatsCardProps {
   title: string;
   value: string | number;
   icon: ReactNode;
-  color?: 'default' | 'success' | 'warning' | 'danger';
+  color?: "default" | "success" | "warning" | "danger";
   trend?: {
     value: number;
-    direction: 'up' | 'down';
+    direction: "up" | "down";
   };
 }
 
@@ -15,63 +15,44 @@ export default function StatsCard({
   title,
   value,
   icon,
-  color = 'default',
+  color = "default",
   trend,
 }: StatsCardProps) {
   const colorMap = {
-    default: '#ac4bff',
-    success: '#00c758',
-    warning: '#f99c00',
-    danger: '#fb2c36',
+    default: "#ac4bff",
+    success: "#00c758",
+    warning: "#f99c00",
+    danger: "#fb2c36",
   };
 
   const accentColor = colorMap[color];
 
   return (
     <div
-      className="p-6 rounded flex items-start justify-between"
+      className={`p-6 rounded flex items-start justify-between bg-slate-200/70 dark:bg-[#0f172b]/70 border border-[#444444] backdrop-blur-sm transition-colors`}
       style={{
-        backgroundColor: '#0f172b',
-        border: '1px solid #444444',
+        boxShadow: `5px 8px 10px -1px rgb(from ${accentColor} r g b / 0.2), 0 10px 10px -1px rgb(from ${accentColor} r g b / 0.2)`,
       }}
     >
       <div>
-        <p
-          className="text-xs font-medium mb-3"
-          style={{
-            color: '#314158',
-            fontFamily: 'Geist, sans-serif',
-            textTransform: 'uppercase',
-            letterSpacing: '0.05em',
-          }}
-        >
+        <p className="text-xs font-medium mb-3 text-[#314158] dark:text-gray-400 uppercase tracking-wide">
           {title}
         </p>
-        <p
-          className="text-2xl font-bold"
-          style={{
-            color: '#ffffff',
-            fontFamily: 'Inter, sans-serif',
-          }}
-        >
+        <p className="text-2xl font-bold text-[#314158] dark:text-white">
           {value}
         </p>
         {trend && (
           <p
-            className="text-xs mt-2"
-            style={{
-              color: trend.direction === 'up' ? '#00c758' : '#fb2c36',
-              fontFamily: 'Geist, sans-serif',
-            }}
+            className={`text-xs mt-2 tracking-wide font-medium ${trend.direction === "up" ? "text-green-500" : "text-red-500"}`}
           >
-            {trend.direction === 'up' ? '↑' : '↓'} {Math.abs(trend.value)}%
+            {trend.direction === "up" ? "↑" : "↓"} {Math.abs(trend.value)}%
           </p>
         )}
       </div>
       <div
         className="p-3 rounded"
         style={{
-          backgroundColor: accentColor + '20',
+          backgroundColor: accentColor + "20",
           color: accentColor,
         }}
       >

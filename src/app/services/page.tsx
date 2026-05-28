@@ -1,6 +1,6 @@
 // components/Services.tsx
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   Monitor,
@@ -18,95 +18,11 @@ import {
   Users,
   Award,
   Sparkles,
+  Loader2,
 } from "lucide-react";
-
-const services = [
-  {
-    icon: Monitor,
-    title: "Custom Web Development",
-    shortDesc: "Bespoke websites tailored to your brand identity.",
-    fullDesc:
-      "From simple landing pages to complex web applications with modern technologies.",
-    features: [
-      "Custom CMS",
-      "API Development",
-      "Database Design",
-      "Cloud Deployment",
-    ],
-    color: "indigo",
-    popular: true,
-  },
-  {
-    icon: Smartphone,
-    title: "Responsive Design",
-    shortDesc: "Pixel-perfect designs for every device.",
-    fullDesc:
-      "Mobile-first approach ensuring stunning appearance on all devices.",
-    features: [
-      "Mobile-First",
-      "Cross-Browser",
-      "Retina Ready",
-      "Touch Optimized",
-    ],
-    color: "purple",
-  },
-  {
-    icon: ShoppingCart,
-    title: "E-Commerce Solutions",
-    shortDesc: "Powerful online stores that convert.",
-    fullDesc:
-      "Complete e-commerce ecosystems with secure payments and inventory.",
-    features: [
-      "Payment Gateway",
-      "Inventory System",
-      "Order Management",
-      "Analytics",
-    ],
-    color: "pink",
-    popular: true,
-  },
-  {
-    icon: Zap,
-    title: "Performance Optimization",
-    shortDesc: "Lightning-fast websites that rank higher.",
-    fullDesc:
-      "Core Web Vitals optimization, lazy loading, CDN setup, and caching.",
-    features: [
-      "Core Web Vitals",
-      "CDN Integration",
-      "Image Optimization",
-      "Code Splitting",
-    ],
-    color: "green",
-  },
-  {
-    icon: Palette,
-    title: "UI/UX Design",
-    shortDesc: "User-centric designs that convert.",
-    fullDesc:
-      "Research-driven design with wireframing, prototyping, and testing.",
-    features: [
-      "User Research",
-      "Wireframing",
-      "Prototyping",
-      "Usability Testing",
-    ],
-    color: "amber",
-  },
-  {
-    icon: Settings,
-    title: "Maintenance & Support",
-    shortDesc: "24/7 support to keep you running.",
-    fullDesc: "Regular updates, security patches, backups, and monitoring.",
-    features: [
-      "24/7 Monitoring",
-      "Regular Backups",
-      "Security Updates",
-      "Priority Support",
-    ],
-    color: "cyan",
-  },
-];
+import { LucideIcon } from "../_components/ui/lucideIcon";
+import { toast } from "react-toastify";
+import { Service } from "@/types/types";
 
 const stats = [
   { icon: Code, value: "500+", label: "Projects Delivered" },
@@ -127,33 +43,39 @@ const process = [
   { step: "04", title: "Deploy", desc: "Launch and support", icon: Server },
 ];
 
-const colorStyles: Record<string, string> = {
-  indigo:
-    "bg-indigo-100 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-200 dark:border-indigo-500/30",
-  purple:
-    "bg-purple-100 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-200 dark:border-purple-500/30",
-  pink: "bg-pink-100 dark:bg-pink-500/10 text-pink-600 dark:text-pink-400 border-pink-200 dark:border-pink-500/30",
-  green:
-    "bg-green-100 dark:bg-green-500/10 text-green-600 dark:text-green-400 border-green-200 dark:border-green-500/30",
-  amber:
-    "bg-amber-100 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-200 dark:border-amber-500/30",
-  cyan: "bg-cyan-100 dark:bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border-cyan-200 dark:border-cyan-500/30",
-};
-
 export default function Services() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [services, setServices] = useState<Service[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch("/api/getServices");
+        const resp = await response.json();
+        if (resp.success) {
+          setServices(resp.data);
+        } else {
+          toast.error(resp.msg || "Failed to fetch services");
+        }
+      } catch (err) {
+        console.error("Failed to fetch services:", err);
+        toast.error("Failed to fetch services");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchServices();
+  }, []);
 
   return (
-    <section
-      id="services"
-      className="relative py-24 overflow-hidden bg-white dark:bg-slate-900"
-    >
+    <section className="relative py-24 overflow-hidden bg-white dark:bg-slate-900">
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 rounded-full blur-3xl bg-indigo-200/50 dark:bg-indigo-500/5" />
         <div className="absolute bottom-40 right-10 w-96 h-96 rounded-full blur-3xl bg-purple-200/50 dark:bg-purple-500/5" />
       </div>
-
       <div className="relative max-w-7xl mx-auto px-4 md:px-6">
         {/* Header */}
         <div className="text-center mb-20">
@@ -218,76 +140,74 @@ export default function Services() {
         </motion.div>
 
         {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
-          {services.map((service, index) => {
-            const Icon = service.icon;
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                className="relative group rounded-2xl p-6 md:p-8 border cursor-pointer transition-all duration-300
+        <div className="min-h-210 grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
+          {loading ? (
+            <div className="col-span-full flex flex-col items-center justify-center py-10 text-indigo-600 dark:text-indigo-400">
+              <Loader2 size={64} className="animate-spin" />
+              <span className="text-lg">Loading services..</span>
+            </div>
+          ) : (
+            services.map((service, index) => {
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.05 }}
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  className="relative group rounded-2xl p-6 md:p-8 border cursor-pointer transition-all duration-300
                            bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50
                            hover:shadow-xl dark:hover:shadow-none hover:border-slate-300 dark:hover:border-slate-600/50"
-              >
-                {service.popular && (
-                  <div
-                    className="absolute -top-3 right-6 px-3 py-1 rounded-full text-xs font-semibold
-                                  bg-gradient-to-r from-indigo-500 to-purple-500 text-white"
-                  >
-                    Popular
-                  </div>
-                )}
-
-                <div
-                  className={`w-14 h-14 rounded-2xl border flex items-center justify-center mb-6
-                                group-hover:scale-110 transition-transform ${colorStyles[service.color]}`}
                 >
-                  <Icon className="w-7 h-7" />
-                </div>
-
-                <h3 className="text-xl md:text-2xl font-bold mb-3 text-slate-900 dark:text-white">
-                  {service.title}
-                </h3>
-
-                <p className="text-sm md:text-base mb-5 leading-relaxed text-slate-600 dark:text-gray-400">
-                  {hoveredIndex === index
-                    ? service.fullDesc
-                    : service.shortDesc}
-                </p>
-
-                <div className="space-y-2 mb-6">
-                  {service.features.map((feature, fi) => (
+                  {service.popular && (
                     <div
-                      key={fi}
-                      className={`flex items-center gap-2 text-sm transition-opacity ${
-                        hoveredIndex === index ? "opacity-100" : "opacity-60"
-                      }`}
+                      className="absolute -top-3 right-6 px-3 py-1 rounded-full text-xs font-semibold
+                                  bg-gradient-to-r from-indigo-500 to-purple-500 text-white"
                     >
-                      <Check
-                        className={`w-4 h-4 ${colorStyles[service.color].split(" ").find((c) => c.startsWith("text-"))}`}
-                      />
-                      <span className="text-slate-700 dark:text-gray-300">
-                        {feature}
-                      </span>
+                      Popular
                     </div>
-                  ))}
-                </div>
+                  )}
 
-                <div
-                  className={`flex items-center gap-2 font-medium text-sm group-hover:gap-3 transition-all
-                                ${colorStyles[service.color].split(" ").find((c) => c.startsWith("text-"))}`}
-                >
-                  <span>Learn More</span>
-                  <ArrowRight className="w-4 h-4" />
-                </div>
-              </motion.div>
-            );
-          })}
+                  <div
+                    className={`w-14 h-14 rounded-2xl border flex items-center justify-center mb-6
+                                group-hover:scale-110 transition-transform ${service.color}`}
+                  >
+                    <LucideIcon name={service.icon} />
+                  </div>
+
+                  <h3 className="text-xl md:text-2xl font-bold mb-3 text-slate-900 dark:text-white">
+                    {service.title}
+                  </h3>
+
+                  <p className="text-sm md:text-base mb-5 leading-relaxed text-slate-600 dark:text-gray-400">
+                    {hoveredIndex === index
+                      ? service.fulldesc
+                      : service.shortdesc}
+                  </p>
+
+                  <div className="space-y-2 mb-6">
+                    {service.features.map((feature, fi) => (
+                      <div
+                        key={fi}
+                        className={`flex items-center gap-2 text-sm transition-opacity ${
+                          hoveredIndex === index ? "opacity-100" : "opacity-60"
+                        }`}
+                      >
+                        <Check
+                          className={`w-4 h-4 ${service.color.split(" ").find((c) => c.startsWith("text-"))}`}
+                        />
+                        <span className="text-slate-700 dark:text-gray-300">
+                          {feature}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              );
+            })
+          )}
         </div>
 
         {/* Process */}

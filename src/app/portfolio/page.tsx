@@ -1,6 +1,6 @@
 // components/Portfolio.tsx
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ExternalLink,
@@ -16,83 +16,23 @@ import {
   BarChart3,
   Heart,
   GraduationCap,
+  Loader2,
+  MonitorCog,
+  Gamepad2,
 } from "lucide-react";
+import { toast } from "react-toastify";
+import { Project } from "@/types/types";
+import { LucideIcon } from "../_components/ui/lucideIcon";
+import Link from "next/link";
 
 const categories = [
   { id: "all", label: "All", icon: Layers },
+  { id: "it solutions", label: "IT Solutions", icon: MonitorCog },
+  { id: "gaming", label: "Gaming", icon: Gamepad2 },
   { id: "ecommerce", label: "E-Commerce", icon: ShoppingCart },
   { id: "saas", label: "SaaS", icon: BarChart3 },
   { id: "healthcare", label: "Healthcare", icon: Heart },
   { id: "education", label: "Education", icon: GraduationCap },
-];
-
-const projects = [
-  {
-    id: 1,
-    title: "StyleHub E-Commerce",
-    subtitle: "Fashion Retail",
-    category: "ecommerce",
-    icon: "👗",
-    gradient: "from-pink-500 via-purple-500 to-indigo-500",
-    technologies: ["Next.js", "Node.js", "MongoDB"],
-    year: "2024",
-    featured: true,
-  },
-  {
-    id: 2,
-    title: "FinFlow Dashboard",
-    subtitle: "Banking Analytics",
-    category: "saas",
-    icon: "📊",
-    gradient: "from-blue-500 via-cyan-500 to-teal-500",
-    technologies: ["React", "Python", "PostgreSQL"],
-    year: "2024",
-    featured: true,
-  },
-  {
-    id: 3,
-    title: "MediCare Connect",
-    subtitle: "Telemedicine",
-    category: "healthcare",
-    icon: "🏥",
-    gradient: "from-green-500 via-emerald-500 to-teal-500",
-    technologies: ["React Native", "Node.js"],
-    year: "2023",
-    featured: true,
-  },
-  {
-    id: 4,
-    title: "FoodieGo",
-    subtitle: "Food Delivery",
-    category: "ecommerce",
-    icon: "🍔",
-    gradient: "from-orange-500 via-red-500 to-pink-500",
-    technologies: ["Flutter", "Firebase"],
-    year: "2023",
-    featured: false,
-  },
-  {
-    id: 5,
-    title: "EduSpark LMS",
-    subtitle: "Learning Platform",
-    category: "education",
-    icon: "🎓",
-    gradient: "from-violet-500 via-purple-500 to-fuchsia-500",
-    technologies: ["React", "Django"],
-    year: "2023",
-    featured: false,
-  },
-  {
-    id: 6,
-    title: "TravelEase",
-    subtitle: "Booking Platform",
-    category: "ecommerce",
-    icon: "✈️",
-    gradient: "from-cyan-500 via-blue-500 to-indigo-500",
-    technologies: ["Next.js", "GraphQL"],
-    year: "2023",
-    featured: false,
-  },
 ];
 
 const testimonials = [
@@ -115,12 +55,38 @@ const testimonials = [
 export default function Portfolio() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [testimonialIndex, setTestimonialIndex] = useState(0);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch("/api/getProjects");
+        const resp = await response.json();
+        if (resp.success) {
+          setProjects(
+            resp.data.sort((a: Project, b: Project) =>
+              b.created_at.localeCompare(a.created_at),
+            ),
+          );
+        } else {
+          toast.error(resp.msg || "Failed to fetch projects");
+        }
+      } catch (err) {
+        console.error("Failed to fetch projects:", err);
+        toast.error("Failed to fetch projects");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchServices();
+  }, []);
 
   const filteredProjects =
     activeCategory === "all"
       ? projects
-      : projects.filter((p) => p.category === activeCategory);
-
+      : projects.filter((p) => p.category.toLowerCase() === activeCategory);
   return (
     <section
       id="portfolio"
@@ -198,90 +164,104 @@ export default function Portfolio() {
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20"
         >
           <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-                className="group relative rounded-2xl overflow-hidden border transition-all duration-300
+            {loading ? (
+              <div className="col-span-full flex flex-col items-center justify-center py-10 text-indigo-600 dark:text-indigo-400">
+                <Loader2 size={64} className="animate-spin" />
+                <span className="text-lg">Loading services..</span>
+              </div>
+            ) : (
+              filteredProjects.map((project, index) => (
+                <motion.div
+                  key={project.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                  className="group relative rounded-2xl overflow-hidden border transition-all duration-300
                            bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50
                            hover:shadow-xl dark:hover:shadow-none hover:border-slate-300 dark:hover:border-slate-600/50"
-              >
-                {/* Image */}
-                <div
-                  className={`relative aspect-[4/3] bg-gradient-to-br ${project.gradient} overflow-hidden`}
                 >
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-6xl transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500">
-                      {project.icon}
-                    </span>
-                  </div>
-
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60" />
-
-                  <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <a
-                      href="#"
-                      className="w-9 h-9 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                    </a>
-                  </div>
-
-                  {project.featured && (
-                    <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white text-xs font-medium flex items-center gap-1">
-                      <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                      Featured
-                    </div>
-                  )}
-
-                  <div className="absolute bottom-4 left-4 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white text-xs font-medium capitalize">
-                    {project.category}
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-5">
-                  <div className="flex items-start justify-between gap-2 mb-2">
-                    <div>
-                      <h4 className="text-lg font-bold group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors text-slate-900 dark:text-white">
-                        {project.title}
-                      </h4>
-                      <p className="text-sm text-slate-500 dark:text-gray-400">
-                        {project.subtitle}
-                      </p>
-                    </div>
-                    <span className="text-xs text-slate-400 dark:text-gray-500">
-                      {project.year}
-                    </span>
-                  </div>
-
-                  <div className="flex flex-wrap gap-1.5 mt-3">
-                    {project.technologies.map((tech, i) => (
-                      <span
-                        key={i}
-                        className="px-2 py-0.5 rounded text-xs bg-slate-100 dark:bg-slate-700/50 text-slate-600 dark:text-gray-400"
-                      >
-                        {tech}
+                  {/* Image */}
+                  <div
+                    className="relative aspect-[4/3] overflow-hidden"
+                    style={{ background: project.color }}
+                  >
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-6xl transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500">
+                        {project.icon.length === 2 ? (
+                          project.icon
+                        ) : (
+                          <LucideIcon name={project.icon} size={80} />
+                        )}
                       </span>
-                    ))}
+                    </div>
+
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60" />
+
+                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <a
+                        href={project.link || "#"}
+                        target={project.link ? "_blank" : undefined}
+                        className="w-9 h-9 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    </div>
+
+                    {project.featured && (
+                      <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white text-xs font-medium flex items-center gap-1">
+                        <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                        Featured
+                      </div>
+                    )}
+
+                    <div className="absolute bottom-4 left-4 px-3 py-1 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white text-xs font-medium capitalize tracking-wide">
+                      {project.category}
+                    </div>
                   </div>
 
-                  <div className="flex items-center justify-end mt-4 pt-4 border-t border-slate-100 dark:border-slate-700/50">
-                    <a
-                      href="#"
-                      className="text-sm font-medium flex items-center gap-1 text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 transition-colors group/link"
-                    >
-                      View Details
-                      <ArrowRight className="w-3 h-3 group-hover/link:translate-x-0.5 transition-transform" />
-                    </a>
+                  {/* Content */}
+                  <div className="p-5">
+                    <div className="flex items-start justify-between gap-2 mb-2">
+                      <div>
+                        <h4 className="text-lg font-bold group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors text-slate-900 dark:text-white">
+                          {project.title}
+                        </h4>
+                        <p className="text-sm text-slate-500 dark:text-gray-400">
+                          {project.subtitle}
+                        </p>
+                      </div>
+                      <span className="text-xs text-slate-400 dark:text-gray-500">
+                        {project.year}
+                      </span>
+                    </div>
+
+                    <div className="flex flex-wrap gap-1.5 mt-3">
+                      {project.technologies.map((tech, i) => (
+                        <span
+                          key={i}
+                          className="px-2 py-0.5 rounded text-xs bg-slate-100 dark:bg-slate-700/50 text-slate-600 dark:text-gray-400"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="flex items-center justify-end mt-4 pt-4 border-t border-slate-100 dark:border-slate-700/50">
+                      <Link
+                        href={project.link || "#"}
+                        target={project.link ? "_blank" : undefined}
+                        className="text-sm font-medium flex items-center gap-1 text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 transition-colors group/link"
+                      >
+                        View Project
+                        <ArrowRight className="w-3 h-3 group-hover/link:translate-x-0.5 transition-transform" />
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))
+            )}
           </AnimatePresence>
         </motion.div>
 
