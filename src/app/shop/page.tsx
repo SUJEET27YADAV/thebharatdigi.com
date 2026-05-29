@@ -59,8 +59,8 @@ export default function StorePage() {
           transition={{ delay: 0.1 }}
           className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-slate-900 dark:text-white"
         >
-          <span>Boost your development experience </span>
-          <span className="gradient-text">with our Starter Products</span>
+          <span>Boost your development </span>
+          <span className="gradient-text">experience with our Products</span>
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -69,7 +69,11 @@ export default function StorePage() {
           transition={{ delay: 0.2 }}
           className="text-lg md:text-xl max-w-3xl mx-auto text-slate-600 dark:text-gray-400"
         >
-          Browse our collection of premium digital products designed to accelerate your web development workflow. From starter kits to powerful SEO auditing tools, each product is crafted by The Bharat Digital to help developers and businesses build better, faster, and smarter. All purchases include lifetime updates and dedicated support.
+          Browse our collection of premium digital products designed to
+          accelerate your web development workflow. From starter kits to
+          powerful SEO auditing tools, each product is crafted by The Bharat
+          Digital to help developers and businesses build better, faster, and
+          smarter. All purchases include lifetime updates and dedicated support.
         </motion.p>
       </div>
 
