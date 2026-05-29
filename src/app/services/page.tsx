@@ -92,7 +92,7 @@ export default function Services() {
             </span>
           </motion.div>
 
-          <motion.h2
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -101,7 +101,7 @@ export default function Services() {
           >
             Services That Drive{" "}
             <span className="gradient-text">Digital Success</span>
-          </motion.h2>
+          </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -177,9 +177,9 @@ export default function Services() {
                     <LucideIcon name={service.icon} />
                   </div>
 
-                  <h3 className="text-xl md:text-2xl font-bold mb-3 text-slate-900 dark:text-white">
+                  <h2 className="text-xl md:text-2xl font-bold mb-3 text-slate-900 dark:text-white">
                     {service.title}
-                  </h3>
+                  </h2>
 
                   <p className="text-sm md:text-base mb-5 leading-relaxed text-slate-600 dark:text-gray-400">
                     {hoveredIndex === index
@@ -218,9 +218,9 @@ export default function Services() {
           className="mb-20"
         >
           <div className="text-center mb-12">
-            <h3 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">
               Our <span className="gradient-text">Process</span>
-            </h3>
+            </h2>
           </div>
 
           <div className="grid md:grid-cols-4 gap-6">
@@ -260,9 +260,9 @@ export default function Services() {
                       {item.step}
                     </span>
                   </div>
-                  <h4 className="text-xl font-bold mb-2 text-slate-900 dark:text-white">
+                  <h3 className="text-xl font-bold mb-2 text-slate-900 dark:text-white">
                     {item.title}
-                  </h4>
+                  </h3>
                   <p className="text-sm text-slate-600 dark:text-gray-400">
                     {item.desc}
                   </p>

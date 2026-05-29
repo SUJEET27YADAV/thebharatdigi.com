@@ -190,7 +190,7 @@ export default function About() {
             </span>
           </motion.div>
 
-          <motion.h2
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -199,7 +199,7 @@ export default function About() {
           >
             Crafting Digital <span className="gradient-text">Excellence</span>{" "}
             Since 2015
-          </motion.h2>
+          </motion.h1>
         </div>
 
         {/* Mission & Vision */}
@@ -237,9 +237,9 @@ export default function About() {
                 >
                   <item.icon className="w-7 h-7" />
                 </div>
-                <h3 className="text-2xl font-bold mb-4 text-slate-900 dark:text-white">
+                <h2 className="text-2xl font-bold mb-4 text-slate-900 dark:text-white">
                   {item.title}
-                </h3>
+                </h2>
                 <p className="text-slate-600 dark:text-gray-400 leading-relaxed">
                   {item.desc}
                 </p>
@@ -290,9 +290,9 @@ export default function About() {
           className="mb-20"
         >
           <div className="text-center mb-12">
-            <h3 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
               Our Core <span className="gradient-text">Values</span>
-            </h3>
+            </h2>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -313,9 +313,9 @@ export default function About() {
                 >
                   <value.icon className="w-7 h-7" />
                 </div>
-                <h4 className="text-xl font-bold mb-2 text-slate-900 dark:text-white">
+                <h3 className="text-xl font-bold mb-2 text-slate-900 dark:text-white">
                   {value.title}
-                </h4>
+                </h3>
                 <p className="text-sm text-slate-600 dark:text-gray-400">
                   {value.desc}
                 </p>
@@ -332,9 +332,9 @@ export default function About() {
           className="mb-20"
         >
           <div className="text-center mb-12">
-            <h3 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Our <span className="gradient-text">Journey</span>
-            </h3>
+            </h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
               A decade of growth, learning, and creating digital excellence
             </p>

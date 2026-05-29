@@ -9,10 +9,6 @@ import Marquee from "./_components/Marquee";
 export default function Home() {
   return (
     <main>
-      <h1 className="sr-only">
-        The Bharat Digital — Premium Web Development, SEO Audit Tools & IT
-        Solutions in India for Businesses all over the world.
-      </h1>
       <Hero />
       <Marquee />
       <Services />

@@ -114,7 +114,7 @@ export default function Portfolio() {
             </span>
           </motion.div>
 
-          <motion.h2
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -122,7 +122,7 @@ export default function Portfolio() {
             className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-slate-900 dark:text-white"
           >
             Projects That <span className="gradient-text">Inspire</span>
-          </motion.h2>
+          </motion.h1>
         </div>
 
         {/* Filter */}
@@ -273,9 +273,9 @@ export default function Portfolio() {
           className="mb-20"
         >
           <div className="text-center mb-10">
-            <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
               What Our <span className="gradient-text">Clients Say</span>
-            </h3>
+            </h2>
           </div>
 
           <div className="relative max-w-4xl mx-auto">

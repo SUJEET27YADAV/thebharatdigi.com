@@ -52,7 +52,7 @@ export default function StorePage() {
           </span>
         </motion.div>
 
-        <motion.h2
+        <motion.h1
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -61,7 +61,7 @@ export default function StorePage() {
         >
           <span>Boost your development experience </span>
           <span className="gradient-text">with our Starter Products</span>
-        </motion.h2>
+        </motion.h1>
       </div>
 
       <h2 className="text-xl font-bold">Products :</h2>

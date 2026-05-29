@@ -1,7 +1,13 @@
-// "use client";
+import type { Metadata } from "next";
 import PassIcon from "@mui/icons-material/Password";
 import Image from "next/image";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Tutorials | The Bharat Digital",
+  description:
+    "Explore interactive tutorials including a password generator, nodemailer demo, and more web development tools from The Bharat Digital.",
+};
 
 export default function Home() {
   return (

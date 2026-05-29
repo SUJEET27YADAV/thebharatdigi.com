@@ -59,6 +59,7 @@ export default function CartPage() {
             ))}
           </ul>
         )}
+        <h2 className="sr-only">Cart Summary</h2>
         <div className="w-full flex items-center justify-between mt-2 pr-10">
           <span className="text-lg font-bold">Sub Total :</span>
           <span className="text-lg font-bold">

@@ -73,6 +73,7 @@ export default function Home() {
 
   return (
     <main className="w-full flex flex-col items-center justify-center p-10 pt-24 gap-4 font-sans">
+      <h1 className="sr-only">Nodemailer - Email Testing Tool for The Bharat Digital</h1>
       <div className="w-full flex items-center justify-center gap-8">
         <Image
           className="dark:invert"

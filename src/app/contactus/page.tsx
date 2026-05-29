@@ -166,7 +166,7 @@ export default function Contact() {
             </span>
           </motion.div>
 
-          <motion.h2
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -175,7 +175,7 @@ export default function Contact() {
           >
             Let&apos;s Build Something{" "}
             <span className="gradient-text">Amazing Together</span>
-          </motion.h2>
+          </motion.h1>
         </div>
 
         {/* Contact Methods */}
@@ -199,9 +199,9 @@ export default function Contact() {
               >
                 <method.icon className="w-5 h-5" />
               </div>
-              <h4 className="font-semibold mb-1 text-slate-900 dark:text-white">
+              <h3 className="font-semibold mb-1 text-slate-900 dark:text-white">
                 {method.title}
-              </h4>
+              </h3>
               <p
                 className={`font-medium ${colorStyles[method.color].split(" ").find((c) => c.startsWith("text-"))}`}
               >
@@ -267,9 +267,9 @@ className="absolute inset-0 z-10 flex flex-col items-center justify-center round
               )}
 
               <div className="mb-8">
-                <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
+                <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
                   Send Us a Message
-                </h3>
+                </h2>
                 <p className="mt-1 text-slate-500 dark:text-gray-400">
                   Fill out the form and we&apos;ll respond promptly
                 </p>
@@ -456,9 +456,9 @@ className="absolute inset-0 z-10 flex flex-col items-center justify-center round
           >
             {/* Why Work With Us */}
             <div className="rounded p-6 border bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50">
-              <h4 className="text-xl font-bold mb-6 text-slate-900 dark:text-white">
+              <h2 className="text-xl font-bold mb-6 text-slate-900 dark:text-white">
                 Why Work With Us?
-              </h4>
+              </h2>
               <div className="space-y-4">
                 {features.map((f, i) => (
                   <div key={i} className="flex items-start gap-4">
@@ -469,9 +469,9 @@ className="absolute inset-0 z-10 flex flex-col items-center justify-center round
                       <f.icon className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
                     </div>
                     <div>
-                      <h5 className="font-semibold text-slate-900 dark:text-white">
+                      <h3 className="font-semibold text-slate-900 dark:text-white">
                         {f.title}
-                      </h5>
+                      </h3>
                       <p className="text-sm text-slate-500 dark:text-gray-400">
                         {f.desc}
                       </p>
@@ -483,9 +483,9 @@ className="absolute inset-0 z-10 flex flex-col items-center justify-center round
 
             {/* Social Links */}
             <div className="rounded p-6 border bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50">
-              <h4 className="text-xl font-bold mb-4 text-slate-900 dark:text-white">
+              <h2 className="text-xl font-bold mb-4 text-slate-900 dark:text-white">
                 Connect With Us
-              </h4>
+              </h2>
               <div className="flex gap-3">
                 {socials.map((s, i) => (
                   <a
@@ -508,9 +508,9 @@ className="absolute inset-0 z-10 flex flex-col items-center justify-center round
                              bg-gradient-to-br from-indigo-50 dark:from-indigo-600/20 to-purple-50 dark:to-purple-600/20
                              border-indigo-200 dark:border-indigo-500/30"
             >
-              <h4 className="text-xl font-bold mb-2 text-slate-900 dark:text-white">
+              <h2 className="text-xl font-bold mb-2 text-slate-900 dark:text-white">
                 Need Urgent Help?
-              </h4>
+              </h2>
               <p className="text-sm mb-4 text-slate-600 dark:text-gray-300">
                 For time-sensitive projects, reach out directly
               </p>
@@ -534,9 +534,9 @@ className="absolute inset-0 z-10 flex flex-col items-center justify-center round
           className="mb-16"
         >
           <div className="text-center mb-10">
-            <h3 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
               Frequently Asked <span className="gradient-text">Questions</span>
-            </h3>
+            </h2>
           </div>
 
           <div className="max-w-3xl mx-auto space-y-4">

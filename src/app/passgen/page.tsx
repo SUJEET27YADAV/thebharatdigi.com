@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import { generateSecurePassword } from "@/utils/passwordgen";
 import PassgenPage from "../_components/passgenPage";
+
+export const metadata: Metadata = {
+  title: "Password Generator | The Bharat Digital",
+  description:
+    "Generate secure, random passwords instantly with The Bharat Digital's free password generator tool.",
+};
 
 export default async function Page() {
   async function genAction(
