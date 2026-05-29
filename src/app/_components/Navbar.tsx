@@ -12,6 +12,10 @@ import PorfolioIcon from "@mui/icons-material/Person3";
 import AnalyticsIcon from "@mui/icons-material/Analytics";
 import Logo from "./ui/logo";
 import ThemeToggle from "./ThemeToggle";
+import { ShoppingCart } from "lucide-react";
+import { useCartStore } from "@/store/cartStore";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 interface NavLink {
   icon: React.ReactNode;
@@ -20,6 +24,8 @@ interface NavLink {
 }
 
 export default function Navbar() {
+  const router = useRouter();
+  const { cart } = useCartStore();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const dref = useRef<HTMLDivElement>(null);
   const dbref = useRef<HTMLButtonElement>(null);
@@ -135,8 +141,28 @@ export default function Navbar() {
             ))}
           </ul>
         </div>
-        {/* <div className="w-16 h-16 bg-blue-100 flex items-center justify-end gap-3"></div> */}
-        <ThemeToggle />
+        <div className="flex items-center justify-center gap-4">
+          <button
+            className="relative flex items-center justify-center"
+            onClick={() => {
+              if (cart.length === 0) {
+                toast.error(
+                  "Your cart is empty! Please add some products from the shop page.",
+                );
+              } else {
+                router.push("/cart");
+              }
+            }}
+          >
+            <ShoppingCart size={24} className="text-gray-500 dark:text-white" />
+            {cart.length > 0 && (
+              <div className="absolute -top-1 left-1/2 -translate-x-[40%] w-4 h-4 flex items-center justify-center bg-red-500 rounded-full text-xs font-medium">
+                {cart.length}
+              </div>
+            )}
+          </button>
+          <ThemeToggle />
+        </div>
       </div>
     </nav>
   );

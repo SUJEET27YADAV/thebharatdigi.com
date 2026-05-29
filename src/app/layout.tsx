@@ -23,9 +23,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "The Bharat Digital | Web Development, SEO & IT Solutions in India",
+  title: "The Bharat Digital | Web Development, SEO & IT Solutions",
   description:
-    "The Bharat Digital offers premium web development, SEO audit services, e-commerce solutions, and IT support across India and globally. 500+ projects delivered since 2015.",
+    "The Bharat Digital offers premium web development, e-commerce solutions, and IT support across India and globally. 500+ projects delivered since 2015.",
   robots: "index, follow",
   metadataBase: new URL("https://thebharatdigi.com"),
   alternates: {

@@ -1,6 +1,22 @@
 "use client";
 import { motion } from "framer-motion";
-import { CheckCircle, Download, FileText, Shield, Search, Zap, Smartphone, Share2, Link2, Image, BarChart3, Code, Star, ArrowRight } from "lucide-react";
+import {
+  CheckCircle,
+  Download,
+  FileText,
+  Shield,
+  Search,
+  Zap,
+  Smartphone,
+  Share2,
+  Link2,
+  Image,
+  BarChart3,
+  Code,
+  Star,
+  ArrowRight,
+  ShoppingCart,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Product } from "@/types/types";
@@ -8,14 +24,46 @@ import { useCartStore } from "@/store/cartStore";
 import { toast } from "react-toastify";
 
 const features = [
-  { icon: Search, title: "Meta Tags & Headings", desc: "Title tags, descriptions, H1-H6 structure, canonical URLs, and language declarations." },
-  { icon: Zap, title: "Performance & Core Web Vitals", desc: "HTML size, script count, CSS files, compression, caching headers, render-blocking resources." },
-  { icon: Link2, title: "Links & Indexing", desc: "Internal/external links, broken link detection, robots meta, nofollow analysis." },
-  { icon: BarChart3, title: "Content & Keyword Analysis", desc: "Word count, keyword density, readability, keyword stuffing detection, TF analysis." },
-  { icon: Image, title: "Images & Media", desc: "Alt text validation, dimension checks, lazy loading, WebP/AVIF format detection." },
-  { icon: Share2, title: "Social & Open Graph", desc: "og:title, og:image, Twitter cards, Facebook app ID, locale and site name." },
-  { icon: Shield, title: "Security & HTTPS", desc: "SSL check, HSTS, CSP, X-Frame-Options, mixed content detection, 8+ security headers." },
-  { icon: Smartphone, title: "Mobile Responsiveness", desc: "Viewport config, media queries, font sizes, tap targets (44x44px), zoom." },
+  {
+    icon: Search,
+    title: "Meta Tags & Headings",
+    desc: "Title tags, descriptions, H1-H6 structure, canonical URLs, and language declarations.",
+  },
+  {
+    icon: Zap,
+    title: "Performance & Core Web Vitals",
+    desc: "HTML size, script count, CSS files, compression, caching headers, render-blocking resources.",
+  },
+  {
+    icon: Link2,
+    title: "Links & Indexing",
+    desc: "Internal/external links, broken link detection, robots meta, nofollow analysis.",
+  },
+  {
+    icon: BarChart3,
+    title: "Content & Keyword Analysis",
+    desc: "Word count, keyword density, readability, keyword stuffing detection, TF analysis.",
+  },
+  {
+    icon: Image,
+    title: "Images & Media",
+    desc: "Alt text validation, dimension checks, lazy loading, WebP/AVIF format detection.",
+  },
+  {
+    icon: Share2,
+    title: "Social & Open Graph",
+    desc: "og:title, og:image, Twitter cards, Facebook app ID, locale and site name.",
+  },
+  {
+    icon: Shield,
+    title: "Security & HTTPS",
+    desc: "SSL check, HSTS, CSP, X-Frame-Options, mixed content detection, 8+ security headers.",
+  },
+  {
+    icon: Smartphone,
+    title: "Mobile Responsiveness",
+    desc: "Viewport config, media queries, font sizes, tap targets (44x44px), zoom.",
+  },
 ];
 
 const checks = [
@@ -34,9 +82,10 @@ const checks = [
 export default function SEOAuditProPage() {
   const router = useRouter();
   const [product, setProduct] = useState<Product | null>(null);
-  const { cart, addToCart } = useCartStore();
+  const { cart, addToCart, removeFromCart } = useCartStore();
 
-  const isInCart = (serial: number) => cart.filter((p) => p.serial === serial).length > 0;
+  const isInCart = (serial: number) =>
+    cart.filter((p) => p.serial === serial).length > 0;
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -44,7 +93,9 @@ export default function SEOAuditProPage() {
         let res = await fetch("/api/getProducts");
         let result = await res.json();
         if (result.success) {
-          const seoProduct = result.data.find((p: Product) => p.name === "SEO Audit Pro");
+          const seoProduct = result.data.find(
+            (p: Product) => p.name === "SEO Audit Pro",
+          );
           if (seoProduct) {
             setProduct(seoProduct);
             return;
@@ -56,7 +107,9 @@ export default function SEOAuditProPage() {
           res = await fetch("/api/getProducts");
           result = await res.json();
           if (result.success) {
-            const seoProduct = result.data.find((p: Product) => p.name === "SEO Audit Pro");
+            const seoProduct = result.data.find(
+              (p: Product) => p.name === "SEO Audit Pro",
+            );
             if (seoProduct) setProduct(seoProduct);
           }
         }
@@ -81,30 +134,62 @@ export default function SEOAuditProPage() {
       <section className="relative overflow-hidden pt-32 pb-20 px-4">
         <div className="absolute inset-0 bg-gradient-to-b from-[#ac4bff]/5 to-transparent pointer-events-none" />
         <div className="max-w-5xl mx-auto text-center relative">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-4 py-2 rounded border border-[#ac4bff]/20 bg-indigo-100 dark:bg-[#ac4bff]/10 mb-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded border border-[#ac4bff]/20 bg-indigo-100 dark:bg-[#ac4bff]/10 mb-6"
+          >
             <Zap size={14} className="text-[#ac4bff]" />
-            <span className="text-[#ac4bff] text-sm font-medium">v1.0.0 • Production Ready</span>
+            <span className="text-[#ac4bff] text-sm font-medium">
+              v1.0.0 • Production Ready
+            </span>
           </motion.div>
-            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-5xl md:text-7xl font-bold text-[#020617] dark:text-white mb-6">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-5xl md:text-7xl font-bold text-[#020617] dark:text-white mb-6"
+          >
             <span className="gradient-text">SEO Audit Pro</span>
           </motion.h1>
-            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-lg md:text-xl text-slate-500 dark:text-[#314158] max-w-2xl mx-auto mb-8">
-            Production-grade SEO auditing tool that scans your website across 8 critical dimensions and generates AI agent-ready fix instructions.
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-lg md:text-xl text-slate-500 dark:text-[#314158] max-w-2xl mx-auto mb-8"
+          >
+            Production-grade SEO auditing tool that scans your website across 8
+            critical dimensions and generates an AI agent-ready SKILL.md file
+            containing fix instructions.
           </motion.p>
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="flex items-center justify-center gap-4 flex-wrap">
-            <button onClick={handleAddToCart} className="bg-[#ac4bff] hover:opacity-90 text-white px-8 py-3 rounded font-semibold flex items-center gap-2 transition-all">
-              <Download size={18} />
-              <span>{product ? `Buy Now — ₹${product.price}` : "Loading..."}</span>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="flex items-center justify-center gap-4 flex-wrap"
+          >
+            <button
+              onClick={(e) =>
+                product && isInCart(product.serial)
+                  ? removeFromCart(product.id)
+                  : handleAddToCart(e)
+              }
+              className="bg-[#ac4bff] hover:opacity-90 text-white px-8 py-3 rounded font-semibold flex items-center gap-2 transition-all"
+            >
+              <ShoppingCart size={18} />
+              <span>
+                {product && isInCart(product.serial)
+                  ? "Remove from cart"
+                  : "Add to cart"}
+              </span>
             </button>
-            <a href="#features" className="border border-slate-300 dark:border-[#314158] hover:border-[#ac4bff] text-[#020617] dark:text-white px-8 py-3 rounded font-semibold transition-all">
+            <a
+              href="#features"
+              className="border border-slate-300 dark:border-[#314158] hover:border-[#ac4bff] text-[#020617] dark:text-white px-8 py-3 rounded font-semibold transition-all"
+            >
               Explore Features
             </a>
           </motion.div>
-          {product && isInCart(product.serial) && (
-            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-4 text-[#00c758] text-sm">
-              ✓ Added to cart. <button onClick={() => router.push("/cart")} className="underline hover:text-white">View Cart</button>
-            </motion.p>
-          )}
         </div>
       </section>
 
@@ -118,11 +203,31 @@ export default function SEOAuditProPage() {
               { label: "Content", score: 90, color: "#00c758" },
               { label: "Security", score: 65, color: "#f99c00" },
             ].map((item, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="bg-white dark:bg-[#0f172b] border border-slate-200 dark:border-[#314158]/30 rounded p-6 text-center">
-                <div className="text-3xl font-bold mb-1" style={{ color: item.color }}>{item.score}</div>
-                <div className="text-sm text-slate-500 dark:text-[#314158] uppercase tracking-wider">{item.label}</div>
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="bg-white dark:bg-[#0f172b] border border-slate-200 dark:border-[#314158]/30 rounded p-6 text-center"
+              >
+                <div
+                  className="text-3xl font-bold mb-1"
+                  style={{ color: item.color }}
+                >
+                  {item.score}
+                </div>
+                <div className="text-sm text-slate-500 dark:text-[#314158] uppercase tracking-wider">
+                  {item.label}
+                </div>
                 <div className="mt-3 h-1.5 bg-slate-200 dark:bg-[#314158] rounded overflow-hidden">
-                  <div className="h-full rounded transition-all" style={{ width: `${item.score}%`, backgroundColor: item.color }} />
+                  <div
+                    className="h-full rounded transition-all"
+                    style={{
+                      width: `${item.score}%`,
+                      backgroundColor: item.color,
+                    }}
+                  />
                 </div>
               </motion.div>
             ))}
@@ -133,20 +238,45 @@ export default function SEOAuditProPage() {
       {/* Features */}
       <section id="features" className="py-20 px-4">
         <div className="max-w-5xl mx-auto">
-          <motion.h2 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-3xl md:text-4xl font-bold text-[#020617] dark:text-white text-center mb-4">
+          <motion.h2
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-4xl font-bold text-[#020617] dark:text-white text-center mb-4"
+          >
             8-Category <span className="gradient-text">Deep Analysis</span>
           </motion.h2>
-          <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-slate-500 dark:text-[#314158] text-center mb-12 max-w-xl mx-auto">
-            Every category includes automated checks with specific, actionable fix instructions
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-slate-500 dark:text-[#314158] text-center mb-12 max-w-xl mx-auto"
+          >
+            Every category includes automated checks with specific, actionable
+            fix instructions
           </motion.p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {features.map((f, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }} className="bg-white dark:bg-[#0f172b] border border-slate-200 dark:border-[#314158]/30 rounded p-5 hover:border-[#ac4bff]/30 transition-all group">
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                className="bg-white dark:bg-[#0f172b] border border-slate-200 dark:border-[#314158]/30 rounded p-5 hover:border-[#ac4bff]/30 transition-all group"
+              >
                 <div className="w-10 h-10 rounded bg-indigo-100 dark:bg-[#ac4bff]/10 flex items-center justify-center mb-3 group-hover:bg-indigo-200 dark:group-hover:bg-[#ac4bff]/20 transition-all">
-                  <f.icon size={18} className="text-indigo-600 dark:text-[#ac4bff]" />
+                  <f.icon
+                    size={18}
+                    className="text-indigo-600 dark:text-[#ac4bff]"
+                  />
                 </div>
-                <h3 className="text-[#020617] dark:text-white font-semibold mb-1 text-sm">{f.title}</h3>
-                <p className="text-slate-500 dark:text-[#314158] text-xs leading-relaxed">{f.desc}</p>
+                <h3 className="text-[#020617] dark:text-white font-semibold mb-1 text-sm">
+                  {f.title}
+                </h3>
+                <p className="text-slate-500 dark:text-[#314158] text-xs leading-relaxed">
+                  {f.desc}
+                </p>
               </motion.div>
             ))}
           </div>
@@ -156,14 +286,31 @@ export default function SEOAuditProPage() {
       {/* What You Get */}
       <section className="py-20 px-4 bg-slate-200/50 dark:bg-[#0f172b]/50 border-t border-slate-200 dark:border-[#314158]/30">
         <div className="max-w-5xl mx-auto">
-          <motion.h2 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-3xl md:text-4xl font-bold text-[#020617] dark:text-white text-center mb-12">
+          <motion.h2
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-4xl font-bold text-[#020617] dark:text-white text-center mb-12"
+          >
             What You <span className="gradient-text">Get</span>
           </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {checks.map((c, i) => (
-              <motion.div key={i} initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }} className="flex items-start gap-3">
-                <CheckCircle size={18} className="text-[#00c758] mt-0.5 shrink-0" />
-                <span className="text-slate-500 dark:text-[#90a1b9] text-sm">{c}</span>
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -10 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                className="flex items-start gap-3"
+              >
+                <CheckCircle
+                  size={18}
+                  className="text-[#00c758] mt-0.5 shrink-0"
+                />
+                <span className="text-slate-500 dark:text-[#90a1b9] text-sm">
+                  {c}
+                </span>
               </motion.div>
             ))}
           </div>
@@ -175,30 +322,63 @@ export default function SEOAuditProPage() {
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
             {[
-              { icon: FileText, title: "JSON Report", desc: "Machine-readable data for CI/CD pipelines and programmatic analysis" },
-              { icon: Code, title: "HTML Report", desc: "Beautiful branded report with scores, findings, and charts — ready for clients" },
-              { icon: Star, title: "AI Skill (SKILL.md)", desc: "Agent-ready fix instructions in the format AI coding agents understand natively" },
+              {
+                icon: FileText,
+                title: "JSON Report",
+                desc: "Machine-readable data for CI/CD pipelines and programmatic analysis",
+              },
+              {
+                icon: Code,
+                title: "HTML Report",
+                desc: "Beautiful branded report with scores, findings, and charts — ready for clients",
+              },
+              {
+                icon: Star,
+                title: "AI Skill (SKILL.md)",
+                desc: "Agent-ready fix instructions in the format AI coding agents understand natively",
+              },
             ].map((item, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="bg-white dark:bg-[#0f172b] border border-slate-200 dark:border-[#314158]/30 rounded p-6 text-center">
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="bg-white dark:bg-[#0f172b] border border-slate-200 dark:border-[#314158]/30 rounded p-6 text-center"
+              >
                 <div className="w-12 h-12 rounded-full bg-indigo-100 dark:bg-[#ac4bff]/10 flex items-center justify-center mx-auto mb-4">
-                  <item.icon size={24} className="text-indigo-600 dark:text-[#ac4bff]" />
+                  <item.icon
+                    size={24}
+                    className="text-indigo-600 dark:text-[#ac4bff]"
+                  />
                 </div>
-                <h3 className="text-[#020617] dark:text-white font-semibold mb-2">{item.title}</h3>
-                <p className="text-slate-500 dark:text-[#314158] text-sm">{item.desc}</p>
+                <h3 className="text-[#020617] dark:text-white font-semibold mb-2">
+                  {item.title}
+                </h3>
+                <p className="text-slate-500 dark:text-[#314158] text-sm">
+                  {item.desc}
+                </p>
               </motion.div>
             ))}
           </div>
 
           {/* Code preview */}
-          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="bg-[#1e293b] dark:bg-[#0f172b] border border-slate-200 dark:border-[#314158]/30 rounded overflow-hidden">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="bg-[#1e293b] dark:bg-[#0f172b] border border-slate-200 dark:border-[#314158]/30 rounded overflow-hidden"
+          >
             <div className="flex items-center gap-2 px-4 py-3 border-b border-slate-200 dark:border-[#314158]/30">
               <div className="w-3 h-3 rounded-full bg-[#fb2c36]" />
               <div className="w-3 h-3 rounded-full bg-[#f99c00]" />
               <div className="w-3 h-3 rounded-full bg-[#00c758]" />
-              <span className="text-slate-400 dark:text-[#314158] text-xs ml-2">SKILL.md — AI Agent Output</span>
+              <span className="text-slate-400 dark:text-[#314158] text-xs ml-2">
+                SKILL.md — AI Agent Output
+              </span>
             </div>
             <pre className="p-4 text-sm text-slate-300 dark:text-[#90a1b9] overflow-x-auto font-mono leading-relaxed">
-{`# SEO Audit Pro — AI Agent Skill
+              {`# SEO Audit Pro — AI Agent Skill
 > Target: https://yoursite.com
 > Overall Score: 74/100
 
@@ -219,23 +399,44 @@ export default function SEOAuditProPage() {
       {/* CTA */}
       <section className="py-20 px-4 border-t border-slate-200 dark:border-[#314158]/30">
         <div className="max-w-3xl mx-auto text-center">
-          <motion.h2 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-3xl md:text-4xl font-bold text-[#020617] dark:text-white mb-4">
+          <motion.h2
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-4xl font-bold text-[#020617] dark:text-white mb-4"
+          >
             Ready to Rank <span className="gradient-text">Higher?</span>
           </motion.h2>
-          <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-slate-500 dark:text-[#314158] mb-8">
-            Get SEO Audit Pro and start identifying exactly what&apos;s holding your website back from first-page rankings.
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-slate-500 dark:text-[#314158] mb-8"
+          >
+            Get SEO Audit Pro and start identifying exactly what&apos;s holding
+            your website back from first-page rankings.
           </motion.p>
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <button onClick={handleAddToCart} className="bg-[#ac4bff] hover:opacity-90 text-white dark:text-white px-10 py-4 rounded font-bold text-lg flex items-center gap-2 mx-auto transition-all">
-              <Download size={20} />
-              <span>{product ? `Buy Now — ₹${product.price}` : "Loading..."}</span>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <button
+              onClick={(e) =>
+                product && isInCart(product.serial)
+                  ? removeFromCart(product.id)
+                  : handleAddToCart(e)
+              }
+              className="bg-[#ac4bff] hover:opacity-90 text-white dark:text-white px-10 py-4 rounded font-bold text-lg flex items-center gap-2 mx-auto transition-all"
+            >
+              <ShoppingCart size={20} />
+              <span>
+                {product && isInCart(product.serial)
+                  ? "Remove from cart"
+                  : "Add to cart"}
+              </span>
               <ArrowRight size={20} />
             </button>
-            {product && isInCart(product.serial) && (
-              <p className="mt-3 text-[#00c758] text-sm">
-                ✓ Already in your cart. <button onClick={() => router.push("/cart")} className="underline hover:text-white">Go to Cart</button>
-              </p>
-            )}
           </motion.div>
         </div>
       </section>

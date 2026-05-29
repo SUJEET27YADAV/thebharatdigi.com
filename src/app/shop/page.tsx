@@ -29,16 +29,6 @@ export default function StorePage() {
     }
   };
 
-  const handleViewCart = () => {
-    if (cart.length === 0) {
-      toast.info(
-        "Your cart is empty! Please add some products before viewing the cart.",
-      );
-    } else {
-      router.push("/cart");
-    }
-  };
-
   useEffect(() => {
     if (products === null) {
       getProducts();
@@ -73,16 +63,8 @@ export default function StorePage() {
           <span className="gradient-text">with our Starter Products</span>
         </motion.h2>
       </div>
-      <div className="w-full flex items-center justify-between">
-        <h2 className="text-xl font-bold">Products :</h2>
-        <button
-          onClick={handleViewCart}
-          className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded font-medium flex items-center gap-2 transition-colors"
-        >
-          <ShoppingCart size={20} />
-          <span>View Cart</span>
-        </button>
-      </div>
+
+      <h2 className="text-xl font-bold">Products :</h2>
       {/* Product Grid */}
       <section className="max-w-7xl mx-auto py-6 px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
