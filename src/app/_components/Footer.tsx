@@ -21,14 +21,12 @@ export default function Footer() {
               {[
                 {
                   icon: <Facebook fontSize="large" />,
-                  className:
-                    "text-blue-700",
+                  className: "text-blue-700",
                   href: "#",
                 },
                 {
                   icon: <Linkedin fontSize="large" />,
-                  className:
-                    "text-blue-900",
+                  className: "text-blue-900",
                   href: "#",
                 },
                 {
@@ -64,7 +62,11 @@ export default function Footer() {
               ].map((link) => (
                 <li key={link}>
                   <a
-                    href={`/${link.toLowerCase().split(" ").join("")}`}
+                    href={
+                      link === "Home"
+                        ? "/"
+                        : `/${link.toLowerCase().split(" ").join("")}`
+                    }
                     className="text-gray-400 hover:text-indigo-400 transition-colors"
                   >
                     {link}
