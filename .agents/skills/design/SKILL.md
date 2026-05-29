@@ -1,5 +1,5 @@
 ---
-name: localhost-design
+name: design
 description: Design system skill for localhost. Activate when building UI components, pages, or any visual elements. Provides exact color tokens, typography scale, spacing grid, component patterns, and craft rules. Read references/DESIGN.md before writing any CSS or JSX.
 ---
 
@@ -22,16 +22,16 @@ You are building UI for **localhost**. Supports both **light** and **dark** them
 
 ### Core Palette
 
-| Role | Light Hex | Dark Hex | Example Usage |
-|------|-----------|----------|---------------|
-| Background | `#f8fafc` (slate-50) | `#1d293d` (slate-800) | Page background |
-| Surface | `#ffffff` (white) | `#0f172b` (slate-900) | Cards, panels, modals |
-| Surface Alt | `#f1f5f9` (slate-100) | `#1e293b` (slate-800/30) | Alternate sections (About, etc.) |
-| Text Primary | `#0f172a` (slate-900) | `#ffffff` (white) | Headings, body text |
-| Text Muted | `#475569` (slate-600) | `#314158` (slate-700) | Captions, placeholders, secondary info |
-| Accent | `#4f46e5` (indigo-600) | `#ac4bff` (purple-500) | CTAs, links, focus rings, active states |
-| Accent Soft | `#eef2ff` (indigo-50) | `#ac4bff/10` | Soft highlight backgrounds (badges, pills) |
-| Border | `#d1d5db` (gray-300) | `#444444` | Dividers, input borders, table borders |
+| Role         | Light Hex              | Dark Hex                 | Example Usage                              |
+| ------------ | ---------------------- | ------------------------ | ------------------------------------------ |
+| Background   | `#f8fafc` (slate-50)   | `#1d293d` (slate-800)    | Page background                            |
+| Surface      | `#ffffff` (white)      | `#0f172b` (slate-900)    | Cards, panels, modals                      |
+| Surface Alt  | `#f1f5f9` (slate-100)  | `#1e293b` (slate-800/30) | Alternate sections (About, etc.)           |
+| Text Primary | `#0f172a` (slate-900)  | `#ffffff` (white)        | Headings, body text                        |
+| Text Muted   | `#475569` (slate-600)  | `#314158` (slate-700)    | Captions, placeholders, secondary info     |
+| Accent       | `#4f46e5` (indigo-600) | `#ac4bff` (purple-500)   | CTAs, links, focus rings, active states    |
+| Accent Soft  | `#eef2ff` (indigo-50)  | `#ac4bff/10`             | Soft highlight backgrounds (badges, pills) |
+| Border       | `#d1d5db` (gray-300)   | `#444444`                | Dividers, input borders, table borders     |
 
 ### Theme Toggle Mechanism
 
@@ -55,11 +55,11 @@ You are building UI for **localhost**. Supports both **light** and **dark** them
 
 ### Status Colors (same in both modes)
 
-| Status | Hex | Use |
-|--------|-----|-----|
+| Status  | Hex       | Use                            |
+| ------- | --------- | ------------------------------ |
 | Success | `#00c758` | Confirmations, positive trends |
-| Warning | `#f99c00` | Caution states, pending items |
-| Danger | `#fb2c36` | Errors, destructive actions |
+| Warning | `#f99c00` | Caution states, pending items  |
+| Danger  | `#fb2c36` | Errors, destructive actions    |
 
 ### Extended Palette (both modes)
 
@@ -77,16 +77,20 @@ You are building UI for **localhost**. Supports both **light** and **dark** them
 Use the Tailwind `dark:` variant pattern — **never use `light:`** (it doesn't exist in Tailwind v3/v4):
 
 ```tsx
-{/* ✅ CORRECT: default = light, dark: = dark */}
+{
+  /* ✅ CORRECT: default = light, dark: = dark */
+}
 <div className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
   <p className="text-slate-600 dark:text-slate-300">Muted text</p>
   <a className="text-indigo-600 dark:text-indigo-400">Accent link</a>
-</div>
+</div>;
 
-{/* ❌ WRONG: no "light:" prefix needed */}
+{
+  /* ❌ WRONG: no "light:" prefix needed */
+}
 <div className="light:bg-white dark:bg-slate-900">
   {/* "light:" is not a Tailwind variant — this will not work */}
-</div>
+</div>;
 ```
 
 ## Typography
@@ -134,14 +138,14 @@ Use the Tailwind `dark:` variant pattern — **never use `light:`** (it doesn't 
 
 ### Type Scale
 
-| Role | Family | Size | Weight |
-|------|--------|------|--------|
-| Heading 1 | Inter | 10px | 700 |
-| Heading 2 | Inter | inherit | 700 |
-| Heading 3 | Inter | 1em | 700 |
-| Body | Geist | 80% | 400 |
-| Caption | Geist | 75% | 400 |
-| Code | Geist Mono | 14px | 400 |
+| Role      | Family     | Size    | Weight |
+| --------- | ---------- | ------- | ------ |
+| Heading 1 | Inter      | 10px    | 700    |
+| Heading 2 | Inter      | inherit | 700    |
+| Heading 3 | Inter      | 1em     | 700    |
+| Body      | Geist      | 80%     | 400    |
+| Caption   | Geist      | 75%     | 400    |
+| Code      | Geist Mono | 14px    | 400    |
 
 ### Typography Rules
 
@@ -163,12 +167,12 @@ Every dimension (margin, padding, gap, width, height) must be a multiple of **4p
 
 ### Spacing as Meaning
 
-| Spacing | Use |
-|---------|-----|
-| 4-8px | Tight: related items (icon + label, avatar + name) |
-| 12-16px | Medium: between groups within a section |
-| 24-32px | Wide: between distinct sections |
-| 48px+ | Vast: major page section breaks |
+| Spacing | Use                                                |
+| ------- | -------------------------------------------------- |
+| 4-8px   | Tight: related items (icon + label, avatar + name) |
+| 12-16px | Medium: between groups within a section            |
+| 24-32px | Wide: between distinct sections                    |
+| 48px+   | Vast: major page section breaks                    |
 
 ### Border Radius
 
@@ -178,12 +182,12 @@ Default: `.25rem`
 ### Breakpoints
 
 | Name | Value |
-|------|-------|
-| xs | 24rem |
-| sm | 31rem |
-| sm | 40rem |
-| md | 48rem |
-| lg | 64rem |
+| ---- | ----- |
+| xs   | 24rem |
+| sm   | 31rem |
+| sm   | 40rem |
+| md   | 48rem |
+| lg   | 64rem |
 
 Mobile-first: design for small screens, layer on responsive overrides.
 
@@ -195,7 +199,9 @@ All components must work in both light and dark mode. Use Tailwind's `dark:` var
 
 ```tsx
 <div className="bg-white dark:bg-slate-900 rounded-[.25rem] p-4 border border-gray-300 dark:border-[#444444]">
-  <h3 className="text-slate-900 dark:text-white text-lg font-bold">Card Title</h3>
+  <h3 className="text-slate-900 dark:text-white text-lg font-bold">
+    Card Title
+  </h3>
   <p className="text-slate-600 dark:text-gray-300">Card content goes here.</p>
 </div>
 ```
@@ -203,15 +209,19 @@ All components must work in both light and dark mode. Use Tailwind's `dark:` var
 ### Button
 
 ```tsx
-{/* Primary — same accent in both modes */}
+{
+  /* Primary — same accent in both modes */
+}
 <button className="bg-indigo-600 dark:bg-[#ac4bff] text-white rounded-[.25rem] px-4 py-2 font-medium transition-opacity duration-150 hover:opacity-90">
   Get Started
-</button>
+</button>;
 
-{/* Ghost */}
+{
+  /* Ghost */
+}
 <button className="bg-transparent border border-gray-300 dark:border-[#444444] text-slate-900 dark:text-white rounded-[.25rem] px-4 py-2">
   Learn More
-</button>
+</button>;
 ```
 
 ### Input
@@ -235,17 +245,25 @@ All components must work in both light and dark mode. Use Tailwind's `dark:` var
 ### Modal / Dialog
 
 ```tsx
-{/* Backdrop */}
+{
+  /* Backdrop */
+}
 <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center">
   <div className="bg-white dark:bg-slate-900 rounded-[.25rem] p-6 max-w-md w-[90vw] border border-gray-300 dark:border-[#444444]">
-    <h2 className="text-slate-900 dark:text-white font-bold mb-4">Dialog Title</h2>
+    <h2 className="text-slate-900 dark:text-white font-bold mb-4">
+      Dialog Title
+    </h2>
     <p className="text-slate-600 dark:text-gray-300 mb-6">Dialog content.</p>
     <div className="flex gap-3">
-      <button className="bg-indigo-600 dark:bg-[#ac4bff] text-white rounded-[.25rem] px-4 py-2 font-medium">Confirm</button>
-      <button className="bg-transparent border border-gray-300 dark:border-[#444444] text-slate-900 dark:text-white rounded-[.25rem] px-4 py-2">Cancel</button>
+      <button className="bg-indigo-600 dark:bg-[#ac4bff] text-white rounded-[.25rem] px-4 py-2 font-medium">
+        Confirm
+      </button>
+      <button className="bg-transparent border border-gray-300 dark:border-[#444444] text-slate-900 dark:text-white rounded-[.25rem] px-4 py-2">
+        Cancel
+      </button>
     </div>
   </div>
-</div>
+</div>;
 ```
 
 ### Table
@@ -254,8 +272,12 @@ All components must work in both light and dark mode. Use Tailwind's `dark:` var
 <table className="w-full border-collapse">
   <thead>
     <tr className="bg-slate-100 dark:bg-[#1d293d] border-b border-gray-300 dark:border-[#444444]">
-      <th className="text-left px-4 py-3 text-xs font-medium text-slate-600 dark:text-[#314158] uppercase tracking-wider">Name</th>
-      <th className="text-left px-4 py-3 text-xs font-medium text-slate-600 dark:text-[#314158] uppercase tracking-wider">Status</th>
+      <th className="text-left px-4 py-3 text-xs font-medium text-slate-600 dark:text-[#314158] uppercase tracking-wider">
+        Name
+      </th>
+      <th className="text-left px-4 py-3 text-xs font-medium text-slate-600 dark:text-[#314158] uppercase tracking-wider">
+        Status
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -272,9 +294,21 @@ All components must work in both light and dark mode. Use Tailwind's `dark:` var
 ```tsx
 <nav className="bg-white dark:bg-slate-900 border-b border-gray-300 dark:border-[#444444]">
   <div className="flex items-center gap-2 px-4 py-3">
-    <a href="/" className="px-3 py-2 rounded-[.25rem] text-indigo-600 dark:text-[#ac4bff] font-medium">Home</a>
-    <a href="/about" className="px-3 py-2 rounded-[.25rem] text-slate-600 dark:text-[#314158] hover:text-slate-900 dark:hover:text-white">About</a>
-    <button className="ml-auto bg-indigo-600 dark:bg-[#ac4bff] text-white rounded-[.25rem] px-4 py-2 text-sm font-medium">Get Started</button>
+    <a
+      href="/"
+      className="px-3 py-2 rounded-[.25rem] text-indigo-600 dark:text-[#ac4bff] font-medium"
+    >
+      Home
+    </a>
+    <a
+      href="/about"
+      className="px-3 py-2 rounded-[.25rem] text-slate-600 dark:text-[#314158] hover:text-slate-900 dark:hover:text-white"
+    >
+      About
+    </a>
+    <button className="ml-auto bg-indigo-600 dark:bg-[#ac4bff] text-white rounded-[.25rem] px-4 py-2 text-sm font-medium">
+      Get Started
+    </button>
   </div>
 </nav>
 ```
@@ -297,9 +331,13 @@ import { motion } from "framer-motion";
     className="w-5 h-5 rounded-full flex items-center justify-center bg-white dark:bg-slate-900"
     animate={{ x: theme === "dark" ? 0 : 28 }}
   >
-    {theme === "dark" ? <Moon className="w-3 h-3 text-indigo-400" /> : <Sun className="w-3 h-3 text-amber-500" />}
+    {theme === "dark" ? (
+      <Moon className="w-3 h-3 text-indigo-400" />
+    ) : (
+      <Sun className="w-3 h-3 text-amber-500" />
+    )}
   </motion.div>
-</motion.button>
+</motion.button>;
 ```
 
 - Pill width: `56px` (14 × 4), height: `28px` (7 × 4)
@@ -338,12 +376,12 @@ This design uses **flat elevation** — no box-shadows anywhere.
 
 ### Elevation Strategy
 
-| Level | Technique | Use |
-|-------|-----------|-----|
-| 0 — Base | Background color | Page background |
-| 1 — Raised | Lighter surface + subtle border | Cards, panels |
+| Level        | Technique                              | Use                 |
+| ------------ | -------------------------------------- | ------------------- |
+| 0 — Base     | Background color                       | Page background     |
+| 1 — Raised   | Lighter surface + subtle border        | Cards, panels       |
 | 2 — Floating | Even lighter surface + stronger border | Dropdowns, popovers |
-| 3 — Overlay | Backdrop + modal surface | Modals, dialogs |
+| 3 — Overlay  | Backdrop + modal surface               | Modals, dialogs     |
 
 ### Z-Index Scale
 
@@ -404,6 +442,7 @@ Motion:         Expressive, spring physics
 ## When to Trigger
 
 Activate this skill when:
+
 - Creating new components, pages, or visual elements for localhost
 - Writing CSS, Tailwind classes, styled-components, or inline styles
 - Building page layouts, templates, or responsive designs
@@ -437,44 +476,46 @@ This interface supports **dual themes (light + dark)** with a flat, cool visual 
 
 ## 2. Color Palette & Roles
 
-| Token | Dark Hex | Light Hex | Role | Use |
-|---|---|---|---|---|
-| background | `#1d293d` | `#f8fafc` | background | Page/app background |
-| surface | `#0f172b` | `#ffffff` | surface | Card and panel backgrounds |
-| text-primary | `#ffffff` | `#0f172a` | text-primary | Headings and body text |
-| text-muted | `#314158` | `#475569` | text-muted | Captions, placeholders, secondary info |
-| accent | `#ac4bff` | `#4f46e5` | accent | CTAs, links, focus rings, active states |
-| border | `#444444` | `#d1d5db` | border | Dividers, input borders, table borders |
-| danger | `#fb2c36` | `#fb2c36` | danger | Error states, destructive actions |
-| success | `#00c758` | `#00c758` | success | Success states, positive indicators |
-| warning | `#f99c00` | `#f99c00` | warning | Warning states, caution indicators |
-| indigo-50 | `#eef2ff` | `#eef2ff` | highlight | Soft accent backgrounds, badges |
-| indigo-500 | `#625fff` | `#625fff` | info | Informational highlights |
-| indigo-600 | `#4f39f6` | `#4f39f6` | accent-alt | Hover states, deeper accent |
-| pink-500 | `#f6339a` | `#f6339a` | decorative | Gradient stops, decorative elements |
-| cyan-500 | `#00b7d7` | `#00b7d7` | decorative | Gradient stops |
-| purple-600 | `#9810fa` | `#9810fa` | decorative | Gradient stops |
+| Token        | Dark Hex  | Light Hex | Role         | Use                                     |
+| ------------ | --------- | --------- | ------------ | --------------------------------------- |
+| background   | `#1d293d` | `#f8fafc` | background   | Page/app background                     |
+| surface      | `#0f172b` | `#ffffff` | surface      | Card and panel backgrounds              |
+| text-primary | `#ffffff` | `#0f172a` | text-primary | Headings and body text                  |
+| text-muted   | `#314158` | `#475569` | text-muted   | Captions, placeholders, secondary info  |
+| accent       | `#ac4bff` | `#4f46e5` | accent       | CTAs, links, focus rings, active states |
+| border       | `#444444` | `#d1d5db` | border       | Dividers, input borders, table borders  |
+| danger       | `#fb2c36` | `#fb2c36` | danger       | Error states, destructive actions       |
+| success      | `#00c758` | `#00c758` | success      | Success states, positive indicators     |
+| warning      | `#f99c00` | `#f99c00` | warning      | Warning states, caution indicators      |
+| indigo-50    | `#eef2ff` | `#eef2ff` | highlight    | Soft accent backgrounds, badges         |
+| indigo-500   | `#625fff` | `#625fff` | info         | Informational highlights                |
+| indigo-600   | `#4f39f6` | `#4f39f6` | accent-alt   | Hover states, deeper accent             |
+| pink-500     | `#f6339a` | `#f6339a` | decorative   | Gradient stops, decorative elements     |
+| cyan-500     | `#00b7d7` | `#00b7d7` | decorative   | Gradient stops                          |
+| purple-600   | `#9810fa` | `#9810fa` | decorative   | Gradient stops                          |
 
 ### CSS Variable Tokens
 
 Light mode (`:root`):
+
 ```css
 --background: #f8fafc;
 --foreground: #020617;
 ```
 
 Dark mode (`:root .dark`):
+
 ```css
 --background: #020617;
 --foreground: #ffffff;
 ```
-
 
 ---
 
 ## 3. Typography Rules
 
 **Font Stack:**
+
 - **Inter** — Heading 1, Heading 2, Heading 3
 - **Geist** — Body, Caption
 - **Geist Mono** — Code
@@ -514,23 +555,23 @@ Dark mode (`:root .dark`):
 }
 ```
 
-| Role | Font | Size | Weight |
-|---|---|---|---|
-| Heading 1 | Inter | 10px | 700 |
-| Heading 2 | Inter | inherit | 700 |
-| Heading 3 | Inter | 1em | 700 |
-| Body | Geist | 80% | 400 |
-| Caption | Geist | 75% | 400 |
-| Code | Geist Mono | 14px | 400 |
+| Role      | Font       | Size    | Weight |
+| --------- | ---------- | ------- | ------ |
+| Heading 1 | Inter      | 10px    | 700    |
+| Heading 2 | Inter      | inherit | 700    |
+| Heading 3 | Inter      | 1em     | 700    |
+| Body      | Geist      | 80%     | 400    |
+| Caption   | Geist      | 75%     | 400    |
+| Code      | Geist Mono | 14px    | 400    |
 
 **Typographic Rules:**
+
 - Limit to 3 font families max per screen
 - Use **Inter** for body/UI text, **Geist** for display/headings
 - Maintain consistent hierarchy: no more than 3-4 font sizes per screen
 - Headings use bold (600-700), body uses regular (400)
 - Line height: 1.5 for body text, 1.2 for headings
 - Use color and opacity for secondary hierarchy, not additional font sizes
-
 
 ---
 
@@ -554,7 +595,6 @@ No components detected. Scan `src/components/` or `components/` to populate this
 | 24-32px | Wide: between sections |
 | 48px+ | Vast: major section breaks |
 
-
 ---
 
 ## 6. Depth & Elevation
@@ -565,15 +605,14 @@ No box-shadow values detected. The design uses a **flat visual style** — eleva
 
 In **dark mode**, raised surfaces are lighter than the background. In **light mode**, raised surfaces are darker than the background (the pattern inverts).
 
-| Level | Dark Mode | Light Mode | Use |
-|-------|-----------|------------|-----|
-| 0 — Base | `#1d293d` (dark bg) | `#f8fafc` (light bg) | Page background |
-| 1 — Raised | `#0f172b` (lighter) + border | `#ffffff` (darker) + border | Cards, panels |
-| 2 — Floating | Lighter + stronger border | White + stronger border | Dropdowns, popovers |
-| 3 — Overlay | Black backdrop + `#0f172b` | Black backdrop + white | Modals, dialogs |
+| Level        | Dark Mode                    | Light Mode                  | Use                 |
+| ------------ | ---------------------------- | --------------------------- | ------------------- |
+| 0 — Base     | `#1d293d` (dark bg)          | `#f8fafc` (light bg)        | Page background     |
+| 1 — Raised   | `#0f172b` (lighter) + border | `#ffffff` (darker) + border | Cards, panels       |
+| 2 — Floating | Lighter + stronger border    | White + stronger border     | Dropdowns, popovers |
+| 3 — Overlay  | Black backdrop + `#0f172b`   | Black backdrop + white      | Modals, dialogs     |
 
 **Z-Index Scale:** `2, 10, 30, 50, 9999, 999999`
-
 
 ---
 
@@ -597,7 +636,6 @@ This project uses **expressive motion**. Animations are an integral part of the 
 - Duration: 150-300ms for micro-interactions, 300-500ms for page transitions
 - Easing: `ease-out` for enters, `ease-in` for exits
 - Always respect `prefers-reduced-motion`
-
 
 ---
 
@@ -631,21 +669,19 @@ This project uses **expressive motion**. Animations are an integral part of the 
 - No blur or backdrop-blur effects
 - No zebra striping on tables/lists
 
-
 ---
 
 ## 9. Responsive Behavior
 
 | Name | Value | Source |
-|---|---|---|
-| xs | 24rem | css |
-| sm | 31rem | css |
-| sm | 40rem | css |
-| md | 48rem | css |
-| lg | 64rem | css |
+| ---- | ----- | ------ |
+| xs   | 24rem | css    |
+| sm   | 31rem | css    |
+| sm   | 40rem | css    |
+| md   | 48rem | css    |
+| lg   | 64rem | css    |
 
 **Approach:** Use `@media (min-width: ...)` queries matching the breakpoints above.
-
 
 ---
 
@@ -719,61 +755,72 @@ Radius:  .25rem
 6. Elevation: flat, surface shifts
 7. Theme: default class = light, dark: prefix = dark
 ```
-Light:   bg-white border border-gray-300
-Dark:    dark:bg-slate-900 dark:border-[#444444]
+
+Light: bg-white border border-gray-300
+Dark: dark:bg-slate-900 dark:border-[#444444]
 Radius: .25rem
 Padding: 16px
 Font: Inter
 No shadows — use borders and surface colors for depth.
+
 ```
 
 ### Build a Button
 
 ```
-Primary light:  bg-indigo-600 text-white
-Primary dark:   dark:bg-[#ac4bff] dark:text-white
-Ghost light:    bg-transparent border border-gray-300 text-slate-900
-Ghost dark:     dark:border-[#444444] dark:text-white
+
+Primary light: bg-indigo-600 text-white
+Primary dark: dark:bg-[#ac4bff] dark:text-white
+Ghost light: bg-transparent border border-gray-300 text-slate-900
+Ghost dark: dark:border-[#444444] dark:text-white
 Padding: 8px 16px
 Radius: .25rem
 Hover: opacity 0.9
 Focus: ring with accent color
+
 ```
 
 ### Build a Page Layout
 
 ```
-Light bg:  #f8fafc
-Dark bg:   #1d293d
+
+Light bg: #f8fafc
+Dark bg: #1d293d
 Max-width: 1280px, centered
 Grid: 4px base
 Responsive: mobile-first, breakpoints from Section 9
+
 ```
 
 ### Build a Stats Card
 
 ```
-Light:   bg-white text-slate-900 (value) / text-slate-600 (label)
-Dark:    dark:bg-slate-900 dark:text-white (value) / dark:text-[#314158] (label)
-Label:   12px uppercase tracking-wider
-Value:   24-32px bold
-Status:  use success/warning/danger from Core Palette
+
+Light: bg-white text-slate-900 (value) / text-slate-600 (label)
+Dark: dark:bg-slate-900 dark:text-white (value) / dark:text-[#314158] (label)
+Label: 12px uppercase tracking-wider
+Value: 24-32px bold
+Status: use success/warning/danger from Core Palette
+
 ```
 
 ### Build a Form
 
 ```
-Light:   bg-white border-gray-300
-Dark:    dark:bg-[#1d293d] dark:border-[#444444]
-Focus:   border-indigo-600 / dark:focus:border-[#ac4bff]
-Label:   text-slate-600 / dark:text-gray-500 12px
+
+Light: bg-white border-gray-300
+Dark: dark:bg-[#1d293d] dark:border-[#444444]
+Focus: border-indigo-600 / dark:focus:border-[#ac4bff]
+Label: text-slate-600 / dark:text-gray-500 12px
 Spacing: 16px between fields
-Radius:  .25rem
+Radius: .25rem
+
 ```
 
 ### General Component
 
 ```
+
 1. Read SKILL.md — Color System for dual-mode tokens
 2. Start with light mode values (unprefixed Tailwind classes)
 3. Add dark: overrides for every color property
@@ -782,6 +829,7 @@ Radius:  .25rem
 6. Match components to patterns above before creating new ones
 7. Elevation: flat, surface shifts only
 8. Validate — every value traces back to a design token. No magic numbers.
+
 ```
 
 ## Bundled Fonts (fonts/)
@@ -818,3 +866,4 @@ The following font files are bundled in the `fonts/` directory:
 
 Use these local font files in `@font-face` declarations instead of fetching from Google Fonts.
 
+```

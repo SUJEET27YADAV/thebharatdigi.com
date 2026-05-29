@@ -2,11 +2,22 @@
 import { useCartStore } from "@/store/cartStore";
 import { Trash } from "lucide-react";
 import CheckoutModal from "../_components/CheckoutModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function CartPage() {
+  const router = useRouter();
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const { cart, removeFromCart } = useCartStore();
+
+  useEffect(() => {
+    if (cart.length === 0) {
+      const wait = setTimeout(() => {
+        router.push("/shop");
+        clearTimeout(wait);
+      }, 1000);
+    }
+  }, [cart]);
 
   const getCartSubTotal = () => {
     return cart.reduce((total, item) => total + Number(item.price), 0);
