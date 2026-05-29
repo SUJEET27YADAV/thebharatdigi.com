@@ -94,12 +94,12 @@ const socials = [
 
 const colorStyles: Record<string, string> = {
   indigo:
-    "bg-indigo-100 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-200 dark:border-indigo-500/30 hover:shadow-indigo-500",
+    "bg-indigo-100 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-200 dark:border-indigo-500/30",
   purple:
-    "bg-purple-100 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-200 dark:border-purple-500/30 hover:shadow-purple-500",
+    "bg-purple-100 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-200 dark:border-purple-500/30",
   green:
-    "bg-green-100 dark:bg-green-500/10 text-green-600 dark:text-green-400 border-green-200 dark:border-green-500/30 hover:shadow-green-500",
-  pink: "bg-pink-100 dark:bg-pink-500/10 text-pink-600 dark:text-pink-400 border-pink-200 dark:border-pink-500/30 hover:shadow-pink-500",
+    "bg-green-100 dark:bg-green-500/10 text-green-600 dark:text-green-400 border-green-200 dark:border-green-500/30",
+  pink: "bg-pink-100 dark:bg-pink-500/10 text-pink-600 dark:text-pink-400 border-pink-200 dark:border-pink-500/30",
 };
 
 const projectTypes = [
@@ -146,8 +146,8 @@ export default function Contact() {
     <section className="relative py-24 overflow-hidden bg-slate-50 dark:bg-slate-900">
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 left-10 w-72 h-72 rounded-full blur-3xl bg-indigo-200/50 dark:bg-indigo-500/5" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full blur-3xl bg-purple-200/50 dark:bg-purple-500/5" />
+        <div className="absolute top-20 left-10 w-72 h-72 rounded-full bg-indigo-200/50 dark:bg-indigo-500/5" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full bg-purple-200/50 dark:bg-purple-500/5" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 md:px-6">
@@ -157,7 +157,7 @@ export default function Contact() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border mb-6
+            className="inline-flex items-center gap-2 px-4 py-2 rounded border mb-6
                        bg-indigo-50 dark:bg-indigo-500/10 border-indigo-200 dark:border-indigo-500/20"
           >
             <Globe className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
@@ -189,12 +189,12 @@ export default function Contact() {
             <a
               key={i}
               href={method.href}
-              className={`group p-6 rounded-2xl border transition-all duration-300
+              className={`group p-6 rounded border transition-all duration-300
                          bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50
-                         hover:shadow-lg ${colorStyles[method.color].split(" ").find((s) => s.startsWith("hover:shadow"))} hover:bg-white dark:hover:bg-slate-800/60`}
+                         hover:bg-white dark:hover:bg-slate-800/60`}
             >
               <div
-                className={`w-12 h-12 rounded-xl border flex items-center justify-center mb-4
+                className={`w-12 h-12 rounded border flex items-center justify-center mb-4
                               group-hover:scale-110 transition-transform ${colorStyles[method.color]}`}
               >
                 <method.icon className="w-5 h-5" />
@@ -221,15 +221,15 @@ export default function Contact() {
             className="lg:col-span-3"
           >
             <div
-              className="relative rounded-3xl p-6 md:p-10 shadow-2xl backdrop-blur-sm overflow-hidden border
-                            bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50"
+              className="relative rounded p-6 md:p-10 overflow-hidden border
+                             bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50"
             >
               {/* Success Overlay */}
               {formSuccess ? (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="absolute inset-0 z-10 flex flex-col items-center justify-center rounded-3xl
+                  className="absolute inset-0 z-10 flex flex-col items-center justify-center rounded
                              bg-white/95 dark:bg-slate-900/95"
                 >
                   <div className="w-20 h-20 rounded-full bg-green-500/20 flex items-center justify-center mb-6">
@@ -247,7 +247,7 @@ export default function Contact() {
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="absolute inset-0 z-10 flex flex-col items-center justify-center rounded-3xl
+className="absolute inset-0 z-10 flex flex-col items-center justify-center rounded
                              bg-white/95 dark:bg-slate-900/95"
                   >
                     <div className="w-20 h-20 rounded-full bg-green-500/20 flex items-center justify-center mb-6 text-5xl font-extrabold">
@@ -285,7 +285,7 @@ export default function Contact() {
                       name="name"
                       type="text"
                       required
-                      className="w-full rounded-xl px-4 py-3.5 border transition-all
+                      className="w-full rounded px-4 py-3.5 border transition-all
                                  bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-700
                                  text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-600
                                  focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900/80 focus:outline-none focus:ring-1 focus:ring-indigo-500/50"
@@ -300,7 +300,7 @@ export default function Contact() {
                       name="email"
                       type="email"
                       required
-                      className="w-full rounded-xl px-4 py-3.5 border transition-all
+                      className="w-full rounded px-4 py-3.5 border transition-all
                                  bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-700
                                  text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-600
                                  focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900/80 focus:outline-none focus:ring-1 focus:ring-indigo-500/50"
@@ -317,7 +317,7 @@ export default function Contact() {
                     <input
                       name="phone"
                       type="tel"
-                      className="w-full rounded-xl px-4 py-3.5 border transition-all
+                      className="w-full rounded px-4 py-3.5 border transition-all
                                  bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-700
                                  text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-600
                                  focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900/80 focus:outline-none focus:ring-1 focus:ring-indigo-500/50"
@@ -331,7 +331,7 @@ export default function Contact() {
                     <input
                       name="company"
                       type="text"
-                      className="w-full rounded-xl px-4 py-3.5 border transition-all
+                      className="w-full rounded px-4 py-3.5 border transition-all
                                  bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-700
                                  text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-600
                                  focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900/80 focus:outline-none focus:ring-1 focus:ring-indigo-500/50"
@@ -348,7 +348,7 @@ export default function Contact() {
                     <select
                       name="pType"
                       required
-                      className="w-full rounded-xl px-4 py-3.5 border bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all appearance-none cursor-pointer"
+                      className="w-full rounded px-4 py-3.5 border bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all appearance-none cursor-pointer"
                       style={{
                         backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
                         backgroundRepeat: "no-repeat",
@@ -379,7 +379,7 @@ export default function Contact() {
                     </label>
                     <select
                       name="budget"
-                      className="w-full rounded-xl px-4 py-3.5 border bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all appearance-none cursor-pointer"
+                      className="w-full rounded px-4 py-3.5 border bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all appearance-none cursor-pointer"
                       style={{
                         backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
                         backgroundRepeat: "no-repeat",
@@ -413,7 +413,7 @@ export default function Contact() {
                   <textarea
                     name="message"
                     required
-                    className="w-full rounded-xl px-4 py-3.5 h-36 resize-none border transition-all
+                    className="w-full rounded px-4 py-3.5 h-36 resize-none border transition-all
                                bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-700
                                text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-600
                                focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900/80 focus:outline-none focus:ring-1 focus:ring-indigo-500/50"
@@ -424,9 +424,9 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={isPending}
-                  className="w-full py-4 rounded-xl font-bold text-lg text-white transition-all flex items-center justify-center gap-2 group
+                  className="w-full py-4 rounded font-bold text-lg text-white transition-all flex items-center justify-center gap-2 group
                              bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700
-                             shadow-lg shadow-indigo-600/20 disabled:opacity-70"
+                             disabled:opacity-70"
                 >
                   {isPending ? (
                     <>
@@ -455,7 +455,7 @@ export default function Contact() {
             className="lg:col-span-2 space-y-6"
           >
             {/* Why Work With Us */}
-            <div className="rounded-2xl p-6 border bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50">
+            <div className="rounded p-6 border bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50">
               <h4 className="text-xl font-bold mb-6 text-slate-900 dark:text-white">
                 Why Work With Us?
               </h4>
@@ -463,7 +463,7 @@ export default function Contact() {
                 {features.map((f, i) => (
                   <div key={i} className="flex items-start gap-4">
                     <div
-                      className="w-10 h-10 rounded-lg border flex items-center justify-center flex-shrink-0
+                      className="w-10 h-10 rounded border flex items-center justify-center flex-shrink-0
                                     bg-indigo-100 dark:bg-indigo-500/10 border-indigo-200 dark:border-indigo-500/30"
                     >
                       <f.icon className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
@@ -482,7 +482,7 @@ export default function Contact() {
             </div>
 
             {/* Social Links */}
-            <div className="rounded-2xl p-6 border bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50">
+            <div className="rounded p-6 border bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50">
               <h4 className="text-xl font-bold mb-4 text-slate-900 dark:text-white">
                 Connect With Us
               </h4>
@@ -491,7 +491,7 @@ export default function Contact() {
                   <a
                     key={i}
                     href={s.href}
-                    className="w-11 h-11 rounded-xl border flex items-center justify-center transition-all
+                    className="w-11 h-11 rounded border flex items-center justify-center transition-all
                                bg-slate-100 dark:bg-slate-700/50 border-slate-200 dark:border-slate-600/50
                                text-slate-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-white
                                hover:bg-indigo-50 dark:hover:bg-indigo-500/20 hover:border-indigo-200 dark:hover:border-indigo-500/30"
@@ -504,9 +504,9 @@ export default function Contact() {
 
             {/* WhatsApp CTA */}
             <div
-              className="rounded-2xl p-6 border
-                            bg-gradient-to-br from-indigo-50 dark:from-indigo-600/20 to-purple-50 dark:to-purple-600/20
-                            border-indigo-200 dark:border-indigo-500/30"
+              className="rounded p-6 border
+                             bg-gradient-to-br from-indigo-50 dark:from-indigo-600/20 to-purple-50 dark:to-purple-600/20
+                             border-indigo-200 dark:border-indigo-500/30"
             >
               <h4 className="text-xl font-bold mb-2 text-slate-900 dark:text-white">
                 Need Urgent Help?
@@ -516,7 +516,7 @@ export default function Contact() {
               </p>
               <a
                 href="https://wa.me/919999239307"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-green-500 text-white font-semibold hover:bg-green-600 transition-all"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded bg-green-500 text-white font-semibold hover:bg-green-600 transition-all"
               >
                 <MessageSquare className="w-4 h-4" />
                 WhatsApp Us
@@ -547,7 +547,7 @@ export default function Contact() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="rounded-xl overflow-hidden border bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50"
+                className="rounded overflow-hidden border bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50"
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
@@ -578,7 +578,7 @@ export default function Contact() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="relative rounded-3xl overflow-hidden"
+          className="relative rounded overflow-hidden"
         >
           <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600" />
           <div className="relative px-6 py-16 md:py-20 text-center">
@@ -592,14 +592,14 @@ export default function Contact() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="tel:+919999239307"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-green-600 font-semibold hover:bg-indigo-700 transition-all"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded bg-green-600 font-semibold hover:bg-indigo-700 transition-all"
               >
                 <Phone className="w-4 h-4" />
                 Call Us Now
               </a>
               <a
                 href="https://wa.me/919999239307"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-slate-600 font-semibold hover:bg-slate-800 transition-all"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded border border-slate-600 font-semibold hover:bg-slate-800 transition-all"
               >
                 <MessageSquare className="w-4 h-4" />
                 Live Chat

@@ -9,6 +9,7 @@ import Contact from "@mui/icons-material/ContactPage";
 import Shop from "@mui/icons-material/Shop2";
 import Services from "@mui/icons-material/DesignServices";
 import PorfolioIcon from "@mui/icons-material/Person3";
+import AnalyticsIcon from "@mui/icons-material/Analytics";
 import Logo from "./ui/logo";
 import ThemeToggle from "./ThemeToggle";
 
@@ -18,10 +19,8 @@ interface NavLink {
   path: string;
 }
 
-// export default function Navbar({ user }: NavProps) {
 export default function Navbar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  // const { resolvedTheme, setTheme } = useTheme();
   const dref = useRef<HTMLDivElement>(null);
   const dbref = useRef<HTMLButtonElement>(null);
 
@@ -50,6 +49,11 @@ export default function Navbar() {
       icon: <Contact fontSize="inherit" />,
       label: "contact",
       path: "/contactus",
+    },
+    {
+      icon: <AnalyticsIcon fontSize="inherit" />,
+      label: "SEO Audit Pro",
+      path: "/seo-audit-pro",
     },
     {
       icon: <Shop fontSize="inherit" />,
@@ -87,15 +91,9 @@ export default function Navbar() {
     }
   }, [drawerOpen]);
 
-  // useEffect(() => {
-  //   if (dbref.current && window && window.innerWidth === 768) {
-  //     dbref.current.style.display = "none";
-  //   }
-  // });
-
   return (
     <nav className="fixed w-full z-50 transition-all duration-500 py-2 bg-gray-200 dark:bg-slate-900">
-      <div className="relative max-w-7xl mx-auto h-16 px-2 md:px-5 flex items-center justify-between">
+      <div className="relative max-w-7xl mx-auto h-16 px-4 md:px-5 flex items-center justify-between">
         <button
           type="button"
           title="Menu Button"
@@ -111,7 +109,7 @@ export default function Navbar() {
         </div>
         <div
           ref={dref}
-          className={`max-md:absolute max-md:left-0 max-md:top-18 max-xs:w-[60%] max-md:w-1/2 max-md:min-h-screen max-md:bg-gray-400/40 max-md:p-2 max-md:dark:bg-gray-700/40 max-md:z-30 max-md:backdrop-blur-md max-md:drop-shadow-xl ${
+          className={`max-md:absolute max-md:left-0 max-md:top-18 max-xs:w-[60%] max-md:w-1/2 max-md:min-h-screen max-md:bg-gray-200/40 max-md:p-2 max-md:dark:dark:bg-slate-900/40 backdrop-blur-xl max-md:z-30 ${
             drawerOpen ? "max-md:block" : "max-md:hidden"
           }`}
         >
@@ -120,10 +118,7 @@ export default function Navbar() {
             className="flex max-md:flex-col items-center md:justify-center max-md:gap-1 md:gap-8 list-none"
           >
             {links.map((l, i) => (
-              <li
-                key={i}
-                className="max-md:w-full max-md:bg-white/30 rounded-md"
-              >
+              <li key={i} className="max-md:w-full max-md:bg-white/30 rounded">
                 <Link
                   href={l.path}
                   className="w-full p-3 flex items-center font-semibold justify-between md:p-0 md:py-1 max-xs:text-sm"

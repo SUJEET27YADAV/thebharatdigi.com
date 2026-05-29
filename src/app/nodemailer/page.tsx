@@ -72,7 +72,7 @@ export default function Home() {
   }
 
   return (
-    <main className="w-full flex flex-col items-center justify-center p-10 gap-4 font-sans">
+    <main className="w-full flex flex-col items-center justify-center p-10 pt-24 gap-4 font-sans">
       <div className="w-full flex items-center justify-center gap-8">
         <Image
           className="dark:invert"
@@ -85,7 +85,7 @@ export default function Home() {
         <span className="text-5xl">+</span>
         <Image
           className="dark:invert"
-          src="/nm.png"
+          src="/NodeMailer.png"
           alt="Next.js logo"
           width={80}
           height={17}
@@ -93,7 +93,7 @@ export default function Home() {
         />
       </div>
       <div className="w-full flex items-center justify-between gap-2">
-        <section className="max-sm:w-10 sm:w-full h-full bg-blue-500"></section>
+        <section className="max-sm:w-10 sm:w-full h-full bg-indigo-600"></section>
         <section className="w-full flex flex-col gap-2 items-center overflow-hidden">
           <p className="w-full min-h-6 font-bold text-center text-red-500">
             {err}
@@ -108,7 +108,7 @@ export default function Home() {
                 <input
                   name="rname"
                   type="text"
-                  className="w-full border border-zinc-600 rounded-md p-1 outline-none"
+                  className="w-full border border-zinc-600 rounded p-1 outline-none"
                 />
               </label>
               <label className="w-1/2 flex flex-col gap-1">
@@ -116,15 +116,15 @@ export default function Home() {
                 <input
                   name="raddress"
                   type="text"
-                  className="w-full border border-zinc-600 rounded-md p-1 outline-none"
+                  className="w-full border border-zinc-600 rounded p-1 outline-none"
                 />
               </label>
             </div>
-            <button type="submit" className="p-2 rounded-md bg-blue-800">
+            <button type="submit" className="p-2 rounded bg-indigo-600">
               Add Recipient
             </button>
           </form>
-          <div className="w-full min-h-12 flex flex-wrap gap-2 p-1 text-red-500 *:text-xs rounded-md border border-zinc-600">
+          <div className="w-full min-h-12 flex flex-wrap gap-2 p-1 text-red-500 *:text-xs rounded border border-zinc-600">
             <h2 className={`font-bold text-green-500`}>Recipients :</h2>
             {recipients.length === 0 ? (
               <span className="text-red-500">
@@ -152,7 +152,7 @@ export default function Home() {
                   });
                 }}
                 type="text"
-                className="border border-zinc-600 rounded-md p-1 outline-none"
+                className="border border-zinc-600 rounded p-1 outline-none"
               />
             </label>
             <label className="w-full flex flex-col gap-1">
@@ -165,10 +165,10 @@ export default function Home() {
                 }
                 rows={4}
                 placeholder="---- Email Body Here ----"
-                className="border border-zinc-600 rounded-md p-2 outline-none placeholder:text-xl placeholder:text-center"
+                className="border border-zinc-600 rounded p-2 outline-none placeholder:text-xl placeholder:text-center"
               />
             </label>
-            <button type="submit" className="p-2 rounded-md bg-blue-800">
+            <button type="submit" className="p-2 rounded bg-indigo-600">
               Send E-mail
             </button>
           </form>
@@ -194,7 +194,7 @@ export default function Home() {
             )}
           </div>
         </section>
-        <section className="max-sm:w-10 sm:w-full h-full bg-blue-500"></section>
+        <section className="max-sm:w-10 sm:w-full h-full bg-indigo-600"></section>
       </div>
     </main>
   );

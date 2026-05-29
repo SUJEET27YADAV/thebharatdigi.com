@@ -5,13 +5,16 @@ import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import HeroBg from "./ui/hero_bg";
 
+const words = [
+  "Innovative Web Solutions",
+  "Stunning Websites",
+  "SEO Optimization",
+  "E-Commerce Solutions",
+  "Digital Experiences",
+  "Sustainable Branding",
+];
+
 export default function Hero() {
-  const words = [
-    "Stunning Websites",
-    "Digital Experiences",
-    "Business Growth",
-    "Brand Success",
-  ];
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -46,17 +49,17 @@ export default function Hero() {
 
       {/* Decorative blurs */}
       <div
-        className="absolute top-20 left-10 w-20 h-20 rounded-full blur-xl animate-bounce z-[2]
+        className="absolute top-20 left-10 w-20 h-20 rounded-full animate-bounce z-[2]
                    bg-indigo-400/30 dark:bg-indigo-500/20"
         style={{ animationDuration: "6s" }}
       />
       <div
-        className="absolute bottom-20 right-10 w-32 h-32 rounded-full blur-xl animate-pulse z-[2]
+        className="absolute bottom-20 right-10 w-32 h-32 rounded-full animate-pulse z-[2]
                    bg-purple-400/30 dark:bg-purple-500/20"
         style={{ animationDuration: "8s" }}
       />
       <div
-        className="absolute top-1/2 right-20 w-16 h-16 rounded-full blur-xl animate-spin z-[2]
+        className="absolute top-1/2 right-20 w-16 h-16 rounded-full animate-spin z-[2]
                    bg-pink-400/30 dark:bg-pink-500/20"
         style={{ animationDuration: "10s" }}
       />
@@ -106,15 +109,14 @@ export default function Hero() {
         >
           <a
             href="#contact"
-            className="px-8 py-4 rounded-full font-bold text-lg shadow-lg transition-all
-                       bg-indigo-600 text-white hover:bg-indigo-700
-                       shadow-indigo-500/25"
+            className="px-8 py-4 rounded font-bold text-lg transition-all
+                       bg-indigo-600 text-white hover:bg-indigo-700"
           >
             Start Your Project →
           </a>
           <a
             href="#portfolio"
-            className="px-8 py-4 rounded-full font-bold text-lg transition-all border backdrop-blur-sm
+            className="px-8 py-4 rounded font-bold text-lg transition-all border
                        border-indigo-300 dark:border-indigo-500/50
                        text-indigo-600 dark:text-white
                        hover:bg-indigo-50 dark:hover:bg-indigo-500/10"
@@ -128,7 +130,7 @@ export default function Hero() {
       <motion.div
         animate={{ y: [0, 10, 0] }}
         transition={{ repeat: Infinity, duration: 2 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border-2 p-1
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 cursor-pointer rounded border-2 p-1
                    text-indigo-500 dark:text-indigo-400
                    border-indigo-500 dark:border-indigo-400"
         onClick={() =>

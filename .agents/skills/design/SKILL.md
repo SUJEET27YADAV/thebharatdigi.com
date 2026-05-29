@@ -5,31 +5,55 @@ description: Design system skill for localhost. Activate when building UI compon
 
 # localhost Design System
 
-You are building UI for **localhost**. Dark-themed, cool palette, sans-serif typography (Inter), compact density on a 4px grid, flat elevation (no shadows), expressive motion.
+You are building UI for **localhost**. Supports both **light** and **dark** themes via Tailwind's `dark:` variant pattern. Light is the default; dark overrides use the `dark:` prefix. Cool palette, sans-serif typography (Inter), compact density on a 4px grid, flat elevation (no shadows), expressive motion.
 
 ## Design Philosophy
 
-- **Flat elevation** — depth through color shifts and borders, never shadows. Surfaces get progressively lighter to indicate elevation.
+- **Dual theme** — light mode is the default (stored as `:root`), dark mode is an opt-in variant (`.dark` class on `<html>`). Components always define the light look first, then override with `dark:`.
+- **Flat elevation** — depth through color shifts and borders, never shadows. Surfaces get progressively lighter to indicate elevation (dark mode) or progressively darker (light mode).
 - **Gradient accents** — gradients are used thoughtfully for emphasis, not decoration.
 - **Type pairing** — Inter for body/UI text, Geist for headings/display. Never introduce a third typeface.
 - **compact density** — 4px base grid. Every dimension is a multiple of 4.
 - **cool palette** — the color temperature runs cool, matching the sans-serif typography.
-- **Restrained accent** — `#ac4bff` is the only pop of color. Used exclusively for CTAs, links, focus rings, and active states.
+- **Restrained accent** — accent shifts between modes: `#4f46e5` (indigo-600) in light mode, `#ac4bff` (purple-500) in dark mode. Used exclusively for CTAs, links, focus rings, and active states.
 - **Expressive motion** — animations are an integral part of the experience. Use spring physics and layout animations.
 
 ## Color System
 
 ### Core Palette
 
-| Role | Token | Hex | Use |
-|------|-------|-----|-----|
-| Background | `--background` | `#1d293d` | Page/app background |
-| Surface | `--surface` | `#0f172b` | Cards, panels, modals |
-| Text Primary | `--text-primary` | `#ffffff` | Headings, body text |
-| Text Muted | `--text-muted` | `#314158` | Captions, placeholders |
-| Accent | `--accent` | `#ac4bff` | CTAs, links, focus rings |
+| Role | Light Hex | Dark Hex | Example Usage |
+|------|-----------|----------|---------------|
+| Background | `#f8fafc` (slate-50) | `#1d293d` (slate-800) | Page background |
+| Surface | `#ffffff` (white) | `#0f172b` (slate-900) | Cards, panels, modals |
+| Surface Alt | `#f1f5f9` (slate-100) | `#1e293b` (slate-800/30) | Alternate sections (About, etc.) |
+| Text Primary | `#0f172a` (slate-900) | `#ffffff` (white) | Headings, body text |
+| Text Muted | `#475569` (slate-600) | `#314158` (slate-700) | Captions, placeholders, secondary info |
+| Accent | `#4f46e5` (indigo-600) | `#ac4bff` (purple-500) | CTAs, links, focus rings, active states |
+| Accent Soft | `#eef2ff` (indigo-50) | `#ac4bff/10` | Soft highlight backgrounds (badges, pills) |
+| Border | `#d1d5db` (gray-300) | `#444444` | Dividers, input borders, table borders |
 
-### Status Colors
+### Theme Toggle Mechanism
+
+```css
+/* globals.css */
+:root {
+  --background: #f8fafc;
+  --foreground: #020617;
+  @variant dark {
+    --background: #020617;
+    --foreground: #ffffff;
+  }
+}
+```
+
+- **Default state** (`:root`, no `.dark` class) = **light mode**
+- **Dark mode** = `.dark` class on `<html>` element
+- Toggled by `ThemeContext` -> sets `localStorage("theme")` + `document.documentElement.classList`
+- Tailwind dark mode configured via `@custom-variant dark (&:where(.dark, .dark *));` in `globals.css`
+- Always define the light value first, then override with `dark:` prefix
+
+### Status Colors (same in both modes)
 
 | Status | Hex | Use |
 |--------|-----|-----|
@@ -37,24 +61,32 @@ You are building UI for **localhost**. Dark-themed, cool palette, sans-serif typ
 | Warning | `#f99c00` | Caution states, pending items |
 | Danger | `#fb2c36` | Errors, destructive actions |
 
-### Extended Palette
+### Extended Palette (both modes)
 
-- **color-indigo-500:** `#625fff`
-- **color-indigo-50:** `#eef2ff` — Light surface or highlight color
-- **color-indigo-600:** `#4f39f6`
-- **color-pink-500:** `#f6339a`
-- **color-slate-400:** `#90a1b9`
-- **color-slate-600:** `#45556c`
-- **color-cyan-500:** `#00b7d7`
-- **color-purple-600:** `#9810fa`
+- **indigo-500:** `#625fff` — Info highlights, gradient stops
+- **indigo-50:** `#eef2ff` — Light surface/highlight color
+- **indigo-600:** `#4f39f6`
+- **pink-500:** `#f6339a`
+- **slate-400:** `#90a1b9`
+- **slate-600:** `#45556c`
+- **cyan-500:** `#00b7d7`
+- **purple-600:** `#9810fa`
 
-### CSS Variable Tokens
+### How to Apply Colors
 
-```css
---background: #f8fafc;
---foreground: #020617;
---background: #020617;
---foreground: #fff;
+Use the Tailwind `dark:` variant pattern — **never use `light:`** (it doesn't exist in Tailwind v3/v4):
+
+```tsx
+{/* ✅ CORRECT: default = light, dark: = dark */}
+<div className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
+  <p className="text-slate-600 dark:text-slate-300">Muted text</p>
+  <a className="text-indigo-600 dark:text-indigo-400">Accent link</a>
+</div>
+
+{/* ❌ WRONG: no "light:" prefix needed */}
+<div className="light:bg-white dark:bg-slate-900">
+  {/* "light:" is not a Tailwind variant — this will not work */}
+</div>
 ```
 
 ## Typography
@@ -157,171 +189,123 @@ Mobile-first: design for small screens, layer on responsive overrides.
 
 ## Component Patterns
 
+All components must work in both light and dark mode. Use Tailwind's `dark:` variant pattern. **The default (no prefix) class is the light mode value; `dark:` overrides it.**
+
 ### Card
 
-```css
-.card {
-  background: #0f172b;
-  border-radius: .25rem;
-  padding: 16px;
-}
-```
-
-```html
-<div class="card">
-  <h3>Card Title</h3>
-  <p>Card content goes here.</p>
+```tsx
+<div className="bg-white dark:bg-slate-900 rounded-[.25rem] p-4 border border-gray-300 dark:border-[#444444]">
+  <h3 className="text-slate-900 dark:text-white text-lg font-bold">Card Title</h3>
+  <p className="text-slate-600 dark:text-gray-300">Card content goes here.</p>
 </div>
 ```
 
 ### Button
 
-```css
-/* Primary */
-.btn-primary {
-  background: #ac4bff;
-  color: #ffffff;
-  border-radius: .25rem;
-  padding: 8px 16px;
-  font-weight: 500;
-  transition: opacity 150ms ease;
-}
-.btn-primary:hover { opacity: 0.9; }
+```tsx
+{/* Primary — same accent in both modes */}
+<button className="bg-indigo-600 dark:bg-[#ac4bff] text-white rounded-[.25rem] px-4 py-2 font-medium transition-opacity duration-150 hover:opacity-90">
+  Get Started
+</button>
 
-/* Ghost */
-.btn-ghost {
-  background: transparent;
-  border: 1px solid #444444;
-  color: #ffffff;
-  border-radius: .25rem;
-  padding: 8px 16px;
-}
-```
-
-```html
-<button class="btn-primary">Get Started</button>
-<button class="btn-ghost">Learn More</button>
+{/* Ghost */}
+<button className="bg-transparent border border-gray-300 dark:border-[#444444] text-slate-900 dark:text-white rounded-[.25rem] px-4 py-2">
+  Learn More
+</button>
 ```
 
 ### Input
 
-```css
-.input {
-  background: #1d293d;
-  border: 1px solid #444444;
-  border-radius: .25rem;
-  padding: 8px 12px;
-  color: #ffffff;
-  font-size: 14px;
-}
-.input:focus { border-color: #ac4bff; outline: none; }
-```
-
-```html
-<input class="input" type="text" placeholder="Search..." />
+```tsx
+<input
+  type="text"
+  placeholder="Search..."
+  className="bg-white dark:bg-[#1d293d] border border-gray-300 dark:border-[#444444] rounded-[.25rem] px-3 py-2 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-500 focus:border-indigo-600 dark:focus:border-[#ac4bff] focus:outline-none"
+/>
 ```
 
 ### Badge / Chip
 
-```css
-.badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 8px;
-  border-radius: 9999px;
-  font-size: 12px;
-  font-weight: 500;
-  background: #0f172b;
-  color: #314158;
-}
-```
-
-```html
-<span class="badge">New</span>
-<span class="badge">Beta</span>
+```tsx
+<span className="inline-flex items-center px-2 py-1 text-xs font-medium rounded-full bg-indigo-50 dark:bg-[#ac4bff]/10 text-indigo-600 dark:text-[#ac4bff]">
+  New
+</span>
 ```
 
 ### Modal / Dialog
 
-```css
-.modal-backdrop { background: rgba(0, 0, 0, 0.6); }
-.modal {
-  background: #0f172b;
-  border-radius: .25rem;
-  padding: 24px;
-  max-width: 480px;
-  width: 90vw;
-}
-```
-
-```html
-<div class="modal-backdrop">
-  <div class="modal">
-    <h2>Dialog Title</h2>
-    <p>Dialog content.</p>
-    <button class="btn-primary">Confirm</button>
-    <button class="btn-ghost">Cancel</button>
+```tsx
+{/* Backdrop */}
+<div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center">
+  <div className="bg-white dark:bg-slate-900 rounded-[.25rem] p-6 max-w-md w-[90vw] border border-gray-300 dark:border-[#444444]">
+    <h2 className="text-slate-900 dark:text-white font-bold mb-4">Dialog Title</h2>
+    <p className="text-slate-600 dark:text-gray-300 mb-6">Dialog content.</p>
+    <div className="flex gap-3">
+      <button className="bg-indigo-600 dark:bg-[#ac4bff] text-white rounded-[.25rem] px-4 py-2 font-medium">Confirm</button>
+      <button className="bg-transparent border border-gray-300 dark:border-[#444444] text-slate-900 dark:text-white rounded-[.25rem] px-4 py-2">Cancel</button>
+    </div>
   </div>
 </div>
 ```
 
 ### Table
 
-```css
-.table { width: 100%; border-collapse: collapse; }
-.table th {
-  text-align: left;
-  padding: 8px 12px;
-  font-weight: 500;
-  font-size: 12px;
-  color: #314158;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border-bottom: 1px solid #444444;
-}
-.table td {
-  padding: 12px;
-  border-bottom: 1px solid #444444;
-}
-```
-
-```html
-<table class="table">
-  <thead><tr><th>Name</th><th>Status</th><th>Date</th></tr></thead>
+```tsx
+<table className="w-full border-collapse">
+  <thead>
+    <tr className="bg-slate-100 dark:bg-[#1d293d] border-b border-gray-300 dark:border-[#444444]">
+      <th className="text-left px-4 py-3 text-xs font-medium text-slate-600 dark:text-[#314158] uppercase tracking-wider">Name</th>
+      <th className="text-left px-4 py-3 text-xs font-medium text-slate-600 dark:text-[#314158] uppercase tracking-wider">Status</th>
+    </tr>
+  </thead>
   <tbody>
-    <tr><td>Item One</td><td>Active</td><td>Jan 1</td></tr>
-    <tr><td>Item Two</td><td>Pending</td><td>Jan 2</td></tr>
+    <tr className="border-b border-gray-300 dark:border-[#444444] hover:bg-gray-100 dark:hover:bg-[#1d293d]/50">
+      <td className="px-4 py-3 text-slate-900 dark:text-white">Item One</td>
+      <td className="px-4 py-3 text-slate-600 dark:text-gray-300">Active</td>
+    </tr>
   </tbody>
 </table>
 ```
 
 ### Navigation
 
-```css
-.nav {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 16px;
-}
-.nav-link {
-  color: #314158;
-  padding: 8px 12px;
-  border-radius: .25rem;
-  transition: color 150ms;
-}
-.nav-link:hover { color: #ffffff; }
-.nav-link.active { color: #ac4bff; }
-```
-
-```html
-<nav class="nav">
-  <a href="/" class="nav-link active">Home</a>
-  <a href="/about" class="nav-link">About</a>
-  <a href="/pricing" class="nav-link">Pricing</a>
-  <button class="btn-primary" style="margin-left: auto">Get Started</button>
+```tsx
+<nav className="bg-white dark:bg-slate-900 border-b border-gray-300 dark:border-[#444444]">
+  <div className="flex items-center gap-2 px-4 py-3">
+    <a href="/" className="px-3 py-2 rounded-[.25rem] text-indigo-600 dark:text-[#ac4bff] font-medium">Home</a>
+    <a href="/about" className="px-3 py-2 rounded-[.25rem] text-slate-600 dark:text-[#314158] hover:text-slate-900 dark:hover:text-white">About</a>
+    <button className="ml-auto bg-indigo-600 dark:bg-[#ac4bff] text-white rounded-[.25rem] px-4 py-2 text-sm font-medium">Get Started</button>
+  </div>
 </nav>
 ```
+
+### Theme Toggle (Switch)
+
+The toggle is a small pill-shaped switch in the Navbar:
+
+```tsx
+import { Sun, Moon } from "lucide-react";
+import { motion } from "framer-motion";
+
+<motion.button
+  whileTap={{ scale: 0.95 }}
+  onClick={toggleTheme}
+  className="w-14 h-7 rounded-full p-1 bg-indigo-200 dark:bg-slate-700 transition-colors"
+>
+  <motion.div
+    layout
+    className="w-5 h-5 rounded-full flex items-center justify-center bg-white dark:bg-slate-900"
+    animate={{ x: theme === "dark" ? 0 : 28 }}
+  >
+    {theme === "dark" ? <Moon className="w-3 h-3 text-indigo-400" /> : <Sun className="w-3 h-3 text-amber-500" />}
+  </motion.div>
+</motion.button>
+```
+
+- Pill width: `56px` (14 × 4), height: `28px` (7 × 4)
+- Knob: `20px` (5 × 4) circle, animates `x: 0` (dark, left) or `x: 28` (light, right)
+- Light track: `bg-indigo-200`, Dark track: `bg-slate-700`
+- Spring animation: `{ stiffness: 500, damping: 30 }`
 
 ## Animation & Motion
 
@@ -378,6 +362,8 @@ Use these exact values — never invent z-index values.
 - **No arbitrary border-radius** — use the scale: .25rem
 - **No opacity for disabled states** — use muted colors instead
 - **No pill shapes** — this design doesn't use rounded-full / 9999px radius
+- **No `light:` Tailwind variant** — Tailwind doesn't have a `light:` variant. The default (unprefixed) class IS the light mode value.
+- **No hardcoded dark-only values** — every component must look correct in both light and dark mode. Always provide both a default and a `dark:` class.
 
 ## Workflow
 
@@ -399,15 +385,20 @@ Use these exact values — never invent z-index values.
 ## Quick Reference
 
 ```
-Background:     #1d293d
-Surface:        #0f172b
-Text:           #ffffff / #314158
-Accent:         #ac4bff
-Border:         (not extracted)
-Font:           Inter
+Mode:           Dual (light default, dark via .dark class)
+                Light = unprefixed class, Dark = dark: prefix
+
+Background:     #f8fafc (light)         / #1d293d (dark)
+Surface:        #ffffff (light)          / #0f172b (dark)
+Text Primary:   #0f172a (light)          / #ffffff (dark)
+Text Muted:     #475569 (light)          / #314158 (dark)
+Accent:         #4f46e5 (light indigo)   / #ac4bff (dark purple)
+Border:         #d1d5db (light)          / #444444 (dark)
+Status:         #00c758 / #f99c00 / #fb2c36 (same both modes)
+Font:           Inter (body), Geist (headings)
 Spacing:        4px grid
 Radius:         .25rem
-Components:     0 detected
+Motion:         Expressive, spring physics
 ```
 
 ## When to Trigger
@@ -431,53 +422,51 @@ Activate this skill when:
 # localhost DESIGN.md
 
 > Auto-generated design system — reverse-engineered via static analysis by skillui.
-> Frameworks: None detected
-> Colors: 20 · Fonts: 3 · Components: 0
-> Icon library: not detected · State: not detected
-> Primary theme: dark · Dark mode toggle: no · Motion: expressive
+> Frameworks: Tailwind CSS
+> Colors: 20+ · Fonts: 3 · Components: 0
+> Icon library: lucide-react · State: React Context + Tailwind
+> Primary theme: light · Dark mode toggle: yes (`.dark` class on `<html>`) · Motion: expressive
 
 ---
 
 ## 1. Visual Theme & Atmosphere
 
-This is a **dark-themed** interface with a flat, cool visual language. Elevation is achieved through color and border shifts rather than shadows — a clean, industrial aesthetic. Typography pairs **Geist** for display/headings with **Inter** for body text, creating clear visual hierarchy through type contrast. Spacing follows a **4px base grid** (compact density), with scale: 4, 8, 12, 16, 20, 24, 28, 32px. The accent color **#ac4bff** anchors interactive elements (buttons, links, focus rings). Motion is expressive — spring physics, layout animations, and staggered reveals are part of the visual language.
+This interface supports **dual themes (light + dark)** with a flat, cool visual language. Light mode (default) uses a white/slate-50 background with indigo-600 accents; dark mode uses a slate-800/900 background with purple-500 accents via the `.dark` class on `<html>`. Elevation is achieved through color and border shifts rather than shadows — a clean, industrial aesthetic. Typography pairs **Geist** for display/headings with **Inter** for body text, creating clear visual hierarchy through type contrast. Spacing follows a **4px base grid** (compact density), with scale: 4, 8, 12, 16, 20, 24, 28, 32px. The accent color shifts between modes (**#4f46e5** light / **#ac4bff** dark) anchoring interactive elements (buttons, links, focus rings). Motion is expressive — spring physics, layout animations, and staggered reveals are part of the visual language.
 
 ---
 
 ## 2. Color Palette & Roles
 
-| Token | Hex | Role | Use |
-|---|---|---|---|
-| color-slate-800 | `#1d293d` | background | Page background, darkest surface |
-| color-slate-900 | `#0f172b` | surface | Card and panel backgrounds |
-| tw-ring-offset-color | `#ffffff` | text-primary | Headings and body text |
-| color-slate-700 | `#314158` | text-muted | Captions, placeholders, secondary info |
-| color-purple-500 | `#ac4bff` | accent | CTAs, links, focus rings, active states |
-| color-red-500 | `#fb2c36` | danger | Error states, destructive actions |
-| color-green-500 | `#00c758` | success | Success states, positive indicators |
-| color-amber-500 | `#f99c00` | warning | Warning states, caution indicators |
-| color-indigo-500 | `#625fff` | info | Informational highlights |
-| color-indigo-50 | `#eef2ff` | unknown | Palette color |
-| color-indigo-600 | `#4f39f6` | unknown | Palette color |
-| color-pink-500 | `#f6339a` | unknown | Palette color |
-| color-slate-400 | `#90a1b9` | unknown | Palette color |
-| color-slate-600 | `#45556c` | unknown | Palette color |
-| color-cyan-500 | `#00b7d7` | unknown | Palette color |
-| color-purple-600 | `#9810fa` | unknown | Palette color |
-| color-pink-600 | `#e30076` | unknown | Palette color |
-| color-black | `#000000` | unknown | Palette color |
-| color-red-600 | `#e40014` | unknown | Palette color |
-| color-amber-100 | `#fef3c6` | unknown | Palette color |
+| Token | Dark Hex | Light Hex | Role | Use |
+|---|---|---|---|---|
+| background | `#1d293d` | `#f8fafc` | background | Page/app background |
+| surface | `#0f172b` | `#ffffff` | surface | Card and panel backgrounds |
+| text-primary | `#ffffff` | `#0f172a` | text-primary | Headings and body text |
+| text-muted | `#314158` | `#475569` | text-muted | Captions, placeholders, secondary info |
+| accent | `#ac4bff` | `#4f46e5` | accent | CTAs, links, focus rings, active states |
+| border | `#444444` | `#d1d5db` | border | Dividers, input borders, table borders |
+| danger | `#fb2c36` | `#fb2c36` | danger | Error states, destructive actions |
+| success | `#00c758` | `#00c758` | success | Success states, positive indicators |
+| warning | `#f99c00` | `#f99c00` | warning | Warning states, caution indicators |
+| indigo-50 | `#eef2ff` | `#eef2ff` | highlight | Soft accent backgrounds, badges |
+| indigo-500 | `#625fff` | `#625fff` | info | Informational highlights |
+| indigo-600 | `#4f39f6` | `#4f39f6` | accent-alt | Hover states, deeper accent |
+| pink-500 | `#f6339a` | `#f6339a` | decorative | Gradient stops, decorative elements |
+| cyan-500 | `#00b7d7` | `#00b7d7` | decorative | Gradient stops |
+| purple-600 | `#9810fa` | `#9810fa` | decorative | Gradient stops |
 
 ### CSS Variable Tokens
 
+Light mode (`:root`):
 ```css
---tw-border-style: solid;
---tw-border-style: dashed;
 --background: #f8fafc;
 --foreground: #020617;
+```
+
+Dark mode (`:root .dark`):
+```css
 --background: #020617;
---foreground: #fff;
+--foreground: #ffffff;
 ```
 
 
@@ -573,12 +562,15 @@ No components detected. Scan `src/components/` or `components/` to populate this
 No box-shadow values detected. The design uses a **flat visual style** — elevation is conveyed through background color shifts and borders rather than shadows.
 
 **Elevation Strategy:**
-| Level | Technique | Use |
-|---|---|---|
-| 0 — Base | Background color | Page background |
-| 1 — Raised | Lighter surface + subtle border | Cards, panels |
-| 2 — Floating | Even lighter surface + stronger border | Dropdowns, popovers |
-| 3 — Overlay | Backdrop + modal surface | Modals, dialogs |
+
+In **dark mode**, raised surfaces are lighter than the background. In **light mode**, raised surfaces are darker than the background (the pattern inverts).
+
+| Level | Dark Mode | Light Mode | Use |
+|-------|-----------|------------|-----|
+| 0 — Base | `#1d293d` (dark bg) | `#f8fafc` (light bg) | Page background |
+| 1 — Raised | `#0f172b` (lighter) + border | `#ffffff` (darker) + border | Cards, panels |
+| 2 — Floating | Lighter + stronger border | White + stronger border | Dropdowns, popovers |
+| 3 — Overlay | Black backdrop + `#0f172b` | Black backdrop + white | Modals, dialogs |
 
 **Z-Index Scale:** `2, 10, 30, 50, 9999, 999999`
 
@@ -613,21 +605,25 @@ This project uses **expressive motion**. Animations are an integral part of the 
 
 ### Do's
 
-- Use `#ac4bff` for interactive elements (buttons, links, focus rings)
-- Use `#1d293d` as the primary page background
+- Use `dark:` prefix for dark mode overrides — the default (unprefixed) class is always light mode
+- Use `#4f46e5` (light) / `#ac4bff` (dark) for interactive elements (buttons, links, focus rings)
+- Use `#f8fafc` (light) / `#1d293d` (dark) as the primary page background
 - Pair **Inter** (body) with **Geist** (display) — these are the only allowed fonts
 - Follow the **4px** spacing grid for all margins, padding, and gaps
 - Use border and background shifts for elevation — not shadows
 - Use border-radius from the scale: .25rem
+- Provide both light and dark values for every color property
 
 ### Don'ts
 
+- Don't use `light:` prefix — Tailwind doesn't have a `light:` variant; the default class IS light mode
 - Don't introduce colors outside this palette — extend the design tokens first
 - Don't introduce additional font families beyond Inter and Geist and Geist Mono
 - Don't use arbitrary spacing values — stick to multiples of 4px
 - Don't add box-shadow — this design system uses flat elevation
 - Don't use arbitrary border-radius values — pick from the defined scale
 - Don't use backdrop-blur or blur effects
+- Don't leave any component without a dark mode override — every component must work in both themes
 
 ### Anti-Patterns (detected from codebase)
 
@@ -660,8 +656,8 @@ Use these as starting points when building new UI:
 ### Build a Card
 
 ```
-Background: #0f172b
-Border: 1px solid var(--border)
+Light:   bg-white border border-gray-300
+Dark:    dark:bg-slate-900 dark:border-[#444444]
 Radius: .25rem
 Padding: 16px
 Font: Inter
@@ -671,18 +667,21 @@ No shadows — use borders and surface colors for depth.
 ### Build a Button
 
 ```
-Primary: bg #ac4bff, text white
-Ghost: bg transparent, border var(--border)
+Primary light:  bg-indigo-600 text-white
+Primary dark:   dark:bg-[#ac4bff] dark:text-white
+Ghost light:    bg-transparent border border-gray-300 text-slate-900
+Ghost dark:     dark:border-[#444444] dark:text-white
 Padding: 8px 16px
 Radius: .25rem
-Hover: opacity 0.9 or lighter shade
-Focus: ring with #ac4bff
+Hover: opacity 0.9
+Focus: ring with accent color
 ```
 
 ### Build a Page Layout
 
 ```
-Background: #1d293d
+Light bg:  #f8fafc
+Dark bg:   #1d293d
 Max-width: 1280px, centered
 Grid: 4px base
 Responsive: mobile-first, breakpoints from Section 9
@@ -691,32 +690,98 @@ Responsive: mobile-first, breakpoints from Section 9
 ### Build a Stats Card
 
 ```
-Surface: #0f172b
-Label: #314158 (muted, 12px, uppercase)
-Value: #ffffff (primary, 24-32px, bold)
-Status: use success/warning/danger from Section 2
+Light:   bg-white text-slate-900 (value) / text-slate-600 (label)
+Dark:    dark:bg-slate-900 dark:text-white (value) / dark:text-[#314158] (label)
+Label:   12px uppercase tracking-wider
+Value:   24-32px bold
+Status:  use success/warning/danger from Core Palette
 ```
 
 ### Build a Form
 
 ```
-Input bg: #1d293d
-Input border: 1px solid var(--border)
-Focus: border-color #ac4bff
-Label: #314158 12px
+Light:   bg-white border-gray-300
+Dark:    dark:bg-[#1d293d] dark:border-[#444444]
+Focus:   border-indigo-600 / dark:focus:border-[#ac4bff]
+Label:   text-slate-600 / dark:text-gray-500 12px
 Spacing: 16px between fields
-Radius: .25rem
+Radius:  .25rem
 ```
 
 ### General Component
 
 ```
 1. Read DESIGN.md Sections 2-6 for tokens
-2. Colors: only from palette
+2. Colors: only from palette, always provide light + dark values
 3. Font: Inter, type scale from Section 3
 4. Spacing: 4px grid
 5. Components: match patterns from Section 4
 6. Elevation: flat, surface shifts
+7. Theme: default class = light, dark: prefix = dark
+```
+Light:   bg-white border border-gray-300
+Dark:    dark:bg-slate-900 dark:border-[#444444]
+Radius: .25rem
+Padding: 16px
+Font: Inter
+No shadows — use borders and surface colors for depth.
+```
+
+### Build a Button
+
+```
+Primary light:  bg-indigo-600 text-white
+Primary dark:   dark:bg-[#ac4bff] dark:text-white
+Ghost light:    bg-transparent border border-gray-300 text-slate-900
+Ghost dark:     dark:border-[#444444] dark:text-white
+Padding: 8px 16px
+Radius: .25rem
+Hover: opacity 0.9
+Focus: ring with accent color
+```
+
+### Build a Page Layout
+
+```
+Light bg:  #f8fafc
+Dark bg:   #1d293d
+Max-width: 1280px, centered
+Grid: 4px base
+Responsive: mobile-first, breakpoints from Section 9
+```
+
+### Build a Stats Card
+
+```
+Light:   bg-white text-slate-900 (value) / text-slate-600 (label)
+Dark:    dark:bg-slate-900 dark:text-white (value) / dark:text-[#314158] (label)
+Label:   12px uppercase tracking-wider
+Value:   24-32px bold
+Status:  use success/warning/danger from Core Palette
+```
+
+### Build a Form
+
+```
+Light:   bg-white border-gray-300
+Dark:    dark:bg-[#1d293d] dark:border-[#444444]
+Focus:   border-indigo-600 / dark:focus:border-[#ac4bff]
+Label:   text-slate-600 / dark:text-gray-500 12px
+Spacing: 16px between fields
+Radius:  .25rem
+```
+
+### General Component
+
+```
+1. Read SKILL.md — Color System for dual-mode tokens
+2. Start with light mode values (unprefixed Tailwind classes)
+3. Add dark: overrides for every color property
+4. Font: Inter, type scale from Typography section
+5. Spacing: 4px grid
+6. Match components to patterns above before creating new ones
+7. Elevation: flat, surface shifts only
+8. Validate — every value traces back to a design token. No magic numbers.
 ```
 
 ## Bundled Fonts (fonts/)

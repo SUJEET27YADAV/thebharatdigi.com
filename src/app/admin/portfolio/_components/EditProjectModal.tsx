@@ -53,10 +53,10 @@ export default function EditProjectModal({
     }
   };
   const inputClass =
-    "w-full p-2 border border-slate-500 rounded-md outline-none focus:ring-2 focus:ring-blue-500 transition-colors";
+    "w-full p-2 border border-slate-500 rounded outline-none focus:ring-2 focus:ring-indigo-600 transition-colors";
   return (
     <Modal>
-      <div className="relative w-full max-w-md p-6 flex flex-col items-center gap-4 bg-white/60 dark:bg-black/30 rounded-xl backdrop-blur-md">
+      <div className="relative w-full max-w-md p-6 flex flex-col items-center gap-4 bg-white/60 dark:bg-black/30 rounded">
         <button
           className="absolute top-4 right-4 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"
           onClick={() => onClose()}
@@ -146,7 +146,7 @@ export default function EditProjectModal({
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            className="w-full bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700"
             disabled={loading}
           >
             {loading ? "Updating Project..." : "Update Project"}

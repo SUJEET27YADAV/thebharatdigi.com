@@ -43,7 +43,7 @@ export default function AdminLoginPage() {
 
   return (
     <div className="h-[calc(100vh-200px)] flex items-center justify-center p-4">
-      <div className="w-full max-w-md p-8 rounded-xl border border-[#444444] shadow-xl shadow-black/30 dark:shadow-white/30 bg-slate-200/60 dark:bg-black/30 backdrop-blur-md">
+      <div className="w-full max-w-md p-8 rounded border border-[#444444] bg-slate-200/60 dark:bg-black/30">
         <h1 className="text-2xl font-bold mb-2 text-center tracking-wide">
           Admin Panel
         </h1>
@@ -87,7 +87,7 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2 rounded font-medium transition-opacity text-sm mt-6 bg-blue-500 hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 outline-none disabled:bg-blue-500/70 disabled:hover:bg-blue-500/70 cursor-pointer disabled:cursor-not-allowed"
+            className="w-full py-2 rounded font-medium transition-opacity text-sm mt-6 bg-indigo-600 hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-600 outline-none disabled:bg-indigo-600/70 disabled:hover:bg-indigo-600/70 cursor-pointer disabled:cursor-not-allowed"
           >
             {loading ? "Signing in..." : "Sign In"}
           </button>

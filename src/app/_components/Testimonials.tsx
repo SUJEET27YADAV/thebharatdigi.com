@@ -62,7 +62,7 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-8 hover:border-indigo-500/30 transition-all duration-300 shadow-xl"
+              className="bg-slate-800/50 border border-slate-700/50 rounded p-8 hover:border-indigo-500/30 transition-all duration-300"
             >
               <div className="flex gap-1 mb-4">
                 {[...Array(5)].map((_, i) => (
@@ -89,6 +89,14 @@ export default function Testimonials() {
               </div>
             </motion.div>
           ))}
+        </div>
+        <div className="text-center mt-12">
+          <a
+            href="/contactus"
+            className="inline-flex items-center gap-2 px-8 py-3 rounded font-semibold bg-indigo-600 text-white hover:bg-indigo-700 transition-all"
+          >
+            Start Your Project Today →
+          </a>
         </div>
       </div>
     </section>

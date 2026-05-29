@@ -82,7 +82,10 @@ export default function About() {
               At The Bharat Digital, we believe every business deserves a
               world-class digital presence. Whether you're a budding startup in
               Bangalore, an established enterprise in Delhi, or a global brand
-              looking to expand – we speak your language.
+              looking to expand – we speak your language. Explore our{" "}
+              <a href="/services" className="text-indigo-600 dark:text-indigo-400 hover:underline">web development services</a>,{" "}
+              <a href="/seo-audit-pro" className="text-indigo-600 dark:text-indigo-400 hover:underline">SEO audit tools</a>, and{" "}
+              <a href="/shop" className="text-indigo-600 dark:text-indigo-400 hover:underline">digital products</a>.
             </p>
 
             <div className="grid grid-cols-2 gap-8 mt-12">
@@ -128,8 +131,8 @@ export default function About() {
             transition={{ duration: 0.8 }}
             className="relative"
           >
-            <div className="bg-gradient-to-br from-indigo-600/50 to-purple-600/50 rounded-3xl p-[1px]">
-              <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 md:p-10 shadow-2xl">
+            <div className="bg-gradient-to-br from-indigo-600/50 to-purple-600/50 rounded p-[1px]">
+              <div className="bg-white dark:bg-slate-900 rounded p-8 md:p-10">
                 <h3 className="text-slate-900 dark:text-white text-2xl font-bold mb-8">
                   Why Choose Us?
                 </h3>
@@ -150,7 +153,7 @@ export default function About() {
                 </ul>
               </div>
             </div>
-            <div className="absolute -top-10 -right-10 w-40 h-40 bg-indigo-500/20 dark:bg-indigo-500/10 rounded-full blur-3xl -z-10 animate-pulse"></div>
+            <div className="absolute -top-10 -right-10 w-40 h-40 bg-indigo-500/20 dark:bg-indigo-500/10 rounded-full -z-10 animate-pulse"></div>
           </motion.div>
         </div>
       </div>

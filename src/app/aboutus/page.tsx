@@ -170,8 +170,8 @@ export default function About() {
     >
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-40 left-10 w-72 h-72 rounded-full blur-3xl bg-indigo-200/50 dark:bg-indigo-500/5" />
-        <div className="absolute bottom-40 right-10 w-96 h-96 rounded-full blur-3xl bg-purple-200/50 dark:bg-purple-500/5" />
+        <div className="absolute top-40 left-10 w-72 h-72 rounded-full bg-indigo-200/50 dark:bg-indigo-500/5" />
+        <div className="absolute bottom-40 right-10 w-96 h-96 rounded-full bg-purple-200/50 dark:bg-purple-500/5" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 md:px-6">
@@ -181,7 +181,7 @@ export default function About() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border mb-6
+            className="inline-flex items-center gap-2 px-4 py-2 rounded border mb-6
                        bg-indigo-50 dark:bg-indigo-500/10 border-indigo-200 dark:border-indigo-500/20"
           >
             <Sparkles className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
@@ -225,15 +225,15 @@ export default function About() {
           ].map((item, i) => (
             <div key={i} className="relative group">
               <div
-                className={`absolute inset-0 rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity
+                className={`absolute inset-0 rounded opacity-20 group-hover:opacity-30 transition-opacity
                               bg-gradient-to-r ${i === 0 ? "from-indigo-400 to-indigo-300" : "from-purple-400 to-purple-300"}`}
               />
               <div
-                className="relative rounded-2xl p-8 h-full backdrop-blur-sm border
+                className="relative rounded p-8 h-full border
                               bg-white dark:bg-slate-800/60 border-slate-200 dark:border-slate-700/50"
               >
                 <div
-                  className={`w-14 h-14 rounded-xl border flex items-center justify-center mb-6 ${colorStyles[item.color]}`}
+                  className={`w-14 h-14 rounded border flex items-center justify-center mb-6 ${colorStyles[item.color]}`}
                 >
                   <item.icon className="w-7 h-7" />
                 </div>
@@ -262,12 +262,12 @@ export default function About() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
-              className="text-center p-6 rounded-2xl border transition-all group
+              className="text-center p-6 rounded border transition-all group
                          bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50
-                         hover:shadow-lg dark:hover:shadow-none hover:bg-white dark:hover:bg-slate-800/60"
+                         hover:bg-white dark:hover:bg-slate-800/60"
             >
               <div
-                className={`w-12 h-12 rounded-xl border flex items-center justify-center mx-auto mb-4
+                className={`w-12 h-12 rounded border flex items-center justify-center mx-auto mb-4
                               group-hover:scale-110 transition-transform ${colorStyles[stat.color]}`}
               >
                 <stat.icon className="w-6 h-6" />
@@ -303,12 +303,12 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="group p-6 rounded-2xl border text-center transition-all
-                           bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50
-                           hover:shadow-lg dark:hover:shadow-none hover:bg-white dark:hover:bg-slate-800/60"
+                className="group p-6 rounded border text-center transition-all
+                            bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50
+                            hover:bg-white dark:hover:bg-slate-800/60"
               >
                 <div
-                  className={`w-14 h-14 rounded-xl border flex items-center justify-center mx-auto mb-4
+                  className={`w-14 h-14 rounded border flex items-center justify-center mx-auto mb-4
                                 group-hover:scale-110 transition-transform ${colorStyles[value.color]}`}
                 >
                   <value.icon className="w-7 h-7" />
@@ -379,7 +379,7 @@ export default function About() {
 
                   {/* Content */}
                   <div
-                    className={`text-center p-4 rounded-xl transition-all duration-300 ${
+                    className={`text-center p-4 rounded transition-all duration-300 ${
                       index === activeTimeline
                         ? "bg-slate-800/60 border border-indigo-500/30"
                         : "hover:bg-slate-800/40"
@@ -457,10 +457,10 @@ export default function About() {
           className="mb-20"
         >
           <div className="relative max-w-3xl mx-auto">
-            <div className="absolute inset-0 rounded-2xl blur-xl opacity-20 bg-gradient-to-r from-indigo-600 to-purple-600" />
+            <div className="absolute inset-0 rounded opacity-20 bg-gradient-to-r from-indigo-600 to-purple-600" />
             <div
-              className="relative rounded-2xl p-8 backdrop-blur-sm border
-                            bg-white dark:bg-slate-800/60 border-slate-200 dark:border-slate-700/50"
+              className="relative rounded p-8 border
+                             bg-white dark:bg-slate-800/60 border-slate-200 dark:border-slate-700/50"
             >
               <div className="flex gap-1 mb-4">
                 {[...Array(5)].map((_, i) => (
@@ -496,7 +496,7 @@ export default function About() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="relative rounded-3xl overflow-hidden"
+          className="relative rounded overflow-hidden"
         >
           <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600" />
           <div className="relative px-6 py-16 md:py-20 text-center">
@@ -509,8 +509,8 @@ export default function About() {
             </p>
             <a
               href="#contact"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full
-                         bg-white text-indigo-600 font-bold text-lg hover:bg-gray-100 transition-all shadow-xl"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded
+                         bg-white text-indigo-600 font-bold text-lg hover:bg-gray-100 transition-all"
             >
               Start a Project
               <ArrowRight className="w-5 h-5" />

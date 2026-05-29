@@ -80,10 +80,10 @@ export default function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="service-card group bg-white/80 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-2xl p-8 hover:bg-white dark:hover:bg-slate-800/60 hover:shadow-xl hover:shadow-purple-500/20 dark:hover:shadow-purple-700 transition-all duration-300"
+              className="service-card group bg-white/80 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded p-8 hover:bg-white dark:hover:bg-slate-800/60 transition-all duration-300"
             >
               <div
-                className={`w-16 h-16 ${service.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-120 transition-transform duration-300`}
+                className={`w-16 h-16 ${service.color} rounded flex items-center justify-center mb-6 group-hover:scale-120 transition-transform duration-300`}
               >
                 {service.icon}
               </div>
@@ -97,7 +97,7 @@ export default function Services() {
           ))}
           <a
             href="/services"
-            className="group bg-white/80 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-2xl p-8 hover:bg-white dark:hover:bg-slate-800/60 hover:shadow-xl hover:shadow-purple-500/20 dark:hover:shadow-purple-700 transition-all duration-300"
+            className="group bg-white/80 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded p-8 hover:bg-white dark:hover:bg-slate-800/60 transition-all duration-300"
           >
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -106,7 +106,7 @@ export default function Services() {
               transition={{ delay: 6 * 0.1 }}
             >
               <div
-                className={`w-16 h-16 bg-red-100 dark:bg-red-600/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-120 transition-transform duration-300`}
+                className={`w-16 h-16 bg-red-100 dark:bg-red-600/20 rounded flex items-center justify-center mb-6 group-hover:scale-120 transition-transform duration-300`}
               >
                 <MoreHorizontal className="w-8 h-8 text-red-600 dark:text-red-400" />
               </div>

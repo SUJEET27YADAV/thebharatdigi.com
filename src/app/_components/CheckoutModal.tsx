@@ -38,7 +38,7 @@ export default function CheckoutModal({
   }, [state]);
   return (
     <Modal>
-      <div className="relative w-full max-w-md p-4 rounded-lg bg-slate-100/30 dark:bg-slate-900/30 backdrop-blur-md shadow-xl">
+      <div className="relative w-full max-w-md p-4 rounded bg-slate-100/30 dark:bg-slate-900/30">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white focus:outline-none"
@@ -61,7 +61,7 @@ export default function CheckoutModal({
             <input
               name="name"
               type="text"
-              className="w-full border border-slate-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-slate-300 rounded py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-600"
               required
             />
           </div>
@@ -75,7 +75,7 @@ export default function CheckoutModal({
             <input
               name="email"
               type="email"
-              className="w-full border border-slate-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-slate-300 rounded py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-600"
               required
             />
           </div>
@@ -86,14 +86,14 @@ export default function CheckoutModal({
             <input
               name="phone"
               type="tel"
-              className="w-full border border-slate-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-slate-300 rounded py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-600"
               required
             />
           </div>
           <button
             type="submit"
             disabled={pending}
-            className="w-full px-4 py-2 text-white font-medium bg-blue-500 hover:bg-blue-600 rounded-lg transition-colors"
+            className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-700 rounded transition-colors"
           >
             {pending ? "Processing..." : "Pay Now"}
           </button>

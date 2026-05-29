@@ -16,7 +16,7 @@ export default function FooterLink({
     <Link
       href={href}
       className={twMerge(
-        'w-full px-4 py-2 flex items-center sm:p-0 sm:py-1 max-sm:bg-zinc-600/20 rounded backdrop-blur-md overflow-hidden',
+        'w-full px-4 py-2 flex items-center sm:p-0 sm:py-1 max-sm:bg-zinc-600/20 rounded overflow-hidden',
         className
       )}
     >

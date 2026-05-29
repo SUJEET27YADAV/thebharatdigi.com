@@ -43,7 +43,7 @@ export default function ConfirmationPage() {
   if (!merchantOrderId || typeof merchantOrderId !== "string") {
     return (
       <div className="w-full min-h-[90vh] flex items-center justify-center px-4 sm:px-16 py-24 bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900">
-        <div className="w-full max-w-xl flex flex-col items-center justify-center gap-8 sm:gap-16 px-4 py-8 sm:p-16 bg-gray-400/30 dark:bg-gray-900/30 backdrop-blur:md rounded-lg">
+        <div className="w-full max-w-xl flex flex-col items-center justify-center gap-8 sm:gap-16 px-4 py-8 sm:p-16 bg-gray-400/30 dark:bg-gray-900/30 rounded">
           <h1 className="w-full text-center text-2xl font-bold">
             Payment Confirmation
           </h1>
@@ -55,7 +55,7 @@ export default function ConfirmationPage() {
           </p>
           <Link
             href="/"
-            className="w-full py-4 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-900 font-bold text-lg rounded-xl hover:from-amber-400 hover:to-amber-500 transition-all shadow-xl shadow-amber-500/30 hover:shadow-amber-500/50 hover:scale-[1.02] flex items-center justify-center gap-2"
+            className="w-full py-4 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-900 font-bold text-lg rounded hover:from-amber-400 hover:to-amber-500 transition-all hover:scale-[1.02] flex items-center justify-center gap-2"
           >
             Go to Home
           </Link>
@@ -79,7 +79,7 @@ export default function ConfirmationPage() {
           Submit
         </button>
       </form>
-      <div className="w-full max-w-xl flex flex-col items-center justify-center gap-6 sm:gap-12 px-4 py-8 sm:p-16 bg-gray-400/30 dark:bg-gray-900/30 backdrop-blur:md rounded-lg">
+      <div className="w-full max-w-xl flex flex-col items-center justify-center gap-6 sm:gap-12 px-4 py-8 sm:p-16 bg-gray-400/30 dark:bg-gray-900/30 rounded">
         <h1 className="w-full text-center text-2xl font-bold">
           Payment Confirmation
         </h1>
@@ -110,14 +110,14 @@ export default function ConfirmationPage() {
         {state.status === "PENDING" || state.status === "" ? (
           <button
             onClick={() => window.location.reload()}
-            className="w-full py-4 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-900 font-bold text-lg rounded-xl hover:from-amber-400 hover:to-amber-500 transition-all shadow-xl shadow-amber-500/30 hover:shadow-amber-500/50 hover:scale-[1.02] flex items-center justify-center gap-2"
+            className="w-full py-4 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-900 font-bold text-lg rounded hover:from-amber-400 hover:to-amber-500 transition-all hover:scale-[1.02] flex items-center justify-center gap-2"
           >
             Check Status Again
           </button>
         ) : (
           <Link
             href="/"
-            className="w-full py-4 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-900 font-bold text-lg rounded-xl hover:from-amber-400 hover:to-amber-500 transition-all shadow-xl shadow-amber-500/30 hover:shadow-amber-500/50 hover:scale-[1.02] flex items-center justify-center gap-2"
+            className="w-full py-4 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-900 font-bold text-lg rounded hover:from-amber-400 hover:to-amber-500 transition-all hover:scale-[1.02] flex items-center justify-center gap-2"
           >
             Go to Home
           </Link>

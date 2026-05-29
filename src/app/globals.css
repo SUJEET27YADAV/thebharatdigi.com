@@ -255,8 +255,12 @@
   transform: scale(1);
 }
 
-.animated-bg {
-  background: linear-gradient(-45deg, #0f172a, #1e1b4b, #0f172a, #1e293b);
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
+@media (max-width: 40rem) {
+  .responsive-sm { font-size: 0.875rem; }
+}
+@media (min-width: 40rem) and (max-width: 48rem) {
+  .responsive-md { font-size: 1rem; }
+}
+@media (min-width: 48rem) and (max-width: 64rem) {
+  .responsive-lg { font-size: 1.125rem; }
 }

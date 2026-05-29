@@ -29,10 +29,7 @@ export default function StatsCard({
 
   return (
     <div
-      className={`p-6 rounded flex items-start justify-between bg-slate-200/70 dark:bg-[#0f172b]/70 border border-[#444444] backdrop-blur-sm transition-colors`}
-      style={{
-        boxShadow: `5px 8px 10px -1px rgb(from ${accentColor} r g b / 0.2), 0 10px 10px -1px rgb(from ${accentColor} r g b / 0.2)`,
-      }}
+      className={`p-6 rounded flex items-start justify-between bg-slate-200/70 dark:bg-[#0f172b]/70 border border-[#444444] transition-colors`}
     >
       <div>
         <p className="text-xs font-medium mb-3 text-[#314158] dark:text-gray-400 uppercase tracking-wide">

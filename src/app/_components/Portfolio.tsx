@@ -76,7 +76,7 @@ export default function Portfolio() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group relative overflow-hidden rounded-2xl bg-white dark:bg-slate-800 shadow-lg dark:shadow-none"
+              className="group relative overflow-hidden rounded bg-white dark:bg-slate-800"
             >
               <div
                 className={`aspect-[4/3] bg-gradient-to-br ${project.color} flex items-center justify-center transition-transform duration-500 group-hover:scale-110`}
@@ -97,6 +97,14 @@ export default function Portfolio() {
               </div>
             </motion.div>
           ))}
+        </div>
+        <div className="text-center mt-12">
+          <a
+            href="/portfolio"
+            className="inline-flex items-center gap-2 px-8 py-3 rounded font-semibold border border-indigo-300 dark:border-indigo-500/50 text-indigo-600 dark:text-white hover:bg-indigo-50 dark:hover:bg-indigo-500/10 transition-all"
+          >
+            View All Projects →
+          </a>
         </div>
       </div>
     </section>

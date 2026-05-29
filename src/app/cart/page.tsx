@@ -16,7 +16,7 @@ export default function CartPage() {
   };
   return (
     <section className="min-h-[calc(100dvh-100px)] px-4 md:px-6 py-24 max-w-7xl mx-auto">
-      <div className="w-full max-w-4xl border-2 border-slate-300 rounded-xl p-4">
+      <div className="w-full max-w-4xl border-2 border-slate-300 rounded p-4">
         <div className="border-b border-slate-300">
           <h1 className="text-3xl font-bold mb-4">Items in cart :</h1>
         </div>
@@ -68,7 +68,7 @@ export default function CartPage() {
         </div>
         <button
           onClick={() => setIsCheckoutOpen(true)}
-          className="w-full px-4 py-2 text-white font-medium bg-blue-500 hover:bg-blue-600 rounded-lg transition-colors"
+          className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-700 rounded transition-colors"
         >
           Proceed to Pay
         </button>

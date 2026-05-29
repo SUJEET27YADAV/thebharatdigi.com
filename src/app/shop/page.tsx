@@ -53,7 +53,7 @@ export default function StorePage() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border mb-6
+          className="inline-flex items-center gap-2 px-4 py-2 rounded border mb-6
                        bg-indigo-50 dark:bg-indigo-500/10 border-indigo-200 dark:border-indigo-500/20"
         >
           <Globe className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
@@ -77,7 +77,7 @@ export default function StorePage() {
         <h2 className="text-xl font-bold">Products :</h2>
         <button
           onClick={handleViewCart}
-          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 transition-colors"
+          className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded font-medium flex items-center gap-2 transition-colors"
         >
           <ShoppingCart size={20} />
           <span>View Cart</span>
@@ -97,7 +97,7 @@ export default function StorePage() {
           )}
 
           {/* Placeholder for future products */}
-          <div className="border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-2xl flex flex-col items-center justify-center p-8 text-slate-400 opacity-60">
+          <div className="border-2 border-dashed border-slate-200 dark:border-slate-800 rounded flex flex-col items-center justify-center p-8 text-slate-400 opacity-60">
             <Zap size={48} className="mb-4" />
             <p className="font-medium text-center">
               New digital assets coming soon...

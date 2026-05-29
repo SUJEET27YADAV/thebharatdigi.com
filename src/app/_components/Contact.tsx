@@ -71,7 +71,7 @@ export default function Contact() {
                 href="tel:+919999239307"
                 className="flex items-center gap-6 group"
               >
-                <div className="w-14 h-14 bg-indigo-100 dark:bg-indigo-600/20 rounded-2xl flex items-center justify-center relative pulse-ring group-hover:bg-indigo-200 dark:group-hover:bg-indigo-600/30 transition-colors">
+                <div className="w-14 h-14 bg-indigo-100 dark:bg-indigo-600/20 rounded flex items-center justify-center relative pulse-ring group-hover:bg-indigo-200 dark:group-hover:bg-indigo-600/30 transition-colors">
                   <Phone className="text-indigo-600 dark:text-indigo-400" />
                 </div>
                 <div>
@@ -88,7 +88,7 @@ export default function Contact() {
                 href="mailto:support@thebharatdigi.com"
                 className="flex items-center gap-6 group"
               >
-                <div className="w-14 h-14 bg-purple-100 dark:bg-purple-600/20 rounded-2xl flex items-center justify-center group-hover:bg-purple-200 dark:group-hover:bg-purple-600/30 transition-colors">
+                <div className="w-14 h-14 bg-purple-100 dark:bg-purple-600/20 rounded flex items-center justify-center group-hover:bg-purple-200 dark:group-hover:bg-purple-600/30 transition-colors">
                   <Mail className="text-purple-600 dark:text-purple-400" />
                 </div>
                 <div>
@@ -102,7 +102,7 @@ export default function Contact() {
               </a>
 
               <div className="flex items-center gap-6 group">
-                <div className="w-14 h-14 bg-pink-100 dark:bg-pink-600/20 rounded-2xl flex items-center justify-center group-hover:bg-pink-200 dark:group-hover:bg-pink-600/30 transition-colors">
+                <div className="w-14 h-14 bg-pink-100 dark:bg-pink-600/20 rounded flex items-center justify-center group-hover:bg-pink-200 dark:group-hover:bg-pink-600/30 transition-colors">
                   <MapPin className="text-pink-600 dark:text-pink-400" />
                 </div>
                 <div>
@@ -125,7 +125,7 @@ export default function Contact() {
           >
             <form
               action={formAction}
-              className="bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-3xl p-8 md:p-10 shadow-2xl dark:shadow-2xl backdrop-blur-sm"
+              className="bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded p-8 md:p-10"
             >
               <h3 className="text-2xl font-bold mb-8 text-slate-900 dark:text-white">
                 Send Us a Message
@@ -141,7 +141,7 @@ export default function Contact() {
                       name="name"
                       type="text"
                       required
-                      className="w-full text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-indigo-500 transition-all placeholder:text-slate-400 dark:placeholder:text-gray-600"
+                      className="w-full text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded px-4 py-3 focus:outline-none focus:border-indigo-500 transition-all placeholder:text-slate-400 dark:placeholder:text-gray-600"
                       placeholder="John Doe"
                     />
                   </div>
@@ -153,7 +153,7 @@ export default function Contact() {
                       name="email"
                       type="email"
                       required
-                      className="w-full text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-indigo-500 transition-all placeholder:text-slate-400 dark:placeholder:text-gray-600"
+                      className="w-full text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded px-4 py-3 focus:outline-none focus:border-indigo-500 transition-all placeholder:text-slate-400 dark:placeholder:text-gray-600"
                       placeholder="john@example.com"
                     />
                   </div>
@@ -167,7 +167,7 @@ export default function Contact() {
                     <input
                       name="phone"
                       type="tel"
-                      className="w-full text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3.5 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all placeholder:text-slate-400 dark:placeholder:text-gray-600"
+                      className="w-full text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded px-4 py-3.5 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all placeholder:text-slate-400 dark:placeholder:text-gray-600"
                       placeholder="+91 99999 99999"
                     />
                   </div>
@@ -178,7 +178,7 @@ export default function Contact() {
                     <input
                       name="company"
                       type="text"
-                      className="w-full text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3.5 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all placeholder:text-slate-400 dark:placeholder:text-gray-600"
+                      className="w-full text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded px-4 py-3.5 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all placeholder:text-slate-400 dark:placeholder:text-gray-600"
                       placeholder="Your Company"
                     />
                   </div>
@@ -192,7 +192,7 @@ export default function Contact() {
                     <select
                       name="pType"
                       required
-                      className="w-full text-slate-700 dark:text-gray-300 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3.5 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all appearance-none cursor-pointer"
+                      className="w-full text-slate-700 dark:text-gray-300 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded px-4 py-3.5 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all appearance-none cursor-pointer"
                       style={{
                         backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
                         backgroundRepeat: "no-repeat",
@@ -220,7 +220,7 @@ export default function Contact() {
                     </label>
                     <select
                       name="budget"
-                      className="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3.5 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all text-slate-700 dark:text-gray-300 appearance-none cursor-pointer"
+                      className="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded px-4 py-3.5 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all text-slate-700 dark:text-gray-300 appearance-none cursor-pointer"
                       style={{
                         backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
                         backgroundRepeat: "no-repeat",
@@ -251,7 +251,7 @@ export default function Contact() {
                   <textarea
                     name="message"
                     required
-                    className="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3.5 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all h-36 resize-none placeholder:text-slate-400 dark:placeholder:text-gray-600 text-slate-900 dark:text-white"
+                    className="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded px-4 py-3.5 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all h-36 resize-none placeholder:text-slate-400 dark:placeholder:text-gray-600 text-slate-900 dark:text-white"
                     placeholder="Tell us about your project, goals, and timeline..."
                   />
                 </div>
@@ -274,7 +274,7 @@ export default function Contact() {
 
                 <button
                   type="submit"
-                  className="glow-btn w-full bg-indigo-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-indigo-700 transition-all flex items-center justify-center gap-2 group shadow-lg shadow-indigo-600/20"
+                  className="glow-btn w-full bg-indigo-600 text-white py-4 rounded font-bold text-lg hover:bg-indigo-700 transition-all flex items-center justify-center gap-2 group"
                 >
                   {isPending ? (
                     <>

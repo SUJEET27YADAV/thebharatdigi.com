@@ -22,26 +22,26 @@ export default function Footer() {
                 {
                   icon: <Facebook fontSize="large" />,
                   className:
-                    "text-blue-700 drop-shadow-xl drop-shadow-black/50",
+                    "text-blue-700",
                   href: "#",
                 },
                 {
                   icon: <Linkedin fontSize="large" />,
                   className:
-                    "text-blue-900 drop-shadow-xl drop-shadow-black/50",
+                    "text-blue-900",
                   href: "#",
                 },
                 {
                   icon: <Instagram fontSize="large" />,
                   className:
-                    "text-white bg-gradient-to-br from-red-600 via-indigo-600 via-[60%] to-yellow-300 to-[90%] rounded-xl drop-shadow-xl drop-shadow-black/50",
+                    "text-white bg-gradient-to-br from-red-600 via-indigo-600 via-[60%] to-yellow-300 to-[90%] rounded",
                   href: "#",
                 },
               ].map((social, i) => (
                 <a
                   key={i}
                   href={social.href}
-                  className={`${social.className} flex items-center justify-center hover:drop-shadow-black/80 transition-all duration-300`}
+                  className={`${social.className} flex items-center justify-center transition-all duration-300`}
                 >
                   {social.icon}
                 </a>

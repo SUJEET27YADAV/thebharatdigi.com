@@ -15,7 +15,7 @@ export default function AdminHeader({ isOpen, setIsOpen }: AdminHeaderProps) {
   const [showMenu, setShowMenu] = useState(false);
 
   return (
-    <header className="sticky top-20 ml-0 md:ml-64 z-40 border-b border-[#444444] bg-white dark:bg-[#0f172b]">
+    <header className="sticky top-20 ml-0 md:ml-64 z-40 border-t border-b border-[#444444] bg-white dark:bg-[#0f172b]">
       <div className="w-full h-20 px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <button
@@ -40,7 +40,7 @@ export default function AdminHeader({ isOpen, setIsOpen }: AdminHeaderProps) {
 
             {showMenu && (
               <button
-                className="absolute top-10 right-0 mt-1 w-full rounded shadow-lg py-2 z-30 border border-[#444444] bg-white dark:bg-[#1d293d] hover:bg-red-500 flex items-center gap-2 p-4 hover:bg-opacity-80 transition-colors text-sm"
+                className="absolute top-10 right-0 mt-1 w-full rounded py-2 z-30 border border-[#444444] bg-white dark:bg-[#1d293d] hover:bg-red-500 flex items-center gap-2 p-4 hover:bg-opacity-80 transition-colors text-sm"
                 onClick={() => {
                   setShowMenu(false);
                   logout();

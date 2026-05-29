@@ -67,7 +67,7 @@ export default function ProductPage() {
       ) : (
         product && (
           <div className="w-full flex flex-col md:flex-row gap-10">
-            <div className="w-full h-fit md:w-4xl border-2 border-slate-300 rounded-2xl p-4">
+            <div className="w-full h-fit md:w-4xl border-2 border-slate-300 rounded p-4">
               <Image
                 src={product.image_url}
                 alt={product.name}
@@ -99,7 +99,7 @@ export default function ProductPage() {
                 {isInCart(product.serial) ? (
                   <button
                     onClick={(e) => handleRemoveFromCart(e, product.id)}
-                    className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 transition-colors"
+                    className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded font-medium flex items-center gap-2 transition-colors"
                   >
                     <Trash size={20} />
                     <span> Remove from Cart</span>
@@ -107,7 +107,7 @@ export default function ProductPage() {
                 ) : (
                   <button
                     onClick={(e) => handleAddToCart(e, product)}
-                    className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 transition-colors"
+                    className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded font-medium flex items-center gap-2 transition-colors"
                   >
                     <ShoppingCart size={20} />
                     <span> Add to Cart</span>
@@ -115,7 +115,7 @@ export default function ProductPage() {
                 )}
                 <button
                   onClick={() => router.push("/cart")}
-                  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 transition-colors"
+                  className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded font-medium flex items-center gap-2 transition-colors"
                 >
                   <ShoppingCart size={20} />
                   <span> View Cart</span>

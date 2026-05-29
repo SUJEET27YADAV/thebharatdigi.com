@@ -25,17 +25,17 @@ export default function PassgenPage({action}:PassgenPageProps) {
         <p className={`min-h-6 font-bold text-sm ${state?.message.includes('successfully')?'text-green-500':'text-red-500'}`}>{state?.message??''}</p>
         <div className='w-full'>
           <label htmlFor='passlen'>Password Length <span className='text-[10px]'>( Min: 10 ) :</span></label>
-          <input type="number" name="passlen" id="passlen" required className='block w-full p-2 outline-none border border-zinc-600 rounded-md'/>
+          <input type="number" name="passlen" id="passlen" required className='block w-full p-2 outline-none border border-zinc-600 rounded'/>
         </div>
-        <button title="Submit Button" type="submit" className='p-2 font-bold rounded-md bg-blue-500 hover:bg-blue-600'>Generate</button>
+        <button title="Submit Button" type="submit" className='p-2 font-bold rounded bg-indigo-600 hover:bg-indigo-700'>Generate</button>
       </form>
       <h2 className='w-full flex items-center justify-between text-lg font-bold'>
         <span>Generated Password :</span>
-        <span onClick={()=>{navigator.clipboard.writeText(state?.password??'')}} className="p-2 flex items-center justify-center text-xl cursor-pointer bg-zinc-900 hover:bg-zinc-600 rounded-md">
+        <span onClick={()=>{navigator.clipboard.writeText(state?.password??'')}} className="p-2 flex items-center justify-center text-xl cursor-pointer bg-zinc-900 hover:bg-zinc-600 rounded">
           <CopyIcon fontSize="inherit"/>
         </span>
       </h2>
-      <div className="relative w-full border border-zinc-600 rounded-md">
+      <div className="relative w-full border border-zinc-600 rounded">
         <input
           title='Show generated password'
           type={showPass?"text":"password"}
@@ -44,7 +44,7 @@ export default function PassgenPage({action}:PassgenPageProps) {
           readOnly
           className='w-full h-full px-2 py-2.5 outline-none text-xs'
           />
-        <span onClick={()=>{setShowPass(!showPass)}} className="absolute top-0 right-0 h-full p-2 flex items-center justify-center text-xl cursor-pointer bg-zinc-900 hover:bg-zinc-600 rounded-md">
+        <span onClick={()=>{setShowPass(!showPass)}} className="absolute top-0 right-0 h-full p-2 flex items-center justify-center text-xl cursor-pointer bg-zinc-900 hover:bg-zinc-600 rounded">
           {showPass?<HideIcon fontSize='inherit'/>:<ShowIcon fontSize="inherit"/>}
         </span>
       </div>

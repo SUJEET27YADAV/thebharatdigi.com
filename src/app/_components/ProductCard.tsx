@@ -33,10 +33,10 @@ export default function ProductCard({ product }: { product: Product }) {
     <div
       key={product.serial}
       onClick={() => router.push(`/product/${product.serial}`)}
-      className="relative group flex flex-col bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden hover:shadow-xl transition-all"
+      className="relative group flex flex-col bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded overflow-hidden transition-all"
     >
       {/* Product Badge */}
-      <div className="absolute top-4 right-4 bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+      <div className="absolute top-4 right-4 bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded">
         {product.tag}
       </div>
 
@@ -80,7 +80,7 @@ export default function ProductCard({ product }: { product: Product }) {
         {isInCart(product.serial) ? (
           <button
             onClick={(e) => handleRemoveFromCart(e, product.id)}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 transition-colors"
+            className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded font-medium flex items-center gap-2 transition-colors"
           >
             <Trash size={20} />
             <span> Remove from Cart</span>
@@ -88,7 +88,7 @@ export default function ProductCard({ product }: { product: Product }) {
         ) : (
           <button
             onClick={(e) => handleAddToCart(e, product)}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 transition-colors"
+            className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded font-medium flex items-center gap-2 transition-colors"
           >
             <ShoppingCart size={20} />
             <span> Add to Cart</span>

@@ -94,8 +94,8 @@ export default function Portfolio() {
     >
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 right-10 w-72 h-72 rounded-full blur-3xl bg-indigo-200/50 dark:bg-indigo-500/5" />
-        <div className="absolute bottom-40 left-10 w-96 h-96 rounded-full blur-3xl bg-purple-200/50 dark:bg-purple-500/5" />
+        <div className="absolute top-20 right-10 w-72 h-72 rounded-full bg-indigo-200/50 dark:bg-indigo-500/5" />
+        <div className="absolute bottom-40 left-10 w-96 h-96 rounded-full bg-purple-200/50 dark:bg-purple-500/5" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 md:px-6">
@@ -105,7 +105,7 @@ export default function Portfolio() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border mb-6
+            className="inline-flex items-center gap-2 px-4 py-2 rounded border mb-6
                        bg-indigo-50 dark:bg-indigo-500/10 border-indigo-200 dark:border-indigo-500/20"
           >
             <Sparkles className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
@@ -144,12 +144,12 @@ export default function Portfolio() {
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm transition-all
+                className={`flex items-center gap-2 px-4 py-2.5 rounded font-medium text-sm transition-all
                            ${
-                             activeCategory === cat.id
-                               ? "bg-indigo-500 text-white shadow-lg shadow-indigo-500/25"
-                               : "bg-slate-100 dark:bg-slate-800/50 text-slate-600 dark:text-gray-400 border border-slate-200 dark:border-slate-700/50 hover:text-slate-900 dark:hover:text-white"
-                           }`}
+                              activeCategory === cat.id
+                                ? "bg-indigo-500 text-white"
+                                : "bg-slate-100 dark:bg-slate-800/50 text-slate-600 dark:text-gray-400 border border-slate-200 dark:border-slate-700/50 hover:text-slate-900 dark:hover:text-white"
+                            }`}
               >
                 <cat.icon className="w-4 h-4" />
                 {cat.label}
@@ -178,9 +178,9 @@ export default function Portfolio() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.3, delay: index * 0.05 }}
-                  className="group relative rounded-2xl overflow-hidden border transition-all duration-300
-                           bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50
-                           hover:shadow-xl dark:hover:shadow-none hover:border-slate-300 dark:hover:border-slate-600/50"
+                   className="group relative rounded overflow-hidden border transition-all duration-300
+                            bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50
+                            hover:border-slate-300 dark:hover:border-slate-600/50"
                 >
                   {/* Image */}
                   <div
@@ -203,20 +203,20 @@ export default function Portfolio() {
                       <a
                         href={project.link || "#"}
                         target={project.link ? "_blank" : undefined}
-                        className="w-9 h-9 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+                        className="w-9 h-9 rounded bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
                       >
                         <ExternalLink className="w-4 h-4" />
                       </a>
                     </div>
 
                     {project.featured && (
-                      <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white text-xs font-medium flex items-center gap-1">
+                      <div className="absolute top-4 left-4 px-3 py-1 rounded bg-white/10 border border-white/20 text-white text-xs font-medium flex items-center gap-1">
                         <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
                         Featured
                       </div>
                     )}
 
-                    <div className="absolute bottom-4 left-4 px-3 py-1 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white text-xs font-medium capitalize tracking-wide">
+                    <div className="absolute bottom-4 left-4 px-3 py-1 flex items-center justify-center rounded bg-white/10 border border-white/20 text-white text-xs font-medium capitalize tracking-wide">
                       {project.category}
                     </div>
                   </div>
@@ -283,7 +283,7 @@ export default function Portfolio() {
               <Quote className="w-20 h-20" />
             </div>
 
-            <div className="relative rounded-2xl p-8 md:p-12 border bg-slate-50 dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50">
+            <div className="relative rounded p-8 md:p-12 border bg-slate-50 dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={testimonialIndex}
@@ -359,7 +359,7 @@ export default function Portfolio() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="relative rounded-3xl overflow-hidden"
+          className="relative rounded overflow-hidden"
         >
           <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600" />
           <div className="relative px-6 py-16 md:py-20 text-center">
@@ -368,8 +368,8 @@ export default function Portfolio() {
             </h3>
             <a
               href="#contact"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full
-                         bg-white text-indigo-600 font-bold text-lg hover:bg-gray-100 transition-all shadow-xl"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded
+                          bg-white text-indigo-600 font-bold text-lg hover:bg-gray-100 transition-all"
             >
               Start a Project
               <ArrowRight className="w-5 h-5" />

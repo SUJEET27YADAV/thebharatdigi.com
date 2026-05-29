@@ -23,9 +23,38 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "TBD | Premium Web Development &amp; IT Solutions",
+  title: "The Bharat Digital | Web Development, SEO & IT Solutions in India",
   description:
-    "The Bharat Digital | Premium Web Development &amp; IT Solutions",
+    "The Bharat Digital offers premium web development, SEO audit services, e-commerce solutions, and IT support across India and globally. 500+ projects delivered since 2015.",
+  robots: "index, follow",
+  metadataBase: new URL("https://thebharatdigi.com"),
+  alternates: {
+    canonical: "https://thebharatdigi.com",
+  },
+  openGraph: {
+    title: "The Bharat Digital | Web Development, SEO & IT Solutions",
+    description:
+      "Premium web development, SEO audit tools, e-commerce solutions, and IT support. 500+ projects delivered worldwide since 2015.",
+    url: "https://thebharatdigi.com",
+    siteName: "The Bharat Digital",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "https://thebharatdigi.com/logo.png",
+        width: 1200,
+        height: 630,
+        alt: "The Bharat Digital",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "The Bharat Digital | Web Development & IT Solutions",
+    description:
+      "Premium web development, SEO audit tools, and IT solutions. 500+ projects delivered worldwide.",
+    images: ["https://thebharatdigi.com/logo.png"],
+  },
 };
 
 export default function RootLayout({
@@ -45,6 +74,27 @@ export default function RootLayout({
           <Footer />
           <ToastContainer />
         </ThemeProvider>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "The Bharat Digital",
+              url: "https://thebharatdigi.com",
+              logo: "https://thebharatdigi.com/logo.png",
+              description:
+                "Premium web development, SEO audit tools, e-commerce solutions, and IT support across India and globally.",
+              contactPoint: {
+                "@type": "ContactPoint",
+                telephone: "+91-9999239307",
+                contactType: "sales",
+                email: "support@thebharatdigi.com",
+              },
+              sameAs: ["https://thebharatdigi.com"],
+            }),
+          }}
+        />
       </body>
     </html>
   );
