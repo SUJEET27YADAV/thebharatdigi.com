@@ -31,6 +31,7 @@ const contactMethods = [
     title: "Phone",
     value: "+91 99992 39307",
     href: "tel:+919999239307",
+    rel: "nofollow",
     color: "indigo",
   },
   {
@@ -38,6 +39,7 @@ const contactMethods = [
     title: "Email",
     value: "support@thebharatdigi.com",
     href: "mailto:support@thebharatdigi.com",
+    rel: "nofollow",
     color: "purple",
   },
   {
@@ -45,6 +47,7 @@ const contactMethods = [
     title: "WhatsApp",
     value: "+91 99992 39307",
     href: "https://wa.me/919999239307",
+    rel: "nofollow",
     color: "green",
   },
   {
@@ -52,54 +55,59 @@ const contactMethods = [
     title: "Location",
     value: "Global Services",
     href: "#",
+    rel: "nofollow",
     color: "pink",
   },
 ];
 
 const features = [
-  { icon: Clock, title: "Quick Response", desc: "Reply within 24 hours" },
+  {
+    icon: Clock,
+    title: "Quick Response",
+    desc: "Queries get replied within 24 hours",
+  },
   {
     icon: Headphones,
     title: "Dedicated Support",
-    desc: "Personal project manager",
+    desc: "Personal project manager asistance 24/7",
   },
-  { icon: Zap, title: "Fast Delivery", desc: "On-time completion" },
+  { icon: Zap, title: "Fast Delivery", desc: "On-time/before-time completion" },
   { icon: Shield, title: "Secure Process", desc: "NDA & data protection" },
 ];
 
 const faqs = [
   {
     q: "How long does a typical project take?",
-    a: "Project timelines vary. Simple websites take 2-4 weeks, complex apps may take 2-3 months.",
+    a: "Project timelines can vary. A simple website may take 1-3 weeks and a complex web apps may take 2-3 months.",
   },
   {
     q: "What is your pricing structure?",
-    a: "We offer flexible pricing based on requirements. Contact us for a free quote.",
+    a: "We offer flexible pricing structure based on client's requirements. Contact us to get a free quote tailored for your needs.",
   },
   {
     q: "Do you provide ongoing support?",
-    a: "Yes! We offer maintenance packages including updates, security patches, and 24/7 support.",
+    a: "Yes ofcourse! We offer anual maintenance packages, that include one major update, and some regular updates for security patches, and 24/7 live support on call, whatsapp or email.",
   },
   {
     q: "Can you work with our existing team?",
-    a: "Absolutely. We seamlessly integrate with your team, whether you need full development or specific expertise.",
+    a: "Absolutely. We can seamlessly integrate with your existing team, depending upon your requirement, whether you need just a design, a complete development or expertise in a specific task.",
   },
 ];
 
 const socials = [
-  { icon: Facebook, href: "#" },
-  { icon: LinkedIn, href: "#" },
-  { icon: Instagram, href: "#" },
+  { icon: Facebook, href: "#", rel: "nofollow" },
+  { icon: LinkedIn, href: "#", rel: "nofollow" },
+  { icon: Instagram, href: "#", rel: "nofollow" },
 ];
 
 const colorStyles: Record<string, string> = {
   indigo:
-    "bg-indigo-100 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-200 dark:border-indigo-500/30",
+    "bg-indigo-100 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-200 dark:border-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/30",
   purple:
-    "bg-purple-100 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-200 dark:border-purple-500/30",
+    "bg-purple-100 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-200 dark:border-purple-500/30 hover:shadow-xl hover:shadow-purple-500/30",
   green:
-    "bg-green-100 dark:bg-green-500/10 text-green-600 dark:text-green-400 border-green-200 dark:border-green-500/30",
-  pink: "bg-pink-100 dark:bg-pink-500/10 text-pink-600 dark:text-pink-400 border-pink-200 dark:border-pink-500/30",
+    "bg-green-100 dark:bg-green-500/10 text-green-600 dark:text-green-400 border-green-200 dark:border-green-500/30 hover:shadow-xl hover:shadow-green-500/30",
+  pink: "bg-pink-100 dark:bg-pink-500/10 text-pink-600 dark:text-pink-400 border-pink-200 dark:border-pink-500/30 hover:shadow-xl hover:shadow-pink-500/30",
 };
 
 const projectTypes = [
@@ -174,8 +182,12 @@ export default function Contact() {
             className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-slate-900 dark:text-white"
           >
             Let&apos;s Build Your{" "}
-            <span className="gradient-text">Digital Vision</span>
+            <span className="gradient-text">Digital Vision Together</span>
           </motion.h1>
+          <p className="text-lg">
+            Ready to transform your valuable vision into a digital
+            infrastucture, contact us using any of the below methods:
+          </p>
         </div>
 
         {/* Contact Methods */}
@@ -189,6 +201,7 @@ export default function Contact() {
             <a
               key={i}
               href={method.href}
+              rel={method.rel}
               className={`group p-6 rounded border transition-all duration-300
                          bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50
                          hover:bg-white dark:hover:bg-slate-800/60`}
@@ -247,7 +260,7 @@ export default function Contact() {
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
-className="absolute inset-0 z-10 flex flex-col items-center justify-center rounded
+                    className="absolute inset-0 z-10 flex flex-col items-center justify-center rounded
                              bg-white/95 dark:bg-slate-900/95"
                   >
                     <div className="w-20 h-20 rounded-full bg-green-500/20 flex items-center justify-center mb-6 text-5xl font-extrabold">
@@ -491,6 +504,7 @@ className="absolute inset-0 z-10 flex flex-col items-center justify-center round
                   <a
                     key={i}
                     href={s.href}
+                    rel={s.rel}
                     className="w-11 h-11 rounded border flex items-center justify-center transition-all
                                bg-slate-100 dark:bg-slate-700/50 border-slate-200 dark:border-slate-600/50
                                text-slate-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-white

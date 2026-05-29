@@ -166,9 +166,9 @@ export default function Page() {
         <p>Phone: 9999239307</p>
         <p>Time: Monday - Friday(9:00 - 18:00)</p>
       </div>
-      <h1 className="mt-16 text-4xl font-bold">
+      <h2 className="mt-16 text-4xl font-bold">
         Refund and Cancellation policy
-      </h1>
+      </h2>
       <p>
         This refund and cancellation policy outlines how you can cancel or seek
         a refund for a product / service that you have purchased through the
@@ -212,7 +212,7 @@ export default function Page() {
         In case of any refunds approved by The Bharat Digital, it will take 7
         days for the refund to be processed to you.
       </p>
-      <h1 className="mt-16 text-4xl font-bold">Return Policy</h1>
+      <h3 className="mt-16 text-4xl font-bold">Return Policy</h3>
       <p>
         We offer refund / exchange within first 14 days from the date of your
         purchase. If 14 days have passed since your purchase, you will not be
@@ -235,7 +235,7 @@ export default function Page() {
         request (i.e. return / exchange) will be processed in accordance with
         our policies.
       </p>
-      <h1 className="mt-16 text-4xl font-bold">Shipping Policy</h1>
+      <h4 className="mt-16 text-4xl font-bold">Shipping Policy</h4>
       <p>
         The orders for the user are shipped through registered domestic courier
         companies and/or speed post only. Orders are shipped within 2 days from

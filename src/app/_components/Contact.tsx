@@ -69,6 +69,7 @@ export default function Contact() {
             <div className="space-y-8">
               <a
                 href="tel:+919999239307"
+                rel="nofollow"
                 className="flex items-center gap-6 group"
               >
                 <div className="w-14 h-14 bg-indigo-100 dark:bg-indigo-600/20 rounded flex items-center justify-center relative pulse-ring group-hover:bg-indigo-200 dark:group-hover:bg-indigo-600/30 transition-colors">
@@ -86,6 +87,7 @@ export default function Contact() {
 
               <a
                 href="mailto:support@thebharatdigi.com"
+                rel="nofollow"
                 className="flex items-center gap-6 group"
               >
                 <div className="w-14 h-14 bg-purple-100 dark:bg-purple-600/20 rounded flex items-center justify-center group-hover:bg-purple-200 dark:group-hover:bg-purple-600/30 transition-colors">

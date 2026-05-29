@@ -160,7 +160,7 @@ export default function SEOAuditProPage() {
           >
             Production-grade SEO auditing tool that scans your website across 8
             critical dimensions and generates an AI agent-ready SKILL.md file
-            containing fix instructions.
+            containing fix instructions along with JSON and HTML reports.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
