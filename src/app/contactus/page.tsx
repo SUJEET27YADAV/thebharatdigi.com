@@ -173,8 +173,8 @@ export default function Contact() {
             transition={{ delay: 0.1 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-slate-900 dark:text-white"
           >
-            Let&apos;s Build Something{" "}
-            <span className="gradient-text">Amazing Together</span>
+            Let&apos;s Build Your{" "}
+            <span className="gradient-text">Digital Vision</span>
           </motion.h1>
         </div>
 

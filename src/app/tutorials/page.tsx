@@ -16,6 +16,9 @@ export default function Home() {
         <span>Welcome to</span>
         <span>The Bharat Digital !</span>
       </h1>
+      <p className="text-slate-600 dark:text-gray-400 text-center max-w-xl">
+        Hands-on tutorials and interactive demos to help you explore useful web development tools. Try our password generator for secure credentials, or test the nodemailer integration for sending transactional emails directly from your application.
+      </p>
       <div className="w-full max-w-xl flex flex-col gap-3 items-center">
         <h2 className="w-full text-2xl font-semibold">Tutorials with Demo :</h2>
         <ul className="w-full max-w-xl list-none pl-2 xs:pl-4 space-y-1 *:w-full *:h-14 *:p-2 *:rounded *:border *:border-zinc-600 *:hover:bg-zinc-600 *:transition-all *:duration-200 *:flex *:items-center *:justify-center *:text-xl *:2xs:text-2xl *:xs:text-3xl *:sm:text-4xl *:*:w-full *:*:h-full *:*:flex *:*:items-center *:*:justify-center *:*:gap-5">
@@ -30,7 +33,7 @@ export default function Home() {
               <Image
                 className="dark:invert h-[60%] w-auto"
                 src="/next.svg"
-                alt="Next.js logo"
+                alt="Next.js"
                 width={180}
                 height={38}
                 priority
@@ -38,8 +41,8 @@ export default function Home() {
               <p>+</p>
               <Image
                 className="dark:invert h-full w-auto"
-                src="/nm.png"
-                alt="Next.js logo"
+                src="/NodeMailer.png"
+                alt="Nodemailer"
                 width={80}
                 height={17}
                 priority

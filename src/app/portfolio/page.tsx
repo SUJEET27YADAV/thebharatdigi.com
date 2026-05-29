@@ -121,8 +121,18 @@ export default function Portfolio() {
             transition={{ delay: 0.1 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-slate-900 dark:text-white"
           >
-            Projects That <span className="gradient-text">Inspire</span>
+            Web Development &amp; Digital{" "}
+            <span className="gradient-text">Projects That Inspire</span>
           </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-lg md:text-xl max-w-3xl mx-auto text-slate-600 dark:text-gray-400"
+          >
+            Explore our work across industries including e-commerce, SaaS, healthcare, education, gaming, and IT solutions. Each project showcases our commitment to clean code, modern design, and measurable results for clients worldwide.
+          </motion.p>
         </div>
 
         {/* Filter */}

@@ -11,7 +11,7 @@ export default function ThemeToggle() {
     <motion.button
       whileTap={{ scale: 0.95 }}
       onClick={toggleTheme}
-      className="w-14 h-7 rounded-full p-1 bg-indigo-200 dark:bg-slate-700 light:bg-indigo-100 transition-colors"
+      className="w-14 h-7 rounded-full p-1 bg-indigo-200 dark:bg-slate-700 transition-colors"
       aria-label="Toggle theme"
     >
       <motion.div

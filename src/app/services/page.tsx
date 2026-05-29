@@ -110,7 +110,10 @@ export default function Services() {
             transition={{ delay: 0.2 }}
             className="text-lg md:text-xl max-w-3xl mx-auto text-slate-600 dark:text-gray-400"
           >
-            From concept to deployment, we offer end-to-end digital solutions.
+            From concept to deployment, we offer end-to-end solutions custom
+            websites, web applications, e-commerce stores, performance
+            optimization, UI/UX design, and IT consulting. Each service is
+            delivered using modern frameworks and best practices.
           </motion.p>
         </div>
 

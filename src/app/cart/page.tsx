@@ -30,6 +30,9 @@ export default function CartPage() {
       <div className="w-full max-w-4xl border-2 border-slate-300 rounded p-4">
         <div className="border-b border-slate-300">
           <h1 className="text-3xl font-bold mb-4">Items in cart :</h1>
+          <p className="mb-4 text-slate-500 dark:text-gray-400">
+            Review your selected products before proceeding. All prices include the base amount and applicable GST at 18%. You can remove items or continue browsing the shop to add more products.
+          </p>
         </div>
         {cart.length === 0 ? (
           <p className="w-full text-center mt-4 text-slate-500 dark:text-slate-300">

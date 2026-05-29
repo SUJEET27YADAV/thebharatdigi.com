@@ -141,9 +141,9 @@ export default function Navbar() {
             ))}
           </ul>
         </div>
-        <div className="flex items-center justify-center gap-4">
+        <div className="flex items-center justify-center gap-8">
           <button
-            className="relative flex items-center justify-center"
+            className="relative p-2 flex items-center justify-center rounded-full bg-indigo-200 dark:bg-slate-700"
             onClick={() => {
               if (cart.length === 0) {
                 toast.error(
@@ -154,7 +154,7 @@ export default function Navbar() {
               }
             }}
           >
-            <ShoppingCart size={24} className="text-gray-500 dark:text-white" />
+            <ShoppingCart size={20} className="text-gray-500 dark:text-white" />
             {cart.length > 0 && (
               <div className="absolute -top-1 left-1/2 -translate-x-[40%] w-4 h-4 flex items-center justify-center bg-red-500 rounded-full text-xs font-medium">
                 {cart.length}
