@@ -13,8 +13,8 @@ export default function Home() {
   return (
     <main className="w-full max-w-7xl mx-auto overflow-x-hidden font-sans flex flex-col items-center gap-6 px-6 py-20 sm:p-20">
       <h1 className="text-4xl flex flex-col items-center font-bold text-center">
-        <span>Welcome to</span>
-        <span>The Bharat Digital !</span>
+        <span>Web Development</span>
+        <span>Tutorials &amp; Tools</span>
       </h1>
       <p className="text-slate-600 dark:text-gray-400 text-center max-w-xl">
         Hands-on tutorials and interactive demos to help you explore useful web development tools. Try our password generator for secure credentials, or test the nodemailer integration for sending transactional emails directly from your application.

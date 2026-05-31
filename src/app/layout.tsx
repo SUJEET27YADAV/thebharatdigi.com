@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import Navbar from "@/app/_components/Navbar";
 import Footer from "@/app/_components/Footer";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
-import CustomCursor from "./_components/CustomCursor";
+import "react-toastify/dist/ReactToastify.css";
 import { ThemeProvider } from "@/contexts/ThemeContext";
-import { ToastContainer } from "react-toastify";
+
+const CustomCursor = dynamic(() => import("./_components/CustomCursor"));
+const ToastContainer = dynamic(() => import("react-toastify").then((m) => m.ToastContainer));
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,18 +26,18 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "The Bharat Digital | Web Development, SEO & IT Solutions",
+  title: "The Bharat Digital | Web Development, SEO & IT Solutions Company",
   description:
-    "The Bharat Digital offers premium web development, e-commerce solutions, and IT support across India and globally. 500+ projects delivered since 2015.",
+    "The Bharat Digital is a premium web development company that also offers e-commerce solutions, and IT support across India and globally. 500+ projects delivered worldwide since 2015.",
   robots: "index, follow",
   metadataBase: new URL("https://thebharatdigi.com"),
   alternates: {
     canonical: "https://thebharatdigi.com",
   },
   openGraph: {
-    title: "The Bharat Digital | Web Development, SEO & IT Solutions",
+    title: "The Bharat Digital | Web Development, SEO & IT Solutions Company",
     description:
-      "Premium web development, SEO audit tools, e-commerce solutions, and IT support. 500+ projects delivered worldwide since 2015.",
+      "Premium web development company, that also offers SEO audit tools, e-commerce solutions, and IT support. 500+ projects delivered worldwide since 2015.",
     url: "https://thebharatdigi.com",
     siteName: "The Bharat Digital",
     locale: "en_US",
@@ -50,9 +53,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "The Bharat Digital | Web Development & IT Solutions",
+    title: "The Bharat Digital | Web Development, SEO & IT Solutions Company",
     description:
-      "Premium web development, SEO audit tools, and IT solutions. 500+ projects delivered worldwide.",
+      "Premium web development company, that also offers SEO audit tools, e-commerce solutions, and IT support. 500+ projects delivered worldwide since 2015.",
     images: ["https://thebharatdigi.com/logo.png"],
   },
 };
@@ -84,7 +87,7 @@ export default function RootLayout({
               url: "https://thebharatdigi.com",
               logo: "https://thebharatdigi.com/logo.png",
               description:
-                "Premium web development, SEO audit tools, e-commerce solutions, and IT support across India and globally.",
+                "Premium web development company, that also offers SEO audit tools, e-commerce solutions, and IT support. 500+ projects delivered worldwide since 2015.",
               contactPoint: {
                 "@type": "ContactPoint",
                 telephone: "+91-9999239307",

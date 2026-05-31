@@ -197,8 +197,8 @@ export default function About() {
             transition={{ delay: 0.1 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-slate-900 dark:text-white"
           >
-            Crafting Digital <span className="gradient-text">Excellence</span>{" "}
-            Since 2015
+            Web Development &amp; Digital{" "}
+            <span className="gradient-text">Excellence Since 2015</span>
           </motion.h1>
         </div>
 
@@ -213,13 +213,13 @@ export default function About() {
             {
               icon: Target,
               title: "Our Mission",
-              desc: "To democratize world-class web development by making premium digital solutions accessible to businesses of all sizes.",
+              desc: <>To democratize world-class <strong>web development</strong> by making premium <strong>digital solutions</strong> accessible to businesses of all sizes.</>,
               color: "indigo",
             },
             {
               icon: Eye,
               title: "Our Vision",
-              desc: "To become the most trusted digital partner for businesses worldwide, known for our innovation and reliability.",
+              desc: <>To become the most trusted <strong>digital partner</strong> for businesses worldwide, known for our <strong>innovation</strong> and <strong>reliability</strong>.</>,
               color: "purple",
             },
           ].map((item, i) => (

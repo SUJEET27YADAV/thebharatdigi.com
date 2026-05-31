@@ -73,6 +73,7 @@ export default function ProductPage() {
                 alt={product.name}
                 width={1024}
                 height={1024}
+                loading="lazy"
                 className="object-contain"
               />
             </div>

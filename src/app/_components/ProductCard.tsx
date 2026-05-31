@@ -47,6 +47,7 @@ export default function ProductCard({ product }: { product: Product }) {
           alt={product.name}
           width={500}
           height={500}
+          loading="lazy"
           className="w-full object-cover"
         />
       </div>

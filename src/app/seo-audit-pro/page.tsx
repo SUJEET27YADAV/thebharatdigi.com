@@ -151,6 +151,7 @@ export default function SEOAuditProPage() {
             className="text-5xl md:text-7xl font-bold text-[#020617] dark:text-white mb-6"
           >
             <span className="gradient-text">SEO Audit Pro</span>
+            <span> — Search Engine Optimization Tool</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}

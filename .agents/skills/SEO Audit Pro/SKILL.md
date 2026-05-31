@@ -4,7 +4,7 @@
 > Target: https://www.thebharatdigi.com
 > Audit Date: 2026-05-29
 > Overall SEO Score: 84/100 (Grade B)
-> Pages Analyzed: undefined
+> Pages Analyzed: 10
 
 ---
 
@@ -21,14 +21,14 @@ Apply these changes in order of priority: **Critical → Warning → Info**.
 | Severity | Count | Action Required |
 |----------|-------|-----------------|
 | 🔴 Critical | 0 | Fix immediately — these block ranking |
-| 🟡 Warning | 56 | Address within next sprint |
-| 🔵 Info | 16 | Optimize for continued improvement |
+| 🟡 Warning | 53 | Address within next sprint |
+| 🔵 Info | 20 | Optimize for continued improvement |
 
 ---
 
 ## Score Breakdown
 
-| 🟢 Meta Tags & Headings | 90/100 |
+| 🟢 Meta Tags & Headings | 89/100 |
 | 🟡 Performance & Core Web Vitals | 70/100 |
 | 🟢 Links & Indexing | 84/100 |
 | 🟢 Content & Keyword Analysis | 84/100 |
@@ -62,7 +62,7 @@ _No critical issues found._
 | Field | Value |
 |-------|-------|
 | Category | Meta Tags & Headings |
-| Page | https://thebharatdigi.com |
+| Page | https://www.thebharatdigi.com/ |
 | Recommended Fix | Align the <h1> and <title> tags around the primary keyword. |
 
 - [ ] Review and apply the recommended fix
@@ -73,7 +73,7 @@ _No critical issues found._
 | Field | Value |
 |-------|-------|
 | Category | Meta Tags & Headings |
-| Page | https://thebharatdigi.com/aboutus |
+| Page | https://www.thebharatdigi.com/services |
 | Recommended Fix | Align the <h1> and <title> tags around the primary keyword. |
 
 - [ ] Review and apply the recommended fix
@@ -84,7 +84,7 @@ _No critical issues found._
 | Field | Value |
 |-------|-------|
 | Category | Meta Tags & Headings |
-| Page | https://thebharatdigi.com/contactus |
+| Page | https://www.thebharatdigi.com/aboutus |
 | Recommended Fix | Align the <h1> and <title> tags around the primary keyword. |
 
 - [ ] Review and apply the recommended fix
@@ -95,7 +95,7 @@ _No critical issues found._
 | Field | Value |
 |-------|-------|
 | Category | Meta Tags & Headings |
-| Page | https://thebharatdigi.com/shop |
+| Page | https://www.thebharatdigi.com/portfolio |
 | Recommended Fix | Align the <h1> and <title> tags around the primary keyword. |
 
 - [ ] Review and apply the recommended fix
@@ -106,7 +106,7 @@ _No critical issues found._
 | Field | Value |
 |-------|-------|
 | Category | Meta Tags & Headings |
-| Page | https://thebharatdigi.com/services |
+| Page | https://www.thebharatdigi.com/contactus |
 | Recommended Fix | Align the <h1> and <title> tags around the primary keyword. |
 
 - [ ] Review and apply the recommended fix
@@ -117,7 +117,7 @@ _No critical issues found._
 | Field | Value |
 |-------|-------|
 | Category | Meta Tags & Headings |
-| Page | https://thebharatdigi.com/portfolio |
+| Page | https://www.thebharatdigi.com/seo-audit-pro |
 | Recommended Fix | Align the <h1> and <title> tags around the primary keyword. |
 
 - [ ] Review and apply the recommended fix
@@ -128,19 +128,19 @@ _No critical issues found._
 | Field | Value |
 |-------|-------|
 | Category | Meta Tags & Headings |
-| Page | https://thebharatdigi.com/tutorials |
+| Page | https://www.thebharatdigi.com/shop |
 | Recommended Fix | Align the <h1> and <title> tags around the primary keyword. |
 
 - [ ] Review and apply the recommended fix
 
 
-### 9. <h1> and <title> don't share core keywords
+### 9. Multiple <h1> tags (4)
 
 | Field | Value |
 |-------|-------|
 | Category | Meta Tags & Headings |
-| Page | https://thebharatdigi.com/cart |
-| Recommended Fix | Align the <h1> and <title> tags around the primary keyword. |
+| Page | https://www.thebharatdigi.com/privacypolicy |
+| Recommended Fix | Use only one <h1> tag per page. |
 
 - [ ] Review and apply the recommended fix
 
@@ -150,13 +150,24 @@ _No critical issues found._
 | Field | Value |
 |-------|-------|
 | Category | Meta Tags & Headings |
-| Page | https://thebharatdigi.com/nodemailer |
+| Page | https://www.thebharatdigi.com/privacypolicy |
 | Recommended Fix | Align the <h1> and <title> tags around the primary keyword. |
 
 - [ ] Review and apply the recommended fix
 
 
-### 11. 33 script tags (22 external)
+### 11. <h1> and <title> don't share core keywords
+
+| Field | Value |
+|-------|-------|
+| Category | Meta Tags & Headings |
+| Page | https://www.thebharatdigi.com/termsandconditions |
+| Recommended Fix | Align the <h1> and <title> tags around the primary keyword. |
+
+- [ ] Review and apply the recommended fix
+
+
+### 12. 33 script tags (22 external)
 
 | Field | Value |
 |-------|-------|
@@ -167,35 +178,24 @@ _No critical issues found._
 - [ ] Review and apply the recommended fix
 
 
-### 12. 33 script tags (22 external)
+### 13. 33 script tags (22 external)
 
 | Field | Value |
 |-------|-------|
 | Category | Performance & Core Web Vitals |
-| Page | https://thebharatdigi.com |
+| Page | https://www.thebharatdigi.com/ |
 | Recommended Fix | Reduce number of scripts. Combine, defer, or lazy-load non-critical scripts. |
 
 - [ ] Review and apply the recommended fix
 
 
-### 13. No content compression detected
+### 14. No content compression detected
 
 | Field | Value |
 |-------|-------|
 | Category | Performance & Core Web Vitals |
-| Page | https://thebharatdigi.com |
+| Page | https://www.thebharatdigi.com/ |
 | Recommended Fix | Enable Gzip or Brotli compression on the server. |
-
-- [ ] Review and apply the recommended fix
-
-
-### 14. 32 script tags (22 external)
-
-| Field | Value |
-|-------|-------|
-| Category | Performance & Core Web Vitals |
-| Page | https://thebharatdigi.com/aboutus |
-| Recommended Fix | Reduce number of scripts. Combine, defer, or lazy-load non-critical scripts. |
 
 - [ ] Review and apply the recommended fix
 
@@ -205,7 +205,7 @@ _No critical issues found._
 | Field | Value |
 |-------|-------|
 | Category | Performance & Core Web Vitals |
-| Page | https://thebharatdigi.com/contactus |
+| Page | https://www.thebharatdigi.com/services |
 | Recommended Fix | Reduce number of scripts. Combine, defer, or lazy-load non-critical scripts. |
 
 - [ ] Review and apply the recommended fix
@@ -216,7 +216,7 @@ _No critical issues found._
 | Field | Value |
 |-------|-------|
 | Category | Performance & Core Web Vitals |
-| Page | https://thebharatdigi.com/shop |
+| Page | https://www.thebharatdigi.com/aboutus |
 | Recommended Fix | Reduce number of scripts. Combine, defer, or lazy-load non-critical scripts. |
 
 - [ ] Review and apply the recommended fix
@@ -227,7 +227,7 @@ _No critical issues found._
 | Field | Value |
 |-------|-------|
 | Category | Performance & Core Web Vitals |
-| Page | https://thebharatdigi.com/services |
+| Page | https://www.thebharatdigi.com/portfolio |
 | Recommended Fix | Reduce number of scripts. Combine, defer, or lazy-load non-critical scripts. |
 
 - [ ] Review and apply the recommended fix
@@ -238,162 +238,162 @@ _No critical issues found._
 | Field | Value |
 |-------|-------|
 | Category | Performance & Core Web Vitals |
-| Page | https://thebharatdigi.com/portfolio |
+| Page | https://www.thebharatdigi.com/contactus |
 | Recommended Fix | Reduce number of scripts. Combine, defer, or lazy-load non-critical scripts. |
 
 - [ ] Review and apply the recommended fix
 
 
-### 19. 35 script tags (24 external)
+### 19. 32 script tags (22 external)
 
 | Field | Value |
 |-------|-------|
 | Category | Performance & Core Web Vitals |
-| Page | https://thebharatdigi.com/tutorials |
+| Page | https://www.thebharatdigi.com/seo-audit-pro |
 | Recommended Fix | Reduce number of scripts. Combine, defer, or lazy-load non-critical scripts. |
 
 - [ ] Review and apply the recommended fix
 
 
-### 20. 33 script tags (23 external)
+### 20. 32 script tags (22 external)
 
 | Field | Value |
 |-------|-------|
 | Category | Performance & Core Web Vitals |
-| Page | https://thebharatdigi.com/cart |
+| Page | https://www.thebharatdigi.com/shop |
 | Recommended Fix | Reduce number of scripts. Combine, defer, or lazy-load non-critical scripts. |
 
 - [ ] Review and apply the recommended fix
 
 
-### 21. 33 script tags (23 external)
+### 21. 41 script tags (22 external)
 
 | Field | Value |
 |-------|-------|
 | Category | Performance & Core Web Vitals |
-| Page | https://thebharatdigi.com/nodemailer |
+| Page | https://www.thebharatdigi.com/privacypolicy |
 | Recommended Fix | Reduce number of scripts. Combine, defer, or lazy-load non-critical scripts. |
 
 - [ ] Review and apply the recommended fix
 
 
-### 22. Low word count: 263 words (recommended: 300+)
+### 22. 35 script tags (22 external)
+
+| Field | Value |
+|-------|-------|
+| Category | Performance & Core Web Vitals |
+| Page | https://www.thebharatdigi.com/termsandconditions |
+| Recommended Fix | Reduce number of scripts. Combine, defer, or lazy-load non-critical scripts. |
+
+- [ ] Review and apply the recommended fix
+
+
+### 23. Low word count: 121 words (recommended: 300+)
 
 | Field | Value |
 |-------|-------|
 | Category | Content & Keyword Analysis |
-| Page | https://thebharatdigi.com/aboutus |
+| Page | https://www.thebharatdigi.com/services |
 | Recommended Fix | Expand content to at least 300 words for better search engine ranking. |
 
 - [ ] Review and apply the recommended fix
 
 
-### 23. Low word count: 236 words (recommended: 300+)
+### 24. Low word count: 263 words (recommended: 300+)
 
 | Field | Value |
 |-------|-------|
 | Category | Content & Keyword Analysis |
-| Page | https://thebharatdigi.com/contactus |
+| Page | https://www.thebharatdigi.com/aboutus |
 | Recommended Fix | Expand content to at least 300 words for better search engine ranking. |
 
 - [ ] Review and apply the recommended fix
 
 
-### 24. Low word count: 70 words (recommended: 300+)
+### 25. Low word count: 121 words (recommended: 300+)
 
 | Field | Value |
 |-------|-------|
 | Category | Content & Keyword Analysis |
-| Page | https://thebharatdigi.com/shop |
+| Page | https://www.thebharatdigi.com/portfolio |
 | Recommended Fix | Expand content to at least 300 words for better search engine ranking. |
 
 - [ ] Review and apply the recommended fix
 
 
-### 25. Low word count: 99 words (recommended: 300+)
+### 26. Low word count: 236 words (recommended: 300+)
 
 | Field | Value |
 |-------|-------|
 | Category | Content & Keyword Analysis |
-| Page | https://thebharatdigi.com/services |
+| Page | https://www.thebharatdigi.com/contactus |
 | Recommended Fix | Expand content to at least 300 words for better search engine ranking. |
 
 - [ ] Review and apply the recommended fix
 
 
-### 26. Possible keyword stuffing: "digital" appears 5 times (5.4%)
+### 27. Low word count: 297 words (recommended: 300+)
 
 | Field | Value |
 |-------|-------|
 | Category | Content & Keyword Analysis |
-| Page | https://thebharatdigi.com/services |
+| Page | https://www.thebharatdigi.com/seo-audit-pro |
+| Recommended Fix | Expand content to at least 300 words for better search engine ranking. |
+
+- [ ] Review and apply the recommended fix
+
+
+### 28. Possible keyword stuffing: "the" appears 120 times (7.0%)
+
+| Field | Value |
+|-------|-------|
+| Category | Content & Keyword Analysis |
+| Page | https://www.thebharatdigi.com/privacypolicy |
 | Recommended Fix | Reduce usage of top keywords. Maintain natural keyword density (1-3%). |
 
 - [ ] Review and apply the recommended fix
 
 
-### 27. Low word count: 88 words (recommended: 300+)
+### 29. Possible keyword stuffing: "the" appears 61 times (7.6%)
 
 | Field | Value |
 |-------|-------|
 | Category | Content & Keyword Analysis |
-| Page | https://thebharatdigi.com/portfolio |
-| Recommended Fix | Expand content to at least 300 words for better search engine ranking. |
-
-- [ ] Review and apply the recommended fix
-
-
-### 28. Low word count: 65 words (recommended: 300+)
-
-| Field | Value |
-|-------|-------|
-| Category | Content & Keyword Analysis |
-| Page | https://thebharatdigi.com/tutorials |
-| Recommended Fix | Expand content to at least 300 words for better search engine ranking. |
-
-- [ ] Review and apply the recommended fix
-
-
-### 29. Possible keyword stuffing: "bharat" appears 4 times (6.5%)
-
-| Field | Value |
-|-------|-------|
-| Category | Content & Keyword Analysis |
-| Page | https://thebharatdigi.com/tutorials |
+| Page | https://www.thebharatdigi.com/termsandconditions |
 | Recommended Fix | Reduce usage of top keywords. Maintain natural keyword density (1-3%). |
 
 - [ ] Review and apply the recommended fix
 
 
-### 30. Low word count: 74 words (recommended: 300+)
+### 30. <50% of images use modern formats (WebP/AVIF)
 
 | Field | Value |
 |-------|-------|
-| Category | Content & Keyword Analysis |
-| Page | https://thebharatdigi.com/cart |
-| Recommended Fix | Expand content to at least 300 words for better search engine ranking. |
+| Category | Images & Media |
+| Page | https://www.thebharatdigi.com |
+| Recommended Fix | Serve images in WebP or AVIF format for smaller file sizes. |
 
 - [ ] Review and apply the recommended fix
 
 
-### 31. Low word count: 82 words (recommended: 300+)
+### 31. <50% of images use modern formats (WebP/AVIF)
 
 | Field | Value |
 |-------|-------|
-| Category | Content & Keyword Analysis |
-| Page | https://thebharatdigi.com/nodemailer |
-| Recommended Fix | Expand content to at least 300 words for better search engine ranking. |
+| Category | Images & Media |
+| Page | https://www.thebharatdigi.com/ |
+| Recommended Fix | Serve images in WebP or AVIF format for smaller file sizes. |
 
 - [ ] Review and apply the recommended fix
 
 
-### 32. Possible keyword stuffing: "bharat" appears 4 times (5.4%)
+### 32. <50% of images use modern formats (WebP/AVIF)
 
 | Field | Value |
 |-------|-------|
-| Category | Content & Keyword Analysis |
-| Page | https://thebharatdigi.com/nodemailer |
-| Recommended Fix | Reduce usage of top keywords. Maintain natural keyword density (1-3%). |
+| Category | Images & Media |
+| Page | https://www.thebharatdigi.com/services |
+| Recommended Fix | Serve images in WebP or AVIF format for smaller file sizes. |
 
 - [ ] Review and apply the recommended fix
 
@@ -403,7 +403,7 @@ _No critical issues found._
 | Field | Value |
 |-------|-------|
 | Category | Images & Media |
-| Page | https://www.thebharatdigi.com |
+| Page | https://www.thebharatdigi.com/aboutus |
 | Recommended Fix | Serve images in WebP or AVIF format for smaller file sizes. |
 
 - [ ] Review and apply the recommended fix
@@ -414,7 +414,7 @@ _No critical issues found._
 | Field | Value |
 |-------|-------|
 | Category | Images & Media |
-| Page | https://thebharatdigi.com |
+| Page | https://www.thebharatdigi.com/portfolio |
 | Recommended Fix | Serve images in WebP or AVIF format for smaller file sizes. |
 
 - [ ] Review and apply the recommended fix
@@ -425,7 +425,7 @@ _No critical issues found._
 | Field | Value |
 |-------|-------|
 | Category | Images & Media |
-| Page | https://thebharatdigi.com/aboutus |
+| Page | https://www.thebharatdigi.com/contactus |
 | Recommended Fix | Serve images in WebP or AVIF format for smaller file sizes. |
 
 - [ ] Review and apply the recommended fix
@@ -436,7 +436,7 @@ _No critical issues found._
 | Field | Value |
 |-------|-------|
 | Category | Images & Media |
-| Page | https://thebharatdigi.com/contactus |
+| Page | https://www.thebharatdigi.com/seo-audit-pro |
 | Recommended Fix | Serve images in WebP or AVIF format for smaller file sizes. |
 
 - [ ] Review and apply the recommended fix
@@ -447,7 +447,7 @@ _No critical issues found._
 | Field | Value |
 |-------|-------|
 | Category | Images & Media |
-| Page | https://thebharatdigi.com/shop |
+| Page | https://www.thebharatdigi.com/shop |
 | Recommended Fix | Serve images in WebP or AVIF format for smaller file sizes. |
 
 - [ ] Review and apply the recommended fix
@@ -458,7 +458,7 @@ _No critical issues found._
 | Field | Value |
 |-------|-------|
 | Category | Images & Media |
-| Page | https://thebharatdigi.com/services |
+| Page | https://www.thebharatdigi.com/privacypolicy |
 | Recommended Fix | Serve images in WebP or AVIF format for smaller file sizes. |
 
 - [ ] Review and apply the recommended fix
@@ -469,90 +469,57 @@ _No critical issues found._
 | Field | Value |
 |-------|-------|
 | Category | Images & Media |
-| Page | https://thebharatdigi.com/portfolio |
+| Page | https://www.thebharatdigi.com/termsandconditions |
 | Recommended Fix | Serve images in WebP or AVIF format for smaller file sizes. |
 
 - [ ] Review and apply the recommended fix
 
 
-### 40. <50% of images use modern formats (WebP/AVIF)
-
-| Field | Value |
-|-------|-------|
-| Category | Images & Media |
-| Page | https://thebharatdigi.com/tutorials |
-| Recommended Fix | Serve images in WebP or AVIF format for smaller file sizes. |
-
-- [ ] Review and apply the recommended fix
-
-
-### 41. <50% of images use modern formats (WebP/AVIF)
-
-| Field | Value |
-|-------|-------|
-| Category | Images & Media |
-| Page | https://thebharatdigi.com/cart |
-| Recommended Fix | Serve images in WebP or AVIF format for smaller file sizes. |
-
-- [ ] Review and apply the recommended fix
-
-
-### 42. <50% of images use modern formats (WebP/AVIF)
-
-| Field | Value |
-|-------|-------|
-| Category | Images & Media |
-| Page | https://thebharatdigi.com/nodemailer |
-| Recommended Fix | Serve images in WebP or AVIF format for smaller file sizes. |
-
-- [ ] Review and apply the recommended fix
-
-
-### 43. Missing HSTS (Strict-Transport-Security) header
+### 40. Missing HSTS (Strict-Transport-Security) header
 
 | Field | Value |
 |-------|-------|
 | Category | Security & HTTPS |
-| Page | https://thebharatdigi.com |
+| Page | https://www.thebharatdigi.com/ |
 | Recommended Fix | Add header: Strict-Transport-Security: max-age=31536000; includeSubDomains |
 
 - [ ] Review and apply the recommended fix
 
 
-### 44. Missing X-Content-Type-Options: nosniff header
+### 41. Missing X-Content-Type-Options: nosniff header
 
 | Field | Value |
 |-------|-------|
 | Category | Security & HTTPS |
-| Page | https://thebharatdigi.com |
+| Page | https://www.thebharatdigi.com/ |
 | Recommended Fix | Add header: X-Content-Type-Options: nosniff |
 
 - [ ] Review and apply the recommended fix
 
 
-### 45. Missing X-Frame-Options header (clickjacking risk)
+### 42. Missing X-Frame-Options header (clickjacking risk)
 
 | Field | Value |
 |-------|-------|
 | Category | Security & HTTPS |
-| Page | https://thebharatdigi.com |
+| Page | https://www.thebharatdigi.com/ |
 | Recommended Fix | Add header: X-Frame-Options: SAMEORIGIN or DENY |
 
 - [ ] Review and apply the recommended fix
 
 
-### 46. Missing Content-Security-Policy header
+### 43. Missing Content-Security-Policy header
 
 | Field | Value |
 |-------|-------|
 | Category | Security & HTTPS |
-| Page | https://thebharatdigi.com |
+| Page | https://www.thebharatdigi.com/ |
 | Recommended Fix | Implement a Content-Security-Policy header to prevent XSS attacks. |
 
 - [ ] Review and apply the recommended fix
 
 
-### 47. Missing Tailwind responsive breakpoints: xl, 2xl
+### 44. Missing Tailwind responsive breakpoints: xl, 2xl
 
 | Field | Value |
 |-------|-------|
@@ -563,13 +530,46 @@ _No critical issues found._
 - [ ] Review and apply the recommended fix
 
 
-### 48. Missing Tailwind responsive breakpoints: xl, 2xl
+### 45. Missing Tailwind responsive breakpoints: xl, 2xl
 
 | Field | Value |
 |-------|-------|
 | Category | Mobile Responsiveness |
-| Page | https://thebharatdigi.com |
+| Page | https://www.thebharatdigi.com/ |
 | Recommended Fix | Add responsive variants for missing breakpoints (xl, 2xl) to ensure full responsive coverage across mobile, tablet, and desktop. |
+
+- [ ] Review and apply the recommended fix
+
+
+### 46. Missing Tailwind responsive breakpoints: sm, xl, 2xl
+
+| Field | Value |
+|-------|-------|
+| Category | Mobile Responsiveness |
+| Page | https://www.thebharatdigi.com/services |
+| Recommended Fix | Add responsive variants for missing breakpoints (sm, xl, 2xl) to ensure full responsive coverage across mobile, tablet, and desktop. |
+
+- [ ] Review and apply the recommended fix
+
+
+### 47. Missing Tailwind responsive breakpoints: xl, 2xl
+
+| Field | Value |
+|-------|-------|
+| Category | Mobile Responsiveness |
+| Page | https://www.thebharatdigi.com/aboutus |
+| Recommended Fix | Add responsive variants for missing breakpoints (xl, 2xl) to ensure full responsive coverage across mobile, tablet, and desktop. |
+
+- [ ] Review and apply the recommended fix
+
+
+### 48. Missing Tailwind responsive breakpoints: sm, xl, 2xl
+
+| Field | Value |
+|-------|-------|
+| Category | Mobile Responsiveness |
+| Page | https://www.thebharatdigi.com/portfolio |
+| Recommended Fix | Add responsive variants for missing breakpoints (sm, xl, 2xl) to ensure full responsive coverage across mobile, tablet, and desktop. |
 
 - [ ] Review and apply the recommended fix
 
@@ -579,19 +579,19 @@ _No critical issues found._
 | Field | Value |
 |-------|-------|
 | Category | Mobile Responsiveness |
-| Page | https://thebharatdigi.com/aboutus |
+| Page | https://www.thebharatdigi.com/contactus |
 | Recommended Fix | Add responsive variants for missing breakpoints (xl, 2xl) to ensure full responsive coverage across mobile, tablet, and desktop. |
 
 - [ ] Review and apply the recommended fix
 
 
-### 50. Missing Tailwind responsive breakpoints: xl, 2xl
+### 50. Missing Tailwind responsive breakpoints: sm, xl, 2xl
 
 | Field | Value |
 |-------|-------|
 | Category | Mobile Responsiveness |
-| Page | https://thebharatdigi.com/contactus |
-| Recommended Fix | Add responsive variants for missing breakpoints (xl, 2xl) to ensure full responsive coverage across mobile, tablet, and desktop. |
+| Page | https://www.thebharatdigi.com/seo-audit-pro |
+| Recommended Fix | Add responsive variants for missing breakpoints (sm, xl, 2xl) to ensure full responsive coverage across mobile, tablet, and desktop. |
 
 - [ ] Review and apply the recommended fix
 
@@ -601,7 +601,7 @@ _No critical issues found._
 | Field | Value |
 |-------|-------|
 | Category | Mobile Responsiveness |
-| Page | https://thebharatdigi.com/shop |
+| Page | https://www.thebharatdigi.com/shop |
 | Recommended Fix | Add responsive variants for missing breakpoints (sm, xl, 2xl) to ensure full responsive coverage across mobile, tablet, and desktop. |
 
 - [ ] Review and apply the recommended fix
@@ -612,7 +612,7 @@ _No critical issues found._
 | Field | Value |
 |-------|-------|
 | Category | Mobile Responsiveness |
-| Page | https://thebharatdigi.com/services |
+| Page | https://www.thebharatdigi.com/privacypolicy |
 | Recommended Fix | Add responsive variants for missing breakpoints (sm, xl, 2xl) to ensure full responsive coverage across mobile, tablet, and desktop. |
 
 - [ ] Review and apply the recommended fix
@@ -623,41 +623,8 @@ _No critical issues found._
 | Field | Value |
 |-------|-------|
 | Category | Mobile Responsiveness |
-| Page | https://thebharatdigi.com/portfolio |
+| Page | https://www.thebharatdigi.com/termsandconditions |
 | Recommended Fix | Add responsive variants for missing breakpoints (sm, xl, 2xl) to ensure full responsive coverage across mobile, tablet, and desktop. |
-
-- [ ] Review and apply the recommended fix
-
-
-### 54. Missing Tailwind responsive breakpoints: xl, 2xl
-
-| Field | Value |
-|-------|-------|
-| Category | Mobile Responsiveness |
-| Page | https://thebharatdigi.com/tutorials |
-| Recommended Fix | Add responsive variants for missing breakpoints (xl, 2xl) to ensure full responsive coverage across mobile, tablet, and desktop. |
-
-- [ ] Review and apply the recommended fix
-
-
-### 55. Missing Tailwind responsive breakpoints: sm, xl, 2xl
-
-| Field | Value |
-|-------|-------|
-| Category | Mobile Responsiveness |
-| Page | https://thebharatdigi.com/cart |
-| Recommended Fix | Add responsive variants for missing breakpoints (sm, xl, 2xl) to ensure full responsive coverage across mobile, tablet, and desktop. |
-
-- [ ] Review and apply the recommended fix
-
-
-### 56. Missing Tailwind responsive breakpoints: xl, 2xl
-
-| Field | Value |
-|-------|-------|
-| Category | Mobile Responsiveness |
-| Page | https://thebharatdigi.com/nodemailer |
-| Recommended Fix | Add responsive variants for missing breakpoints (xl, 2xl) to ensure full responsive coverage across mobile, tablet, and desktop. |
 
 - [ ] Review and apply the recommended fix
 
@@ -668,49 +635,61 @@ _No critical issues found._
 - **Performance & Core Web Vitals** (https://www.thebharatdigi.com): Move inline CSS to external stylesheets for better caching.
 
 
-- **Performance & Core Web Vitals** (https://thebharatdigi.com): Move inline CSS to external stylesheets for better caching.
+- **Performance & Core Web Vitals** (https://www.thebharatdigi.com/): Move inline CSS to external stylesheets for better caching.
 
 
-- **Performance & Core Web Vitals** (https://thebharatdigi.com/aboutus): Move inline CSS to external stylesheets for better caching.
+- **Performance & Core Web Vitals** (https://www.thebharatdigi.com/services): Move inline CSS to external stylesheets for better caching.
 
 
-- **Performance & Core Web Vitals** (https://thebharatdigi.com/contactus): Move inline CSS to external stylesheets for better caching.
+- **Performance & Core Web Vitals** (https://www.thebharatdigi.com/aboutus): Move inline CSS to external stylesheets for better caching.
 
 
-- **Performance & Core Web Vitals** (https://thebharatdigi.com/shop): Move inline CSS to external stylesheets for better caching.
+- **Performance & Core Web Vitals** (https://www.thebharatdigi.com/portfolio): Move inline CSS to external stylesheets for better caching.
 
 
-- **Performance & Core Web Vitals** (https://thebharatdigi.com/services): Move inline CSS to external stylesheets for better caching.
+- **Performance & Core Web Vitals** (https://www.thebharatdigi.com/contactus): Move inline CSS to external stylesheets for better caching.
 
 
-- **Performance & Core Web Vitals** (https://thebharatdigi.com/portfolio): Move inline CSS to external stylesheets for better caching.
+- **Performance & Core Web Vitals** (https://www.thebharatdigi.com/seo-audit-pro): Move inline CSS to external stylesheets for better caching.
 
 
-- **Performance & Core Web Vitals** (https://thebharatdigi.com/tutorials): Move inline CSS to external stylesheets for better caching.
+- **Performance & Core Web Vitals** (https://www.thebharatdigi.com/shop): Move inline CSS to external stylesheets for better caching.
 
 
-- **Performance & Core Web Vitals** (https://thebharatdigi.com/cart): Move inline CSS to external stylesheets for better caching.
+- **Performance & Core Web Vitals** (https://www.thebharatdigi.com/privacypolicy): Move inline CSS to external stylesheets for better caching.
 
 
-- **Performance & Core Web Vitals** (https://thebharatdigi.com/nodemailer): Move inline CSS to external stylesheets for better caching.
+- **Performance & Core Web Vitals** (https://www.thebharatdigi.com/termsandconditions): Move inline CSS to external stylesheets for better caching.
 
 
-- **Links & Indexing** (https://thebharatdigi.com/contactus): Add rel="nofollow" or rel="sponsored" to external links.
+- **Links & Indexing** (https://www.thebharatdigi.com/contactus): Add rel="nofollow" or rel="sponsored" to external links.
 
 
-- **Content & Keyword Analysis** (https://thebharatdigi.com/aboutus): Highlight key terms with <strong> to improve skimming and keyword prominence.
+- **Content & Keyword Analysis** (https://www.thebharatdigi.com/aboutus): Highlight key terms with <strong> to improve skimming and keyword prominence.
 
 
-- **Content & Keyword Analysis** (https://thebharatdigi.com/contactus): Highlight key terms with <strong> to improve skimming and keyword prominence.
+- **Content & Keyword Analysis** (https://www.thebharatdigi.com/contactus): Highlight key terms with <strong> to improve skimming and keyword prominence.
 
 
-- **Security & HTTPS** (https://thebharatdigi.com): Add header: X-XSS-Protection: 1; mode=block
+- **Content & Keyword Analysis** (https://www.thebharatdigi.com/seo-audit-pro): Highlight key terms with <strong> to improve skimming and keyword prominence.
 
 
-- **Security & HTTPS** (https://thebharatdigi.com): Add header: Referrer-Policy: strict-origin-when-cross-origin
+- **Content & Keyword Analysis** (https://www.thebharatdigi.com/shop): Highlight key terms with <strong> to improve skimming and keyword prominence.
 
 
-- **Security & HTTPS** (https://thebharatdigi.com): Add a Permissions-Policy header to control browser features.
+- **Content & Keyword Analysis** (https://www.thebharatdigi.com/privacypolicy): Highlight key terms with <strong> to improve skimming and keyword prominence.
+
+
+- **Content & Keyword Analysis** (https://www.thebharatdigi.com/termsandconditions): Highlight key terms with <strong> to improve skimming and keyword prominence.
+
+
+- **Security & HTTPS** (https://www.thebharatdigi.com/): Add header: X-XSS-Protection: 1; mode=block
+
+
+- **Security & HTTPS** (https://www.thebharatdigi.com/): Add header: Referrer-Policy: strict-origin-when-cross-origin
+
+
+- **Security & HTTPS** (https://www.thebharatdigi.com/): Add a Permissions-Policy header to control browser features.
 
 
 ---
@@ -760,4 +739,4 @@ npx seo-audit-pro audit https://www.thebharatdigi.com --output ./reports
 ```
 
 > Generated by **SEO Audit Pro** — The Bharat Digital
-> Report: 2026-05-29T10:45:02.169Z
+> Report: 2026-05-29T18:28:07.974Z

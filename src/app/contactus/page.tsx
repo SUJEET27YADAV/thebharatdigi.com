@@ -60,37 +60,39 @@ const contactMethods = [
   },
 ];
 
-const features = [
+interface FeatureItem { icon: React.ComponentType<{ className?: string }>; title: string; desc: string | React.ReactNode }
+const features: FeatureItem[] = [
   {
     icon: Clock,
     title: "Quick Response",
-    desc: "Queries get replied within 24 hours",
+    desc: <>Queries get replied within <strong>24 hours</strong></>,
   },
   {
     icon: Headphones,
     title: "Dedicated Support",
-    desc: "Personal project manager asistance 24/7",
+    desc: <>Personal project manager assistance <strong>24/7</strong></>,
   },
-  { icon: Zap, title: "Fast Delivery", desc: "On-time/before-time completion" },
-  { icon: Shield, title: "Secure Process", desc: "NDA & data protection" },
+  { icon: Zap, title: "Fast Delivery", desc: <><strong>On-time</strong>/before-time completion</> },
+  { icon: Shield, title: "Secure Process", desc: <><strong>NDA</strong> & data protection</> },
 ];
 
-const faqs = [
+interface FaqItem { q: string; a: string | React.ReactNode }
+const faqs: FaqItem[] = [
   {
     q: "How long does a typical project take?",
-    a: "Project timelines can vary. A simple website may take 1-3 weeks and a complex web apps may take 2-3 months.",
+    a: <>Project timelines can vary. A simple <strong>website</strong> may take 1-3 weeks and complex <strong>web apps</strong> may take 2-3 months.</>,
   },
   {
     q: "What is your pricing structure?",
-    a: "We offer flexible pricing structure based on client's requirements. Contact us to get a free quote tailored for your needs.",
+    a: <>We offer flexible pricing structure based on client's requirements. Contact us to get a <strong>free quote</strong> tailored for your needs.</>,
   },
   {
     q: "Do you provide ongoing support?",
-    a: "Yes ofcourse! We offer anual maintenance packages, that include one major update, and some regular updates for security patches, and 24/7 live support on call, whatsapp or email.",
+    a: <>Yes ofcourse! We offer <strong>annual maintenance packages</strong>, that include one major update, and some regular updates for security patches, and <strong>24/7 live support</strong> on call, whatsapp or email.</>,
   },
   {
     q: "Can you work with our existing team?",
-    a: "Absolutely. We can seamlessly integrate with your existing team, depending upon your requirement, whether you need just a design, a complete development or expertise in a specific task.",
+    a: <>Absolutely. We can seamlessly integrate with your existing team, depending upon your requirement, whether you need just a <strong>design</strong>, a complete <strong>development</strong> or expertise in a specific task.</>,
   },
 ];
 
@@ -182,7 +184,7 @@ export default function Contact() {
             className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-slate-900 dark:text-white"
           >
             Let&apos;s Build Your{" "}
-            <span className="gradient-text">Digital Vision Together</span>
+            <span className="gradient-text">Digital &amp; IT Vision</span>
           </motion.h1>
           <p className="text-lg">
             Ready to transform your valuable vision into a digital
@@ -530,6 +532,7 @@ export default function Contact() {
               </p>
               <a
                 href="https://wa.me/919999239307"
+                rel="nofollow"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded bg-green-500 text-white font-semibold hover:bg-green-600 transition-all"
               >
                 <MessageSquare className="w-4 h-4" />
@@ -613,6 +616,7 @@ export default function Contact() {
               </a>
               <a
                 href="https://wa.me/919999239307"
+                rel="nofollow"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded border border-slate-600 font-semibold hover:bg-slate-800 transition-all"
               >
                 <MessageSquare className="w-4 h-4" />

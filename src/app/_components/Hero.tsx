@@ -75,10 +75,11 @@ export default function Hero() {
           Welcome to The Bharat Digital
         </motion.p>
 
-          <h1 className="sr-only">
-            The Bharat Digital — Premium Web Development, SEO Audit Tools & IT
-            Solutions in India for Businesses all over the world.
-          </h1>
+        <h1 className="sr-only">
+          The Bharat Digital — Premium Web Development company, that also offers
+          SEO Audit Tools & IT Solutions in India for Businesses all over the
+          world.
+        </h1>
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

@@ -59,8 +59,8 @@ export default function StorePage() {
           transition={{ delay: 0.1 }}
           className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-slate-900 dark:text-white"
         >
-          <span>Boost your development </span>
-          <span className="gradient-text">experience with our Products</span>
+          <span>Boost Your Web Development </span>
+          <span className="gradient-text">with Our Digital Products</span>
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
