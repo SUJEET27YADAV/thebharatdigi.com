@@ -51,8 +51,12 @@ export default function StorePage() {
             Available Worldwide
           </span>
         </motion.div>
-
-        <motion.h1
+        <h1 className="sr-only">
+          The Bharat Digital — "Premium Web Development Company that offers SEO
+          Audit Tools, e-commerce solutions, IT support & much more for
+          Businesses all over the world.
+        </h1>
+        <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -61,7 +65,7 @@ export default function StorePage() {
         >
           <span>Boost Your Web Development </span>
           <span className="gradient-text">with Our Digital Products</span>
-        </motion.h1>
+        </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

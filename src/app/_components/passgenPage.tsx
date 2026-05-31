@@ -19,9 +19,14 @@ export default function PassgenPage({ action }: PassgenPageProps) {
 
   return (
     <main className="w-full flex flex-col items-center gap-4 px-6 py-24 sm:py-33">
-      <h1 className="text-2xl 2xstext-3xl xs:text-4xl font-bold">
-        Password Generator
+      <h1 className="sr-only">
+        The Bharat Digital — "Premium Web Development Company that offers SEO
+        Audit Tools, e-commerce solutions, IT support & much more for Businesses
+        all over the world.
       </h1>
+      <h2 className="text-2xl 2xstext-3xl xs:text-4xl font-bold">
+        Password Generator
+      </h2>
       <div className="w-full max-w-md space-y-3">
         <form
           action={formAction}

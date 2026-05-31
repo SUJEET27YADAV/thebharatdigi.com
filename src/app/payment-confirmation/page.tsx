@@ -44,9 +44,14 @@ export default function ConfirmationPage() {
     return (
       <div className="w-full min-h-[90vh] flex items-center justify-center px-4 sm:px-16 py-24 bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900">
         <div className="w-full max-w-xl flex flex-col items-center justify-center gap-8 sm:gap-16 px-4 py-8 sm:p-16 bg-gray-400/30 dark:bg-gray-900/30 rounded">
-          <h1 className="w-full text-center text-2xl font-bold">
-            Payment Confirmation
+          <h1 className="sr-only">
+            The Bharat Digital — "Premium Web Development Company that offers
+            SEO Audit Tools, e-commerce solutions, IT support & much more for
+            Businesses all over the world.
           </h1>
+          <h2 className="w-full text-center text-2xl font-bold">
+            Payment Confirmation
+          </h2>
           <div className="w-30 h-30 aspect-square bg-red-500 flex items-center justify-center rounded-full text-white">
             <X className="w-24 h-24 font-bold" />
           </div>

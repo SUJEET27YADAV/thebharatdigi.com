@@ -73,9 +73,20 @@ export default function Home() {
 
   return (
     <main className="w-full flex flex-col items-center justify-center p-10 pt-24 gap-4 font-sans">
-      <h1 className="sr-only">Nodemailer - Email Testing Tool for The Bharat Digital</h1>
+      <h1 className="sr-only">
+        The Bharat Digital — "Premium Web Development Company that offers SEO
+        Audit Tools, e-commerce solutions, IT support & much more for Businesses
+        all over the world.
+      </h1>
+      <h2 className="sr-only">
+        Nodemailer - Email Testing Tool for The Bharat Digital
+      </h2>
       <p className="text-slate-600 dark:text-gray-400 text-center max-w-xl">
-        Test and debug your SMTP email integration with this interactive nodemailer demo. Add recipients, compose a subject and message body, then send test emails through your configured mail transport. Useful for developers building contact forms, notification systems, or transactional email workflows.
+        Test and debug your SMTP email integration with this interactive
+        nodemailer demo. Add recipients, compose a subject and message body,
+        then send test emails through your configured mail transport. Useful for
+        developers building contact forms, notification systems, or
+        transactional email workflows.
       </p>
       <div className="w-full flex items-center justify-center gap-8">
         <Image

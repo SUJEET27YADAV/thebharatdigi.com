@@ -76,9 +76,9 @@ export default function Hero() {
         </motion.p>
 
         <h1 className="sr-only">
-          The Bharat Digital — Premium Web Development company, that also offers
-          SEO Audit Tools & IT Solutions in India for Businesses all over the
-          world.
+          The Bharat Digital — "Premium Web Development Company that offers SEO
+          Audit Tools, e-commerce solutions, IT support & much more for
+          Businesses all over the world.
         </h1>
         <motion.h2
           initial={{ opacity: 0, y: 30 }}

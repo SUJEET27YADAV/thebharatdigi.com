@@ -144,7 +144,12 @@ export default function SEOAuditProPage() {
               v1.0.0 • Production Ready
             </span>
           </motion.div>
-          <motion.h1
+          <h1 className="sr-only">
+            The Bharat Digital — "Premium Web Development Company that offers
+            SEO Audit Tools, e-commerce solutions, IT support & much more for
+            Businesses all over the world.
+          </h1>
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
@@ -152,7 +157,7 @@ export default function SEOAuditProPage() {
           >
             <span className="gradient-text">SEO Audit Pro</span>
             <span> — Search Engine Optimization Tool</span>
-          </motion.h1>
+          </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

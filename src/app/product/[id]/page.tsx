@@ -78,7 +78,12 @@ export default function ProductPage() {
               />
             </div>
             <div className="w-full md:w-3xl space-y-8">
-              <p className="text-4xl font-bold">{product.name}</p>
+              <h1 className="sr-only">
+                The Bharat Digital — "Premium Web Development Company that
+                offers SEO Audit Tools, e-commerce solutions, IT support & much
+                more for Businesses all over the world.
+              </h1>
+              <h2 className="text-4xl font-bold">{product.name}</h2>
               <p className="text-lg">{product.description}</p>
               <div className="flex flex-wrap gap-2 mb-6">
                 {product.features.map((f) => (

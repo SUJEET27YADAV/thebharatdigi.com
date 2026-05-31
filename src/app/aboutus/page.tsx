@@ -189,8 +189,12 @@ export default function About() {
               Our Story
             </span>
           </motion.div>
-
-          <motion.h1
+          <h1 className="sr-only">
+            The Bharat Digital — "Premium Web Development Company that offers
+            SEO Audit Tools, e-commerce solutions, IT support & much more for
+            Businesses all over the world.
+          </h1>
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -199,7 +203,7 @@ export default function About() {
           >
             Web Development &amp; Digital{" "}
             <span className="gradient-text">Excellence Since 2015</span>
-          </motion.h1>
+          </motion.h2>
         </div>
 
         {/* Mission & Vision */}
@@ -213,13 +217,25 @@ export default function About() {
             {
               icon: Target,
               title: "Our Mission",
-              desc: <>To democratize world-class <strong>web development</strong> by making premium <strong>digital solutions</strong> accessible to businesses of all sizes.</>,
+              desc: (
+                <>
+                  To democratize world-class <strong>web development</strong> by
+                  making premium <strong>digital solutions</strong> accessible
+                  to businesses of all sizes.
+                </>
+              ),
               color: "indigo",
             },
             {
               icon: Eye,
               title: "Our Vision",
-              desc: <>To become the most trusted <strong>digital partner</strong> for businesses worldwide, known for our <strong>innovation</strong> and <strong>reliability</strong>.</>,
+              desc: (
+                <>
+                  To become the most trusted <strong>digital partner</strong>{" "}
+                  for businesses worldwide, known for our{" "}
+                  <strong>innovation</strong> and <strong>reliability</strong>.
+                </>
+              ),
               color: "purple",
             },
           ].map((item, i) => (
@@ -237,9 +253,9 @@ export default function About() {
                 >
                   <item.icon className="w-7 h-7" />
                 </div>
-                <h2 className="text-2xl font-bold mb-4 text-slate-900 dark:text-white">
+                <h3 className="text-2xl font-bold mb-4 text-slate-900 dark:text-white">
                   {item.title}
-                </h2>
+                </h3>
                 <p className="text-slate-600 dark:text-gray-400 leading-relaxed">
                   {item.desc}
                 </p>
@@ -290,9 +306,9 @@ export default function About() {
           className="mb-20"
         >
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
+            <h4 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
               Our Core <span className="gradient-text">Values</span>
-            </h2>
+            </h4>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -313,9 +329,9 @@ export default function About() {
                 >
                   <value.icon className="w-7 h-7" />
                 </div>
-                <h3 className="text-xl font-bold mb-2 text-slate-900 dark:text-white">
+                <h5 className="text-xl font-bold mb-2 text-slate-900 dark:text-white">
                   {value.title}
-                </h3>
+                </h5>
                 <p className="text-sm text-slate-600 dark:text-gray-400">
                   {value.desc}
                 </p>
@@ -332,9 +348,9 @@ export default function About() {
           className="mb-20"
         >
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h6 className="text-3xl md:text-4xl font-bold mb-4">
               Our <span className="gradient-text">Journey</span>
-            </h2>
+            </h6>
             <p className="text-gray-400 max-w-2xl mx-auto">
               A decade of growth, learning, and creating digital excellence
             </p>
@@ -394,7 +410,7 @@ export default function About() {
                     >
                       {item.year}
                     </span>
-                    <h4
+                    <h6
                       className={`font-semibold mt-8 mb-1 ${
                         index <= activeTimeline
                           ? "text-black dark:text-white"
@@ -402,7 +418,7 @@ export default function About() {
                       }`}
                     >
                       {item.title}
-                    </h4>
+                    </h6>
                     <p
                       className={`text-xs leading-relaxed ${
                         index === activeTimeline
@@ -441,7 +457,7 @@ export default function About() {
                   <span className="text-indigo-400 text-sm font-bold">
                     {item.year}
                   </span>
-                  <h4 className="font-semibold">{item.title}</h4>
+                  <h6 className="font-semibold">{item.title}</h6>
                   <p className="text-gray-400 text-sm">{item.desc}</p>
                 </div>
               </motion.div>
@@ -500,9 +516,9 @@ export default function About() {
         >
           <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600" />
           <div className="relative px-6 py-16 md:py-20 text-center">
-            <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
+            <h6 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
               Ready to Work With Us?
-            </h3>
+            </h6>
             <p className="text-indigo-100 text-lg md:text-xl max-w-2xl mx-auto mb-10">
               Let&apos;s create something extraordinary together. Your success
               story starts with a simple conversation.

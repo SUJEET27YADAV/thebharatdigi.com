@@ -113,8 +113,12 @@ export default function Portfolio() {
               Our Portfolio
             </span>
           </motion.div>
-
-          <motion.h1
+          <h1 className="sr-only">
+            The Bharat Digital — "Premium Web Development Company that offers
+            SEO Audit Tools, e-commerce solutions, IT support & much more for
+            Businesses all over the world.
+          </h1>
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -123,7 +127,7 @@ export default function Portfolio() {
           >
             Web Development &amp; Digital{" "}
             <span className="gradient-text">Projects That Inspire</span>
-          </motion.h1>
+          </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -131,7 +135,10 @@ export default function Portfolio() {
             transition={{ delay: 0.2 }}
             className="text-lg md:text-xl max-w-3xl mx-auto text-slate-600 dark:text-gray-400"
           >
-            Explore our work across industries including e-commerce, SaaS, healthcare, education, gaming, and IT solutions. Each project showcases our commitment to clean code, modern design, and measurable results for clients worldwide.
+            Explore our work across industries including e-commerce, SaaS,
+            healthcare, education, gaming, and IT solutions. Each project
+            showcases our commitment to clean code, modern design, and
+            measurable results for clients worldwide.
           </motion.p>
         </div>
 
@@ -156,10 +163,10 @@ export default function Portfolio() {
                 onClick={() => setActiveCategory(cat.id)}
                 className={`flex items-center gap-2 px-4 py-2.5 rounded font-medium text-sm transition-all
                            ${
-                              activeCategory === cat.id
-                                ? "bg-indigo-500 text-white"
-                                : "bg-slate-100 dark:bg-slate-800/50 text-slate-600 dark:text-gray-400 border border-slate-200 dark:border-slate-700/50 hover:text-slate-900 dark:hover:text-white"
-                            }`}
+                             activeCategory === cat.id
+                               ? "bg-indigo-500 text-white"
+                               : "bg-slate-100 dark:bg-slate-800/50 text-slate-600 dark:text-gray-400 border border-slate-200 dark:border-slate-700/50 hover:text-slate-900 dark:hover:text-white"
+                           }`}
               >
                 <cat.icon className="w-4 h-4" />
                 {cat.label}
@@ -188,7 +195,7 @@ export default function Portfolio() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.3, delay: index * 0.05 }}
-                   className="group relative rounded overflow-hidden border transition-all duration-300
+                  className="group relative rounded overflow-hidden border transition-all duration-300
                             bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50
                             hover:border-slate-300 dark:hover:border-slate-600/50"
                 >

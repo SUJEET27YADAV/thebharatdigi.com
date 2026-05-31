@@ -3,7 +3,12 @@ import React from "react";
 export default function Page() {
   return (
     <main className="w-full max-w-7xl mx-auto pt-26 flex flex-col items-center gap-4 p-10">
-      <h1 className="text-4xl font-bold">Terms &amp; Conditions</h1>
+      <h1 className="sr-only">
+        The Bharat Digital — "Premium Web Development Company that offers SEO
+        Audit Tools, e-commerce solutions, IT support & much more for Businesses
+        all over the world.
+      </h1>
+      <h2 className="text-4xl font-bold">Terms &amp; Conditions</h2>
       <p>
         This document is an electronic record in terms of Information Technology
         Act, 2000 and rules there under as applicable and the amended provisions

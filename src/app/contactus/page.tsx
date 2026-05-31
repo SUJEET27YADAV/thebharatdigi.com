@@ -60,39 +60,94 @@ const contactMethods = [
   },
 ];
 
-interface FeatureItem { icon: React.ComponentType<{ className?: string }>; title: string; desc: string | React.ReactNode }
+interface FeatureItem {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  desc: string | React.ReactNode;
+}
 const features: FeatureItem[] = [
   {
     icon: Clock,
     title: "Quick Response",
-    desc: <>Queries get replied within <strong>24 hours</strong></>,
+    desc: (
+      <>
+        Queries get replied within <strong>24 hours</strong>
+      </>
+    ),
   },
   {
     icon: Headphones,
     title: "Dedicated Support",
-    desc: <>Personal project manager assistance <strong>24/7</strong></>,
+    desc: (
+      <>
+        Personal project manager assistance <strong>24/7</strong>
+      </>
+    ),
   },
-  { icon: Zap, title: "Fast Delivery", desc: <><strong>On-time</strong>/before-time completion</> },
-  { icon: Shield, title: "Secure Process", desc: <><strong>NDA</strong> & data protection</> },
+  {
+    icon: Zap,
+    title: "Fast Delivery",
+    desc: (
+      <>
+        <strong>On-time</strong>/before-time completion
+      </>
+    ),
+  },
+  {
+    icon: Shield,
+    title: "Secure Process",
+    desc: (
+      <>
+        <strong>NDA</strong> & data protection
+      </>
+    ),
+  },
 ];
 
-interface FaqItem { q: string; a: string | React.ReactNode }
+interface FaqItem {
+  q: string;
+  a: string | React.ReactNode;
+}
 const faqs: FaqItem[] = [
   {
     q: "How long does a typical project take?",
-    a: <>Project timelines can vary. A simple <strong>website</strong> may take 1-3 weeks and complex <strong>web apps</strong> may take 2-3 months.</>,
+    a: (
+      <>
+        Project timelines can vary. A simple <strong>website</strong> may take
+        1-3 weeks and complex <strong>web apps</strong> may take 2-3 months.
+      </>
+    ),
   },
   {
     q: "What is your pricing structure?",
-    a: <>We offer flexible pricing structure based on client's requirements. Contact us to get a <strong>free quote</strong> tailored for your needs.</>,
+    a: (
+      <>
+        We offer flexible pricing structure based on client's requirements.
+        Contact us to get a <strong>free quote</strong> tailored for your needs.
+      </>
+    ),
   },
   {
     q: "Do you provide ongoing support?",
-    a: <>Yes ofcourse! We offer <strong>annual maintenance packages</strong>, that include one major update, and some regular updates for security patches, and <strong>24/7 live support</strong> on call, whatsapp or email.</>,
+    a: (
+      <>
+        Yes ofcourse! We offer <strong>annual maintenance packages</strong>,
+        that include one major update, and some regular updates for security
+        patches, and <strong>24/7 live support</strong> on call, whatsapp or
+        email.
+      </>
+    ),
   },
   {
     q: "Can you work with our existing team?",
-    a: <>Absolutely. We can seamlessly integrate with your existing team, depending upon your requirement, whether you need just a <strong>design</strong>, a complete <strong>development</strong> or expertise in a specific task.</>,
+    a: (
+      <>
+        Absolutely. We can seamlessly integrate with your existing team,
+        depending upon your requirement, whether you need just a{" "}
+        <strong>design</strong>, a complete <strong>development</strong> or
+        expertise in a specific task.
+      </>
+    ),
   },
 ];
 
@@ -175,8 +230,12 @@ export default function Contact() {
               Available Worldwide
             </span>
           </motion.div>
-
-          <motion.h1
+          <h1 className="sr-only">
+            The Bharat Digital — "Premium Web Development Company that offers
+            SEO Audit Tools, e-commerce solutions, IT support & much more for
+            Businesses all over the world.
+          </h1>
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -185,7 +244,7 @@ export default function Contact() {
           >
             Let&apos;s Build Your{" "}
             <span className="gradient-text">Digital &amp; IT Vision</span>
-          </motion.h1>
+          </motion.h2>
           <p className="text-lg">
             Ready to transform your valuable vision into a digital
             infrastucture, contact us using any of the below methods:

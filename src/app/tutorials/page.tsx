@@ -12,12 +12,20 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main className="w-full max-w-7xl mx-auto overflow-x-hidden font-sans flex flex-col items-center gap-6 px-6 py-20 sm:p-20">
-      <h1 className="text-4xl flex flex-col items-center font-bold text-center">
+      <h1 className="sr-only">
+        The Bharat Digital — "Premium Web Development Company that offers SEO
+        Audit Tools, e-commerce solutions, IT support & much more for Businesses
+        all over the world.
+      </h1>
+      <h2 className="text-4xl flex flex-col items-center font-bold text-center">
         <span>Web Development</span>
         <span>Tutorials &amp; Tools</span>
-      </h1>
+      </h2>
       <p className="text-slate-600 dark:text-gray-400 text-center max-w-xl">
-        Hands-on tutorials and interactive demos to help you explore useful web development tools. Try our password generator for secure credentials, or test the nodemailer integration for sending transactional emails directly from your application.
+        Hands-on tutorials and interactive demos to help you explore useful web
+        development tools. Try our password generator for secure credentials, or
+        test the nodemailer integration for sending transactional emails
+        directly from your application.
       </p>
       <div className="w-full max-w-xl flex flex-col gap-3 items-center">
         <h2 className="w-full text-2xl font-semibold">Tutorials with Demo :</h2>

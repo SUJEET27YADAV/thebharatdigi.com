@@ -8,7 +8,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 
 const CustomCursor = dynamic(() => import("./_components/CustomCursor"));
-const ToastContainer = dynamic(() => import("react-toastify").then((m) => m.ToastContainer));
+const ToastContainer = dynamic(() =>
+  import("react-toastify").then((m) => m.ToastContainer),
+);
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,18 +28,18 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "The Bharat Digital | Web Development, SEO & IT Solutions Company",
+  title: "The Bharat Digital | Web Development, SEO & IT Company",
   description:
-    "The Bharat Digital is a premium web development company that also offers e-commerce solutions, and IT support across India and globally. 500+ projects delivered worldwide since 2015.",
+    "The Bharat Digital is a premium web development company that also offers e-commerce solutions, and IT support across the globe. 500+ projects delivered worldwide.",
   robots: "index, follow",
   metadataBase: new URL("https://thebharatdigi.com"),
   alternates: {
     canonical: "https://thebharatdigi.com",
   },
   openGraph: {
-    title: "The Bharat Digital | Web Development, SEO & IT Solutions Company",
+    title: "The Bharat Digital | Web Development, SEO & IT Company",
     description:
-      "Premium web development company, that also offers SEO audit tools, e-commerce solutions, and IT support. 500+ projects delivered worldwide since 2015.",
+      "Premium Web Development Company that offers SEO, e-commerce solutions, IT support & much more across the globe. 500+ projects delivered worldwide.",
     url: "https://thebharatdigi.com",
     siteName: "The Bharat Digital",
     locale: "en_US",
@@ -55,7 +57,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "The Bharat Digital | Web Development, SEO & IT Solutions Company",
     description:
-      "Premium web development company, that also offers SEO audit tools, e-commerce solutions, and IT support. 500+ projects delivered worldwide since 2015.",
+      "Premium Web Development Company that offers SEO, e-commerce solutions, IT support & much more across the globe. 500+ projects delivered worldwide.",
     images: ["https://thebharatdigi.com/logo.png"],
   },
 };
@@ -87,7 +89,7 @@ export default function RootLayout({
               url: "https://thebharatdigi.com",
               logo: "https://thebharatdigi.com/logo.png",
               description:
-                "Premium web development company, that also offers SEO audit tools, e-commerce solutions, and IT support. 500+ projects delivered worldwide since 2015.",
+                "Premium Web Development Company that offers SEO, e-commerce solutions, IT support & much more across the globe. 500+ projects delivered worldwide.",
               contactPoint: {
                 "@type": "ContactPoint",
                 telephone: "+91-9999239307",

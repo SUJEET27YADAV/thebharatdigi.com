@@ -3,12 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
-  Monitor,
-  Smartphone,
-  ShoppingCart,
-  Zap,
   Palette,
-  Settings,
   Check,
   ArrowRight,
   Layers,
@@ -91,8 +86,12 @@ export default function Services() {
               Comprehensive Solutions
             </span>
           </motion.div>
-
-          <motion.h1
+          <h1 className="sr-only">
+            The Bharat Digital — "Premium Web Development Company that offers
+            SEO Audit Tools, e-commerce solutions, IT support & much more for
+            Businesses all over the world.
+          </h1>
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -101,7 +100,7 @@ export default function Services() {
           >
             Web &amp; IT Services That Drive{" "}
             <span className="gradient-text">Digital Success</span>
-          </motion.h1>
+          </motion.h2>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -160,7 +159,7 @@ export default function Services() {
                   transition={{ delay: index * 0.05 }}
                   onMouseEnter={() => setHoveredIndex(index)}
                   onMouseLeave={() => setHoveredIndex(null)}
-                   className="relative group rounded p-6 md:p-8 border cursor-pointer transition-all duration-300
+                  className="relative group rounded p-6 md:p-8 border cursor-pointer transition-all duration-300
                             bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50
                             hover:border-slate-300 dark:hover:border-slate-600/50"
                 >
@@ -180,9 +179,9 @@ export default function Services() {
                     <LucideIcon name={service.icon} />
                   </div>
 
-                  <h2 className="text-xl md:text-2xl font-bold mb-3 text-slate-900 dark:text-white">
+                  <h3 className="text-xl md:text-2xl font-bold mb-3 text-slate-900 dark:text-white">
                     {service.title}
-                  </h2>
+                  </h3>
 
                   <p className="text-sm md:text-base mb-5 leading-relaxed text-slate-600 dark:text-gray-400">
                     {hoveredIndex === index
@@ -221,9 +220,9 @@ export default function Services() {
           className="mb-20"
         >
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">
+            <h4 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">
               Our <span className="gradient-text">Process</span>
-            </h2>
+            </h4>
           </div>
 
           <div className="grid md:grid-cols-4 gap-6">
@@ -263,9 +262,9 @@ export default function Services() {
                       {item.step}
                     </span>
                   </div>
-                  <h3 className="text-xl font-bold mb-2 text-slate-900 dark:text-white">
+                  <h5 className="text-xl font-bold mb-2 text-slate-900 dark:text-white">
                     {item.title}
-                  </h3>
+                  </h5>
                   <p className="text-sm text-slate-600 dark:text-gray-400">
                     {item.desc}
                   </p>
@@ -284,9 +283,9 @@ export default function Services() {
         >
           <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600" />
           <div className="relative px-6 py-16 md:py-20 text-center">
-            <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
+            <h6 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
               Ready to Start Your Project?
-            </h3>
+            </h6>
             <p className="text-indigo-100 text-lg md:text-xl max-w-2xl mx-auto mb-10">
               Let&apos;s discuss how we can help transform your digital
               presence.
