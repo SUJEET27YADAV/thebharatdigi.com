@@ -8,7 +8,7 @@ import HeroBg from "./ui/hero_bg";
 const words = [
   "Innovative Web Solutions",
   "Stunning Websites",
-  "SEO Optimization",
+  "SEO Optimization Tools",
   "E-Commerce Solutions",
   "Digital Experiences",
   "Sustainable Branding",

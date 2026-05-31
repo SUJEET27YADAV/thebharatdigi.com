@@ -98,8 +98,8 @@ export default function Services() {
             transition={{ delay: 0.1 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-slate-900 dark:text-white"
           >
-            Web &amp; IT Services That Drive{" "}
-            <span className="gradient-text">Digital Success</span>
+            Web &amp; IT Services That{" "}
+            <span className="gradient-text">Drive Digital Success</span>
           </motion.h2>
 
           <motion.p
