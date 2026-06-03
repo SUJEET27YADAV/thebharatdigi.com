@@ -94,8 +94,8 @@ export default function Portfolio() {
     >
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 right-10 w-72 h-72 rounded-full bg-indigo-200/50 dark:bg-indigo-500/5" />
-        <div className="absolute bottom-40 left-10 w-96 h-96 rounded-full bg-purple-200/50 dark:bg-purple-500/5" />
+        <div className="absolute top-20 right-10 size-72 rounded-full bg-indigo-200/50 dark:bg-indigo-500/5" />
+        <div className="absolute bottom-40 left-10 size-96 rounded-full bg-purple-200/50 dark:bg-purple-500/5" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 md:px-6">
@@ -108,7 +108,7 @@ export default function Portfolio() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded border mb-6
                        bg-indigo-50 dark:bg-indigo-500/10 border-indigo-200 dark:border-indigo-500/20"
           >
-            <Sparkles className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <Sparkles className="size-4 text-indigo-600 dark:text-indigo-400" />
             <span className="text-indigo-600 dark:text-indigo-400 text-sm font-medium">
               Our Portfolio
             </span>
@@ -150,7 +150,7 @@ export default function Portfolio() {
           className="mb-10"
         >
           <div className="flex items-center gap-2 mb-6">
-            <Filter className="w-5 h-5 text-slate-500 dark:text-gray-400" />
+            <Filter className="size-5 text-slate-500 dark:text-gray-400" />
             <span className="text-slate-500 dark:text-gray-400 font-medium">
               Filter by Category
             </span>
@@ -159,6 +159,7 @@ export default function Portfolio() {
           <div className="flex flex-wrap gap-3">
             {categories.map((cat) => (
               <button
+                type="button"
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
                 className={`flex items-center gap-2 px-4 py-2.5 rounded font-medium text-sm transition-all
@@ -168,7 +169,7 @@ export default function Portfolio() {
                                : "bg-slate-100 dark:bg-slate-800/50 text-slate-600 dark:text-gray-400 border border-slate-200 dark:border-slate-700/50 hover:text-slate-900 dark:hover:text-white"
                            }`}
               >
-                <cat.icon className="w-4 h-4" />
+                <cat.icon className="size-4" />
                 {cat.label}
               </button>
             ))}
@@ -220,15 +221,15 @@ export default function Portfolio() {
                       <a
                         href={project.link || "#"}
                         target={project.link ? "_blank" : undefined}
-                        className="w-9 h-9 rounded bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+                        className="size-9 rounded bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
                       >
-                        <ExternalLink className="w-4 h-4" />
+                        <ExternalLink className="size-4" />
                       </a>
                     </div>
 
                     {project.featured && (
                       <div className="absolute top-4 left-4 px-3 py-1 rounded bg-white/10 border border-white/20 text-white text-xs font-medium flex items-center gap-1">
-                        <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                        <Star className="size-3 fill-yellow-400 text-yellow-400" />
                         Featured
                       </div>
                     )}
@@ -272,7 +273,7 @@ export default function Portfolio() {
                         className="text-sm font-medium flex items-center gap-1 text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 transition-colors group/link"
                       >
                         View Project
-                        <ArrowRight className="w-3 h-3 group-hover/link:translate-x-0.5 transition-transform" />
+                        <ArrowRight className="size-3 group-hover/link:translate-x-0.5 transition-transform" />
                       </Link>
                     </div>
                   </div>
@@ -297,7 +298,7 @@ export default function Portfolio() {
 
           <div className="relative max-w-4xl mx-auto">
             <div className="absolute z-10 -top-6 left-8 text-indigo-200 dark:text-indigo-500/20">
-              <Quote className="w-20 h-20" />
+              <Quote className="size-20" />
             </div>
 
             <div className="relative rounded p-8 md:p-12 border bg-slate-50 dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50">
@@ -314,7 +315,7 @@ export default function Portfolio() {
                   </p>
 
                   <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-lg">
+                    <div className="size-14 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-lg">
                       {testimonials[testimonialIndex].avatar}
                     </div>
                     <div>
@@ -331,24 +332,26 @@ export default function Portfolio() {
 
               <div className="flex items-center justify-center gap-4 mt-8 pt-8 border-t border-slate-200 dark:border-slate-700/50">
                 <button
+                  type="button"
                   onClick={() =>
                     setTestimonialIndex(
                       (p) =>
                         (p - 1 + testimonials.length) % testimonials.length,
                     )
                   }
-                  className="w-10 h-10 rounded-full border flex items-center justify-center transition-all
+                  className="size-10 rounded-full border flex items-center justify-center transition-all
                              bg-white dark:bg-slate-700/50 border-slate-200 dark:border-slate-600/50
                              text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white"
                 >
-                  <ChevronLeft className="w-5 h-5" />
+                  <ChevronLeft className="size-5" />
                 </button>
                 <div className="flex gap-2">
                   {testimonials.map((_, i) => (
                     <button
+                      type="button"
                       key={i}
                       onClick={() => setTestimonialIndex(i)}
-                      className={`w-2 h-2 rounded-full transition-all ${
+                      className={`size-2 rounded-full transition-all ${
                         i === testimonialIndex
                           ? "w-6 bg-indigo-500"
                           : "bg-slate-300 dark:bg-slate-600"
@@ -357,14 +360,15 @@ export default function Portfolio() {
                   ))}
                 </div>
                 <button
+                  type="button"
                   onClick={() =>
                     setTestimonialIndex((p) => (p + 1) % testimonials.length)
                   }
-                  className="w-10 h-10 rounded-full border flex items-center justify-center transition-all
+                  className="size-10 rounded-full border flex items-center justify-center transition-all
                              bg-white dark:bg-slate-700/50 border-slate-200 dark:border-slate-600/50
                              text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white"
                 >
-                  <ChevronRight className="w-5 h-5" />
+                  <ChevronRight className="size-5" />
                 </button>
               </div>
             </div>
@@ -389,7 +393,7 @@ export default function Portfolio() {
                           bg-white text-indigo-600 font-bold text-lg hover:bg-gray-100 transition-all"
             >
               Start a Project
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="size-5" />
             </a>
           </div>
         </motion.div>

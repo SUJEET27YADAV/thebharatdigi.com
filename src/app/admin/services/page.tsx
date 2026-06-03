@@ -124,6 +124,7 @@ export default function ServicesPage() {
           <p className="text-sm text-[#314158]">Manage your services</p>
         </div>
         <button
+          type="button"
           onClick={() => setShowAddModal(true)}
           className="flex items-center gap-2 px-4 py-2 rounded font-medium bg-[#ac4bff] transition-opacity hover:opacity-90"
         >

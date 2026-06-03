@@ -130,8 +130,8 @@ export default function About() {
               <ul className="space-y-5">
                 {benefits.map((benefit) => (
                   <li key={benefit.title} className="flex items-start gap-3">
-                    <div className="w-5 h-5 mt-0.5 bg-indigo-600 dark:bg-[#ac4bff] rounded-full flex items-center justify-center shrink-0">
-                      <Check className="w-3 h-3 text-white" strokeWidth={3} aria-hidden />
+                    <div className="size-5 mt-0.5 bg-indigo-600 dark:bg-[#ac4bff] rounded-full flex items-center justify-center shrink-0">
+                      <Check className="size-3 text-white" strokeWidth={3} aria-hidden />
                     </div>
                     <div>
                       <p className="font-semibold text-slate-900 dark:text-white text-sm mb-0.5">

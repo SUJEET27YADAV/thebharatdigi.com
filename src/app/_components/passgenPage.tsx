@@ -63,6 +63,9 @@ export default function PassgenPage({ action }: PassgenPageProps) {
             onClick={() => {
               navigator.clipboard.writeText(state?.password ?? "");
             }}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { navigator.clipboard.writeText(state?.password ?? ""); } }}
+            role="button"
+            tabIndex={0}
             className="p-2 flex items-center justify-center text-xl cursor-pointer bg-gray-300 dark:bg-zinc-900 hover:bg-zinc-600 rounded"
           >
             <CopyIcon fontSize="inherit" />
@@ -81,6 +84,9 @@ export default function PassgenPage({ action }: PassgenPageProps) {
             onClick={() => {
               setShowPass(!showPass);
             }}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { setShowPass(!showPass); } }}
+            role="button"
+            tabIndex={0}
             className="absolute top-0 right-0 h-full p-2 flex items-center justify-center text-xl cursor-pointer bg-gray-300 dark:bg-zinc-900 hover:bg-zinc-600 rounded"
           >
             {showPass ? (

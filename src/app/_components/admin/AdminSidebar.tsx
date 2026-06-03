@@ -78,7 +78,7 @@ export default function AdminSidebar({ isOpen, setIsOpen }: AdminSidebarProps) {
       >
         <div className="p-5 mb-2 flex items-center justify-between border-b border-[#444444]">
           <Link href="/admin" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded flex items-center justify-center font-bold text-lg bg-[#ac4bff] text-white uppercase">
+            <div className="size-10 rounded flex items-center justify-center font-bold text-lg bg-[#ac4bff] text-white uppercase">
               {user?.name ? (
                 <>
                   <span>{user.name.split(" ")[0].charAt(0)}</span>
@@ -94,6 +94,7 @@ export default function AdminSidebar({ isOpen, setIsOpen }: AdminSidebarProps) {
             <span className="font-bold text-lg">{user?.name || "Admin"}</span>
           </Link>
           <button
+            type="button"
             onClick={() => setIsOpen(false)}
             className="md:hidden p-2 rounded dark:bg-[#0f172b] border border-[#444444] text-[#0f172b] dark:text-white"
           >
@@ -107,6 +108,7 @@ export default function AdminSidebar({ isOpen, setIsOpen }: AdminSidebarProps) {
               if (user) {
                 return (
                   <button
+                    type="button"
                     key={item.label}
                     onClick={item.onClick}
                     className={`w-full flex items-center gap-3 px-4 py-3 rounded transition-colors text-sm ${pathname === item.href ? "bg-slate-300 dark:bg-[#1d293d] text-[#ac4bff] border-l-3 border-[#ac4bff]" : "hover:bg-gray-100 dark:hover:bg-[#1d293d] text-[#314158]"} `}
@@ -140,6 +142,9 @@ export default function AdminSidebar({ isOpen, setIsOpen }: AdminSidebarProps) {
         <div
           className="fixed inset-0 z-20 md:hidden bg-black/50"
           onClick={() => setIsOpen(false)}
+          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { setIsOpen(false); } }}
+          role="button"
+          tabIndex={0}
         />
       )}
     </>

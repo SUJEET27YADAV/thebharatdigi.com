@@ -83,9 +83,9 @@ export default function Services() {
                 className="service-card group card-interactive p-8"
               >
                 <div
-                  className={`w-14 h-14 ${service.color} rounded flex items-center justify-center mb-5`}
+                  className={`size-14 ${service.color} rounded flex items-center justify-center mb-5`}
                 >
-                  <Icon className="w-7 h-7" aria-hidden />
+                  <Icon className="size-7" aria-hidden />
                 </div>
                 <h3 className="text-slate-900 dark:text-white text-xl font-bold mb-3">
                   {service.title}
@@ -99,13 +99,13 @@ export default function Services() {
 
           <Link href="/services" className="service-card card-interactive p-8 group">
             <motion.div {...itemMotion}>
-              <div className="w-14 h-14 bg-slate-100 dark:bg-slate-800 rounded flex items-center justify-center mb-5">
-                <MoreHorizontal className="w-7 h-7 text-slate-500 dark:text-slate-400" />
+              <div className="size-14 bg-slate-100 dark:bg-slate-800 rounded flex items-center justify-center mb-5">
+                <MoreHorizontal className="size-7 text-slate-500 dark:text-slate-400" />
               </div>
               <h3 className="text-slate-900 dark:text-white flex items-center gap-1 text-xl font-bold mb-3">
                 More Services
                 <ChevronRight
-                  className="w-5 h-5 motion-safe:transition-transform motion-safe:duration-200 group-hover:translate-x-0.5"
+                  className="size-5 motion-safe:transition-transform motion-safe:duration-200 group-hover:translate-x-0.5"
                   aria-hidden
                 />
               </h3>

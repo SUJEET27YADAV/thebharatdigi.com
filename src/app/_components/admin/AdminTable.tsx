@@ -57,6 +57,7 @@ export default function AdminTable({
                 <div className="flex gap-2">
                   {onEdit && (
                     <button
+                      type="button"
                       onClick={() => onEdit(row)}
                       className="p-1 rounded hover:opacity-80 transition-opacity bg-[#ac4bff] text-white"
                       title="Edit"
@@ -66,6 +67,7 @@ export default function AdminTable({
                   )}
                   {onDelete && (
                     <button
+                      type="button"
                       onClick={() => onDelete(row)}
                       className="p-1 rounded hover:opacity-80 transition-opacity bg-[#fb2c36] text-white"
                       title="Delete"

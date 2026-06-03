@@ -175,6 +175,7 @@ export default function SEOAuditProPage() {
             className="flex items-center justify-center gap-4 flex-wrap"
           >
             <button
+              type="button"
               onClick={(e) =>
                 product && isInCart(product.serial)
                   ? removeFromCart(product.id)
@@ -271,7 +272,7 @@ export default function SEOAuditProPage() {
                 transition={{ delay: i * 0.05 }}
                 className="card-interactive p-5 group"
               >
-                <div className="w-10 h-10 rounded bg-indigo-100 dark:bg-[#ac4bff]/10 flex items-center justify-center mb-3 transition-colors duration-200 group-hover:bg-indigo-200 dark:group-hover:bg-[#ac4bff]/20">
+                <div className="size-10 rounded bg-indigo-100 dark:bg-[#ac4bff]/10 flex items-center justify-center mb-3 transition-colors duration-200 group-hover:bg-indigo-200 dark:group-hover:bg-[#ac4bff]/20">
                   <f.icon
                     size={18}
                     className="text-indigo-600 dark:text-[#ac4bff]"
@@ -352,7 +353,7 @@ export default function SEOAuditProPage() {
                 transition={{ delay: i * 0.1 }}
                 className="bg-white dark:bg-[#0f172b] border border-slate-200 dark:border-[#314158]/30 rounded p-6 text-center"
               >
-                <div className="w-12 h-12 rounded-full bg-indigo-100 dark:bg-[#ac4bff]/10 flex items-center justify-center mx-auto mb-4">
+                <div className="size-12 rounded-full bg-indigo-100 dark:bg-[#ac4bff]/10 flex items-center justify-center mx-auto mb-4">
                   <item.icon
                     size={24}
                     className="text-indigo-600 dark:text-[#ac4bff]"
@@ -376,9 +377,9 @@ export default function SEOAuditProPage() {
             className="bg-[#1e293b] dark:bg-[#0f172b] border border-slate-200 dark:border-[#314158]/30 rounded overflow-hidden"
           >
             <div className="flex items-center gap-2 px-4 py-3 border-b border-slate-200 dark:border-[#314158]/30">
-              <div className="w-3 h-3 rounded-full bg-[#fb2c36]" />
-              <div className="w-3 h-3 rounded-full bg-[#f99c00]" />
-              <div className="w-3 h-3 rounded-full bg-[#00c758]" />
+              <div className="size-3 rounded-full bg-[#fb2c36]" />
+              <div className="size-3 rounded-full bg-[#f99c00]" />
+              <div className="size-3 rounded-full bg-[#00c758]" />
               <span className="text-slate-400 dark:text-[#314158] text-xs ml-2">
                 SKILL.md — AI Agent Output
               </span>
@@ -428,6 +429,7 @@ export default function SEOAuditProPage() {
             viewport={{ once: true }}
           >
             <button
+              type="button"
               onClick={(e) =>
                 product && isInCart(product.serial)
                   ? removeFromCart(product.id)

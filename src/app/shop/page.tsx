@@ -38,7 +38,7 @@ export default function StorePage() {
           {...fadeUp}
           className="inline-flex items-center gap-2 px-3 py-1.5 rounded border mb-5 bg-indigo-50 dark:bg-indigo-500/10 border-indigo-200 dark:border-indigo-500/20"
         >
-          <Globe className="w-4 h-4 text-indigo-600 dark:text-indigo-400" aria-hidden />
+          <Globe className="size-4 text-indigo-600 dark:text-indigo-400" aria-hidden />
           <span className="text-indigo-600 dark:text-indigo-400 text-sm font-medium">
             Available Worldwide
           </span>

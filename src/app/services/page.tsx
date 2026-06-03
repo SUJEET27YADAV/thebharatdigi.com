@@ -68,8 +68,8 @@ export default function Services() {
     <section className="relative py-24 overflow-hidden bg-white dark:bg-slate-900">
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none opacity-40">
-        <div className="absolute top-20 left-10 w-72 h-72 rounded-full bg-indigo-100 dark:bg-indigo-500/5" />
-        <div className="absolute bottom-40 right-10 w-96 h-96 rounded-full bg-purple-100 dark:bg-purple-500/5" />
+        <div className="absolute top-20 left-10 size-72 rounded-full bg-indigo-100 dark:bg-indigo-500/5" />
+        <div className="absolute bottom-40 right-10 size-96 rounded-full bg-purple-100 dark:bg-purple-500/5" />
       </div>
       <div className="relative max-w-7xl mx-auto px-4 md:px-6">
         {/* Header */}
@@ -81,7 +81,7 @@ export default function Services() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded border mb-6
                        bg-indigo-50 dark:bg-indigo-500/10 border-indigo-200 dark:border-indigo-500/20"
           >
-            <Layers className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <Layers className="size-4 text-indigo-600 dark:text-indigo-400" />
             <span className="text-indigo-600 dark:text-indigo-400 text-sm font-medium">
               Comprehensive Solutions
             </span>
@@ -128,7 +128,7 @@ export default function Services() {
               key={i}
               className="card p-6 text-center"
             >
-              <stat.icon className="w-6 h-6 mx-auto mb-3 text-indigo-600 dark:text-indigo-400" />
+              <stat.icon className="size-6 mx-auto mb-3 text-indigo-600 dark:text-indigo-400" />
               <div className="text-3xl md:text-4xl font-bold mb-1 text-slate-900 dark:text-white">
                 {stat.value}
               </div>
@@ -169,7 +169,7 @@ export default function Services() {
                   )}
 
                   <div
-                    className={`w-14 h-14 rounded border flex items-center justify-center mb-6 ${service.color}`}
+                    className={`size-14 rounded border flex items-center justify-center mb-6 ${service.color}`}
                   >
                     <LucideIcon name={service.icon} />
                   </div>
@@ -193,7 +193,7 @@ export default function Services() {
                         }`}
                       >
                         <Check
-                          className={`w-4 h-4 ${service.color.split(" ").find((c) => c.startsWith("text-"))}`}
+                          className={`size-4 ${service.color.split(" ").find((c) => c.startsWith("text-"))}`}
                         />
                         <span className="text-slate-700 dark:text-gray-300">
                           {feature}
@@ -240,9 +240,9 @@ export default function Services() {
                 <div className="relative card-interactive p-6">
                   <div className="flex items-center gap-4 mb-4">
                     <div
-                      className="w-12 h-12 rounded border flex items-center justify-center bg-indigo-100 dark:bg-indigo-500/10 border-indigo-200 dark:border-indigo-500/30"
+                      className="size-12 rounded border flex items-center justify-center bg-indigo-100 dark:bg-indigo-500/10 border-indigo-200 dark:border-indigo-500/30"
                     >
-                      <item.icon className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+                      <item.icon className="size-6 text-indigo-600 dark:text-indigo-400" />
                     </div>
                     <span
                       className="text-4xl font-bold text-slate-200 dark:text-slate-700
@@ -281,7 +281,7 @@ export default function Services() {
             </p>
             <a href="/contactus" className="btn bg-white text-indigo-600 px-8 py-3.5 text-lg hover:bg-slate-100">
               Get Free Consultation
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="size-5" />
             </a>
           </div>
         </motion.div>

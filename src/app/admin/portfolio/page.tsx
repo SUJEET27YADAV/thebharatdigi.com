@@ -126,6 +126,7 @@ export default function PortfolioPage() {
           </p>
         </div>
         <button
+          type="button"
           onClick={() => setShowAddModal(true)}
           className="flex items-center gap-2 px-4 py-2 rounded font-medium bg-[#ac4bff] transition-opacity hover:opacity-90"
         >

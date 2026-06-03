@@ -98,7 +98,7 @@ export default function Portfolio() {
                 <div
                   className={`aspect-[4/3] ${project.accent} flex items-center justify-center`}
                 >
-                  <Icon className="w-12 h-12" strokeWidth={1.5} aria-hidden />
+                  <Icon className="size-12" strokeWidth={1.5} aria-hidden />
                 </div>
                 <div className="p-5">
                   <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">

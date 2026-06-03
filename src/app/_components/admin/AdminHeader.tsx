@@ -19,6 +19,7 @@ export default function AdminHeader({ isOpen, setIsOpen }: AdminHeaderProps) {
       <div className="w-full h-20 px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <button
+            type="button"
             onClick={() => setIsOpen(true)}
             className={`${isOpen && "hidden"} md:hidden p-2 rounded border border-[#444444] text-[#444444] dark:text-white`}
           >
@@ -29,6 +30,7 @@ export default function AdminHeader({ isOpen, setIsOpen }: AdminHeaderProps) {
         {pathname !== "/admin/login" && (
           <div className="relative flex items-center gap-4">
             <button
+              type="button"
               onClick={() => setShowMenu(!showMenu)}
               className="flex items-center gap-2 px-4 py-2 rounded transition-colors border border-[#444444] hover:bg-[#444444]/20 outline-none"
             >
@@ -40,6 +42,7 @@ export default function AdminHeader({ isOpen, setIsOpen }: AdminHeaderProps) {
 
             {showMenu && (
               <button
+                type="button"
                 className="absolute top-10 right-0 mt-1 w-full rounded py-2 z-30 border border-[#444444] bg-white dark:bg-[#1d293d] hover:bg-red-500 flex items-center gap-2 p-4 hover:bg-opacity-80 transition-colors text-sm"
                 onClick={() => {
                   setShowMenu(false);

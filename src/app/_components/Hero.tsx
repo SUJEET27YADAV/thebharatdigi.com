@@ -109,7 +109,7 @@ export default function Hero() {
             })
         }
       >
-        <ChevronDown className="w-6 h-6 motion-safe:animate-[bounce_2s_ease-in-out_infinite]" />
+        <ChevronDown className="size-6 motion-safe:animate-[bounce_2s_ease-in-out_infinite]" />
       </button>
     </section>
   );

@@ -189,7 +189,7 @@ export default function Home() {
           </form>
           <div className="min-w-1 min-h-10 flex items-center justify-center gap-2">
             {loading ? (
-              <span className="w-6 h-6 aspect-square border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+              <span className="size-6 aspect-square border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
             ) : (
               res.success !== null && (
                 <>

@@ -211,8 +211,8 @@ export default function Contact() {
     <section className="relative py-24 overflow-hidden bg-slate-50 dark:bg-slate-900">
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 left-10 w-72 h-72 rounded-full bg-indigo-200/50 dark:bg-indigo-500/5" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full bg-purple-200/50 dark:bg-purple-500/5" />
+        <div className="absolute top-20 left-10 size-72 rounded-full bg-indigo-200/50 dark:bg-indigo-500/5" />
+        <div className="absolute bottom-20 right-10 size-96 rounded-full bg-purple-200/50 dark:bg-purple-500/5" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 md:px-6">
@@ -225,7 +225,7 @@ export default function Contact() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded border mb-6
                        bg-indigo-50 dark:bg-indigo-500/10 border-indigo-200 dark:border-indigo-500/20"
           >
-            <Globe className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <Globe className="size-4 text-indigo-600 dark:text-indigo-400" />
             <span className="text-indigo-600 dark:text-indigo-400 text-sm font-medium">
               Available Worldwide
             </span>
@@ -268,10 +268,10 @@ export default function Contact() {
                          hover:bg-white dark:hover:bg-slate-800/60`}
             >
               <div
-                className={`w-12 h-12 rounded border flex items-center justify-center mb-4
+                className={`size-12 rounded border flex items-center justify-center mb-4
                               group-hover:scale-110 transition-transform ${colorStyles[method.color]}`}
               >
-                <method.icon className="w-5 h-5" />
+                <method.icon className="size-5" />
               </div>
               <h3 className="font-semibold mb-1 text-slate-900 dark:text-white">
                 {method.title}
@@ -306,8 +306,8 @@ export default function Contact() {
                   className="absolute inset-0 z-10 flex flex-col items-center justify-center rounded
                              bg-white/95 dark:bg-slate-900/95"
                 >
-                  <div className="w-20 h-20 rounded-full bg-green-500/20 flex items-center justify-center mb-6">
-                    <CheckCircle className="w-10 h-10 text-green-400" />
+                  <div className="size-20 rounded-full bg-green-500/20 flex items-center justify-center mb-6">
+                    <CheckCircle className="size-10 text-green-400" />
                   </div>
                   <h3 className="text-2xl font-bold mb-2 text-slate-900 dark:text-white">
                     Message Sent!
@@ -324,7 +324,7 @@ export default function Contact() {
                     className="absolute inset-0 z-10 flex flex-col items-center justify-center rounded
                              bg-white/95 dark:bg-slate-900/95"
                   >
-                    <div className="w-20 h-20 rounded-full bg-green-500/20 flex items-center justify-center mb-6 text-5xl font-extrabold">
+                    <div className="size-20 rounded-full bg-green-500/20 flex items-center justify-center mb-6 text-5xl font-extrabold">
                       <CloseOutlined
                         fontSize="inherit"
                         className="text-red-400"
@@ -472,7 +472,7 @@ export default function Contact() {
                 >
                   {isPending ? (
                     <>
-                      <Loader2 className="w-5 h-5 animate-spin" aria-hidden />
+                      <Loader2 className="size-5 animate-spin" aria-hidden />
                       Sending…
                     </>
                   ) : (
@@ -502,10 +502,10 @@ export default function Contact() {
                 {features.map((f, i) => (
                   <div key={i} className="flex items-start gap-4">
                     <div
-                      className="w-10 h-10 rounded border flex items-center justify-center flex-shrink-0
+                      className="size-10 rounded border flex items-center justify-center flex-shrink-0
                                     bg-indigo-100 dark:bg-indigo-500/10 border-indigo-200 dark:border-indigo-500/30"
                     >
-                      <f.icon className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                      <f.icon className="size-5 text-indigo-600 dark:text-indigo-400" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-slate-900 dark:text-white">
@@ -531,12 +531,12 @@ export default function Contact() {
                     key={i}
                     href={s.href}
                     rel={s.rel}
-                    className="w-11 h-11 rounded border flex items-center justify-center transition-all
+                    className="size-11 rounded border flex items-center justify-center transition-all
                                bg-slate-100 dark:bg-slate-700/50 border-slate-200 dark:border-slate-600/50
                                text-slate-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-white
                                hover:bg-indigo-50 dark:hover:bg-indigo-500/20 hover:border-indigo-200 dark:hover:border-indigo-500/30"
                   >
-                    <s.icon className="w-5 h-5" />
+                    <s.icon className="size-5" />
                   </a>
                 ))}
               </div>
@@ -559,9 +559,9 @@ export default function Contact() {
                 rel="nofollow"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded bg-green-500 text-white font-semibold hover:bg-green-600 transition-all"
               >
-                <MessageSquare className="w-4 h-4" />
+                <MessageSquare className="size-4" />
                 WhatsApp Us
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="size-4" />
               </a>
             </div>
           </motion.div>
@@ -591,6 +591,7 @@ export default function Contact() {
                 className="rounded overflow-hidden border bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50"
               >
                 <button
+                  type="button"
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                   className="w-full flex items-center justify-between p-5 text-left transition-colors
                              hover:bg-slate-50 dark:hover:bg-slate-800/60"
@@ -599,7 +600,7 @@ export default function Contact() {
                     {faq.q}
                   </span>
                   <ChevronDown
-                    className={`w-5 h-5 flex-shrink-0 transition-transform duration-300
+                    className={`size-5 flex-shrink-0 transition-transform duration-300
                                           text-slate-500 dark:text-gray-400 ${openFaq === i ? "rotate-180" : ""}`}
                   />
                 </button>
@@ -635,7 +636,7 @@ export default function Contact() {
                 href="tel:+919999239307"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded bg-green-600 font-semibold hover:bg-indigo-700 transition-all"
               >
-                <Phone className="w-4 h-4" />
+                <Phone className="size-4" />
                 Call Us Now
               </a>
               <a
@@ -643,7 +644,7 @@ export default function Contact() {
                 rel="nofollow"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded border border-slate-600 font-semibold hover:bg-slate-800 transition-all"
               >
-                <MessageSquare className="w-4 h-4" />
+                <MessageSquare className="size-4" />
                 Live Chat
               </a>
             </div>

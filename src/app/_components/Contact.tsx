@@ -70,7 +70,7 @@ export default function Contact() {
                 rel="nofollow"
                 className="flex items-center gap-4 group rounded p-2 -ml-2 hover:bg-white/60 dark:hover:bg-slate-800/40 transition-colors duration-150"
               >
-                <div className="w-12 h-12 shrink-0 bg-indigo-100 dark:bg-indigo-600/20 rounded flex items-center justify-center group-hover:bg-indigo-200 dark:group-hover:bg-indigo-600/30 transition-colors duration-150">
+                <div className="size-12 shrink-0 bg-indigo-100 dark:bg-indigo-600/20 rounded flex items-center justify-center group-hover:bg-indigo-200 dark:group-hover:bg-indigo-600/30 transition-colors duration-150">
                   <Phone className="text-indigo-600 dark:text-indigo-400" size={20} />
                 </div>
                 <div>
@@ -88,7 +88,7 @@ export default function Contact() {
                 rel="nofollow"
                 className="flex items-center gap-4 group rounded p-2 -ml-2 hover:bg-white/60 dark:hover:bg-slate-800/40 transition-colors duration-150"
               >
-                <div className="w-12 h-12 shrink-0 bg-purple-100 dark:bg-purple-600/20 rounded flex items-center justify-center group-hover:bg-purple-200 dark:group-hover:bg-purple-600/30 transition-colors duration-150">
+                <div className="size-12 shrink-0 bg-purple-100 dark:bg-purple-600/20 rounded flex items-center justify-center group-hover:bg-purple-200 dark:group-hover:bg-purple-600/30 transition-colors duration-150">
                   <Mail className="text-purple-600 dark:text-purple-400" size={20} />
                 </div>
                 <div>
@@ -102,7 +102,7 @@ export default function Contact() {
               </a>
 
               <div className="flex items-center gap-4 p-2 -ml-2">
-                <div className="w-12 h-12 shrink-0 bg-pink-100 dark:bg-pink-600/20 rounded flex items-center justify-center">
+                <div className="size-12 shrink-0 bg-pink-100 dark:bg-pink-600/20 rounded flex items-center justify-center">
                   <MapPin className="text-pink-600 dark:text-pink-400" size={20} />
                 </div>
                 <div>
@@ -234,7 +234,7 @@ export default function Contact() {
                     type="checkbox"
                     id="newsletter"
                     name="newsletter"
-                    className="mt-1 w-4 h-4 rounded border-slate-300 dark:border-slate-600 accent-indigo-600"
+                    className="mt-1 size-4 rounded border-slate-300 dark:border-slate-600 accent-indigo-600"
                   />
                   <label
                     htmlFor="newsletter"
@@ -251,7 +251,7 @@ export default function Contact() {
                 >
                   {isPending ? (
                     <>
-                      <Loader2 className="w-5 h-5 animate-spin" aria-hidden />
+                      <Loader2 className="size-5 animate-spin" aria-hidden />
                       <span>Sending...</span>
                     </>
                   ) : (

@@ -104,6 +104,7 @@ export default function ProductPage() {
               <div className="flex items-center gap-4">
                 {isInCart(product.serial) ? (
                   <button
+                    type="button"
                     onClick={(e) => handleRemoveFromCart(e, product.id)}
                     className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded font-medium flex items-center gap-2 transition-colors"
                   >
@@ -112,6 +113,7 @@ export default function ProductPage() {
                   </button>
                 ) : (
                   <button
+                    type="button"
                     onClick={(e) => handleAddToCart(e, product)}
                     className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded font-medium flex items-center gap-2 transition-colors"
                   >
@@ -120,6 +122,7 @@ export default function ProductPage() {
                   </button>
                 )}
                 <button
+                  type="button"
                   onClick={() => router.push("/cart")}
                   className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded font-medium flex items-center gap-2 transition-colors"
                 >

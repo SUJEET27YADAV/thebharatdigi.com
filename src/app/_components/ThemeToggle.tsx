@@ -16,7 +16,7 @@ export default function ThemeToggle() {
     >
       <motion.div
         layout={!prefersReducedMotion}
-        className="w-5 h-5 rounded-full flex items-center justify-center bg-white dark:bg-slate-900"
+        className="size-5 rounded-full flex items-center justify-center bg-white dark:bg-slate-900"
         animate={{ x: theme === "dark" ? 0 : 28 }}
         transition={
           prefersReducedMotion
@@ -25,9 +25,9 @@ export default function ThemeToggle() {
         }
       >
         {theme === "dark" ? (
-          <Moon className="w-3 h-3 text-indigo-400" aria-hidden />
+          <Moon className="size-3 text-indigo-400" aria-hidden />
         ) : (
-          <Sun className="w-3 h-3 text-amber-500" aria-hidden />
+          <Sun className="size-3 text-amber-500" aria-hidden />
         )}
       </motion.div>
     </button>

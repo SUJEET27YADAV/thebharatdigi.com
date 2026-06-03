@@ -170,6 +170,7 @@ export default function SettingsPage() {
       </div>
 
       <button
+        type="button"
         onClick={handleSave}
         disabled={saving}
         className="flex items-center gap-2 px-6 py-3 rounded font-medium transition-opacity hover:opacity-90 disabled:opacity-60 bg-[#ac4bff] text-white cursor-pointer disabled:cursor-not-allowed"

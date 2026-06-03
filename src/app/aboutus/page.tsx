@@ -170,8 +170,8 @@ export default function About() {
     >
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-40 left-10 w-72 h-72 rounded-full bg-indigo-200/50 dark:bg-indigo-500/5" />
-        <div className="absolute bottom-40 right-10 w-96 h-96 rounded-full bg-purple-200/50 dark:bg-purple-500/5" />
+        <div className="absolute top-40 left-10 size-72 rounded-full bg-indigo-200/50 dark:bg-indigo-500/5" />
+        <div className="absolute bottom-40 right-10 size-96 rounded-full bg-purple-200/50 dark:bg-purple-500/5" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 md:px-6">
@@ -184,7 +184,7 @@ export default function About() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded border mb-6
                        bg-indigo-50 dark:bg-indigo-500/10 border-indigo-200 dark:border-indigo-500/20"
           >
-            <Sparkles className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <Sparkles className="size-4 text-indigo-600 dark:text-indigo-400" />
             <span className="text-indigo-600 dark:text-indigo-400 text-sm font-medium">
               Our Story
             </span>
@@ -249,9 +249,9 @@ export default function About() {
                               bg-white dark:bg-slate-800/60 border-slate-200 dark:border-slate-700/50"
               >
                 <div
-                  className={`w-14 h-14 rounded border flex items-center justify-center mb-6 ${colorStyles[item.color]}`}
+                  className={`size-14 rounded border flex items-center justify-center mb-6 ${colorStyles[item.color]}`}
                 >
-                  <item.icon className="w-7 h-7" />
+                  <item.icon className="size-7" />
                 </div>
                 <h3 className="text-2xl font-bold mb-4 text-slate-900 dark:text-white">
                   {item.title}
@@ -283,10 +283,10 @@ export default function About() {
                          hover:bg-white dark:hover:bg-slate-800/60"
             >
               <div
-                className={`w-12 h-12 rounded border flex items-center justify-center mx-auto mb-4
+                className={`size-12 rounded border flex items-center justify-center mx-auto mb-4
                               group-hover:scale-110 transition-transform ${colorStyles[stat.color]}`}
               >
-                <stat.icon className="w-6 h-6" />
+                <stat.icon className="size-6" />
               </div>
               <div className="text-3xl md:text-4xl font-bold mb-1 text-slate-900 dark:text-white">
                 <Counter target={stat.value} suffix={stat.suffix} />
@@ -324,10 +324,10 @@ export default function About() {
                             hover:bg-white dark:hover:bg-slate-800/60"
               >
                 <div
-                  className={`w-14 h-14 rounded border flex items-center justify-center mx-auto mb-4
+                  className={`size-14 rounded border flex items-center justify-center mx-auto mb-4
                                 group-hover:scale-110 transition-transform ${colorStyles[value.color]}`}
                 >
-                  <value.icon className="w-7 h-7" />
+                  <value.icon className="size-7" />
                 </div>
                 <h5 className="text-xl font-bold mb-2 text-slate-900 dark:text-white">
                   {value.title}
@@ -380,14 +380,14 @@ export default function About() {
                 >
                   {/* Node */}
                   <div
-                    className={`absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
+                    className={`absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 size-10 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
                       index <= activeTimeline
                         ? "bg-indigo-500 border-indigo-400"
                         : "bg-slate-800 border-slate-600"
                     }`}
                   >
                     <item.icon
-                      className={`w-4 h-4 ${
+                      className={`size-4 ${
                         index <= activeTimeline ? "text-white" : "text-gray-500"
                       }`}
                     />
@@ -446,8 +446,8 @@ export default function About() {
                 className="flex gap-4"
               >
                 <div className="flex flex-col items-center">
-                  <div className="w-10 h-10 rounded-full bg-indigo-500 flex items-center justify-center">
-                    <item.icon className="w-4 h-4 text-white" />
+                  <div className="size-10 rounded-full bg-indigo-500 flex items-center justify-center">
+                    <item.icon className="size-4 text-white" />
                   </div>
                   {index < timeline.length - 1 && (
                     <div className="w-0.5 h-full bg-slate-700 mt-2" />
@@ -482,7 +482,7 @@ export default function About() {
                 {[...Array(5)].map((_, i) => (
                   <Star
                     key={i}
-                    className="w-5 h-5 text-yellow-400 fill-yellow-400"
+                    className="size-5 text-yellow-400 fill-yellow-400"
                   />
                 ))}
               </div>
@@ -491,7 +491,7 @@ export default function About() {
                 completely. Their attention to detail was exceptional!&quot;
               </blockquote>
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold">
+                <div className="size-12 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold">
                   RS
                 </div>
                 <div>
@@ -529,7 +529,7 @@ export default function About() {
                          bg-white text-indigo-600 font-bold text-lg hover:bg-gray-100 transition-all"
             >
               Start a Project
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="size-5" />
             </a>
           </div>
         </motion.div>

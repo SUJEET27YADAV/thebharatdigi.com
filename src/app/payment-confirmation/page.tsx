@@ -17,21 +17,21 @@ const initialState = {
 function StatusIcon({ status }: { status: string }) {
   if (status === "FAILED") {
     return (
-      <div className="w-16 h-16 rounded-full bg-red-500/10 flex items-center justify-center">
-        <X className="w-8 h-8 text-red-500" aria-hidden />
+      <div className="size-16 rounded-full bg-red-500/10 flex items-center justify-center">
+        <X className="size-8 text-red-500" aria-hidden />
       </div>
     );
   }
   if (status === "COMPLETED") {
     return (
-      <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center">
-        <Check className="w-8 h-8 text-emerald-500" aria-hidden />
+      <div className="size-16 rounded-full bg-emerald-500/10 flex items-center justify-center">
+        <Check className="size-8 text-emerald-500" aria-hidden />
       </div>
     );
   }
   return (
-    <div className="w-16 h-16 rounded-full bg-amber-500/10 flex items-center justify-center">
-      <Loader2 className="w-8 h-8 text-amber-500 animate-spin" aria-hidden />
+    <div className="size-16 rounded-full bg-amber-500/10 flex items-center justify-center">
+      <Loader2 className="size-8 text-amber-500 animate-spin" aria-hidden />
     </div>
   );
 }

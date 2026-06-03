@@ -75,7 +75,7 @@ export default function Testimonials() {
               </p>
               <footer className="flex items-center gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
                 <div
-                  className="w-10 h-10 bg-indigo-100 dark:bg-indigo-600/20 rounded-full flex items-center justify-center text-sm font-semibold text-indigo-700 dark:text-indigo-300"
+                  className="size-10 bg-indigo-100 dark:bg-indigo-600/20 rounded-full flex items-center justify-center text-sm font-semibold text-indigo-700 dark:text-indigo-300"
                   aria-hidden
                 >
                   {t.initials}
