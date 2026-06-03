@@ -1,6 +1,9 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
+import { Check } from "lucide-react";
+
+const easeOut = [0.23, 1, 0.32, 1] as const;
 
 const Counter: React.FC<{ target: number; suffix?: string }> = ({
   target,
@@ -9,29 +12,34 @@ const Counter: React.FC<{ target: number; suffix?: string }> = ({
   const [count, setCount] = useState(0);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
-    if (isInView) {
-      let start = 0;
-      const duration = 2000;
-      const increment = target / (duration / 16);
-
-      const timer = setInterval(() => {
-        start += increment;
-        if (start >= target) {
-          setCount(target);
-          clearInterval(timer);
-        } else {
-          setCount(Math.floor(start));
-        }
-      }, 16);
-
-      return () => clearInterval(timer);
+    if (!isInView) return;
+    if (prefersReducedMotion) {
+      setCount(target);
+      return;
     }
-  }, [isInView, target]);
+
+    let start = 0;
+    const duration = 1200;
+    const increment = target / (duration / 16);
+
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= target) {
+        setCount(target);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(start));
+      }
+    }, 16);
+
+    return () => clearInterval(timer);
+  }, [isInView, target, prefersReducedMotion]);
 
   return (
-    <span ref={ref}>
+    <span ref={ref} className="tabular-nums">
       {count}
       {suffix}
     </span>
@@ -39,121 +47,110 @@ const Counter: React.FC<{ target: number; suffix?: string }> = ({
 };
 
 export default function About() {
+  const prefersReducedMotion = useReducedMotion();
+
   const benefits = [
     {
       title: "Global Standards, Local Understanding",
-      desc: "We combine international best practices with deep understanding of Indian and global markets.",
+      desc: "International best practices with deep understanding of Indian and global markets.",
     },
     {
       title: "Transparent Pricing",
-      desc: "No hidden costs. Competitive rates in INR & USD with flexible payment options.",
+      desc: "No hidden costs. Competitive rates in INR and USD with flexible payment options.",
     },
     {
       title: "Agile Development",
-      desc: "Regular updates, quick iterations, and on-time delivery guaranteed.",
+      desc: "Regular updates, quick iterations, and on-time delivery.",
     },
     {
       title: "Post-Launch Support",
-      desc: "We don't disappear after delivery. 24/7 support across time zones.",
+      desc: "We stay available after delivery with support across time zones.",
     },
   ];
+
+  const slideIn = prefersReducedMotion
+    ? {}
+    : {
+        initial: { opacity: 0, y: 12 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true },
+        transition: { duration: 0.25, ease: easeOut },
+      };
 
   return (
     <section
       id="about"
-      className="py-24 w-full overflow-x-hidden bg-slate-100 dark:bg-slate-800/30"
+      className="py-24 w-full overflow-x-hidden bg-slate-100 dark:bg-slate-900/50"
     >
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <p className="text-indigo-600 dark:text-indigo-400 text-lg mb-2 font-medium">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <motion.div {...slideIn}>
+            <p className="section-label mb-2 normal-case tracking-normal text-base">
               About Us
             </p>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white">
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">
               Crafting Digital <span className="gradient-text">Excellence</span>{" "}
               Since 2015
             </h2>
-            <p className="text-slate-600 dark:text-gray-300 text-lg leading-relaxed mb-6">
+            <p className="text-slate-600 dark:text-slate-400 text-base md:text-lg leading-relaxed mb-8">
               At The Bharat Digital, we believe every business deserves a
-              world-class digital presence. Whether you're a budding startup in
-              Bangalore, an established enterprise in Delhi, or a global brand
-              looking to expand – we speak your language. Explore our{" "}
-              <a href="/services" className="text-indigo-600 dark:text-indigo-400 hover:underline">web development services</a>,{" "}
-              <a href="/seo-audit-pro" className="text-indigo-600 dark:text-indigo-400 hover:underline">SEO audit tools</a>, and{" "}
-              <a href="/shop" className="text-indigo-600 dark:text-indigo-400 hover:underline">digital products</a>.
+              world-class digital presence. Explore our{" "}
+              <a href="/services" className="text-indigo-600 dark:text-indigo-400 underline-offset-2 hover:underline">
+                web development services
+              </a>
+              ,{" "}
+              <a href="/seo-audit-pro" className="text-indigo-600 dark:text-indigo-400 underline-offset-2 hover:underline">
+                SEO audit tools
+              </a>
+              , and{" "}
+              <a href="/shop" className="text-indigo-600 dark:text-indigo-400 underline-offset-2 hover:underline">
+                digital products
+              </a>
+              .
             </p>
 
-            <div className="grid grid-cols-2 gap-8 mt-12">
-              <div>
-                <h3 className="text-4xl font-bold gradient-text mb-1">
-                  <Counter target={500} />
-                </h3>
-                <p className="text-slate-500 dark:text-gray-400">
-                  Projects Completed
-                </p>
-              </div>
-              <div>
-                <h3 className="text-4xl font-bold gradient-text mb-1">
-                  <Counter target={200} />
-                </h3>
-                <p className="text-slate-500 dark:text-gray-400">
-                  Happy Clients
-                </p>
-              </div>
-              <div>
-                <h3 className="text-4xl font-bold gradient-text mb-1">
-                  <Counter target={15} />
-                </h3>
-                <p className="text-slate-500 dark:text-gray-400">
-                  Countries Served
-                </p>
-              </div>
-              <div>
-                <h3 className="text-4xl font-bold gradient-text mb-1">
-                  <Counter target={8} />
-                </h3>
-                <p className="text-slate-500 dark:text-gray-400">
-                  Years Experience
-                </p>
-              </div>
-            </div>
+            <dl className="grid grid-cols-2 gap-6">
+              {[
+                { value: 500, label: "Projects Completed" },
+                { value: 200, label: "Happy Clients" },
+                { value: 15, label: "Countries Served" },
+                { value: 8, label: "Years Experience" },
+              ].map((stat) => (
+                <div key={stat.label}>
+                  <dt className="text-3xl font-bold gradient-text mb-0.5">
+                    <Counter target={stat.value} />
+                  </dt>
+                  <dd className="text-sm text-slate-500 dark:text-slate-400">
+                    {stat.label}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="relative"
-          >
-            <div className="bg-gradient-to-br from-indigo-600/50 to-purple-600/50 rounded p-[1px]">
-              <div className="bg-white dark:bg-slate-900 rounded p-8 md:p-10">
-                <h3 className="text-slate-900 dark:text-white text-2xl font-bold mb-8">
-                  Why Choose Us?
-                </h3>
-                <ul className="space-y-6">
-                  {benefits.map((benefit, i) => (
-                    <li key={i} className="flex items-start gap-4">
-                      <div className="w-6 h-6 bg-indigo-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1 text-white text-xs font-bold">
-                        ✓
-                      </div>
-                      <span className="text-slate-600 dark:text-gray-300">
-                        <strong className="text-slate-900 dark:text-white block mb-1">
-                          {benefit.title}
-                        </strong>
+          <motion.div {...slideIn} transition={{ duration: 0.25, delay: 0.05, ease: easeOut }}>
+            <div className="card p-8 md:p-10">
+              <h3 className="text-xl font-bold mb-6 text-slate-900 dark:text-white">
+                Why Choose Us?
+              </h3>
+              <ul className="space-y-5">
+                {benefits.map((benefit) => (
+                  <li key={benefit.title} className="flex items-start gap-3">
+                    <div className="w-5 h-5 mt-0.5 bg-indigo-600 dark:bg-[#ac4bff] rounded-full flex items-center justify-center shrink-0">
+                      <Check className="w-3 h-3 text-white" strokeWidth={3} aria-hidden />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-slate-900 dark:text-white text-sm mb-0.5">
+                        {benefit.title}
+                      </p>
+                      <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                         {benefit.desc}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className="absolute -top-10 -right-10 w-40 h-40 bg-indigo-500/20 dark:bg-indigo-500/10 rounded-full -z-10 animate-pulse"></div>
           </motion.div>
         </div>
       </div>

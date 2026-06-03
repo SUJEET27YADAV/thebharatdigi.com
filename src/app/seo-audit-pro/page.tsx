@@ -180,7 +180,7 @@ export default function SEOAuditProPage() {
                   ? removeFromCart(product.id)
                   : handleAddToCart(e)
               }
-              className="bg-[#ac4bff] hover:opacity-90 text-white px-8 py-3 rounded font-semibold flex items-center gap-2 transition-all"
+              className="btn-primary px-8 py-3 flex items-center gap-2"
             >
               <ShoppingCart size={18} />
               <span>
@@ -191,7 +191,7 @@ export default function SEOAuditProPage() {
             </button>
             <a
               href="#features"
-              className="border border-slate-300 dark:border-[#314158] hover:border-[#ac4bff] text-[#020617] dark:text-white px-8 py-3 rounded font-semibold transition-all"
+              className="btn-secondary px-8 py-3"
             >
               Explore Features
             </a>
@@ -228,7 +228,7 @@ export default function SEOAuditProPage() {
                 </div>
                 <div className="mt-3 h-1.5 bg-slate-200 dark:bg-[#314158] rounded overflow-hidden">
                   <div
-                    className="h-full rounded transition-all"
+                    className="h-full rounded transition-[width] duration-500 ease-out"
                     style={{
                       width: `${item.score}%`,
                       backgroundColor: item.color,
@@ -269,9 +269,9 @@ export default function SEOAuditProPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}
-                className="bg-white dark:bg-[#0f172b] border border-slate-200 dark:border-[#314158]/30 rounded p-5 hover:border-[#ac4bff]/30 transition-all group"
+                className="card-interactive p-5 group"
               >
-                <div className="w-10 h-10 rounded bg-indigo-100 dark:bg-[#ac4bff]/10 flex items-center justify-center mb-3 group-hover:bg-indigo-200 dark:group-hover:bg-[#ac4bff]/20 transition-all">
+                <div className="w-10 h-10 rounded bg-indigo-100 dark:bg-[#ac4bff]/10 flex items-center justify-center mb-3 transition-colors duration-200 group-hover:bg-indigo-200 dark:group-hover:bg-[#ac4bff]/20">
                   <f.icon
                     size={18}
                     className="text-indigo-600 dark:text-[#ac4bff]"
@@ -433,7 +433,7 @@ export default function SEOAuditProPage() {
                   ? removeFromCart(product.id)
                   : handleAddToCart(e)
               }
-              className="bg-[#ac4bff] hover:opacity-90 text-white dark:text-white px-10 py-4 rounded font-bold text-lg flex items-center gap-2 mx-auto transition-all"
+              className="btn-primary px-10 py-3.5 text-lg mx-auto flex items-center gap-2"
             >
               <ShoppingCart size={20} />
               <span>

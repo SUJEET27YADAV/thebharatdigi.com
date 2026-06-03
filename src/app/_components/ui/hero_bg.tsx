@@ -20,7 +20,7 @@ export default function HeroBg() {
 
   return (
     <svg
-      className="absolute inset-0 w-full h-full transition-all duration-500"
+      className="absolute inset-0 w-full h-full transition-opacity duration-300"
       viewBox="0 0 1920 1080"
       preserveAspectRatio="xMidYMid slice"
       xmlns="http://www.w3.org/2000/svg"

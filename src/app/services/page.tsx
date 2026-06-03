@@ -67,9 +67,9 @@ export default function Services() {
   return (
     <section className="relative py-24 overflow-hidden bg-white dark:bg-slate-900">
       {/* Background */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 left-10 w-72 h-72 rounded-full bg-indigo-200/50 dark:bg-indigo-500/5" />
-        <div className="absolute bottom-40 right-10 w-96 h-96 rounded-full bg-purple-200/50 dark:bg-purple-500/5" />
+      <div className="absolute inset-0 pointer-events-none opacity-40">
+        <div className="absolute top-20 left-10 w-72 h-72 rounded-full bg-indigo-100 dark:bg-indigo-500/5" />
+        <div className="absolute bottom-40 right-10 w-96 h-96 rounded-full bg-purple-100 dark:bg-purple-500/5" />
       </div>
       <div className="relative max-w-7xl mx-auto px-4 md:px-6">
         {/* Header */}
@@ -126,9 +126,7 @@ export default function Services() {
           {stats.map((stat, i) => (
             <div
               key={i}
-              className="p-6 rounded text-center border transition-all
-                         bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700/50
-                         hover:bg-white dark:hover:bg-slate-800/80"
+              className="card p-6 text-center"
             >
               <stat.icon className="w-6 h-6 mx-auto mb-3 text-indigo-600 dark:text-indigo-400" />
               <div className="text-3xl md:text-4xl font-bold mb-1 text-slate-900 dark:text-white">
@@ -144,9 +142,9 @@ export default function Services() {
         {/* Services Grid */}
         <div className="min-h-210 grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
           {loading ? (
-            <div className="col-span-full flex flex-col items-center justify-center py-10 text-indigo-600 dark:text-indigo-400">
-              <Loader2 size={64} className="animate-spin" />
-              <span className="text-lg">Loading services..</span>
+            <div className="col-span-full empty-state">
+              <Loader2 size={32} className="animate-spin text-indigo-600 dark:text-indigo-400 mb-3" />
+              <p className="text-sm text-slate-500 dark:text-slate-400">Loading services…</p>
             </div>
           ) : (
             services.map((service, index) => {
@@ -159,9 +157,7 @@ export default function Services() {
                   transition={{ delay: index * 0.05 }}
                   onMouseEnter={() => setHoveredIndex(index)}
                   onMouseLeave={() => setHoveredIndex(null)}
-                  className="relative group rounded p-6 md:p-8 border cursor-pointer transition-all duration-300
-                            bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50
-                            hover:border-slate-300 dark:hover:border-slate-600/50"
+                  className="relative group card-interactive p-6 md:p-8"
                 >
                   {service.popular && (
                     <div
@@ -173,8 +169,7 @@ export default function Services() {
                   )}
 
                   <div
-                    className={`w-14 h-14 rounded border flex items-center justify-center mb-6
-                                group-hover:scale-110 transition-transform ${service.color}`}
+                    className={`w-14 h-14 rounded border flex items-center justify-center mb-6 ${service.color}`}
                   >
                     <LucideIcon name={service.icon} />
                   </div>
@@ -242,16 +237,10 @@ export default function Services() {
                   />
                 )}
 
-                <div
-                  className="relative p-6 rounded border transition-all group
-                                bg-slate-50 dark:bg-slate-800/30 border-slate-200 dark:border-slate-700/50
-                                hover:bg-white dark:hover:bg-slate-800/50"
-                >
+                <div className="relative card-interactive p-6">
                   <div className="flex items-center gap-4 mb-4">
                     <div
-                      className="w-12 h-12 rounded border flex items-center justify-center
-                                    group-hover:scale-110 transition-transform
-                                    bg-indigo-100 dark:bg-indigo-500/10 border-indigo-200 dark:border-indigo-500/30"
+                      className="w-12 h-12 rounded border flex items-center justify-center bg-indigo-100 dark:bg-indigo-500/10 border-indigo-200 dark:border-indigo-500/30"
                     >
                       <item.icon className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
                     </div>
@@ -290,11 +279,7 @@ export default function Services() {
               Let&apos;s discuss how we can help transform your digital
               presence.
             </p>
-            <a
-              href="#contact"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded
-                          bg-white text-indigo-600 font-bold text-lg hover:bg-gray-100 transition-all"
-            >
+            <a href="/contactus" className="btn bg-white text-indigo-600 px-8 py-3.5 text-lg hover:bg-slate-100">
               Get Free Consultation
               <ArrowRight className="w-5 h-5" />
             </a>

@@ -359,10 +359,7 @@ export default function Contact() {
                       name="name"
                       type="text"
                       required
-                      className="w-full rounded px-4 py-3.5 border transition-all
-                                 bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-700
-                                 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-600
-                                 focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900/80 focus:outline-none focus:ring-1 focus:ring-indigo-500/50"
+                      className="input"
                       placeholder="John Doe"
                     />
                   </div>
@@ -374,10 +371,7 @@ export default function Contact() {
                       name="email"
                       type="email"
                       required
-                      className="w-full rounded px-4 py-3.5 border transition-all
-                                 bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-700
-                                 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-600
-                                 focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900/80 focus:outline-none focus:ring-1 focus:ring-indigo-500/50"
+                      className="input"
                       placeholder="john@example.com"
                     />
                   </div>
@@ -391,10 +385,7 @@ export default function Contact() {
                     <input
                       name="phone"
                       type="tel"
-                      className="w-full rounded px-4 py-3.5 border transition-all
-                                 bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-700
-                                 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-600
-                                 focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900/80 focus:outline-none focus:ring-1 focus:ring-indigo-500/50"
+                      className="input"
                       placeholder="+91 99999 99999"
                     />
                   </div>
@@ -405,10 +396,7 @@ export default function Contact() {
                     <input
                       name="company"
                       type="text"
-                      className="w-full rounded px-4 py-3.5 border transition-all
-                                 bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-700
-                                 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-600
-                                 focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900/80 focus:outline-none focus:ring-1 focus:ring-indigo-500/50"
+                      className="input"
                       placeholder="Your Company"
                     />
                   </div>
@@ -422,13 +410,7 @@ export default function Contact() {
                     <select
                       name="pType"
                       required
-                      className="w-full rounded px-4 py-3.5 border bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all appearance-none cursor-pointer"
-                      style={{
-                        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
-                        backgroundRepeat: "no-repeat",
-                        backgroundPosition: "right 1rem center",
-                        backgroundSize: "1.2rem",
-                      }}
+                      className="select"
                     >
                       <option
                         value=""
@@ -451,16 +433,7 @@ export default function Contact() {
                     <label className="block text-sm font-medium dark:text-gray-300">
                       Budget Range
                     </label>
-                    <select
-                      name="budget"
-                      className="w-full rounded px-4 py-3.5 border bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all appearance-none cursor-pointer"
-                      style={{
-                        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
-                        backgroundRepeat: "no-repeat",
-                        backgroundPosition: "right 1rem center",
-                        backgroundSize: "1.2rem",
-                      }}
-                    >
+                    <select name="budget" className="select">
                       <option
                         value=""
                         className="bg-slate-400 dark:bg-slate-900"
@@ -487,10 +460,7 @@ export default function Contact() {
                   <textarea
                     name="message"
                     required
-                    className="w-full rounded px-4 py-3.5 h-36 resize-none border transition-all
-                               bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-700
-                               text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-600
-                               focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900/80 focus:outline-none focus:ring-1 focus:ring-indigo-500/50"
+                    className="input h-36 resize-none"
                     placeholder="Tell us about your project..."
                   />
                 </div>
@@ -498,22 +468,17 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={isPending}
-                  className="w-full py-4 rounded font-bold text-lg text-white transition-all flex items-center justify-center gap-2 group
-                             bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700
-                             disabled:opacity-70"
+                  className="btn-primary w-full py-3.5 text-base"
                 >
                   {isPending ? (
                     <>
-                      <Loader2 className="w-5 h-5 animate-spin" />
-                      Sending...
+                      <Loader2 className="w-5 h-5 animate-spin" aria-hidden />
+                      Sending…
                     </>
                   ) : (
                     <>
                       Send Message
-                      <Send
-                        size={20}
-                        className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
-                      />
+                      <Send size={18} aria-hidden />
                     </>
                   )}
                 </button>

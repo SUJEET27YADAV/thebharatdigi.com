@@ -1,110 +1,131 @@
 "use client";
-import React from "react";
-import { motion } from "framer-motion";
+import Link from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
+import {
+  ShoppingCart,
+  Landmark,
+  HeartPulse,
+  UtensilsCrossed,
+  Plane,
+  GraduationCap,
+  type LucideIcon,
+} from "lucide-react";
 
-const projects = [
+const easeOut = [0.23, 1, 0.32, 1] as const;
+
+const projects: {
+  title: string;
+  category: string;
+  icon: LucideIcon;
+  accent: string;
+}[] = [
   {
     title: "E-Commerce Platform",
-    category: "Fashion retail giant's online store",
-    icon: "🛒",
-    color: "from-indigo-600 to-purple-600",
+    category: "Fashion retail online store",
+    icon: ShoppingCart,
+    accent: "bg-indigo-100 dark:bg-indigo-600/20 text-indigo-600 dark:text-indigo-400",
   },
   {
     title: "FinTech Dashboard",
     category: "Banking analytics platform",
-    icon: "🏦",
-    color: "from-pink-600 to-red-600",
+    icon: Landmark,
+    accent: "bg-purple-100 dark:bg-purple-600/20 text-purple-600 dark:text-purple-400",
   },
   {
     title: "Healthcare Portal",
     category: "Telemedicine platform",
-    icon: "🏥",
-    color: "from-green-600 to-teal-600",
+    icon: HeartPulse,
+    accent: "bg-emerald-100 dark:bg-emerald-600/20 text-emerald-600 dark:text-emerald-400",
   },
   {
     title: "Food Delivery App",
     category: "Restaurant ordering system",
-    icon: "🍔",
-    color: "from-yellow-600 to-orange-600",
+    icon: UtensilsCrossed,
+    accent: "bg-amber-100 dark:bg-amber-600/20 text-amber-600 dark:text-amber-400",
   },
   {
     title: "Travel Booking",
     category: "Holiday package platform",
-    icon: "✈️",
-    color: "from-cyan-600 to-blue-600",
+    icon: Plane,
+    accent: "bg-sky-100 dark:bg-sky-600/20 text-sky-600 dark:text-sky-400",
   },
   {
     title: "EdTech Platform",
     category: "Online learning management",
-    icon: "🎓",
-    color: "from-violet-600 to-purple-600",
+    icon: GraduationCap,
+    accent: "bg-violet-100 dark:bg-violet-600/20 text-violet-600 dark:text-violet-400",
   },
 ];
 
 export default function Portfolio() {
+  const prefersReducedMotion = useReducedMotion();
+
+  const itemMotion = prefersReducedMotion
+    ? {}
+    : {
+        initial: { opacity: 0, y: 12 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, margin: "-40px" },
+        transition: { duration: 0.22, ease: easeOut },
+      };
+
   return (
     <section
       id="portfolio"
-      className="py-24 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:bg-gradient-to-br dark:from-slate-900 dark:via-slate-800 dark:to-slate-900"
+      className="py-24 bg-white dark:bg-slate-900"
+      aria-labelledby="portfolio-heading"
     >
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-indigo-600 dark:text-indigo-400 text-lg mb-2"
-          >
+        <header className="text-center mb-12 md:mb-16">
+          <motion.p {...itemMotion} className="section-label mb-2">
             Our Work
           </motion.p>
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white"
+            id="portfolio-heading"
+            {...itemMotion}
+            transition={{ duration: 0.22, delay: 0.04, ease: easeOut }}
+            className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white"
           >
             Featured <span className="gradient-text">Projects</span>
           </motion.h2>
-        </div>
+        </header>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="group relative overflow-hidden rounded bg-white dark:bg-slate-800"
-            >
-              <div
-                className={`aspect-[4/3] bg-gradient-to-br ${project.color} flex items-center justify-center transition-transform duration-500 group-hover:scale-110`}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.map((project, index) => {
+            const Icon = project.icon;
+            return (
+              <motion.article
+                key={project.title}
+                {...itemMotion}
+                transition={{
+                  duration: 0.22,
+                  delay: prefersReducedMotion ? 0 : index * 0.04,
+                  ease: easeOut,
+                }}
+                className="card-interactive overflow-hidden"
               >
-                <span className="text-7xl group-hover:rotate-12 transition-transform duration-500">
-                  {project.icon}
-                </span>
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-800 dark:from-slate-900 via-slate-800/60 dark:via-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end p-8 translate-y-4 group-hover:translate-y-0">
-                <div>
-                  <h3 className="text-white text-2xl font-bold mb-1">
+                <div
+                  className={`aspect-[4/3] ${project.accent} flex items-center justify-center`}
+                >
+                  <Icon className="w-12 h-12" strokeWidth={1.5} aria-hidden />
+                </div>
+                <div className="p-5">
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">
                     {project.title}
                   </h3>
-                  <p className="text-gray-200 dark:text-gray-300">
+                  <p className="text-sm text-slate-600 dark:text-slate-400">
                     {project.category}
                   </p>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.article>
+            );
+          })}
         </div>
-        <div className="text-center mt-12">
-          <a
-            href="/portfolio"
-            className="inline-flex items-center gap-2 px-8 py-3 rounded font-semibold border border-indigo-300 dark:border-indigo-500/50 text-indigo-600 dark:text-white hover:bg-indigo-50 dark:hover:bg-indigo-500/10 transition-all"
-          >
-            View All Projects →
-          </a>
+
+        <div className="text-center mt-10">
+          <Link href="/portfolio" className="btn-secondary">
+            View All Projects
+          </Link>
         </div>
       </div>
     </section>

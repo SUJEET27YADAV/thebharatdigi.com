@@ -1,7 +1,7 @@
 "use client";
 import paymentConfirmationAction from "@/actions/paymentConfirmationAction";
 import { useCartStore } from "@/store/cartStore";
-import { X, Check, MoreHorizontal, Loader2 } from "lucide-react";
+import { X, Check, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useActionState, useEffect, useRef } from "react";
@@ -14,6 +14,28 @@ const initialState = {
   transactionId: "",
 };
 
+function StatusIcon({ status }: { status: string }) {
+  if (status === "FAILED") {
+    return (
+      <div className="w-16 h-16 rounded-full bg-red-500/10 flex items-center justify-center">
+        <X className="w-8 h-8 text-red-500" aria-hidden />
+      </div>
+    );
+  }
+  if (status === "COMPLETED") {
+    return (
+      <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center">
+        <Check className="w-8 h-8 text-emerald-500" aria-hidden />
+      </div>
+    );
+  }
+  return (
+    <div className="w-16 h-16 rounded-full bg-amber-500/10 flex items-center justify-center">
+      <Loader2 className="w-8 h-8 text-amber-500 animate-spin" aria-hidden />
+    </div>
+  );
+}
+
 export default function ConfirmationPage() {
   const params = useSearchParams();
   const merchantOrderId = params.get("merchantOrderId") as string;
@@ -25,11 +47,7 @@ export default function ConfirmationPage() {
   );
 
   useEffect(() => {
-    if (
-      merchantOrderId &&
-      typeof merchantOrderId === "string" &&
-      SubmitRef.current
-    ) {
+    if (merchantOrderId && SubmitRef.current) {
       SubmitRef.current.click();
     }
   }, [merchantOrderId]);
@@ -38,38 +56,33 @@ export default function ConfirmationPage() {
     if (!pending && state.status === "COMPLETED") {
       clearCart();
     }
-  }, [state.status, pending]);
+  }, [state.status, pending, clearCart]);
 
-  if (!merchantOrderId || typeof merchantOrderId !== "string") {
+  if (!merchantOrderId) {
     return (
-      <div className="w-full min-h-[90vh] flex items-center justify-center px-4 sm:px-16 py-24 bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900">
-        <div className="w-full max-w-xl flex flex-col items-center justify-center gap-8 sm:gap-16 px-4 py-8 sm:p-16 bg-gray-400/30 dark:bg-gray-900/30 rounded">
-          <h1 className="sr-only">
-            The Bharat Digital — "Premium Web Development Company that offers
-            SEO Audit Tools, e-commerce solutions, IT support & much more for
-            Businesses all over the world.
-          </h1>
-          <h2 className="w-full text-center text-2xl font-bold">
-            Payment Confirmation
-          </h2>
-          <div className="w-30 h-30 aspect-square bg-red-500 flex items-center justify-center rounded-full text-white">
-            <X className="w-24 h-24 font-bold" />
+      <div className="min-h-[calc(100dvh-80px)] flex items-center justify-center px-4 py-24">
+        <div className="card w-full max-w-md p-8 text-center">
+          <div className="empty-state py-6">
+            <div className="empty-state-icon mx-auto">
+              <X size={22} className="text-red-500" aria-hidden />
+            </div>
+            <h1 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
+              Invalid confirmation link
+            </h1>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">
+              This payment confirmation URL is missing required details.
+            </p>
+            <Link href="/" className="btn-primary w-full">
+              Go to Home
+            </Link>
           </div>
-          <p className="w-full text-center text-xl">
-            Error : Invalid Payment Confirmation Details.
-          </p>
-          <Link
-            href="/"
-            className="w-full py-4 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-900 font-bold text-lg rounded hover:from-amber-400 hover:to-amber-500 transition-all hover:scale-[1.02] flex items-center justify-center gap-2"
-          >
-            Go to Home
-          </Link>
         </div>
       </div>
     );
   }
+
   return (
-    <div className="w-full min-h-[90vh] flex items-center justify-center px-4 sm:px-16 py-24 bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900">
+    <div className="min-h-[calc(100dvh-80px)] flex items-center justify-center px-4 py-24">
       <form action={formAction} className="hidden">
         <input type="hidden" name="merchantOrderId" value={merchantOrderId} />
         {cart.map((item) => (
@@ -80,50 +93,70 @@ export default function ConfirmationPage() {
             value={`${item.id}~${item.name}`}
           />
         ))}
-        <button ref={SubmitRef} type="submit" className="hidden">
+        <button ref={SubmitRef} type="submit">
           Submit
         </button>
       </form>
-      <div className="w-full max-w-xl flex flex-col items-center justify-center gap-6 sm:gap-12 px-4 py-8 sm:p-16 bg-gray-400/30 dark:bg-gray-900/30 rounded">
-        <h1 className="w-full text-center text-2xl font-bold">
+
+      <div className="card w-full max-w-md p-8">
+        <h1 className="text-xl font-bold text-center text-slate-900 dark:text-white mb-6">
           Payment Confirmation
         </h1>
-        <div
-          className={`w-30 h-30 aspect-square ${state.status === "FAILED" ? "bg-red-500" : state.status === "COMPLETED" ? "bg-green-500" : "bg-yellow-500"} flex items-center justify-center rounded-full text-white font-bold text-8xl`}
-        >
-          {state.status === "FAILED" ? (
-            <X className="w-24 h-24 font-bold" />
-          ) : state.status === "COMPLETED" ? (
-            <Check className="w-24 h-24 font-bold" />
-          ) : (
-            <MoreHorizontal className="w-24 h-24 font-bold" />
-          )}
+
+        <div className="flex justify-center mb-6">
+          <StatusIcon status={state.status} />
         </div>
+
         <p
-          className={`w-full min-h-24 text-center text-xl font-bold ${state.status === "COMPLETED" ? "text-green-500" : state.status === "FAILED" ? "text-red-500" : ""}`}
+          className={`text-center text-sm leading-relaxed mb-6 min-h-[3rem] ${
+            state.status === "COMPLETED"
+              ? "text-emerald-600 dark:text-emerald-400"
+              : state.status === "FAILED"
+                ? "text-red-600 dark:text-red-400"
+                : "text-slate-600 dark:text-slate-400"
+          }`}
+          role="status"
         >
           {state.msg === ""
-            ? "Your payment is still pending. Waiting for payment gateway response..."
+            ? "Waiting for payment gateway response…"
             : state.msg}
         </p>
-        <div>
-          <p className="font-bold">Payment Details:</p>
-          <p>Merchant Order Id: {merchantOrderId}</p>
-          <p>Payment Mode: {state.paymentMode}</p>
-          <p>Transaction Id: {state.transactionId}</p>
-        </div>
+
+        {(state.paymentMode || state.transactionId) && (
+          <dl className="text-sm space-y-2 mb-6 p-4 rounded bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+            <div className="flex justify-between gap-4">
+              <dt className="text-slate-500 dark:text-slate-400">Order ID</dt>
+              <dd className="font-mono text-xs text-slate-900 dark:text-white truncate">
+                {merchantOrderId}
+              </dd>
+            </div>
+            {state.paymentMode && (
+              <div className="flex justify-between gap-4">
+                <dt className="text-slate-500 dark:text-slate-400">Payment mode</dt>
+                <dd className="text-slate-900 dark:text-white">{state.paymentMode}</dd>
+              </div>
+            )}
+            {state.transactionId && (
+              <div className="flex justify-between gap-4">
+                <dt className="text-slate-500 dark:text-slate-400">Transaction ID</dt>
+                <dd className="font-mono text-xs text-slate-900 dark:text-white truncate">
+                  {state.transactionId}
+                </dd>
+              </div>
+            )}
+          </dl>
+        )}
+
         {state.status === "PENDING" || state.status === "" ? (
           <button
+            type="button"
             onClick={() => window.location.reload()}
-            className="w-full py-4 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-900 font-bold text-lg rounded hover:from-amber-400 hover:to-amber-500 transition-all hover:scale-[1.02] flex items-center justify-center gap-2"
+            className="btn-primary w-full"
           >
             Check Status Again
           </button>
         ) : (
-          <Link
-            href="/"
-            className="w-full py-4 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-900 font-bold text-lg rounded hover:from-amber-400 hover:to-amber-500 transition-all hover:scale-[1.02] flex items-center justify-center gap-2"
-          >
+          <Link href="/" className="btn-primary w-full">
             Go to Home
           </Link>
         )}
