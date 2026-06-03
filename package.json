@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "doctor": "npx react-doctor@latest"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -14,18 +15,15 @@
     "@mui/icons-material": "^7.3.4",
     "@mui/material": "^7.3.2",
     "@phonepe-pg/pg-sdk-node": "^2.0.6",
-    "@supabase/ssr": "^0.10.3",
     "@supabase/supabase-js": "^2.105.4",
     "@types/nodemailer": "^7.0.1",
     "@types/pg": "^8.20.0",
-    "drizzle-orm": "^0.45.2",
     "framer-motion": "^12.34.3",
     "jose": "^6.2.3",
     "jsonwebtoken": "^9.0.3",
     "lucide-react": "^0.575.0",
     "next": "^16.0.1",
     "nodemailer": "^8.0.7",
-    "postgres": "^3.4.9",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-toastify": "^11.1.0",

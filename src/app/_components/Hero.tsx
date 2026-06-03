@@ -1,6 +1,6 @@
 "use client";
-import { useState, useEffect } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { LazyMotion, m, domAnimation, useReducedMotion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import HeroBg from "./ui/hero_bg";
 import { easeOut, enterFade } from "@/utils/motion";
@@ -17,31 +17,32 @@ const words = [
 export default function Hero() {
   const prefersReducedMotion = useReducedMotion();
   const fadeUp = enterFade(prefersReducedMotion);
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const currentWordIndexRef = useRef(0);
   const [displayText, setDisplayText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
+  const isDeletingRef = useRef(false);
 
   useEffect(() => {
-    const word = words[currentWordIndex];
-    const speed = isDeleting ? 50 : 150;
+    const word = words[currentWordIndexRef.current];
+    const speed = isDeletingRef.current ? 50 : 150;
 
     const timer = setTimeout(() => {
-      if (!isDeleting && displayText !== word) {
+      if (!isDeletingRef.current && displayText !== word) {
         setDisplayText(word.substring(0, displayText.length + 1));
-      } else if (isDeleting && displayText !== "") {
+      } else if (isDeletingRef.current && displayText !== "") {
         setDisplayText(word.substring(0, displayText.length - 1));
-      } else if (!isDeleting && displayText === word) {
-        setTimeout(() => setIsDeleting(true), 2000);
-      } else if (isDeleting && displayText === "") {
-        setIsDeleting(false);
-        setCurrentWordIndex((prev) => (prev + 1) % words.length);
+      } else if (!isDeletingRef.current && displayText === word) {
+        setTimeout(() => { isDeletingRef.current = true; }, 2000);
+      } else if (isDeletingRef.current && displayText === "") {
+        isDeletingRef.current = false;
+        currentWordIndexRef.current = (currentWordIndexRef.current + 1) % words.length;
       }
     }, speed);
 
     return () => clearTimeout(timer);
-  }, [displayText, isDeleting, currentWordIndex]);
+  }, [displayText]);
 
   return (
+    <LazyMotion features={domAnimation}>
     <section
       id="home"
       className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-slate-50 dark:bg-[#050208]"
@@ -49,19 +50,19 @@ export default function Hero() {
       <HeroBg />
 
       <div className="max-w-7xl mx-auto px-4 md:px-6 text-center relative z-10">
-        <motion.p
+        <m.p
           {...fadeUp}
           className="section-label mb-3 text-base normal-case tracking-normal"
         >
           Welcome to The Bharat Digital
-        </motion.p>
+        </m.p>
 
         <h1 className="sr-only">
-          The Bharat Digital — Premium Web Development Company that offers SEO
+          The Bharat Digital: Premium Web Development Company that offers SEO
           Audit Tools, e-commerce solutions, IT support and more for businesses
           worldwide.
         </h1>
-        <motion.h2
+        <m.h2
           {...fadeUp}
           transition={{ duration: 0.25, delay: 0.05, ease: easeOut }}
           className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight text-slate-900 dark:text-white"
@@ -71,9 +72,9 @@ export default function Hero() {
             {displayText}
             <span className="opacity-70">|</span>
           </span>
-        </motion.h2>
+        </m.h2>
 
-        <motion.p
+        <m.p
           {...fadeUp}
           transition={{ duration: 0.25, delay: 0.1, ease: easeOut }}
           className="text-lg md:text-xl max-w-2xl mx-auto mb-10 px-2 text-slate-600 dark:text-slate-400 leading-relaxed"
@@ -81,9 +82,9 @@ export default function Hero() {
           Transform your digital presence with cutting-edge web solutions. From
           startups in Mumbai to enterprises in Manhattan, we craft experiences
           that captivate and convert.
-        </motion.p>
+        </m.p>
 
-        <motion.div
+        <m.div
           {...fadeUp}
           transition={{ duration: 0.25, delay: 0.15, ease: easeOut }}
           className="flex flex-col sm:flex-row gap-3 justify-center px-4"
@@ -94,7 +95,7 @@ export default function Hero() {
           <a href="#portfolio" className="btn-secondary text-lg px-8 py-3.5">
             View Our Work
           </a>
-        </motion.div>
+        </m.div>
       </div>
 
       <button
@@ -112,5 +113,6 @@ export default function Hero() {
         <ChevronDown className="size-6 motion-safe:animate-[bounce_2s_ease-in-out_infinite]" />
       </button>
     </section>
+  </LazyMotion>
   );
 }

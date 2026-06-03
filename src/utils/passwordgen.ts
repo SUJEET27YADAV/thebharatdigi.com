@@ -1,7 +1,10 @@
 "use server";
 import crypto from 'crypto';
+import { auth } from "@/utils/auth";
 
 export async function generateSecurePassword(length:number) {
+  const session = await auth();
+  if (!session) throw new Error("Unauthorized");
   if (length < 10) {
     throw new Error('Password length must be at least 8 characters');
   }

@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { LazyMotion, m, domAnimation, useReducedMotion } from "framer-motion";
 import {
   ShoppingCart,
   Landmark,
@@ -61,6 +61,7 @@ export default function Portfolio() {
   const itemMotion = viewFade(prefersReducedMotion, 0.22, "-40px");
 
   return (
+    <LazyMotion features={domAnimation}>
     <section
       id="portfolio"
       className="py-24 bg-white dark:bg-slate-900"
@@ -68,24 +69,24 @@ export default function Portfolio() {
     >
       <div className="max-w-7xl mx-auto px-6">
         <header className="text-center mb-12 md:mb-16">
-          <motion.p {...itemMotion} className="section-label mb-2">
+          <m.p {...itemMotion} className="section-label mb-2">
             Our Work
-          </motion.p>
-          <motion.h2
+          </m.p>
+          <m.h2
             id="portfolio-heading"
             {...itemMotion}
             transition={{ duration: 0.22, delay: 0.04, ease: easeOut }}
             className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white"
           >
             Featured <span className="gradient-text">Projects</span>
-          </motion.h2>
+          </m.h2>
         </header>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, index) => {
             const Icon = project.icon;
             return (
-              <motion.article
+              <m.article
                 key={project.title}
                 {...itemMotion}
                 transition={{
@@ -108,7 +109,7 @@ export default function Portfolio() {
                     {project.category}
                   </p>
                 </div>
-              </motion.article>
+              </m.article>
             );
           })}
         </div>
@@ -120,5 +121,6 @@ export default function Portfolio() {
         </div>
       </div>
     </section>
+  </LazyMotion>
   );
 }

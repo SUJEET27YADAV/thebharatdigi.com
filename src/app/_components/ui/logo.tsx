@@ -4,7 +4,7 @@ import { twMerge } from "tailwind-merge";
 
 export default function Logo({ className }: { className?: string }) {
   return (
-    <Link href="/" className={twMerge("cursor-pointer", className)}>
+    <div className={twMerge("cursor-pointer", className)}>
       <Image
         src="/logo.png"
         alt="The Bharat Digital"
@@ -13,6 +13,6 @@ export default function Logo({ className }: { className?: string }) {
         priority
         className="h-full w-auto object-contain rounded"
       />
-    </Link>
+    </div>
   );
 }

@@ -5,11 +5,14 @@ import { FormState } from "@/types/types";
 import { CheckoutSchema } from "@/utils/zodSchema";
 import { cookies } from "next/headers";
 import { createServerClient } from "@/utils/supabase/server";
+import { auth } from "@/utils/auth";
 
 export async function CheckoutAction(
   previousState: FormState,
   formData: FormData,
 ) {
+  const session = await auth();
+  if (!session) return { success: false, message: "Unauthorized" };
   const cookieStore = await cookies();
   const supabase = createServerClient();
   try {
@@ -100,7 +103,6 @@ export async function CheckoutAction(
           .single();
 
         if (!dbres || err) {
-          console.log(err);
           return {
             success: false,
             message: "Failed to initiate payment process",

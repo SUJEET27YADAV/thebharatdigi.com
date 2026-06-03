@@ -139,12 +139,11 @@ export default function AdminSidebar({ isOpen, setIsOpen }: AdminSidebarProps) {
 
       {/* Mobile overlay */}
       {isOpen && (
-        <div
+        <button
+          type="button"
+          aria-label="Close sidebar"
           className="fixed inset-0 z-20 md:hidden bg-black/50"
           onClick={() => setIsOpen(false)}
-          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { setIsOpen(false); } }}
-          role="button"
-          tabIndex={0}
         />
       )}
     </>

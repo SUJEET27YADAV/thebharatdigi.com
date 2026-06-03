@@ -1,10 +1,11 @@
+const STATS = [
+  "500+ Projects Delivered",
+  "200+ Happy Clients",
+  "15+ Countries Served",
+  "99% Client Satisfaction",
+];
+
 export default function Marquee() {
-  const stats = [
-    "500+ Projects Delivered",
-    "200+ Happy Clients",
-    "15+ Countries Served",
-    "99% Client Satisfaction",
-  ];
 
   return (
     <section
@@ -18,7 +19,7 @@ export default function Marquee() {
             className="flex gap-20 items-center px-8"
             aria-hidden={copy === 1 || copy === 2}
           >
-            {stats.map((stat) => (
+            {STATS.map((stat) => (
               <span
                 key={`${copy}-${stat}`}
                 className="text-base md:text-xl tracking-wide font-medium text-indigo-600 dark:text-indigo-400"

@@ -1,5 +1,5 @@
 "use client";
-import { motion, useReducedMotion } from "framer-motion";
+import { LazyMotion, m, domAnimation, useReducedMotion } from "framer-motion";
 import {
   Monitor,
   Smartphone,
@@ -50,29 +50,30 @@ export default function Services() {
   const itemMotion = viewFade(prefersReducedMotion, 0.22, "-40px");
 
   return (
+    <LazyMotion features={domAnimation}>
     <section
       id="services"
       className="py-24 bg-slate-100 dark:bg-slate-900/50"
     >
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-12 md:mb-16">
-          <motion.p {...itemMotion} className="section-label mb-2">
+          <m.p {...itemMotion} className="section-label mb-2">
             What We Offer
-          </motion.p>
-          <motion.h2
+          </m.p>
+          <m.h2
             {...itemMotion}
             transition={{ duration: 0.22, delay: 0.04, ease: easeOut }}
             className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white"
           >
             Our <span className="gradient-text">Premium Services</span>
-          </motion.h2>
+          </m.h2>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => {
             const Icon = service.icon;
             return (
-              <motion.article
+              <m.article
                 key={service.title}
                 {...itemMotion}
                 transition={{
@@ -93,12 +94,12 @@ export default function Services() {
                 <p className="leading-relaxed text-slate-600 dark:text-slate-400 text-sm">
                   {service.desc}
                 </p>
-              </motion.article>
+              </m.article>
             );
           })}
 
           <Link href="/services" className="service-card card-interactive p-8 group">
-            <motion.div {...itemMotion}>
+            <m.div {...itemMotion}>
               <div className="size-14 bg-slate-100 dark:bg-slate-800 rounded flex items-center justify-center mb-5">
                 <MoreHorizontal className="size-7 text-slate-500 dark:text-slate-400" />
               </div>
@@ -112,10 +113,11 @@ export default function Services() {
               <p className="leading-relaxed text-slate-600 dark:text-slate-400 text-sm">
                 See the full list of services we offer.
               </p>
-            </motion.div>
+            </m.div>
           </Link>
         </div>
       </div>
     </section>
+  </LazyMotion>
   );
 }

@@ -4,7 +4,7 @@ import Modal from "./ui/modal";
 import { CheckoutAction } from "@/actions/checkoutAction";
 import { FormState } from "@/types/types";
 import { X } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { toast } from "react-toastify";
 
 interface CheckoutModalProps {
@@ -24,19 +24,20 @@ export default function CheckoutModal({
   totalAmount,
   productIds,
 }: CheckoutModalProps) {
-  const router = useRouter();
   const [state, formAction, pending] = useActionState(
     CheckoutAction,
     initialstate,
   );
 
+  if (state.success && state.redirectUrl) {
+    redirect(state.redirectUrl);
+  }
+
   useEffect(() => {
-    if (state.success && state.redirectUrl) {
-      router.push(state.redirectUrl);
-    } else if (!state.success && state.message) {
+    if (!state.success && state.message) {
       toast.error(state.message);
     }
-  }, [state, router]);
+  }, [state]);
 
   return (
     <Modal onClose={onClose} title="Checkout">

@@ -40,29 +40,4 @@ export async function verifyAdminToken(token: string) {
   }
 }
 
-export function getAdminCookie() {
-  if (typeof document === 'undefined') return null;
-  const name = 'admin_token=';
-  const decodedCookie = decodeURIComponent(document.cookie);
-  const cookieArray = decodedCookie.split(';');
-  for (let cookie of cookieArray) {
-    cookie = cookie.trim();
-    if (cookie.indexOf(name) === 0) {
-      return cookie.substring(name.length);
-    }
-  }
-  return null;
-}
 
-export function setAdminCookie(token: string, expiresInDays: number = 1) {
-  if (typeof document === 'undefined') return;
-  const date = new Date();
-  date.setTime(date.getTime() + expiresInDays * 24 * 60 * 60 * 1000);
-  const expires = 'expires=' + date.toUTCString();
-  document.cookie = `admin_token=${token};${expires};path=/;SameSite=Strict`;
-}
-
-export function removeAdminCookie() {
-  if (typeof document === 'undefined') return;
-  document.cookie = 'admin_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;';
-}

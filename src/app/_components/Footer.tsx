@@ -1,7 +1,30 @@
+import Link from "next/link";
 import React from "react";
 import Facebook from "@mui/icons-material/Facebook";
 import Instagram from "@mui/icons-material/Instagram";
 import Linkedin from "@mui/icons-material/LinkedIn";
+
+const SOCIAL_LINKS = [
+  {
+    name: "facebook",
+    icon: <Facebook fontSize="large" />,
+    className: "text-blue-700",
+    href: "#",
+  },
+  {
+    name: "linkedin",
+    icon: <Linkedin fontSize="large" />,
+    className: "text-blue-900",
+    href: "#",
+  },
+  {
+    name: "instagram",
+    icon: <Instagram fontSize="large" />,
+    className:
+      "text-white bg-gradient-to-br from-red-600 via-indigo-600 via-[60%] to-yellow-300 to-[90%] rounded",
+    href: "#",
+  },
+];
 
 export default function Footer() {
   return (
@@ -18,26 +41,9 @@ export default function Footer() {
               precision.
             </p>
             <div className="flex gap-4">
-              {[
-                {
-                  icon: <Facebook fontSize="large" />,
-                  className: "text-blue-700",
-                  href: "#",
-                },
-                {
-                  icon: <Linkedin fontSize="large" />,
-                  className: "text-blue-900",
-                  href: "#",
-                },
-                {
-                  icon: <Instagram fontSize="large" />,
-                  className:
-                    "text-white bg-gradient-to-br from-red-600 via-indigo-600 via-[60%] to-yellow-300 to-[90%] rounded",
-                  href: "#",
-                },
-              ].map((social, i) => (
+              {SOCIAL_LINKS.map((social) => (
                 <a
-                  key={i}
+                  key={social.name}
                   href={social.href}
                   className={`${social.className} flex items-center justify-center transition-opacity duration-150 hover:opacity-80`}
                 >
@@ -90,12 +96,12 @@ export default function Footer() {
                 "Remote IT Assistance",
               ].map((service) => (
                 <li key={service}>
-                  <a
+                  <Link
                     href="/services"
                     className="text-gray-400 hover:text-indigo-400 transition-colors"
                   >
                     {service}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -125,7 +131,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-slate-700 pt-8 text-center text-gray-500 text-sm">
-          <p>
+          <p suppressHydrationWarning>
             © {new Date().getFullYear()} The Bharat Digital. All rights
             reserved. Made with ❤️ for clients worldwide.
           </p>

@@ -1,5 +1,6 @@
 "use client";
-import { motion, useReducedMotion } from "framer-motion";
+import Link from "next/link";
+import { LazyMotion, m, domAnimation, useReducedMotion } from "framer-motion";
 import { Star } from "lucide-react";
 import { easeOut, staggerDelay, viewFade } from "@/utils/motion";
 
@@ -32,25 +33,26 @@ export default function Testimonials() {
   const itemMotion = viewFade(prefersReducedMotion, 0.22, "-40px");
 
   return (
+    <LazyMotion features={domAnimation}>
     <section className="py-24 bg-slate-100 dark:bg-slate-900/50" aria-labelledby="testimonials-heading">
       <div className="max-w-7xl mx-auto px-6">
         <header className="text-center mb-12 md:mb-16">
-          <motion.p {...itemMotion} className="section-label mb-2">
+          <m.p {...itemMotion} className="section-label mb-2">
             Testimonials
-          </motion.p>
-          <motion.h2
+          </m.p>
+          <m.h2
             id="testimonials-heading"
             {...itemMotion}
             transition={{ duration: 0.22, delay: 0.04, ease: easeOut }}
             className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white"
           >
             What Our <span className="gradient-text">Clients Say</span>
-          </motion.h2>
+          </m.h2>
         </header>
 
         <div className="grid md:grid-cols-3 gap-6">
           {testimonials.map((t, i) => (
-            <motion.blockquote
+            <m.blockquote
               key={t.name}
               {...itemMotion}
               transition={{
@@ -89,16 +91,17 @@ export default function Testimonials() {
                   </p>
                 </div>
               </footer>
-            </motion.blockquote>
+            </m.blockquote>
           ))}
         </div>
 
         <div className="text-center mt-10">
-          <a href="/contactus" className="btn-primary">
+          <Link href="/contactus" className="btn-primary">
             Start Your Project
-          </a>
+          </Link>
         </div>
       </div>
     </section>
+  </LazyMotion>
   );
 }

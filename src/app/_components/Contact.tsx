@@ -1,6 +1,6 @@
 "use client";
 import { useActionState, useEffect } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { LazyMotion, m, domAnimation, useReducedMotion } from "framer-motion";
 import { Phone, Mail, MapPin, Send, Loader2 } from "lucide-react";
 import { toast } from "react-toastify";
 import SubmitAction from "@/actions/formsubmitAction";
@@ -45,13 +45,14 @@ export default function Contact() {
   }, [formState]);
 
   return (
+    <LazyMotion features={domAnimation}>
     <section
       id="contact"
       className="py-24 w-full overflow-x-hidden bg-slate-100 dark:bg-slate-900/50"
     >
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
-          <motion.div {...slideIn}>
+          <m.div {...slideIn}>
             <p className="section-label mb-2 normal-case tracking-normal text-base">
               Get In Touch
             </p>
@@ -115,9 +116,9 @@ export default function Contact() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </m.div>
 
-          <motion.div
+          <m.div
             {...slideIn}
             transition={{ duration: 0.25, delay: 0.05, ease: easeOut }}
           >
@@ -252,7 +253,7 @@ export default function Contact() {
                   {isPending ? (
                     <>
                       <Loader2 className="size-5 animate-spin" aria-hidden />
-                      <span>Sending...</span>
+                      <span>Sending…</span>
                     </>
                   ) : (
                     <>
@@ -263,9 +264,10 @@ export default function Contact() {
                 </button>
               </div>
             </form>
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </section>
+  </LazyMotion>
   );
 }

@@ -17,6 +17,16 @@ import { useCartStore } from "@/store/cartStore";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
+const LINKS: NavLink[] = [
+  { icon: <Home fontSize="inherit" />, label: "home", path: "/" },
+  { icon: <Services fontSize="inherit" />, label: "services", path: "/services" },
+  { icon: <About fontSize="inherit" />, label: "about", path: "/aboutus" },
+  { icon: <PorfolioIcon fontSize="inherit" />, label: "portfolio", path: "/portfolio" },
+  { icon: <Contact fontSize="inherit" />, label: "contact", path: "/contactus" },
+  { icon: <AnalyticsIcon fontSize="inherit" />, label: "SEO Audit Pro", path: "/seo-audit-pro" },
+  { icon: <Shop fontSize="inherit" />, label: "Shop", path: "/shop" },
+];
+
 interface NavLink {
   icon: React.ReactNode;
   label: string;
@@ -29,16 +39,6 @@ export default function Navbar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const dref = useRef<HTMLDivElement>(null);
   const dbref = useRef<HTMLButtonElement>(null);
-
-  const links: NavLink[] = [
-    { icon: <Home fontSize="inherit" />, label: "home", path: "/" },
-    { icon: <Services fontSize="inherit" />, label: "services", path: "/services" },
-    { icon: <About fontSize="inherit" />, label: "about", path: "/aboutus" },
-    { icon: <PorfolioIcon fontSize="inherit" />, label: "portfolio", path: "/portfolio" },
-    { icon: <Contact fontSize="inherit" />, label: "contact", path: "/contactus" },
-    { icon: <AnalyticsIcon fontSize="inherit" />, label: "SEO Audit Pro", path: "/seo-audit-pro" },
-    { icon: <Shop fontSize="inherit" />, label: "Shop", path: "/shop" },
-  ];
 
   useEffect(() => {
     if (!drawerOpen) return;
@@ -108,7 +108,7 @@ export default function Navbar() {
             id="list"
             className="flex max-md:flex-col items-stretch md:items-center md:justify-center max-md:gap-1 md:gap-8 list-none"
           >
-            {links.map((l) => (
+            {LINKS.map((l) => (
               <li key={l.path} className="max-md:w-full">
                 <Link
                   href={l.path}

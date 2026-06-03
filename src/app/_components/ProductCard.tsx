@@ -1,13 +1,12 @@
 "use client";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Product } from "@/types/types";
 import { ShoppingCart, Trash } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
 import { toast } from "react-toastify";
 
 export default function ProductCard({ product }: { product: Product }) {
-  const router = useRouter();
   const { cart, addToCart, removeFromCart } = useCartStore();
   const isInCart = (serial: number) =>
     cart.some((p) => p.serial === serial);
@@ -30,20 +29,10 @@ export default function ProductCard({ product }: { product: Product }) {
     toast.info("Product removed from cart");
   };
 
-  const openProduct = () => router.push(`/product/${product.serial}`);
-
   return (
-    <article
+    <Link
+      href={`/product/${product.serial}`}
       className="card-interactive group relative flex flex-col overflow-hidden cursor-pointer"
-      onClick={openProduct}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          openProduct();
-        }
-      }}
-      role="link"
-      tabIndex={0}
       aria-label={`View ${product.name}`}
     >
       <div className="absolute top-4 right-4 z-10 bg-indigo-600 dark:bg-[#ac4bff] text-white text-xs font-semibold px-2.5 py-1 rounded">
@@ -107,6 +96,6 @@ export default function ProductCard({ product }: { product: Product }) {
           )}
         </div>
       </div>
-    </article>
+    </Link>
   );
 }

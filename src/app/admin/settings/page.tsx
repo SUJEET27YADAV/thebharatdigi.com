@@ -89,10 +89,11 @@ export default function SettingsPage() {
 
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-2 text-[#314158] dark:text-gray-500">
+            <label htmlFor="settings-name" className="block text-sm font-medium mb-2 text-[#314158] dark:text-gray-500">
               Name
             </label>
             <input
+              id="settings-name"
               type="text"
               value={form.name}
               onChange={(e) => handleChange("name", e.target.value)}
@@ -101,13 +102,15 @@ export default function SettingsPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2 text-[#314158] dark:text-gray-500">
+            <label htmlFor="settings-email" className="block text-sm font-medium mb-2 text-[#314158] dark:text-gray-500">
               Email
             </label>
             <input
+              id="settings-email"
               type="email"
               value={form.email}
               disabled
+              readOnly
               className="w-full px-4 py-2 rounded text-sm border border-[#444444] bg-gray-300 dark:bg-[#1d293d]/50 text-gray-500 cursor-not-allowed placeholder:text-gray-500"
             />
             <p className="text-xs text-[#314158] dark:text-gray-500 mt-1">
@@ -116,10 +119,11 @@ export default function SettingsPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2 text-[#314158] dark:text-gray-500">
+            <label htmlFor="settings-phone" className="block text-sm font-medium mb-2 text-[#314158] dark:text-gray-500">
               Phone
             </label>
             <input
+              id="settings-phone"
               type="text"
               value={form.phone}
               onChange={(e) => handleChange("phone", e.target.value)}
@@ -129,10 +133,11 @@ export default function SettingsPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2 text-[#314158] dark:text-gray-500">
+            <label htmlFor="settings-department" className="block text-sm font-medium mb-2 text-[#314158] dark:text-gray-500">
               Department
             </label>
             <input
+              id="settings-department"
               type="text"
               value={form.department}
               onChange={(e) => handleChange("department", e.target.value)}
@@ -142,10 +147,11 @@ export default function SettingsPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2 text-[#314158] dark:text-gray-500">
+            <label htmlFor="settings-bio" className="block text-sm font-medium mb-2 text-[#314158] dark:text-gray-500">
               Bio
             </label>
             <textarea
+              id="settings-bio"
               value={form.bio}
               onChange={(e) => handleChange("bio", e.target.value)}
               rows={3}
@@ -155,10 +161,11 @@ export default function SettingsPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2 text-[#314158] dark:text-gray-500">
+            <label htmlFor="settings-avatar" className="block text-sm font-medium mb-2 text-[#314158] dark:text-gray-500">
               Avatar URL
             </label>
             <input
+              id="settings-avatar"
               type="url"
               value={form.avatar_url}
               onChange={(e) => handleChange("avatar_url", e.target.value)}

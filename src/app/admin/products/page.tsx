@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useReducer, useState } from "react";
 import AdminTable from "@/app/_components/admin/AdminTable";
 import { Loader2, Plus, Search } from "lucide-react";
 import { Product } from "@/types/types";
@@ -8,49 +8,81 @@ import AddProductModal from "./_components/AddProductModal";
 import EditProductModal from "./_components/EditProductModal";
 import { toast } from "react-toastify";
 
+const TABLE_COLUMNS = [
+  { key: "serial", label: "S.No.", width: "max-w-[200px]" },
+  { key: "name", label: "Product Name", width: "max-w-[200px]" },
+  { key: "tag", label: "Category", width: "max-w-[200px]" },
+  { key: "price", label: "Price", width: "max-w-[200px]" },
+  { key: "description", label: "Description", width: "max-w-[200px]" },
+  { key: "features", label: "Features", width: "max-w-[200px]" },
+];
+
+type State = {
+  products: Product[];
+  searchTerm: string;
+  loading: boolean;
+};
+
+type Action =
+  | { type: "SET_DATA"; payload: Product[] }
+  | { type: "SET_SEARCH"; payload: string }
+  | { type: "SET_LOADING"; payload: boolean };
+
+function reducer(state: State, action: Action): State {
+  switch (action.type) {
+    case "SET_DATA":
+      return { ...state, products: action.payload, loading: false };
+    case "SET_SEARCH":
+      return { ...state, searchTerm: action.payload };
+    case "SET_LOADING":
+      return { ...state, loading: action.payload };
+    default:
+      return state;
+  }
+}
+
 export default function ProductsPage() {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [state, dispatch] = useReducer(reducer, {
+    products: [],
+    searchTerm: "",
+    loading: true,
+  });
   const [product, setProduct] = useState<Record<
     string,
     string | number | boolean
   > | null>(null);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+
+  const filteredProducts = useMemo(() => {
+    return state.products.filter(
+      (product) =>
+        product.name.toLowerCase().includes(state.searchTerm.toLowerCase()) ||
+        product.tag.toLowerCase().includes(state.searchTerm.toLowerCase()),
+    );
+  }, [state.products, state.searchTerm]);
 
   const fetchProducts = async () => {
     try {
       const response = await fetch("/api/getProducts");
       const res = await response.json();
       if (res.success) {
-        setProducts(res.data || []);
-        setFilteredProducts(res.data || []);
+        dispatch({ type: "SET_DATA", payload: res.data || [] });
       } else {
-        setProducts([]);
+        dispatch({ type: "SET_DATA", payload: [] });
         toast.error(res.msg || "Failed to fetch products");
       }
     } catch (err) {
       console.error("Failed to fetch products:", err);
       toast.error("Failed to fetch products");
     } finally {
-      setLoading(false);
+      dispatch({ type: "SET_LOADING", payload: false });
     }
   };
 
   useEffect(() => {
     fetchProducts();
   }, []);
-
-  useEffect(() => {
-    const filtered = products.filter(
-      (product) =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product.tag.toLowerCase().includes(searchTerm.toLowerCase()),
-    );
-    setFilteredProducts(filtered);
-  }, [searchTerm, products]);
 
   const handleEdit = (product: Record<string, string | number | boolean>) => {
     setProduct(product);
@@ -91,25 +123,16 @@ export default function ProductsPage() {
     fetchProducts();
   };
 
-  const tableColumns = [
-    { key: "serial", label: "S.No.", width: "max-w-[200px]" },
-    { key: "name", label: "Product Name", width: "max-w-[200px]" },
-    { key: "tag", label: "Category", width: "max-w-[200px]" },
-    { key: "price", label: "Price", width: "max-w-[200px]" },
-    { key: "description", label: "Description", width: "max-w-[200px]" },
-    { key: "features", label: "Features", width: "max-w-[200px]" },
-  ];
-
   const tableData = filteredProducts.map((product) => ({
     ...product,
     features: product.features.join(", "),
   }));
 
-  if (loading) {
+  if (state.loading) {
     return (
       <div className="flex flex-col items-center justify-center h-[calc(100dvh-160px)] text-[#314158] dark:text-white text-lg font-medium">
         <Loader2 size={40} className="animate-spin" />
-        <span>Loading...</span>
+        <span>Loading…</span>
       </div>
     );
   }
@@ -138,16 +161,17 @@ export default function ProductsPage() {
         <Search size={18} className="text-[#314158] dark:text-white" />
         <input
           type="text"
+          aria-label="Search products"
           placeholder="Search products..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          value={state.searchTerm}
+          onChange={(e) => dispatch({ type: "SET_SEARCH", payload: e.target.value })}
           className="flex-1 bg-transparent outline-none text-sm"
         />
       </div>
 
       {/* Table */}
       <AdminTable
-        columns={tableColumns}
+        columns={TABLE_COLUMNS}
         data={tableData}
         onEdit={handleEdit}
         onDelete={handleDelete}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useReducer, useState } from "react";
 import AdminTable from "@/app/_components/admin/AdminTable";
 import { Loader2, Plus, Search } from "lucide-react";
 import { Project } from "@/types/types";
@@ -8,47 +8,82 @@ import { toast } from "react-toastify";
 import AddProjectModal from "./_components/AddProjectModal";
 import EditProjectModal from "./_components/EditProjectModal";
 
+const TABLE_COLUMNS = [
+  { key: "icon", label: "Icon", width: "max-w-[200px]" },
+  { key: "title", label: "Title", width: "max-w-[200px]" },
+  { key: "subtitle", label: "SubTitle", width: "max-w-[200px]" },
+  { key: "category", label: "Category", width: "max-w-[200px]" },
+  { key: "color", label: "Color", width: "max-w-[600px]" },
+  { key: "technologies", label: "Technologies", width: "max-w-[200px]" },
+  { key: "year", label: "Year", width: "max-w-[200px]" },
+  { key: "featured", label: "Featured", width: "max-w-[200px]" },
+  { key: "link", label: "Link", width: "max-w-[200px]" },
+];
+
+type State = {
+  portfolio: Project[];
+  searchTerm: string;
+  loading: boolean;
+};
+
+type Action =
+  | { type: "SET_DATA"; payload: Project[] }
+  | { type: "SET_SEARCH"; payload: string }
+  | { type: "SET_LOADING"; payload: boolean };
+
+function reducer(state: State, action: Action): State {
+  switch (action.type) {
+    case "SET_DATA":
+      return { ...state, portfolio: action.payload, loading: false };
+    case "SET_SEARCH":
+      return { ...state, searchTerm: action.payload };
+    case "SET_LOADING":
+      return { ...state, loading: action.payload };
+    default:
+      return state;
+  }
+}
+
 export default function PortfolioPage() {
-  const [portfolio, setPortfolio] = useState<Project[]>([]);
+  const [state, dispatch] = useReducer(reducer, {
+    portfolio: [],
+    searchTerm: "",
+    loading: true,
+  });
   const [project, setProject] = useState<Record<
     string,
     string | boolean | number
   > | null>(null);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [loading, setLoading] = useState(true);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [filteredPortfolio, setFilteredPortfolio] = useState<Project[]>([]);
+
+  const filteredPortfolio = useMemo(() => {
+    return state.portfolio.filter((item) =>
+      item.title.toLowerCase().includes(state.searchTerm.toLowerCase()),
+    );
+  }, [state.portfolio, state.searchTerm]);
 
   const fetchPortfolio = async () => {
     try {
       const response = await fetch("/api/getProjects");
       const res = await response.json();
       if (res.success) {
-        setPortfolio(res.data);
-        setFilteredPortfolio(res.data);
+        dispatch({ type: "SET_DATA", payload: res.data });
       } else {
-        setPortfolio([]);
+        dispatch({ type: "SET_DATA", payload: [] });
         toast.error(res.msg || "Failed to fetch portfolio items");
       }
     } catch (err) {
       console.error("Failed to fetch portfolio items:", err);
       toast.error("Failed to fetch portfolio items");
     } finally {
-      setLoading(false);
+      dispatch({ type: "SET_LOADING", payload: false });
     }
   };
 
   useEffect(() => {
     fetchPortfolio();
   }, []);
-
-  useEffect(() => {
-    const filtered = portfolio.filter((item) =>
-      item.title.toLowerCase().includes(searchTerm.toLowerCase()),
-    );
-    setFilteredPortfolio(filtered);
-  }, [searchTerm, portfolio]);
 
   const handleEdit = (project: Record<string, string | boolean | number>) => {
     setProject(project);
@@ -89,29 +124,17 @@ export default function PortfolioPage() {
     fetchPortfolio();
   };
 
-  const tableColumns = [
-    { key: "icon", label: "Icon", width: "max-w-[200px]" },
-    { key: "title", label: "Title", width: "max-w-[200px]" },
-    { key: "subtitle", label: "SubTitle", width: "max-w-[200px]" },
-    { key: "category", label: "Category", width: "max-w-[200px]" },
-    { key: "color", label: "Color", width: "max-w-[600px]" },
-    { key: "technologies", label: "Technologies", width: "max-w-[200px]" },
-    { key: "year", label: "Year", width: "max-w-[200px]" },
-    { key: "featured", label: "Featured", width: "max-w-[200px]" },
-    { key: "link", label: "Link", width: "max-w-[200px]" },
-  ];
-
   const tableData = filteredPortfolio.map((project) => ({
     ...project,
     technologies: project.technologies.join(", "),
     featured: project.featured ? "Yes" : "No",
   }));
 
-  if (loading) {
+  if (state.loading) {
     return (
       <div className="flex flex-col items-center justify-center h-[calc(100dvh-160px)] text-[#314158] dark:text-white text-lg font-medium">
         <Loader2 size={40} className="animate-spin" />
-        <span>Loading...</span>
+        <span>Loading…</span>
       </div>
     );
   }
@@ -139,15 +162,16 @@ export default function PortfolioPage() {
         <Search size={18} className="text-[#314158] dark:text-white" />
         <input
           type="text"
+          aria-label="Search portfolio"
           placeholder="Search portfolio..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          value={state.searchTerm}
+          onChange={(e) => dispatch({ type: "SET_SEARCH", payload: e.target.value })}
           className="flex-1 bg-transparent outline-none text-sm"
         />
       </div>
 
       <AdminTable
-        columns={tableColumns}
+        columns={TABLE_COLUMNS}
         data={tableData}
         onEdit={handleEdit}
         onDelete={handleDelete}

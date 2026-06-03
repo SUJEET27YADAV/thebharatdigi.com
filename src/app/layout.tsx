@@ -81,25 +81,24 @@ export default function RootLayout({
         </ThemeProvider>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "The Bharat Digital",
-              url: "https://thebharatdigi.com",
-              logo: "https://thebharatdigi.com/logo.png",
-              description:
-                "Premium Web Development Company that offers SEO, e-commerce solutions, IT support & much more across the globe. 500+ projects delivered worldwide.",
-              contactPoint: {
-                "@type": "ContactPoint",
-                telephone: "+91-9999239307",
-                contactType: "sales",
-                email: "support@thebharatdigi.com",
-              },
-              sameAs: ["https://thebharatdigi.com"],
-            }),
-          }}
-        />
+        >
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "The Bharat Digital",
+            url: "https://thebharatdigi.com",
+            logo: "https://thebharatdigi.com/logo.png",
+            description:
+              "Premium Web Development Company that offers SEO, e-commerce solutions, IT support & much more across the globe. 500+ projects delivered worldwide.",
+            contactPoint: {
+              "@type": "ContactPoint",
+              telephone: "+91-9999239307",
+              contactType: "sales",
+              email: "support@thebharatdigi.com",
+            },
+            sameAs: ["https://thebharatdigi.com"],
+          })}
+        </script>
       </body>
     </html>
   );

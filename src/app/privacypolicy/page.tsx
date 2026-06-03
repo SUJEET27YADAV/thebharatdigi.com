@@ -1,10 +1,16 @@
+import type { Metadata } from "next";
 import React from "react";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy | The Bharat Digital",
+  description: "Read the Privacy Policy of The Bharat Digital. Learn how we collect, use, and protect your personal data when you use our website and services.",
+};
 
 export default function Page() {
   return (
     <main className="w-full max-w-7xl mx-auto pt-26 flex flex-col items-center gap-4 p-10">
       <h1 className="sr-only">
-        The Bharat Digital — "Premium Web Development Company that offers SEO
+        The Bharat Digital: "Premium Web Development Company that offers SEO
         Audit Tools, e-commerce solutions, IT support & much more for Businesses
         all over the world.
       </h1>

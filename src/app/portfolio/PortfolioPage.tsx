@@ -1,0 +1,394 @@
+// components/Portfolio.tsx
+"use client";
+import { useState } from "react";
+import { LazyMotion, m, domAnimation, AnimatePresence } from "framer-motion";
+import {
+  ExternalLink,
+  ArrowRight,
+  Sparkles,
+  Filter,
+  Star,
+  ChevronLeft,
+  ChevronRight,
+  Quote,
+  Layers,
+  ShoppingCart,
+  BarChart3,
+  Heart,
+  GraduationCap,
+  MonitorCog,
+  Gamepad2,
+} from "lucide-react";
+import { Project } from "@/types/types";
+import { LucideIcon } from "../_components/ui/lucideIcon";
+import Link from "next/link";
+
+const categories = [
+  { id: "all", label: "All", icon: Layers },
+  { id: "it solutions", label: "IT Solutions", icon: MonitorCog },
+  { id: "gaming", label: "Gaming", icon: Gamepad2 },
+  { id: "ecommerce", label: "E-Commerce", icon: ShoppingCart },
+  { id: "saas", label: "SaaS", icon: BarChart3 },
+  { id: "healthcare", label: "Healthcare", icon: Heart },
+  { id: "education", label: "Education", icon: GraduationCap },
+];
+
+const testimonials = [
+  {
+    quote:
+      "The Bharat Digital delivered beyond expectations. Our platform saw a 250% revenue increase.",
+    author: "Priya Mehta",
+    role: "CEO, StyleHub India",
+    avatar: "PM",
+  },
+  {
+    quote:
+      "Their technical expertise transformed our banking operations. Highly recommended!",
+    author: "Vikram Singh",
+    role: "CTO, National Bank",
+    avatar: "VS",
+  },
+];
+
+interface PortfolioPageProps {
+  projects: Project[];
+}
+
+function CategoryFilter({
+  activeCategory,
+  setActiveCategory,
+}: {
+  activeCategory: string;
+  setActiveCategory: (c: string) => void;
+}) {
+  return (
+    <m.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="mb-10"
+    >
+      <div className="flex items-center gap-2 mb-6">
+        <Filter className="size-5 text-slate-500 dark:text-gray-400" />
+        <span className="text-slate-500 dark:text-gray-400 font-medium">
+          Filter by Category
+        </span>
+      </div>
+
+      <div className="flex flex-wrap gap-3">
+        {categories.map((cat) => (
+          <button
+            type="button"
+            key={cat.id}
+            onClick={() => setActiveCategory(cat.id)}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded font-medium text-sm transition-all
+                           ${
+                             activeCategory === cat.id
+                               ? "bg-indigo-500 text-white"
+                               : "bg-slate-100 dark:bg-slate-800/50 text-slate-600 dark:text-gray-400 border border-slate-200 dark:border-slate-700/50 hover:text-slate-900 dark:hover:text-white"
+                           }`}
+          >
+            <cat.icon className="size-4" />
+            {cat.label}
+          </button>
+        ))}
+      </div>
+    </m.div>
+  );
+}
+
+export default function Portfolio({ projects }: PortfolioPageProps) {
+  const [activeCategory, setActiveCategory] = useState("all");
+  const [testimonialIndex, setTestimonialIndex] = useState(0);
+
+  const filteredProjects =
+    activeCategory === "all"
+      ? projects
+      : projects.filter((p) => p.category.toLowerCase() === activeCategory);
+  return (
+    <LazyMotion features={domAnimation}>
+    <section
+      id="portfolio"
+      className="relative py-24 overflow-hidden bg-white dark:bg-slate-900"
+    >
+      {/* Background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-20 right-10 size-72 rounded-full bg-indigo-200/50 dark:bg-indigo-500/5" />
+        <div className="absolute bottom-40 left-10 size-96 rounded-full bg-purple-200/50 dark:bg-purple-500/5" />
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-4 md:px-6">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <m.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded border mb-6
+                       bg-indigo-50 dark:bg-indigo-500/10 border-indigo-200 dark:border-indigo-500/20"
+          >
+            <Sparkles className="size-4 text-indigo-600 dark:text-indigo-400" />
+            <span className="text-indigo-600 dark:text-indigo-400 text-sm font-medium">
+              Our Portfolio
+            </span>
+          </m.div>
+          <h1 className="sr-only">
+            The Bharat Digital: "Premium Web Development Company that offers
+            SEO Audit Tools, e-commerce solutions, IT support & much more for
+            Businesses all over the world.
+          </h1>
+          <m.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-slate-900 dark:text-white"
+          >
+            Web Development &amp; Digital{" "}
+            <span className="gradient-text">Projects That Inspire</span>
+          </m.h2>
+          <m.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-lg md:text-xl max-w-3xl mx-auto text-slate-600 dark:text-gray-400"
+          >
+            Explore our work across industries including e-commerce, SaaS,
+            healthcare, education, gaming, and IT solutions. Each project
+            showcases our commitment to clean code, modern design, and
+            measurable results for clients worldwide.
+          </m.p>
+        </div>
+
+        <CategoryFilter
+          activeCategory={activeCategory}
+          setActiveCategory={setActiveCategory}
+        />
+
+        {/* Projects Grid */}
+        <m.div
+          layout
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20"
+        >
+          <AnimatePresence mode="popLayout">
+            {projects.length === 0 ? (
+              <div className="col-span-full flex flex-col items-center justify-center py-10 text-slate-500 dark:text-gray-400">
+                <span className="text-lg">No projects found.</span>
+              </div>
+            ) : (
+              filteredProjects.map((project, index) => (
+                <m.div
+                  key={project.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                  className="group relative rounded overflow-hidden border transition-all duration-300
+                            bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50
+                            hover:border-slate-300 dark:hover:border-slate-600/50"
+                >
+                  {/* Image */}
+                  <div
+                    className="relative aspect-[4/3] overflow-hidden"
+                    style={{ background: project.color }}
+                  >
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-6xl transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500">
+                        {project.icon.length === 2 ? (
+                          project.icon
+                        ) : (
+                          <LucideIcon name={project.icon} size={80} />
+                        )}
+                      </span>
+                    </div>
+
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60" />
+
+                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <a
+                        href={project.link || "#"}
+                        target={project.link ? "_blank" : undefined}
+                        className="size-9 rounded bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+                      >
+                        <ExternalLink className="size-4" />
+                      </a>
+                    </div>
+
+                    {project.featured && (
+                      <div className="absolute top-4 left-4 px-3 py-1 rounded bg-white/10 border border-white/20 text-white text-xs font-medium flex items-center gap-1">
+                        <Star className="size-3 fill-yellow-400 text-yellow-400" />
+                        Featured
+                      </div>
+                    )}
+
+                    <div className="absolute bottom-4 left-4 px-3 py-1 flex items-center justify-center rounded bg-white/10 border border-white/20 text-white text-xs font-medium capitalize tracking-wide">
+                      {project.category}
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-5">
+                    <div className="flex items-start justify-between gap-2 mb-2">
+                      <div>
+                        <h4 className="text-lg font-bold group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors text-slate-900 dark:text-white">
+                          {project.title}
+                        </h4>
+                        <p className="text-sm text-slate-500 dark:text-gray-400">
+                          {project.subtitle}
+                        </p>
+                      </div>
+                      <span className="text-xs text-slate-400 dark:text-gray-500">
+                        {project.year}
+                      </span>
+                    </div>
+
+                    <div className="flex flex-wrap gap-1.5 mt-3">
+                      {project.technologies.map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-2 py-0.5 rounded text-xs bg-slate-100 dark:bg-slate-700/50 text-slate-600 dark:text-gray-400"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="flex items-center justify-end mt-4 pt-4 border-t border-slate-100 dark:border-slate-700/50">
+                      <Link
+                        href={project.link || "#"}
+                        target={project.link ? "_blank" : undefined}
+                        className="text-sm font-medium flex items-center gap-1 text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 transition-colors group/link"
+                      >
+                        View Project
+                        <ArrowRight className="size-3 group-hover/link:translate-x-0.5 transition-transform" />
+                      </Link>
+                    </div>
+                  </div>
+                </m.div>
+              ))
+            )}
+          </AnimatePresence>
+        </m.div>
+
+        {/* Testimonials */}
+        <m.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-20"
+        >
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
+              What Our <span className="gradient-text">Clients Say</span>
+            </h2>
+          </div>
+
+          <div className="relative max-w-4xl mx-auto">
+            <div className="absolute z-10 -top-6 left-8 text-indigo-200 dark:text-indigo-500/20">
+              <Quote className="size-20" />
+            </div>
+
+            <div className="relative rounded p-8 md:p-12 border bg-slate-50 dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50">
+              <AnimatePresence mode="wait">
+                <m.div
+                  key={testimonialIndex}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <p className="text-xl md:text-2xl leading-relaxed mb-8 italic text-slate-700 dark:text-gray-300">
+                    &quot;{testimonials[testimonialIndex].quote}&quot;
+                  </p>
+
+                  <div className="flex items-center gap-4">
+                    <div className="size-14 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-lg">
+                      {testimonials[testimonialIndex].avatar}
+                    </div>
+                    <div>
+                      <div className="font-semibold text-slate-900 dark:text-white">
+                        {testimonials[testimonialIndex].author}
+                      </div>
+                      <div className="text-sm text-slate-500 dark:text-gray-400">
+                        {testimonials[testimonialIndex].role}
+                      </div>
+                    </div>
+                  </div>
+                </m.div>
+              </AnimatePresence>
+
+              <div className="flex items-center justify-center gap-4 mt-8 pt-8 border-t border-slate-200 dark:border-slate-700/50">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setTestimonialIndex(
+                      (p) =>
+                        (p - 1 + testimonials.length) % testimonials.length,
+                    )
+                  }
+                  className="size-10 rounded-full border flex items-center justify-center transition-all
+                             bg-white dark:bg-slate-700/50 border-slate-200 dark:border-slate-600/50
+                             text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white"
+                >
+                  <ChevronLeft className="size-5" />
+                </button>
+                <div className="flex gap-2">
+                  {testimonials.map((t, i) => (
+                    <button
+                      type="button"
+                      key={t.author}
+                      aria-label={`Go to testimonial ${i + 1}`}
+                      onClick={() => setTestimonialIndex(i)}
+                      className={`size-2 rounded-full transition-all ${
+                        i === testimonialIndex
+                          ? "w-6 bg-indigo-500"
+                          : "bg-slate-300 dark:bg-slate-600"
+                      }`}
+                    />
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setTestimonialIndex((p) => (p + 1) % testimonials.length)
+                  }
+                  className="size-10 rounded-full border flex items-center justify-center transition-all
+                             bg-white dark:bg-slate-700/50 border-slate-200 dark:border-slate-600/50
+                             text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white"
+                >
+                  <ChevronRight className="size-5" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </m.div>
+
+        {/* CTA */}
+        <m.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="relative rounded overflow-hidden"
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600" />
+          <div className="relative px-6 py-16 md:py-20 text-center">
+            <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
+              Ready to Start Your Project?
+            </h3>
+            <a
+              href="#contact"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded
+                          bg-white text-indigo-600 font-bold text-lg hover:bg-gray-100 transition-all"
+            >
+              Start a Project
+              <ArrowRight className="size-5" />
+            </a>
+          </div>
+        </m.div>
+      </div>
+    </section>
+  </LazyMotion>
+  );
+}

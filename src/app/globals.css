@@ -371,13 +371,19 @@
 }
 
 @media (max-width: 40rem) {
-  .responsive-sm { font-size: 0.875rem; }
+  .responsive-sm {
+    font-size: 0.875rem;
+  }
 }
 @media (min-width: 40rem) and (max-width: 48rem) {
-  .responsive-md { font-size: 1rem; }
+  .responsive-md {
+    font-size: 1rem;
+  }
 }
 @media (min-width: 48rem) and (max-width: 64rem) {
-  .responsive-lg { font-size: 1.125rem; }
+  .responsive-lg {
+    font-size: 1.125rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

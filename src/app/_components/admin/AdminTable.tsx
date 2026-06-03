@@ -41,7 +41,7 @@ export default function AdminTable({
         <tbody>
           {data.map((row, idx) => (
             <tr
-              key={idx}
+              key={row.id}
               className="border-b border-[#444444] hover:bg-opacity-50 hover:bg-gray-400 hover:dark:bg-[#1d293d] transition-colors"
             >
               {columns.map((col) => (

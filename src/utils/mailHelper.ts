@@ -1,6 +1,7 @@
 "use server";
 import nodemailer, { TransportOptions } from "nodemailer";
 import SMTPTransport from "nodemailer/lib/smtp-transport";
+import { auth } from "@/utils/auth";
 
 const sec = process.env.NODE_ENV !== "development";
 
@@ -51,6 +52,8 @@ export async function sendEmail(
   info: SMTPTransport.SentMessageInfo | null;
   error: string | null;
 }> {
+  const session = await auth();
+  if (!session) return { success: false, msg: "Unauthorized", info: null, error: "Unauthorized" };
   try {
     const { success, msg } = await verifyTransport();
     if (!success) {
@@ -85,7 +88,6 @@ export async function sendEmail(
       };
     }
   } catch (err) {
-    console.log("Error sending email: ", err);
     return {
       success: false,
       msg: "Error sending Email",

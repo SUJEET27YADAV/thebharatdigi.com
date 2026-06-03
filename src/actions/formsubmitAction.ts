@@ -1,10 +1,13 @@
 "use server";
 import { sendEmail } from "@/utils/mailHelper";
+import { auth } from "@/utils/auth";
 
 export default async function SubmitAction(
   PrevState: { msg: string },
   formData: FormData,
 ) {
+  const session = await auth();
+  if (!session) return { msg: "Unauthorized" };
   try {
     const name = formData.get("name");
     const email = formData.get("email");

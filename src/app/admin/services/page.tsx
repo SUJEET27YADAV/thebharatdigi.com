@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useReducer, useState } from "react";
 import { useRouter } from "next/navigation";
 import AdminTable from "@/app/_components/admin/AdminTable";
 import { Loader2, Plus, Search } from "lucide-react";
@@ -8,47 +8,80 @@ import AddServiceModal from "./_components/AddServiceModal";
 import { toast } from "react-toastify";
 import EditServiceModal from "./_components/EditServiceModal";
 
+const TABLE_COLUMNS = [
+  { key: "icon", label: "Icon", width: "max-w-[100px]" },
+  { key: "title", label: "Service Name", width: "max-w-[200px]" },
+  { key: "shortdesc", label: "Short Description", width: "max-w-[200px]" },
+  { key: "fulldesc", label: "Full Description", width: "max-w-[200px]" },
+  { key: "features", label: "Features", width: "max-w-[200px]" },
+  { key: "color", label: "Color", width: "max-w-[100px]" },
+  { key: "popular", label: "Popular", width: "max-w-[200px]" },
+];
+
+type State = {
+  services: Service[];
+  searchTerm: string;
+  loading: boolean;
+};
+
+type Action =
+  | { type: "SET_DATA"; payload: Service[] }
+  | { type: "SET_SEARCH"; payload: string }
+  | { type: "SET_LOADING"; payload: boolean };
+
+function reducer(state: State, action: Action): State {
+  switch (action.type) {
+    case "SET_DATA":
+      return { ...state, services: action.payload, loading: false };
+    case "SET_SEARCH":
+      return { ...state, searchTerm: action.payload };
+    case "SET_LOADING":
+      return { ...state, loading: action.payload };
+    default:
+      return state;
+  }
+}
+
 export default function ServicesPage() {
-  const [services, setServices] = useState<Service[]>([]);
+  const [state, dispatch] = useReducer(reducer, {
+    services: [],
+    searchTerm: "",
+    loading: true,
+  });
   const [service, setService] = useState<Record<
     string,
     string | number | boolean
   > | null>(null);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [filteredServices, setFilteredServices] = useState<Service[]>([]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+
+  const filteredServices = useMemo(() => {
+    return state.services.filter((service) =>
+      service.title.toLowerCase().includes(state.searchTerm.toLowerCase()),
+    );
+  }, [state.services, state.searchTerm]);
 
   const fetchServices = async () => {
     try {
       const response = await fetch("/api/getServices");
       const res = await response.json();
       if (res.success) {
-        setServices(res.data);
-        setFilteredServices(res.data);
+        dispatch({ type: "SET_DATA", payload: res.data });
       } else {
-        setServices([]);
+        dispatch({ type: "SET_DATA", payload: [] });
         toast.error(res.msg || "Failed to fetch services");
       }
     } catch (err) {
       console.error("Failed to fetch services:", err);
       toast.error("Failed to fetch services");
     } finally {
-      setLoading(false);
+      dispatch({ type: "SET_LOADING", payload: false });
     }
   };
 
   useEffect(() => {
     fetchServices();
   }, []);
-
-  useEffect(() => {
-    const filtered = services.filter((service) =>
-      service.title.toLowerCase().includes(searchTerm.toLowerCase()),
-    );
-    setFilteredServices(filtered);
-  }, [searchTerm, services]);
 
   const handleEdit = (service: Record<string, string | number | boolean>) => {
     setService(service);
@@ -89,16 +122,6 @@ export default function ServicesPage() {
     fetchServices();
   };
 
-  const tableColumns = [
-    { key: "icon", label: "Icon", width: "max-w-[100px]" },
-    { key: "title", label: "Service Name", width: "max-w-[200px]" },
-    { key: "shortdesc", label: "Short Description", width: "max-w-[200px]" },
-    { key: "fulldesc", label: "Full Description", width: "max-w-[200px]" },
-    { key: "features", label: "Features", width: "max-w-[200px]" },
-    { key: "color", label: "Color", width: "max-w-[100px]" },
-    { key: "popular", label: "Popular", width: "max-w-[200px]" },
-  ];
-
   const tableData = filteredServices.map((service) => ({
     ...service,
     features: Array.isArray(service.features)
@@ -107,11 +130,11 @@ export default function ServicesPage() {
     popular: service.popular ? "Yes" : "No",
   }));
 
-  if (loading) {
+  if (state.loading) {
     return (
       <div className="flex flex-col items-center justify-center h-[calc(100dvh-160px)] text-[#314158] dark:text-white text-lg font-medium">
         <Loader2 size={40} className="animate-spin" />
-        <span>Loading...</span>
+        <span>Loading…</span>
       </div>
     );
   }
@@ -137,15 +160,16 @@ export default function ServicesPage() {
         <Search size={18} className="text-[#314158] dark:text-white" />
         <input
           type="text"
+          aria-label="Search services"
           placeholder="Search services..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          value={state.searchTerm}
+          onChange={(e) => dispatch({ type: "SET_SEARCH", payload: e.target.value })}
           className="flex-1 bg-transparent outline-none text-sm"
         />
       </div>
 
       <AdminTable
-        columns={tableColumns}
+        columns={TABLE_COLUMNS}
         data={tableData}
         onEdit={handleEdit}
         onDelete={handleDelete}

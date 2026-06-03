@@ -1,18 +1,17 @@
 "use client";
 import { useEffect, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { LazyMotion, m, domAnimation, useReducedMotion } from "framer-motion";
 
 export default function CustomCursor() {
   const prefersReducedMotion = useReducedMotion();
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0, visible: false });
   const [isHovering, setIsHovering] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const [isFinePointer, setIsFinePointer] = useState(false);
+  const [isFinePointer, setIsFinePointer] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(hover: hover) and (pointer: fine)").matches,
+  );
 
   useEffect(() => {
     const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
-    setIsFinePointer(finePointer.matches);
-
     const onChange = (e: MediaQueryListEvent) => setIsFinePointer(e.matches);
     finePointer.addEventListener("change", onChange);
     return () => finePointer.removeEventListener("change", onChange);
@@ -22,8 +21,7 @@ export default function CustomCursor() {
     if (!isFinePointer || prefersReducedMotion) return;
 
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-      setIsVisible(true);
+      setMousePos({ x: e.clientX, y: e.clientY, visible: true });
     };
 
     const handleMouseOver = (e: MouseEvent) => {
@@ -46,15 +44,16 @@ export default function CustomCursor() {
     };
   }, [isFinePointer, prefersReducedMotion]);
 
-  if (!isVisible || !isFinePointer || prefersReducedMotion) return null;
+  if (!mousePos.visible || !isFinePointer || prefersReducedMotion) return null;
 
   return (
+    <LazyMotion features={domAnimation}>
     <>
-      <motion.div
+      <m.div
         className="fixed top-0 left-0 size-5 border-2 border-indigo-500 rounded-full pointer-events-none z-[999999]"
         animate={{
-          x: mousePosition.x - 10,
-          y: mousePosition.y - 10,
+          x: mousePos.x - 10,
+          y: mousePos.y - 10,
           scale: isHovering ? 1.6 : 1,
           backgroundColor: isHovering
             ? "rgba(99, 102, 241, 0.15)"
@@ -62,11 +61,11 @@ export default function CustomCursor() {
         }}
         transition={{ type: "spring", damping: 24, stiffness: 280, mass: 0.5 }}
       />
-      <motion.div
+      <m.div
         className="fixed top-0 left-0 size-1.5 bg-indigo-500 rounded-full pointer-events-none z-[999999]"
         animate={{
-          x: mousePosition.x - 3,
-          y: mousePosition.y - 3,
+          x: mousePos.x - 3,
+          y: mousePos.y - 3,
         }}
         transition={{ type: "spring", damping: 30, stiffness: 500, mass: 0.1 }}
       />
@@ -76,5 +75,6 @@ export default function CustomCursor() {
         }
       `}</style>
     </>
+  </LazyMotion>
   );
 }

@@ -8,20 +8,21 @@ export const metadata: Metadata = {
     "Generate secure, random passwords instantly with The Bharat Digital's free password generator tool.",
 };
 
-export default async function Page() {
-  async function genAction(
-    prevState: { message: string; password: string } | undefined,
-    formData: FormData,
-  ) {
-    "use server";
-    try {
-      const len = parseInt((formData.get("passlen") as string) || "10");
-      const password = await generateSecurePassword(len);
-      return { message: "Password generated successfully", password };
-    } catch (err) {
-      console.error(err);
-      return { message: "Error generating password", password: "" };
-    }
+async function genAction(
+  prevState: { message: string; password: string } | undefined,
+  formData: FormData,
+) {
+  "use server";
+  try {
+    const len = parseInt((formData.get("passlen") as string) || "10");
+    const password = await generateSecurePassword(len);
+    return { message: "Password generated successfully", password };
+  } catch (err) {
+    console.error(err);
+    return { message: "Error generating password", password: "" };
   }
+}
+
+export default async function Page() {
   return <PassgenPage action={genAction} />;
 }

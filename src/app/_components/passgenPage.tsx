@@ -20,7 +20,7 @@ export default function PassgenPage({ action }: PassgenPageProps) {
   return (
     <main className="w-full flex flex-col items-center gap-4 px-6 py-24 sm:py-33">
       <h1 className="sr-only">
-        The Bharat Digital — "Premium Web Development Company that offers SEO
+        The Bharat Digital: "Premium Web Development Company that offers SEO
         Audit Tools, e-commerce solutions, IT support & much more for Businesses
         all over the world.
       </h1>
@@ -59,34 +59,32 @@ export default function PassgenPage({ action }: PassgenPageProps) {
         </form>
         <h2 className="w-full flex items-center justify-between text-lg font-bold">
           <span>Generated Password :</span>
-          <span
+          <button
+            type="button"
+            aria-label="Copy password"
             onClick={() => {
               navigator.clipboard.writeText(state?.password ?? "");
             }}
-            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { navigator.clipboard.writeText(state?.password ?? ""); } }}
-            role="button"
-            tabIndex={0}
             className="p-2 flex items-center justify-center text-xl cursor-pointer bg-gray-300 dark:bg-zinc-900 hover:bg-zinc-600 rounded"
           >
             <CopyIcon fontSize="inherit" />
-          </span>
+          </button>
         </h2>
         <div className="relative w-full border border-zinc-600 rounded">
           <input
-            title="Show generated password"
+            aria-label="Generated password"
             type={showPass ? "text" : "password"}
             value={state?.password ?? ""}
             placeholder=""
             readOnly
             className="w-full h-full px-2 py-2.5 outline-none text-xs"
           />
-          <span
+          <button
+            type="button"
+            aria-label={showPass ? "Hide password" : "Show password"}
             onClick={() => {
               setShowPass(!showPass);
             }}
-            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { setShowPass(!showPass); } }}
-            role="button"
-            tabIndex={0}
             className="absolute top-0 right-0 h-full p-2 flex items-center justify-center text-xl cursor-pointer bg-gray-300 dark:bg-zinc-900 hover:bg-zinc-600 rounded"
           >
             {showPass ? (
@@ -94,7 +92,7 @@ export default function PassgenPage({ action }: PassgenPageProps) {
             ) : (
               <ShowIcon fontSize="inherit" />
             )}
-          </span>
+          </button>
         </div>
       </div>
     </main>

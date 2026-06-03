@@ -4,11 +4,14 @@ import { sendEmail } from "@/utils/mailHelper";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import { createServerClient } from "@/utils/supabase/server";
+import { auth } from "@/utils/auth";
 
 export default async function paymentConfirmationAction(
   previousState: { msg: string },
   formData: FormData,
 ) {
+  const session = await auth();
+  if (!session) return { msg: "Unauthorized", status: "FAILED", amount: 0, paymentMode: "", transactionId: "" };
   const cookieStore = await cookies();
   const supabase = createServerClient();
   try {
@@ -32,7 +35,6 @@ export default async function paymentConfirmationAction(
         .single();
 
       if (!res || er) {
-        console.log("Failed to update database (er) :", er);
         return {
           msg: `Your payment of ₹ ${response.amount / 100} has been successfully processed but we failed to update the database.`,
           status: "COMPLETED",
@@ -52,7 +54,6 @@ export default async function paymentConfirmationAction(
         .single();
 
       if (!resp || err) {
-        console.log("Failed to update database");
         return {
           msg: `Your payment of ₹ ${response.amount / 100} has been successfully processed but we failed to update the database.`,
           status: "COMPLETED",

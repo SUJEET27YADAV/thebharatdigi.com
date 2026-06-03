@@ -32,17 +32,13 @@ export default function Modal({
   }, [onClose]);
 
   return (
-    <div
-      role="dialog"
+    <dialog
       aria-modal="true"
       aria-label={title}
       className={twMerge(
         "fixed inset-0 z-[9999] w-screen h-screen p-4 flex flex-col items-center justify-center bg-black/40",
         className,
       )}
-      onMouseDown={(e) => {
-        if (e.target === e.currentTarget) onClose?.();
-      }}
     >
       <div className="relative w-full flex justify-center">
         {onClose && (
@@ -57,6 +53,6 @@ export default function Modal({
         )}
         {children}
       </div>
-    </div>
+    </dialog>
   );
 }

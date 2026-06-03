@@ -1,5 +1,12 @@
 import { ReactNode } from "react";
 
+const COLOR_MAP = {
+  default: "#ac4bff",
+  success: "#00c758",
+  warning: "#f99c00",
+  danger: "#fb2c36",
+};
+
 interface StatsCardProps {
   title: string;
   value: string | number;
@@ -18,14 +25,7 @@ export default function StatsCard({
   color = "default",
   trend,
 }: StatsCardProps) {
-  const colorMap = {
-    default: "#ac4bff",
-    success: "#00c758",
-    warning: "#f99c00",
-    danger: "#fb2c36",
-  };
-
-  const accentColor = colorMap[color];
+  const accentColor = COLOR_MAP[color];
 
   return (
     <div
