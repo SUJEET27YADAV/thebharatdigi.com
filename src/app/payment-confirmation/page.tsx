@@ -38,7 +38,7 @@ function StatusIcon({ status }: { status: string }) {
 
 export default function ConfirmationPage() {
   const params = useSearchParams();
-  const merchantOrderId = params.get("merchantOrderId") as string;
+  const merchantOrderId = params.get("merchantOrderId");
   const SubmitRef = useRef<HTMLButtonElement>(null);
   const { cart, clearCart } = useCartStore();
   const [state, formAction, pending] = useActionState(

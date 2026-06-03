@@ -1,8 +1,7 @@
 "use client";
 import { motion, useReducedMotion } from "framer-motion";
 import { Star } from "lucide-react";
-
-const easeOut = [0.23, 1, 0.32, 1] as const;
+import { easeOut, staggerDelay, viewFade } from "@/utils/motion";
 
 const testimonials = [
   {
@@ -30,15 +29,7 @@ const testimonials = [
 
 export default function Testimonials() {
   const prefersReducedMotion = useReducedMotion();
-
-  const itemMotion = prefersReducedMotion
-    ? {}
-    : {
-        initial: { opacity: 0, y: 12 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true, margin: "-40px" },
-        transition: { duration: 0.22, ease: easeOut },
-      };
+  const itemMotion = viewFade(prefersReducedMotion, 0.22, "-40px");
 
   return (
     <section className="py-24 bg-slate-100 dark:bg-slate-900/50" aria-labelledby="testimonials-heading">
@@ -64,13 +55,13 @@ export default function Testimonials() {
               {...itemMotion}
               transition={{
                 duration: 0.22,
-                delay: prefersReducedMotion ? 0 : i * 0.04,
+                delay: staggerDelay(prefersReducedMotion, i),
                 ease: easeOut,
               }}
               className="card p-6 md:p-8 flex flex-col"
             >
               <div className="flex gap-0.5 mb-4" aria-label="5 out of 5 stars">
-                {[...Array(5)].map((_, j) => (
+                {Array.from({ length: 5 }, (_, j) => (
                   <Star
                     key={j}
                     size={14}

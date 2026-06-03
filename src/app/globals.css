@@ -1,22 +1,18 @@
 @import "tailwindcss";
 
-/* 1. Define the custom dark variant for manual toggling */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* 2. Map your variables to Tailwind theme tokens */
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 }
 
-/* 3. Define the values and their toggle logic */
 :root {
   --background: #f8fafc;
   --foreground: #020617;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 
-  /* This tells Tailwind: when the 'dark' variant is active, swap these */
   @variant dark {
     --background: #020617;
     --foreground: #ffffff;
@@ -49,7 +45,6 @@
     overflow-x: hidden;
   }
 
-  /* Custom Scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
   }
@@ -61,7 +56,6 @@
   }
 }
 
-/* Safe area for notched devices */
 @supports (padding: max(0px)) {
   body {
     padding-left: max(0px, env(safe-area-inset-left));
@@ -324,7 +318,6 @@
   animation: right-left 1s ease-in-out infinite;
 }
 
-/* Fade In Up Animation */
 .fade-in-up {
   opacity: 0;
   transform: translateY(50px);
@@ -338,7 +331,6 @@
   transform: translateY(0);
 }
 
-/* Fade In Left */
 .fade-in-left {
   opacity: 0;
   transform: translateX(-50px);
@@ -352,7 +344,6 @@
   transform: translateX(0);
 }
 
-/* Fade In Right */
 .fade-in-right {
   opacity: 0;
   transform: translateX(50px);
@@ -366,7 +357,6 @@
   transform: translateX(0);
 }
 
-/* Scale In */
 .scale-in {
   opacity: 0;
   transform: scale(0.95);

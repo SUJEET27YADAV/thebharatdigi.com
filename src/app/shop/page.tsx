@@ -5,11 +5,11 @@ import { Globe, PackageOpen, Zap } from "lucide-react";
 import { useEffect, useState } from "react";
 import ProductCard from "../_components/ProductCard";
 import ProductCardLoading from "../_components/ProductCardLoading";
-
-const easeOut = [0.23, 1, 0.32, 1] as const;
+import { easeOut, viewFade } from "@/utils/motion";
 
 export default function StorePage() {
   const prefersReducedMotion = useReducedMotion();
+  const fadeUp = viewFade(prefersReducedMotion);
   const [products, setProducts] = useState<Product[] | null>(null);
   const [err, setErr] = useState("");
 
@@ -30,15 +30,6 @@ export default function StorePage() {
 
     getProducts();
   }, []);
-
-  const fadeUp = prefersReducedMotion
-    ? {}
-    : {
-        initial: { opacity: 0, y: 12 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true },
-        transition: { duration: 0.22, ease: easeOut },
-      };
 
   return (
     <div className="min-h-screen px-4 md:px-6 py-24 max-w-7xl mx-auto">

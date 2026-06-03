@@ -1,9 +1,10 @@
 "use client";
-import React, { useActionState, useEffect } from "react";
+import { useActionState, useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Phone, Mail, MapPin, Send, Loader2 } from "lucide-react";
 import { toast } from "react-toastify";
 import SubmitAction from "@/actions/formsubmitAction";
+import { easeOut, viewFade } from "@/utils/motion";
 
 const initState = {
   msg: "",
@@ -29,10 +30,9 @@ const budgetRanges = [
   "Not sure yet",
 ];
 
-const easeOut = [0.23, 1, 0.32, 1] as const;
-
 export default function Contact() {
   const prefersReducedMotion = useReducedMotion();
+  const slideIn = viewFade(prefersReducedMotion, 0.25);
   const [formState, formAction, isPending] = useActionState(
     SubmitAction,
     initState,
@@ -43,15 +43,6 @@ export default function Contact() {
       toast.info(formState.msg);
     }
   }, [formState]);
-
-  const slideIn = prefersReducedMotion
-    ? {}
-    : {
-        initial: { opacity: 0, y: 12 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true },
-        transition: { duration: 0.25, ease: easeOut },
-      };
 
   return (
     <section

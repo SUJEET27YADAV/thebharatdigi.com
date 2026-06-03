@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import HeroBg from "./ui/hero_bg";
+import { easeOut, enterFade } from "@/utils/motion";
 
 const words = [
   "Innovative Web Solutions",
@@ -13,10 +14,9 @@ const words = [
   "Sustainable Branding",
 ];
 
-const easeOut = [0.23, 1, 0.32, 1] as const;
-
 export default function Hero() {
   const prefersReducedMotion = useReducedMotion();
+  const fadeUp = enterFade(prefersReducedMotion);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -40,14 +40,6 @@ export default function Hero() {
 
     return () => clearTimeout(timer);
   }, [displayText, isDeleting, currentWordIndex]);
-
-  const fadeUp = prefersReducedMotion
-    ? {}
-    : {
-        initial: { opacity: 0, y: 12 },
-        animate: { opacity: 1, y: 0 },
-        transition: { duration: 0.25, ease: easeOut },
-      };
 
   return (
     <section

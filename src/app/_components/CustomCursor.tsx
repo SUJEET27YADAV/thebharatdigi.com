@@ -23,7 +23,7 @@ export default function CustomCursor() {
 
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
-      if (!isVisible) setIsVisible(true);
+      setIsVisible(true);
     };
 
     const handleMouseOver = (e: MouseEvent) => {
@@ -44,7 +44,7 @@ export default function CustomCursor() {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseover", handleMouseOver);
     };
-  }, [isFinePointer, prefersReducedMotion, isVisible]);
+  }, [isFinePointer, prefersReducedMotion]);
 
   if (!isVisible || !isFinePointer || prefersReducedMotion) return null;
 

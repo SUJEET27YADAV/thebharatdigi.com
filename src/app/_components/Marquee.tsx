@@ -12,7 +12,7 @@ export default function Marquee() {
       className="py-4 bg-indigo-50 dark:bg-indigo-950/30 border-y border-indigo-100 dark:border-indigo-500/10 overflow-hidden"
     >
       <div className="flex items-center whitespace-nowrap animate-marquee">
-        {[0, 1, 2].map((copy) => (
+        {Array.from({ length: 3 }, (_, copy) => (
           <div
             key={copy}
             className="flex gap-20 items-center px-8"

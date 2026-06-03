@@ -2,13 +2,15 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { Check } from "lucide-react";
+import { easeOut, viewFade } from "@/utils/motion";
 
-const easeOut = [0.23, 1, 0.32, 1] as const;
-
-const Counter: React.FC<{ target: number; suffix?: string }> = ({
+function Counter({
   target,
   suffix = "+",
-}) => {
+}: {
+  target: number;
+  suffix?: string;
+}) {
   const [count, setCount] = useState(0);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
@@ -44,10 +46,11 @@ const Counter: React.FC<{ target: number; suffix?: string }> = ({
       {suffix}
     </span>
   );
-};
+}
 
 export default function About() {
   const prefersReducedMotion = useReducedMotion();
+  const slideIn = viewFade(prefersReducedMotion, 0.25);
 
   const benefits = [
     {
@@ -67,15 +70,6 @@ export default function About() {
       desc: "We stay available after delivery with support across time zones.",
     },
   ];
-
-  const slideIn = prefersReducedMotion
-    ? {}
-    : {
-        initial: { opacity: 0, y: 12 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true },
-        transition: { duration: 0.25, ease: easeOut },
-      };
 
   return (
     <section

@@ -10,8 +10,7 @@ import {
   MoreHorizontal,
 } from "lucide-react";
 import Link from "next/link";
-
-const easeOut = [0.23, 1, 0.32, 1] as const;
+import { easeOut, staggerDelay, viewFade } from "@/utils/motion";
 
 const services = [
   {
@@ -48,15 +47,7 @@ const services = [
 
 export default function Services() {
   const prefersReducedMotion = useReducedMotion();
-
-  const itemMotion = prefersReducedMotion
-    ? {}
-    : {
-        initial: { opacity: 0, y: 12 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true, margin: "-40px" },
-        transition: { duration: 0.22, ease: easeOut },
-      };
+  const itemMotion = viewFade(prefersReducedMotion, 0.22, "-40px");
 
   return (
     <section
@@ -86,7 +77,7 @@ export default function Services() {
                 {...itemMotion}
                 transition={{
                   duration: 0.22,
-                  delay: prefersReducedMotion ? 0 : index * 0.04,
+                  delay: staggerDelay(prefersReducedMotion, index),
                   ease: easeOut,
                 }}
                 className="service-card group card-interactive p-8"
