@@ -39,7 +39,7 @@ export default function Footer() {
                 <a
                   key={i}
                   href={social.href}
-                  className={`${social.className} flex items-center justify-center transition-all duration-300`}
+                  className={`${social.className} flex items-center justify-center transition-opacity duration-150 hover:opacity-80`}
                 >
                   {social.icon}
                 </a>

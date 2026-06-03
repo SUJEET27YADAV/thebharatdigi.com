@@ -1,102 +1,109 @@
 "use client";
 import { useCartStore } from "@/store/cartStore";
-import { Trash } from "lucide-react";
+import { ShoppingBag, Trash } from "lucide-react";
 import CheckoutModal from "../_components/CheckoutModal";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
+import Link from "next/link";
 
 export default function CartPage() {
-  const router = useRouter();
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const { cart, removeFromCart } = useCartStore();
 
-  useEffect(() => {
-    if (cart.length === 0) {
-      const wait = setTimeout(() => {
-        router.push("/shop");
-        clearTimeout(wait);
-      }, 1000);
-    }
-  }, [cart]);
+  const getCartSubTotal = () =>
+    cart.reduce((total, item) => total + Number(item.price), 0);
 
-  const getCartSubTotal = () => {
-    return cart.reduce((total, item) => total + Number(item.price), 0);
-  };
-  const getCartTotal = () => {
-    return getCartSubTotal() + getCartSubTotal() * 0.18; // Adding 18% GST
-  };
+  const getCartTotal = () => getCartSubTotal() + getCartSubTotal() * 0.18;
+
+  const subtotal = getCartSubTotal();
+  const gst = subtotal * 0.18;
+
   return (
-    <section className="min-h-[calc(100dvh-100px)] px-4 md:px-6 py-24 max-w-7xl mx-auto">
-      <div className="w-full max-w-4xl border-2 border-slate-300 rounded p-4">
-        <div className="border-b border-slate-300">
-          <h1 className="sr-only">
-            The Bharat Digital — "Premium Web Development Company that offers
-            SEO Audit Tools, e-commerce solutions, IT support & much more for
-            Businesses all over the world.
-          </h1>
-          <h2 className="text-3xl font-bold mb-4">
-            Shopping Cart - Web Development Products
-          </h2>
-          <p className="mb-4 text-slate-500 dark:text-gray-400">
-            Review your selected products before proceeding. All prices include
-            the base amount and applicable GST at 18%. You can remove items or
-            continue browsing the shop to add more products.
-          </p>
-        </div>
+    <section className="min-h-[calc(100dvh-100px)] px-4 md:px-6 py-24 max-w-3xl mx-auto">
+      <header className="mb-8">
+        <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
+          Shopping Cart
+        </h1>
+        <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          Review your selections before checkout. Prices show the base amount;
+          GST at 18% is added at payment.
+        </p>
+      </header>
+
+      <div className="card p-6 md:p-8">
         {cart.length === 0 ? (
-          <p className="w-full text-center mt-4 text-slate-500 dark:text-slate-300">
-            Your cart is empty!
-          </p>
+          <div className="empty-state py-12">
+            <div className="empty-state-icon">
+              <ShoppingBag size={22} aria-hidden />
+            </div>
+            <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+              Your cart is empty
+            </h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mb-6 max-w-xs">
+              Browse our digital products and add something to get started.
+            </p>
+            <Link href="/shop" className="btn-primary">
+              Browse Shop
+            </Link>
+          </div>
         ) : (
-          <ul className="min-h-30 mt-4 space-y-4 border-b border-slate-300">
-            {cart.map((item, idx) => (
-              <li
-                key={item.id}
-                className="p-1 flex items-center justify-between"
-              >
-                <div className="flex items-center gap-1 flex-1">
-                  <span className="text-lg text-slate-500">{idx + 1}.</span>
-                  <h2 className="font-semibold">{item.name}</h2>
-                </div>
-                <p className="min-w-20 text-end text-lg font-bold">
-                  ₹ {Number(item.price).toFixed(2)}
-                </p>
-                <button
-                  className="min-w-10 flex intems-center justify-end"
-                  onClick={() => removeFromCart(item.id)}
+          <>
+            <ul className="divide-y divide-slate-200 dark:divide-slate-800">
+              {cart.map((item, idx) => (
+                <li
+                  key={item.id}
+                  className="py-4 flex items-center gap-4 first:pt-0 last:pb-0"
                 >
-                  <Trash size={20} className="text-red-500" />
-                </button>
-              </li>
-            ))}
-          </ul>
+                  <span className="text-sm tabular-nums text-slate-400 w-5 shrink-0">
+                    {idx + 1}
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <h2 className="font-medium text-slate-900 dark:text-white truncate">
+                      {item.name}
+                    </h2>
+                  </div>
+                  <p className="text-sm font-semibold tabular-nums text-slate-900 dark:text-white shrink-0">
+                    ₹{Number(item.price).toFixed(2)}
+                  </p>
+                  <button
+                    type="button"
+                    aria-label={`Remove ${item.name} from cart`}
+                    className="btn-ghost p-2 shrink-0 text-red-500 hover:text-red-600"
+                    onClick={() => removeFromCart(item.id)}
+                  >
+                    <Trash size={18} aria-hidden />
+                  </button>
+                </li>
+              ))}
+            </ul>
+
+            <dl className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800 space-y-2 text-sm">
+              <div className="flex items-center justify-between">
+                <dt className="text-slate-600 dark:text-slate-400">Subtotal</dt>
+                <dd className="font-medium tabular-nums">₹{subtotal.toFixed(2)}</dd>
+              </div>
+              <div className="flex items-center justify-between">
+                <dt className="text-slate-600 dark:text-slate-400">GST (18%)</dt>
+                <dd className="font-medium tabular-nums">₹{gst.toFixed(2)}</dd>
+              </div>
+              <div className="flex items-center justify-between pt-2 border-t border-slate-200 dark:border-slate-800">
+                <dt className="font-semibold text-slate-900 dark:text-white">Total</dt>
+                <dd className="text-lg font-bold tabular-nums text-slate-900 dark:text-white">
+                  ₹{getCartTotal().toFixed(2)}
+                </dd>
+              </div>
+            </dl>
+
+            <button
+              type="button"
+              onClick={() => setIsCheckoutOpen(true)}
+              className="btn-primary w-full mt-6 py-3"
+            >
+              Proceed to Pay
+            </button>
+          </>
         )}
-        <h2 className="sr-only">Cart Summary</h2>
-        <div className="w-full flex items-center justify-between mt-2 pr-10">
-          <span className="text-lg font-bold">Sub Total :</span>
-          <span className="text-lg font-bold">
-            ₹ {getCartSubTotal().toFixed(2)}
-          </span>
-        </div>
-        <div className="w-full flex items-center justify-between pr-10 border-b border-slate-300">
-          <span className="font-bold">GST (18%) :</span>
-          <span className="font-bold">
-            ₹ {(getCartSubTotal() * 0.18).toFixed(2)}
-          </span>
-        </div>
-        <div className="w-full flex items-center justify-between mt-2 mb-4 pr-10">
-          <span className="text-xl font-bold">Total :</span>
-          <span className="text-xl font-bold">
-            ₹ {getCartTotal().toFixed(2)}
-          </span>
-        </div>
-        <button
-          onClick={() => setIsCheckoutOpen(true)}
-          className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-700 rounded transition-colors"
-        >
-          Proceed to Pay
-        </button>
       </div>
+
       {isCheckoutOpen && (
         <CheckoutModal
           totalAmount={getCartTotal()}

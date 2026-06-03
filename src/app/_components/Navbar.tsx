@@ -31,109 +31,97 @@ export default function Navbar() {
   const dbref = useRef<HTMLButtonElement>(null);
 
   const links: NavLink[] = [
-    {
-      icon: <Home fontSize="inherit" />,
-      label: "home",
-      path: "/",
-    },
-    {
-      icon: <Services fontSize="inherit" />,
-      label: "services",
-      path: "/services",
-    },
-    {
-      icon: <About fontSize="inherit" />,
-      label: "about",
-      path: "/aboutus",
-    },
-    {
-      icon: <PorfolioIcon fontSize="inherit" />,
-      label: "portfolio",
-      path: "/portfolio",
-    },
-    {
-      icon: <Contact fontSize="inherit" />,
-      label: "contact",
-      path: "/contactus",
-    },
-    {
-      icon: <AnalyticsIcon fontSize="inherit" />,
-      label: "SEO Audit Pro",
-      path: "/seo-audit-pro",
-    },
-    {
-      icon: <Shop fontSize="inherit" />,
-      label: "Shop",
-      path: "/shop",
-    },
+    { icon: <Home fontSize="inherit" />, label: "home", path: "/" },
+    { icon: <Services fontSize="inherit" />, label: "services", path: "/services" },
+    { icon: <About fontSize="inherit" />, label: "about", path: "/aboutus" },
+    { icon: <PorfolioIcon fontSize="inherit" />, label: "portfolio", path: "/portfolio" },
+    { icon: <Contact fontSize="inherit" />, label: "contact", path: "/contactus" },
+    { icon: <AnalyticsIcon fontSize="inherit" />, label: "SEO Audit Pro", path: "/seo-audit-pro" },
+    { icon: <Shop fontSize="inherit" />, label: "Shop", path: "/shop" },
   ];
 
   useEffect(() => {
-    if (drawerOpen) {
-      const handleDrawerClose = (event: MouseEvent) => {
-        if (dref.current && dbref.current) {
-          const db = dbref.current;
-          const d = dref.current;
-          if (
-            !db.contains(event.target as Node) &&
-            (!d.contains(event.target as Node) ||
-              (event.target as HTMLElement).closest("#list"))
-          ) {
-            if ((event.target as HTMLElement).closest("#list")) {
-              setTimeout(() => {
-                setDrawerOpen(false);
-              }, 500);
-            } else {
-              setDrawerOpen(false);
-            }
-          }
-        }
-      };
+    if (!drawerOpen) return;
 
-      document.addEventListener("mousedown", handleDrawerClose);
-      return () => {
-        document.removeEventListener("mousedown", handleDrawerClose);
-      };
-    }
+    const handleDrawerClose = (event: MouseEvent) => {
+      if (!dref.current || !dbref.current) return;
+
+      const target = event.target as HTMLElement;
+      const clickedInsideDrawer = dref.current.contains(target);
+      const clickedMenuButton = dbref.current.contains(target);
+
+      if (clickedMenuButton) return;
+
+      if (target.closest("#list")) {
+        setDrawerOpen(false);
+        return;
+      }
+
+      if (!clickedInsideDrawer) {
+        setDrawerOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleDrawerClose);
+    return () => document.removeEventListener("mousedown", handleDrawerClose);
+  }, [drawerOpen]);
+
+  useEffect(() => {
+    document.body.style.overflow = drawerOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [drawerOpen]);
 
   return (
-    <nav className="fixed w-full z-50 transition-all duration-500 py-2 bg-gray-200 dark:bg-slate-900">
+    <nav
+      aria-label="Main navigation"
+      className="fixed w-full z-50 py-2 border-b border-slate-200 dark:border-[#444444] bg-slate-50/95 dark:bg-slate-900/95"
+    >
       <div className="relative max-w-7xl mx-auto h-16 px-4 md:px-5 flex items-center justify-between">
         <button
           type="button"
-          title="Menu Button"
+          aria-label={drawerOpen ? "Close menu" : "Open menu"}
+          aria-expanded={drawerOpen}
           ref={dbref}
           onClick={() => setDrawerOpen(!drawerOpen)}
-          className="max-md:flex md:hidden text-2xl items-center justify-center cursor-pointer"
+          className="max-md:flex md:hidden text-2xl items-center justify-center btn-ghost p-2"
         >
           <MenuIcon fontSize="inherit" />
         </button>
-        <div className="max-md:absolute max-md:left-1/2 max-md:-translate-x-1/2 h-16 flex items-center justify-center gap-2 text-xl md:text-2xl font-bold gradient-text overflow-hidden">
+
+        <Link
+          href="/"
+          className="max-md:absolute max-md:left-1/2 max-md:-translate-x-1/2 h-16 flex items-center justify-center gap-2 text-xl md:text-2xl font-bold gradient-text overflow-hidden"
+        >
           <Logo className="h-full py-1" />
-          <h3 className="max-md:hidden">The Bharat Digital</h3>
-        </div>
+          <span className="max-md:hidden">The Bharat Digital</span>
+        </Link>
+
         <div
           ref={dref}
-          className={`max-md:absolute max-md:left-0 max-md:top-18 max-xs:w-[60%] max-md:w-1/2 max-md:min-h-screen max-md:bg-gray-200/40 max-md:p-2 max-md:dark:dark:bg-slate-900/40 backdrop-blur-xl max-md:z-30 ${
+          className={`max-md:fixed max-md:inset-x-0 max-md:top-[4.5rem] max-md:bottom-0 max-md:w-full max-md:bg-slate-50 dark:max-md:bg-slate-900 max-md:border-t max-md:border-slate-200 dark:max-md:border-[#444444] max-md:p-4 max-md:z-30 max-md:overflow-y-auto ${
             drawerOpen ? "max-md:block" : "max-md:hidden"
           }`}
         >
           <ul
             id="list"
-            className="flex max-md:flex-col items-center md:justify-center max-md:gap-1 md:gap-8 list-none"
+            className="flex max-md:flex-col items-stretch md:items-center md:justify-center max-md:gap-1 md:gap-8 list-none"
           >
-            {links.map((l, i) => (
-              <li key={i} className="max-md:w-full max-md:bg-white/30 rounded">
+            {links.map((l) => (
+              <li key={l.path} className="max-md:w-full">
                 <Link
                   href={l.path}
-                  className="w-full p-3 flex items-center font-semibold justify-between md:p-0 md:py-1 max-xs:text-sm"
+                  onClick={() => setDrawerOpen(false)}
+                  className="w-full p-3 flex items-center font-medium justify-between md:p-0 md:py-1 max-xs:text-sm rounded hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-150"
                 >
-                  <p className="w-full flex items-center gap-1 capitalize">
-                    <span className="md:hidden">{l.icon}</span>
+                  <span className="w-full flex items-center gap-2 capitalize">
+                    <span className="md:hidden text-indigo-600 dark:text-indigo-400">
+                      {l.icon}
+                    </span>
                     {l.label}
-                  </p>
-                  <span className="md:hidden">
+                  </span>
+                  <span className="md:hidden text-slate-400">
                     <ChevronRightIcon fontSize="inherit" />
                   </span>
                 </Link>
@@ -141,24 +129,25 @@ export default function Navbar() {
             ))}
           </ul>
         </div>
-        <div className="flex items-center justify-center gap-8">
+
+        <div className="flex items-center justify-center gap-3 md:gap-4">
           <button
-            className="relative p-2 flex items-center justify-center rounded-full bg-indigo-200 dark:bg-slate-700"
+            type="button"
+            aria-label={`Shopping cart, ${cart.length} items`}
+            className="relative p-2 flex items-center justify-center rounded-full bg-indigo-100 dark:bg-slate-800 btn"
             onClick={() => {
               if (cart.length === 0) {
-                toast.error(
-                  "Your cart is empty! Please add some products from the shop page.",
-                );
+                toast.info("Your cart is empty. Browse the shop to add products.");
               } else {
                 router.push("/cart");
               }
             }}
           >
-            <ShoppingCart size={20} className="text-gray-500 dark:text-white" />
+            <ShoppingCart size={20} className="text-slate-600 dark:text-slate-300" />
             {cart.length > 0 && (
-              <div className="absolute -top-1 left-1/2 -translate-x-[40%] w-4 h-4 flex items-center justify-center bg-red-500 rounded-full text-xs font-medium">
+              <span className="absolute -top-1 -right-1 min-w-4 h-4 px-0.5 flex items-center justify-center bg-red-500 rounded-full text-[10px] font-medium text-white">
                 {cart.length}
-              </div>
+              </span>
             )}
           </button>
           <ThemeToggle />

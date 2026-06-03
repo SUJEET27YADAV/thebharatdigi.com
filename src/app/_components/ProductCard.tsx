@@ -10,14 +10,15 @@ export default function ProductCard({ product }: { product: Product }) {
   const router = useRouter();
   const { cart, addToCart, removeFromCart } = useCartStore();
   const isInCart = (serial: number) =>
-    cart.filter((p) => p.serial === serial).length > 0;
+    cart.some((p) => p.serial === serial);
+
   const handleAddToCart = (
     e: React.MouseEvent<HTMLButtonElement>,
-    product: Product,
+    item: Product,
   ) => {
     e.stopPropagation();
-    addToCart(product);
-    toast.success("Product added to cart!");
+    addToCart(item);
+    toast.success("Product added to cart");
   };
 
   const handleRemoveFromCart = (
@@ -26,76 +27,86 @@ export default function ProductCard({ product }: { product: Product }) {
   ) => {
     e.stopPropagation();
     removeFromCart(productId);
-    toast.info("Product removed from cart!");
+    toast.info("Product removed from cart");
   };
 
+  const openProduct = () => router.push(`/product/${product.serial}`);
+
   return (
-    <div
-      key={product.serial}
-      onClick={() => router.push(`/product/${product.serial}`)}
-      className="relative group flex flex-col bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded overflow-hidden transition-all"
+    <article
+      className="card-interactive group relative flex flex-col overflow-hidden cursor-pointer"
+      onClick={openProduct}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openProduct();
+        }
+      }}
+      role="link"
+      tabIndex={0}
+      aria-label={`View ${product.name}`}
     >
-      {/* Product Badge */}
-      <div className="absolute top-4 right-4 bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded">
+      <div className="absolute top-4 right-4 z-10 bg-indigo-600 dark:bg-[#ac4bff] text-white text-xs font-semibold px-2.5 py-1 rounded">
         {product.tag}
       </div>
 
-      {/* Icon/Preview Area */}
-      <div className="h-72 bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+      <div className="relative h-56 sm:h-64 bg-slate-100 dark:bg-slate-800 overflow-hidden">
         <Image
           src={product.image_url}
           alt={product.name}
           width={500}
           height={500}
           loading="lazy"
-          className="w-full object-cover"
+          className="w-full h-full object-cover card-image"
         />
       </div>
 
-      {/* Details */}
-
-      <div className="flex-1 mx-6 py-6 border-b border-slate-100">
-        <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
+      <div className="flex flex-col flex-1 p-6">
+        <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
           {product.name}
         </h3>
-        <p className="text-slate-600 dark:text-slate-400 text-sm mb-4 line-clamp-3">
+        <p className="text-slate-600 dark:text-slate-400 text-sm mb-4 line-clamp-3 leading-relaxed">
           {product.description}
         </p>
 
-        {/* Feature Tags */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1.5 mb-6">
           {product.features.map((f) => (
             <span
               key={f}
-              className="w-fit h-fit text-[10px] uppercase tracking-wider font-semibold bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-500"
+              className="text-[10px] uppercase tracking-wide font-medium bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-slate-500 dark:text-slate-400"
             >
               {f}
             </span>
           ))}
         </div>
+
+        <div className="mt-auto pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-4">
+          <span className="text-xl font-bold text-slate-900 dark:text-white">
+            ₹{product.price}
+          </span>
+          {isInCart(product.serial) ? (
+            <button
+              type="button"
+              aria-label={`Remove ${product.name} from cart`}
+              onClick={(e) => handleRemoveFromCart(e, product.id)}
+              className="btn-secondary px-4 py-2 text-sm"
+            >
+              <Trash size={16} aria-hidden />
+              Remove
+            </button>
+          ) : (
+            <button
+              type="button"
+              aria-label={`Add ${product.name} to cart`}
+              onClick={(e) => handleAddToCart(e, product)}
+              className="btn-primary px-4 py-2 text-sm"
+            >
+              <ShoppingCart size={16} aria-hidden />
+              Add to Cart
+            </button>
+          )}
+        </div>
       </div>
-      <div className="mx-6 py-6 flex items-center justify-between dark:border-slate-800">
-        <span className="text-2xl font-bold text-slate-900 dark:text-white">
-          ₹{product.price}
-        </span>
-        {isInCart(product.serial) ? (
-          <button
-            onClick={(e) => handleRemoveFromCart(e, product.id)}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded font-medium flex items-center gap-2 transition-colors"
-          >
-            <Trash size={20} />
-            <span> Remove from Cart</span>
-          </button>
-        ) : (
-          <button
-            onClick={(e) => handleAddToCart(e, product)}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded font-medium flex items-center gap-2 transition-colors"
-          >
-            <ShoppingCart size={20} />
-            <span> Add to Cart</span>
-          </button>
-        )}
-      </div>
-    </div>
+    </article>
   );
 }

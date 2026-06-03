@@ -1,7 +1,8 @@
 "use client";
 import React, { useActionState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Phone, Mail, MapPin, Send, Loader2 } from "lucide-react";
+import { toast } from "react-toastify";
 import SubmitAction from "@/actions/formsubmitAction";
 
 const initState = {
@@ -28,7 +29,10 @@ const budgetRanges = [
   "Not sure yet",
 ];
 
+const easeOut = [0.23, 1, 0.32, 1] as const;
+
 export default function Contact() {
+  const prefersReducedMotion = useReducedMotion();
   const [formState, formAction, isPending] = useActionState(
     SubmitAction,
     initState,
@@ -36,83 +40,86 @@ export default function Contact() {
 
   useEffect(() => {
     if (formState.msg !== "") {
-      alert(formState.msg);
+      toast.info(formState.msg);
     }
   }, [formState]);
+
+  const slideIn = prefersReducedMotion
+    ? {}
+    : {
+        initial: { opacity: 0, y: 12 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true },
+        transition: { duration: 0.25, ease: easeOut },
+      };
 
   return (
     <section
       id="contact"
-      className="py-24 w-full overflow-x-hidden bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-900 dark:to-slate-900"
+      className="py-24 w-full overflow-x-hidden bg-slate-100 dark:bg-slate-900/50"
     >
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <p className="text-indigo-600 dark:text-indigo-400 text-lg mb-2 font-medium">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+          <motion.div {...slideIn}>
+            <p className="section-label mb-2 normal-case tracking-normal text-base">
               Get In Touch
             </p>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white">
-              Let's Build Something{" "}
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">
+              Let&apos;s Build Something{" "}
               <span className="gradient-text">Amazing Together</span>
             </h2>
-            <p className="text-slate-600 dark:text-gray-300 text-lg mb-10 leading-relaxed">
-              Ready to transform your digital presence? Get in touch with us
-              today for a free consultation. We'd love to hear about your
-              project and discuss how we can help you achieve your goals.
+            <p className="text-slate-600 dark:text-slate-400 text-base md:text-lg mb-10 leading-relaxed">
+              Ready to transform your digital presence? Tell us about your
+              project and we&apos;ll get back with a free consultation.
             </p>
 
-            <div className="space-y-8">
+            <div className="space-y-6">
               <a
                 href="tel:+919999239307"
                 rel="nofollow"
-                className="flex items-center gap-6 group"
+                className="flex items-center gap-4 group rounded p-2 -ml-2 hover:bg-white/60 dark:hover:bg-slate-800/40 transition-colors duration-150"
               >
-                <div className="w-14 h-14 bg-indigo-100 dark:bg-indigo-600/20 rounded flex items-center justify-center relative pulse-ring group-hover:bg-indigo-200 dark:group-hover:bg-indigo-600/30 transition-colors">
-                  <Phone className="text-indigo-600 dark:text-indigo-400" />
+                <div className="w-12 h-12 shrink-0 bg-indigo-100 dark:bg-indigo-600/20 rounded flex items-center justify-center group-hover:bg-indigo-200 dark:group-hover:bg-indigo-600/30 transition-colors duration-150">
+                  <Phone className="text-indigo-600 dark:text-indigo-400" size={20} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-lg text-slate-900 dark:text-white">
+                  <h4 className="font-semibold text-slate-900 dark:text-white">
                     Phone
                   </h4>
-                  <div className="text-slate-600 dark:text-gray-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                  <p className="text-slate-600 dark:text-slate-400 text-sm">
                     +91 99992 39307
-                  </div>
+                  </p>
                 </div>
               </a>
 
               <a
                 href="mailto:support@thebharatdigi.com"
                 rel="nofollow"
-                className="flex items-center gap-6 group"
+                className="flex items-center gap-4 group rounded p-2 -ml-2 hover:bg-white/60 dark:hover:bg-slate-800/40 transition-colors duration-150"
               >
-                <div className="w-14 h-14 bg-purple-100 dark:bg-purple-600/20 rounded flex items-center justify-center group-hover:bg-purple-200 dark:group-hover:bg-purple-600/30 transition-colors">
-                  <Mail className="text-purple-600 dark:text-purple-400" />
+                <div className="w-12 h-12 shrink-0 bg-purple-100 dark:bg-purple-600/20 rounded flex items-center justify-center group-hover:bg-purple-200 dark:group-hover:bg-purple-600/30 transition-colors duration-150">
+                  <Mail className="text-purple-600 dark:text-purple-400" size={20} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-lg text-slate-900 dark:text-white">
+                  <h4 className="font-semibold text-slate-900 dark:text-white">
                     Email
                   </h4>
-                  <div className="text-slate-600 dark:text-gray-400 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                  <p className="text-slate-600 dark:text-slate-400 text-sm">
                     support@thebharatdigi.com
-                  </div>
+                  </p>
                 </div>
               </a>
 
-              <div className="flex items-center gap-6 group">
-                <div className="w-14 h-14 bg-pink-100 dark:bg-pink-600/20 rounded flex items-center justify-center group-hover:bg-pink-200 dark:group-hover:bg-pink-600/30 transition-colors">
-                  <MapPin className="text-pink-600 dark:text-pink-400" />
+              <div className="flex items-center gap-4 p-2 -ml-2">
+                <div className="w-12 h-12 shrink-0 bg-pink-100 dark:bg-pink-600/20 rounded flex items-center justify-center">
+                  <MapPin className="text-pink-600 dark:text-pink-400" size={20} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-lg text-slate-900 dark:text-white">
+                  <h4 className="font-semibold text-slate-900 dark:text-white">
                     Location
                   </h4>
-                  <p className="text-slate-600 dark:text-gray-400">
-                    Serving clients globally 🌍
+                  <p className="text-slate-600 dark:text-slate-400 text-sm">
+                    Serving clients globally
                   </p>
                 </div>
               </div>
@@ -120,125 +127,97 @@ export default function Contact() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            {...slideIn}
+            transition={{ duration: 0.25, delay: 0.05, ease: easeOut }}
           >
-            <form
-              action={formAction}
-              className="bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded p-8 md:p-10"
-            >
-              <h3 className="text-2xl font-bold mb-8 text-slate-900 dark:text-white">
+            <form action={formAction} className="card p-8 md:p-10">
+              <h3 className="text-xl font-bold mb-6 text-slate-900 dark:text-white">
                 Send Us a Message
               </h3>
 
-              <div className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
+              <div className="space-y-5">
+                <div className="grid md:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-sm font-medium mb-2 text-slate-700 dark:text-gray-300">
+                    <label htmlFor="contact-name" className="block text-sm font-medium mb-1.5 text-slate-700 dark:text-slate-300">
                       Your Name
                     </label>
                     <input
+                      id="contact-name"
                       name="name"
                       type="text"
                       required
-                      className="w-full text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded px-4 py-3 focus:outline-none focus:border-indigo-500 transition-all placeholder:text-slate-400 dark:placeholder:text-gray-600"
+                      autoComplete="name"
+                      className="input"
                       placeholder="John Doe"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2 text-slate-700 dark:text-gray-300">
+                    <label htmlFor="contact-email" className="block text-sm font-medium mb-1.5 text-slate-700 dark:text-slate-300">
                       Your Email
                     </label>
                     <input
+                      id="contact-email"
                       name="email"
                       type="email"
                       required
-                      className="w-full text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded px-4 py-3 focus:outline-none focus:border-indigo-500 transition-all placeholder:text-slate-400 dark:placeholder:text-gray-600"
+                      autoComplete="email"
+                      className="input"
                       placeholder="john@example.com"
                     />
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-slate-700 dark:text-gray-300">
+                <div className="grid md:grid-cols-2 gap-5">
+                  <div>
+                    <label htmlFor="contact-phone" className="block text-sm font-medium mb-1.5 text-slate-700 dark:text-slate-300">
                       Phone Number
                     </label>
                     <input
+                      id="contact-phone"
                       name="phone"
                       type="tel"
-                      className="w-full text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded px-4 py-3.5 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all placeholder:text-slate-400 dark:placeholder:text-gray-600"
+                      autoComplete="tel"
+                      className="input"
                       placeholder="+91 99999 99999"
                     />
                   </div>
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-slate-700 dark:text-gray-300">
+                  <div>
+                    <label htmlFor="contact-company" className="block text-sm font-medium mb-1.5 text-slate-700 dark:text-slate-300">
                       Company Name
                     </label>
                     <input
+                      id="contact-company"
                       name="company"
                       type="text"
-                      className="w-full text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded px-4 py-3.5 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all placeholder:text-slate-400 dark:placeholder:text-gray-600"
+                      autoComplete="organization"
+                      className="input"
                       placeholder="Your Company"
                     />
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-slate-700 dark:text-gray-300">
-                      Project Type <span className="text-red-400">*</span>
+                <div className="grid md:grid-cols-2 gap-5">
+                  <div>
+                    <label htmlFor="contact-ptype" className="block text-sm font-medium mb-1.5 text-slate-700 dark:text-slate-300">
+                      Project Type <span className="text-red-500">*</span>
                     </label>
-                    <select
-                      name="pType"
-                      required
-                      className="w-full text-slate-700 dark:text-gray-300 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded px-4 py-3.5 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all appearance-none cursor-pointer"
-                      style={{
-                        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
-                        backgroundRepeat: "no-repeat",
-                        backgroundPosition: "right 1rem center",
-                        backgroundSize: "1.2rem",
-                      }}
-                    >
-                      <option value="" className="bg-white dark:bg-slate-900">
-                        Select a project type
-                      </option>
+                    <select id="contact-ptype" name="pType" required className="select">
+                      <option value="">Select a project type</option>
                       {projectTypes.map((type) => (
-                        <option
-                          key={type}
-                          value={type}
-                          className="bg-white dark:bg-slate-900"
-                        >
+                        <option key={type} value={type}>
                           {type}
                         </option>
                       ))}
                     </select>
                   </div>
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-slate-700 dark:text-gray-300">
+                  <div>
+                    <label htmlFor="contact-budget" className="block text-sm font-medium mb-1.5 text-slate-700 dark:text-slate-300">
                       Budget Range
                     </label>
-                    <select
-                      name="budget"
-                      className="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded px-4 py-3.5 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all text-slate-700 dark:text-gray-300 appearance-none cursor-pointer"
-                      style={{
-                        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
-                        backgroundRepeat: "no-repeat",
-                        backgroundPosition: "right 1rem center",
-                        backgroundSize: "1.2rem",
-                      }}
-                    >
-                      <option value="" className="bg-white dark:bg-slate-900">
-                        Select budget range
-                      </option>
+                    <select id="contact-budget" name="budget" className="select">
+                      <option value="">Select budget range</option>
                       {budgetRanges.map((range) => (
-                        <option
-                          key={range}
-                          value={range}
-                          className="bg-white dark:bg-slate-900"
-                        >
+                        <option key={range} value={range}>
                           {range}
                         </option>
                       ))}
@@ -246,14 +225,15 @@ export default function Contact() {
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <label className="block text-sm font-medium text-slate-700 dark:text-gray-300">
-                    Project Details <span className="text-red-400">*</span>
+                <div>
+                  <label htmlFor="contact-message" className="block text-sm font-medium mb-1.5 text-slate-700 dark:text-slate-300">
+                    Project Details <span className="text-red-500">*</span>
                   </label>
                   <textarea
+                    id="contact-message"
                     name="message"
                     required
-                    className="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded px-4 py-3.5 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all h-36 resize-none placeholder:text-slate-400 dark:placeholder:text-gray-600 text-slate-900 dark:text-white"
+                    className="input h-32 resize-none"
                     placeholder="Tell us about your project, goals, and timeline..."
                   />
                 </div>
@@ -263,33 +243,30 @@ export default function Contact() {
                     type="checkbox"
                     id="newsletter"
                     name="newsletter"
-                    className="mt-1 w-4 h-4 rounded border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900/50 text-indigo-500 focus:ring-indigo-500/50"
+                    className="mt-1 w-4 h-4 rounded border-slate-300 dark:border-slate-600 accent-indigo-600"
                   />
                   <label
                     htmlFor="newsletter"
-                    className="text-slate-500 dark:text-gray-400 text-sm"
+                    className="text-slate-500 dark:text-slate-400 text-sm leading-snug"
                   >
-                    Keep me updated with news, insights, and exclusive offers
-                    from The Bharat Digital
+                    Keep me updated with news and offers from The Bharat Digital
                   </label>
                 </div>
 
                 <button
                   type="submit"
-                  className="glow-btn w-full bg-indigo-600 text-white py-4 rounded font-bold text-lg hover:bg-indigo-700 transition-all flex items-center justify-center gap-2 group"
+                  disabled={isPending}
+                  className="btn-primary w-full py-3.5 text-base"
                 >
                   {isPending ? (
                     <>
-                      <Loader2 className="w-5 h-5 animate-spin" />
+                      <Loader2 className="w-5 h-5 animate-spin" aria-hidden />
                       <span>Sending...</span>
                     </>
                   ) : (
                     <>
-                      Send Message{" "}
-                      <Send
-                        size={20}
-                        className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
-                      />
+                      Send Message
+                      <Send size={18} aria-hidden />
                     </>
                   )}
                 </button>

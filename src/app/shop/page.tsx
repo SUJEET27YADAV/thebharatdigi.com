@@ -1,105 +1,109 @@
 "use client";
 import { Product } from "@/types/types";
-import { motion } from "framer-motion";
-import { Zap, Globe, ShoppingCart } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { Globe, PackageOpen, Zap } from "lucide-react";
 import { useEffect, useState } from "react";
 import ProductCard from "../_components/ProductCard";
 import ProductCardLoading from "../_components/ProductCardLoading";
-import { useRouter } from "next/navigation";
-import { useCartStore } from "@/store/cartStore";
-import { toast } from "react-toastify";
+
+const easeOut = [0.23, 1, 0.32, 1] as const;
 
 export default function StorePage() {
-  const router = useRouter();
-  const cart = useCartStore((state) => state.cart);
+  const prefersReducedMotion = useReducedMotion();
   const [products, setProducts] = useState<Product[] | null>(null);
   const [err, setErr] = useState("");
 
-  const getProducts = async () => {
-    try {
-      const res = await fetch("/api/getProducts");
-      const result = await res.json();
-      if (!result.success) {
-        setErr(result.msg);
-      } else {
-        setProducts(result.data);
-      }
-    } catch (error) {
-      throw new Error(error as unknown as string);
-    }
-  };
-
   useEffect(() => {
-    if (products === null) {
-      getProducts();
-    }
-  }, [products]);
+    const getProducts = async () => {
+      try {
+        const res = await fetch("/api/getProducts");
+        const result = await res.json();
+        if (!result.success) {
+          setErr(result.msg);
+        } else {
+          setProducts(result.data);
+        }
+      } catch {
+        setErr("Could not load products. Please try again.");
+      }
+    };
+
+    getProducts();
+  }, []);
+
+  const fadeUp = prefersReducedMotion
+    ? {}
+    : {
+        initial: { opacity: 0, y: 12 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true },
+        transition: { duration: 0.22, ease: easeOut },
+      };
 
   return (
     <div className="min-h-screen px-4 md:px-6 py-24 max-w-7xl mx-auto">
-      {/* Hero Section */}
-      <div className="text-center mb-16">
+      <header className="text-center mb-12 md:mb-16 max-w-3xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded border mb-6
-                       bg-indigo-50 dark:bg-indigo-500/10 border-indigo-200 dark:border-indigo-500/20"
+          {...fadeUp}
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded border mb-5 bg-indigo-50 dark:bg-indigo-500/10 border-indigo-200 dark:border-indigo-500/20"
         >
-          <Globe className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+          <Globe className="w-4 h-4 text-indigo-600 dark:text-indigo-400" aria-hidden />
           <span className="text-indigo-600 dark:text-indigo-400 text-sm font-medium">
             Available Worldwide
           </span>
         </motion.div>
-        <h1 className="sr-only">
-          The Bharat Digital — "Premium Web Development Company that offers SEO
-          Audit Tools, e-commerce solutions, IT support & much more for
-          Businesses all over the world.
-        </h1>
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-slate-900 dark:text-white"
+        <motion.h1
+          {...fadeUp}
+          transition={{ duration: 0.22, delay: 0.04, ease: easeOut }}
+          className="text-3xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white"
         >
-          <span>Boost Your Web Development </span>
-          <span className="gradient-text">with Our Digital Products</span>
-        </motion.h2>
+          Digital Products for{" "}
+          <span className="gradient-text">Modern Teams</span>
+        </motion.h1>
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="text-lg md:text-xl max-w-3xl mx-auto text-slate-600 dark:text-gray-400"
+          {...fadeUp}
+          transition={{ duration: 0.22, delay: 0.08, ease: easeOut }}
+          className="text-base md:text-lg text-slate-600 dark:text-slate-400 leading-relaxed"
         >
-          Browse our collection of premium digital products designed to
-          accelerate your web development workflow. From starter kits to
-          powerful SEO auditing tools, each product is crafted by The Bharat
-          Digital to help developers and businesses build better, faster, and
-          smarter. All purchases include lifetime updates and dedicated support.
+          Starter kits, SEO tools, and assets built by The Bharat Digital.
+          Every purchase includes lifetime updates and support.
         </motion.p>
-      </div>
+      </header>
 
-      <h2 className="text-xl font-bold">Products :</h2>
-      {/* Product Grid */}
-      <section className="max-w-7xl mx-auto py-6 px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <section aria-labelledby="products-heading">
+        <h2 id="products-heading" className="sr-only">
+          Products
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {err ? (
-            <p className="text-red-500 text-center col-span-full">{err}</p>
+            <div className="empty-state col-span-full card">
+              <div className="empty-state-icon">
+                <PackageOpen size={22} aria-hidden />
+              </div>
+              <p className="text-slate-900 dark:text-white font-medium mb-1">
+                Couldn&apos;t load products
+              </p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">{err}</p>
+            </div>
           ) : !products ? (
-            <ProductCardLoading />
+            <>
+              <ProductCardLoading />
+              <ProductCardLoading />
+              <ProductCardLoading />
+            </>
           ) : (
             products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))
           )}
 
-          {/* Placeholder for future products */}
-          <div className="border-2 border-dashed border-slate-200 dark:border-slate-800 rounded flex flex-col items-center justify-center p-8 text-slate-400 opacity-60">
-            <Zap size={48} className="mb-4" />
-            <p className="font-medium text-center">
-              New digital assets coming soon...
+          <div
+            aria-hidden
+            className="border border-dashed border-slate-200 dark:border-slate-800 rounded flex flex-col items-center justify-center p-8 text-slate-400 min-h-[280px]"
+          >
+            <Zap size={32} className="mb-3 opacity-60" />
+            <p className="text-sm font-medium text-center">
+              New products coming soon
             </p>
           </div>
         </div>

@@ -3,7 +3,7 @@ import { useActionState, useEffect } from "react";
 import Modal from "./ui/modal";
 import { CheckoutAction } from "@/actions/checkoutAction";
 import { FormState } from "@/types/types";
-import { Close } from "@mui/icons-material";
+import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
@@ -29,73 +29,74 @@ export default function CheckoutModal({
     CheckoutAction,
     initialstate,
   );
+
   useEffect(() => {
     if (state.success && state.redirectUrl) {
       router.push(state.redirectUrl);
     } else if (!state.success && state.message) {
       toast.error(state.message);
     }
-  }, [state]);
+  }, [state, router]);
+
   return (
-    <Modal>
-      <div className="relative w-full max-w-md p-4 rounded bg-slate-100/30 dark:bg-slate-900/30">
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white focus:outline-none"
-        >
-          <Close fontSize="medium" />
-        </button>
-        <h2 className="w-full text-center text-2xl font-bold mb-4">Checkout</h2>
-        <p className="w-full text-center text-slate-600 dark:text-slate-300">
-          Please enter your details where you would like to receive your order.
+    <Modal onClose={onClose} title="Checkout">
+      <div className="card w-full max-w-md p-6 md:p-8">
+        <p className="text-sm text-slate-600 dark:text-slate-400 text-center mb-6">
+          Enter your details to receive order confirmation and download links.
         </p>
-        <form action={formAction} className="w-full p-2 mt-4 space-y-4">
+        <form action={formAction} className="space-y-4">
           {productIds.map((id) => (
             <input key={id} type="hidden" name="productIds" value={id} />
           ))}
           <input type="hidden" name="amount" value={totalAmount} />
-          <div className="w-full">
-            <label htmlFor="name" className="block font-medium mb-1">
+          <div>
+            <label htmlFor="checkout-name" className="block text-sm font-medium mb-1.5">
               Full Name
             </label>
             <input
+              id="checkout-name"
               name="name"
               type="text"
-              className="w-full border border-slate-300 rounded py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+              autoComplete="name"
+              className="input"
               required
             />
           </div>
-          <div className="w-full">
-            <label htmlFor="email" className="block font-medium mb-1">
-              <span>Email </span>
-              <span className="text-sm font-normal">
-                (Product download links will be sent here.)
+          <div>
+            <label htmlFor="checkout-email" className="block text-sm font-medium mb-1.5">
+              Email
+              <span className="font-normal text-slate-500 dark:text-slate-400 ml-1">
+                (download links sent here)
               </span>
             </label>
             <input
+              id="checkout-email"
               name="email"
               type="email"
-              className="w-full border border-slate-300 rounded py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+              autoComplete="email"
+              className="input"
               required
             />
           </div>
-          <div className="w-full">
-            <label htmlFor="phone" className="block font-medium mb-1">
+          <div>
+            <label htmlFor="checkout-phone" className="block text-sm font-medium mb-1.5">
               Phone
             </label>
             <input
+              id="checkout-phone"
               name="phone"
               type="tel"
-              className="w-full border border-slate-300 rounded py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+              autoComplete="tel"
+              className="input"
               required
             />
           </div>
           <button
             type="submit"
             disabled={pending}
-            className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-700 rounded transition-colors"
+            className="btn-primary w-full py-3 mt-2"
           >
-            {pending ? "Processing..." : "Pay Now"}
+            {pending ? "Processing..." : `Pay ₹${totalAmount.toFixed(2)}`}
           </button>
         </form>
       </div>

@@ -1,30 +1,17 @@
 export default function ProductCardLoading() {
   return (
-    <div className="group relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded overflow-hidden transition-all">
-      {/* Product Badge */}
-      <div className="absolute top-4 right-4 w-26 h-6 bg-slate-300 px-3 py-1 rounded animate-pulse" />
-
-      {/* Icon/Preview Area */}
-      <div className="w-full h-52 bg-slate-100 dark:bg-slate-800 animate-pulse" />
-
-      {/* Details */}
-      <div className="p-6">
-        <h3 className="w-60 h-12 bg-slate-300 rounded animate-pulse mb-2" />
-        <p className="w-full h-20 bg-slate-300 rounded animate-pulse mb-4" />
-
-        {/* Feature Tags */}
-        <div className="flex flex-wrap gap-2 mb-6">
-          {[0, 1, 2, 3].map((f) => (
-            <span
-              key={f}
-              className="w-24 h-6 bg-slate-300 px-2 py-1 rounded animate-pulse"
-            />
-          ))}
+    <div className="card overflow-hidden" aria-hidden>
+      <div className="h-56 sm:h-64 bg-slate-100 dark:bg-slate-800 animate-pulse" />
+      <div className="p-6 space-y-3">
+        <div className="h-5 w-3/5 bg-slate-200 dark:bg-slate-700 rounded animate-pulse" />
+        <div className="h-16 w-full bg-slate-200 dark:bg-slate-700 rounded animate-pulse" />
+        <div className="flex gap-2">
+          <div className="h-5 w-16 bg-slate-200 dark:bg-slate-700 rounded animate-pulse" />
+          <div className="h-5 w-16 bg-slate-200 dark:bg-slate-700 rounded animate-pulse" />
         </div>
-
-        <div className="flex items-center justify-between mt-auto pt-4 border-t border-slate-800 dark:border-slate-100">
-          <span className="w-20 h-12 bg-slate-300 rounded animate-pulse" />
-          <button className="w-36 h-12 bg-slate-300 px-4 py-2 rounded animate-pulse" />
+        <div className="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
+          <div className="h-7 w-20 bg-slate-200 dark:bg-slate-700 rounded animate-pulse" />
+          <div className="h-9 w-28 bg-slate-200 dark:bg-slate-700 rounded animate-pulse" />
         </div>
       </div>
     </div>

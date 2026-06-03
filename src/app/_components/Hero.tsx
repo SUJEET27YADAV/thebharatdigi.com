@@ -1,7 +1,6 @@
-// components/Hero.tsx
 "use client";
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import HeroBg from "./ui/hero_bg";
 
@@ -14,7 +13,10 @@ const words = [
   "Sustainable Branding",
 ];
 
+const easeOut = [0.23, 1, 0.32, 1] as const;
+
 export default function Hero() {
+  const prefersReducedMotion = useReducedMotion();
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -37,69 +39,52 @@ export default function Hero() {
     }, speed);
 
     return () => clearTimeout(timer);
-  }, [displayText, isDeleting, currentWordIndex, words]);
+  }, [displayText, isDeleting, currentWordIndex]);
+
+  const fadeUp = prefersReducedMotion
+    ? {}
+    : {
+        initial: { opacity: 0, y: 12 },
+        animate: { opacity: 1, y: 0 },
+        transition: { duration: 0.25, ease: easeOut },
+      };
 
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden
-                 bg-slate-50 dark:bg-[#050208]"
+      className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-slate-50 dark:bg-[#050208]"
     >
       <HeroBg />
 
-      {/* Decorative blurs */}
-      <div
-        className="absolute top-20 left-10 w-20 h-20 rounded-full animate-bounce z-[2]
-                   bg-indigo-400/30 dark:bg-indigo-500/20"
-        style={{ animationDuration: "6s" }}
-      />
-      <div
-        className="absolute bottom-20 right-10 w-32 h-32 rounded-full animate-pulse z-[2]
-                   bg-purple-400/30 dark:bg-purple-500/20"
-        style={{ animationDuration: "8s" }}
-      />
-      <div
-        className="absolute top-1/2 right-20 w-16 h-16 rounded-full animate-spin z-[2]
-                   bg-pink-400/30 dark:bg-pink-500/20"
-        style={{ animationDuration: "10s" }}
-      />
-
       <div className="max-w-7xl mx-auto px-4 md:px-6 text-center relative z-10">
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-lg md:text-xl mb-4 font-medium
-                     text-indigo-600 dark:text-indigo-400"
+          {...fadeUp}
+          className="section-label mb-3 text-base normal-case tracking-normal"
         >
           Welcome to The Bharat Digital
         </motion.p>
 
         <h1 className="sr-only">
-          The Bharat Digital — "Premium Web Development Company that offers SEO
-          Audit Tools, e-commerce solutions, IT support & much more for
-          Businesses all over the world.
+          The Bharat Digital — Premium Web Development Company that offers SEO
+          Audit Tools, e-commerce solutions, IT support and more for businesses
+          worldwide.
         </h1>
         <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 leading-tight
-                     text-slate-900 dark:text-white"
+          {...fadeUp}
+          transition={{ duration: 0.25, delay: 0.05, ease: easeOut }}
+          className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight text-slate-900 dark:text-white"
         >
           We Build <br className="sm:hidden" />
           <span className="gradient-text">
             {displayText}
-            <span className="animate-pulse">|</span>
+            <span className="opacity-70">|</span>
           </span>
         </motion.h2>
 
         <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-lg md:text-2xl max-w-3xl mx-auto mb-10 px-2
-                     text-slate-600 dark:text-gray-300"
+          {...fadeUp}
+          transition={{ duration: 0.25, delay: 0.1, ease: easeOut }}
+          className="text-lg md:text-xl max-w-2xl mx-auto mb-10 px-2 text-slate-600 dark:text-slate-400 leading-relaxed"
         >
           Transform your digital presence with cutting-edge web solutions. From
           startups in Mumbai to enterprises in Manhattan, we craft experiences
@@ -107,45 +92,33 @@ export default function Hero() {
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center px-4"
+          {...fadeUp}
+          transition={{ duration: 0.25, delay: 0.15, ease: easeOut }}
+          className="flex flex-col sm:flex-row gap-3 justify-center px-4"
         >
-          <a
-            href="#contact"
-            className="px-8 py-4 rounded font-bold text-lg transition-all
-                       bg-indigo-600 text-white hover:bg-indigo-700"
-          >
-            Start Your Project →
+          <a href="#contact" className="btn-primary text-lg px-8 py-3.5">
+            Start Your Project
           </a>
-          <a
-            href="#portfolio"
-            className="px-8 py-4 rounded font-bold text-lg transition-all border
-                       border-indigo-300 dark:border-indigo-500/50
-                       text-indigo-600 dark:text-white
-                       hover:bg-indigo-50 dark:hover:bg-indigo-500/10"
-          >
+          <a href="#portfolio" className="btn-secondary text-lg px-8 py-3.5">
             View Our Work
           </a>
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ repeat: Infinity, duration: 2 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 cursor-pointer rounded border-2 p-1
-                   text-indigo-500 dark:text-indigo-400
-                   border-indigo-500 dark:border-indigo-400"
+      <button
+        type="button"
+        aria-label="Scroll to services"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 rounded border p-1 text-indigo-500 dark:text-indigo-400 border-indigo-500/60 dark:border-indigo-400/60 btn-ghost"
         onClick={() =>
           document
             .getElementById("services")
-            ?.scrollIntoView({ behavior: "smooth" })
+            ?.scrollIntoView({
+              behavior: prefersReducedMotion ? "auto" : "smooth",
+            })
         }
       >
-        <ChevronDown className="w-6 h-6" />
-      </motion.div>
+        <ChevronDown className="w-6 h-6 motion-safe:animate-[bounce_2s_ease-in-out_infinite]" />
+      </button>
     </section>
   );
 }
