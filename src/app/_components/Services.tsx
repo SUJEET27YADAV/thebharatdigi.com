@@ -81,10 +81,10 @@ export default function Services() {
                   delay: staggerDelay(prefersReducedMotion, index),
                   ease: easeOut,
                 }}
-                className="service-card group card-interactive p-8"
+                className="service-card group card-interactive card-hover p-8"
               >
                 <div
-                  className={`size-14 ${service.color} rounded flex items-center justify-center mb-5`}
+                  className={`size-14 ${service.color} rounded flex items-center justify-center mb-5 icon-pulse`}
                 >
                   <Icon className="size-7" aria-hidden />
                 </div>
@@ -98,7 +98,7 @@ export default function Services() {
             );
           })}
 
-          <Link href="/services" className="service-card card-interactive p-8 group">
+          <Link href="/services" className="service-card card-interactive card-hover p-8 group">
             <m.div {...itemMotion}>
               <div className="size-14 bg-slate-100 dark:bg-slate-800 rounded flex items-center justify-center mb-5">
                 <MoreHorizontal className="size-7 text-slate-500 dark:text-slate-400" />

@@ -94,12 +94,12 @@ export default function Portfolio() {
                   delay: staggerDelay(prefersReducedMotion, index),
                   ease: easeOut,
                 }}
-                className="card-interactive overflow-hidden"
+                className="card-interactive card-hover overflow-hidden group"
               >
                 <div
                   className={`aspect-[4/3] ${project.accent} flex items-center justify-center`}
                 >
-                  <Icon className="size-12" strokeWidth={1.5} aria-hidden />
+                  <Icon className="size-12 transition-transform duration-200 group-hover:scale-110" strokeWidth={1.5} aria-hidden />
                 </div>
                 <div className="p-5">
                   <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">

@@ -1,34 +1,51 @@
 import Link from "next/link";
-import React from "react";
 import Facebook from "@mui/icons-material/Facebook";
 import Instagram from "@mui/icons-material/Instagram";
-import Linkedin from "@mui/icons-material/LinkedIn";
+import LinkedIn from "@mui/icons-material/LinkedIn";
+import { Phone, Mail, Globe } from "lucide-react";
 
 const SOCIAL_LINKS = [
   {
     name: "facebook",
     icon: <Facebook fontSize="large" />,
-    className: "text-blue-700",
     href: "#",
   },
   {
     name: "linkedin",
-    icon: <Linkedin fontSize="large" />,
-    className: "text-blue-900",
+    icon: <LinkedIn fontSize="large" />,
     href: "#",
   },
   {
     name: "instagram",
     icon: <Instagram fontSize="large" />,
-    className:
-      "text-white bg-gradient-to-br from-red-600 via-indigo-600 via-[60%] to-yellow-300 to-[90%] rounded",
     href: "#",
   },
 ];
 
+const QUICK_LINKS = [
+  { label: "Home", href: "/" },
+  { label: "Services", href: "/services" },
+  { label: "About Us", href: "/aboutus" },
+  { label: "Portfolio", href: "/portfolio" },
+  { label: "Privacy Policy", href: "/privacypolicy" },
+  { label: "Terms and Conditions", href: "/termsandconditions" },
+];
+
+const SERVICE_LINKS = [
+  "Web Development",
+  "E-Commerce",
+  "UI/UX Design",
+  "IT Support & Troubleshooting",
+  "System Security",
+  "Remote IT Assistance",
+];
+
 export default function Footer() {
   return (
-    <footer className="py-16 bg-slate-800 border-t border-slate-700">
+    <footer className="relative py-16 bg-slate-800 border-t border-slate-700 overflow-hidden">
+      {/* Animated gradient line */}
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-50" aria-hidden />
+
       <div className="max-w-7xl mx-auto px-4 md:px-6">
         <div className="flex max-md:flex-col md:flex-wrap md:justify-between gap-12 mb-12">
           <div className="md:w-40 lg:w-70">
@@ -45,7 +62,8 @@ export default function Footer() {
                 <a
                   key={social.name}
                   href={social.href}
-                  className={`${social.className} flex items-center justify-center transition-opacity duration-150 hover:opacity-80`}
+                  className="social-icon flex items-center justify-center text-gray-400 hover:text-indigo-400 transition-colors duration-200"
+                  aria-label={social.name}
                 >
                   {social.icon}
                 </a>
@@ -53,52 +71,34 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="">
+          <div>
             <h4 className="font-bold text-white mb-6 uppercase tracking-wider text-sm">
               Quick Links
             </h4>
-            <ul className="space-y-2">
-              {[
-                "Home",
-                "Services",
-                "About Us",
-                "Portfolio",
-                "Privacy Policy",
-                "Terms and Conditions",
-              ].map((link) => (
-                <li key={link}>
-                  <a
-                    href={
-                      link === "Home"
-                        ? "/"
-                        : `/${link.toLowerCase().split(" ").join("")}`
-                    }
-                    className="text-gray-400 hover:text-indigo-400 transition-colors"
+            <ul className="space-y-3">
+              {QUICK_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-gray-400 hover:text-indigo-400 transition-colors duration-150 text-sm"
                   >
-                    {link}
-                  </a>
+                    {link.label}
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="">
+          <div>
             <h4 className="font-bold text-white mb-6 uppercase tracking-wider text-sm">
               Services
             </h4>
-            <ul className="space-y-2">
-              {[
-                "Web Development",
-                "E-Commerce",
-                "UI/UX Design",
-                "IT Support & Troubleshooting",
-                "System Security",
-                "Remote IT Assistance",
-              ].map((service) => (
+            <ul className="space-y-3">
+              {SERVICE_LINKS.map((service) => (
                 <li key={service}>
                   <Link
                     href="/services"
-                    className="text-gray-400 hover:text-indigo-400 transition-colors"
+                    className="text-gray-400 hover:text-indigo-400 transition-colors duration-150 text-sm"
                   >
                     {service}
                   </Link>
@@ -107,24 +107,32 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className="">
+          <div>
             <h4 className="font-bold text-white mb-6 uppercase tracking-wider text-sm">
               Contact Info
             </h4>
-            <ul className="space-y-2 text-gray-400">
-              <li className="flex items-center gap-3">
-                <a href="tel:+919999239307">
-                  <span className="text-indigo-400">📞</span>+91 99992 39307
+            <ul className="space-y-4 text-gray-400">
+              <li>
+                <a
+                  href="tel:+919999239307"
+                  className="flex items-center gap-3 hover:text-indigo-400 transition-colors duration-150 group"
+                >
+                  <Phone size={16} className="shrink-0 text-indigo-400 transition-transform duration-200 group-hover:scale-110" />
+                  <span className="text-sm">+91 99992 39307</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:support@thebharatdigi.com"
+                  className="flex items-center gap-3 hover:text-indigo-400 transition-colors duration-150 group"
+                >
+                  <Mail size={16} className="shrink-0 text-indigo-400 transition-transform duration-200 group-hover:scale-110" />
+                  <span className="text-sm">support@thebharatdigi.com</span>
                 </a>
               </li>
               <li className="flex items-center gap-3">
-                <a href="mailto:support@thebharatdigi.com">
-                  <span className="text-indigo-400">✉️</span>{" "}
-                  support@thebharatdigi.com
-                </a>
-              </li>
-              <li className="flex items-center gap-3">
-                <span className="text-indigo-400">🌍</span> Serving Globally
+                <Globe size={16} className="shrink-0 text-indigo-400" />
+                <span className="text-sm">Serving Globally</span>
               </li>
             </ul>
           </div>
@@ -132,8 +140,7 @@ export default function Footer() {
 
         <div className="border-t border-slate-700 pt-8 text-center text-gray-500 text-sm">
           <p suppressHydrationWarning>
-            © {new Date().getFullYear()} The Bharat Digital. All rights
-            reserved. Made with ❤️ for clients worldwide.
+            &copy; {new Date().getFullYear()} The Bharat Digital. All rights reserved.
           </p>
         </div>
       </div>

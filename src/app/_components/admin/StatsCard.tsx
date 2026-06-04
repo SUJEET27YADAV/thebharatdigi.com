@@ -29,7 +29,7 @@ export default function StatsCard({
 
   return (
     <div
-      className={`p-6 rounded flex items-start justify-between bg-slate-200/70 dark:bg-[#0f172b]/70 border border-[#444444] transition-colors`}
+      className={`card-hover p-6 rounded flex items-start justify-between bg-slate-200/70 dark:bg-[#0f172b]/70 border border-[#444444] transition-colors`}
     >
       <div>
         <p className="text-xs font-medium mb-3 text-[#314158] dark:text-gray-400 uppercase tracking-wide">

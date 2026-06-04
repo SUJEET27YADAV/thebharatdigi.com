@@ -111,7 +111,7 @@ export default function HeroBg() {
       {/* Stars - visible in dark mode */}
       {dark && (
         <g fill={colors.star}>
-          <circle cx="120" cy="80" r="1" opacity="0.6" />
+          <circle cx="200" cy="200" r="1" opacity="0.6" />
           <circle cx="350" cy="150" r="0.8" opacity="0.5" />
           <circle cx="580" cy="60" r="1.2" opacity="0.7" />
           <circle cx="820" cy="120" r="0.8" opacity="0.4" />
@@ -132,7 +132,7 @@ export default function HeroBg() {
       {/* Light mode decorative circles */}
       {!dark && (
         <g>
-          <circle cx="200" cy="200" r="100" fill="#e0e7ff" opacity="0.5" />
+          <circle cx="470" cy="500" r="60" fill="#fce7f3" opacity="0.6" />
           <circle cx="1700" cy="300" r="150" fill="#ede9fe" opacity="0.4" />
           <circle cx="300" cy="800" r="120" fill="#fce7f3" opacity="0.3" />
         </g>
@@ -148,7 +148,18 @@ export default function HeroBg() {
         filter="url(#planetGlow)"
       />
 
+      <circle
+        cx="200"
+        cy="200"
+        r="180"
+        fill={colors.planet}
+        opacity={dark ? 0.15 : 0.2}
+        filter="url(#planetGlow)"
+      />
+
       {/* Planet */}
+      <circle cx="200" cy="200" r="90" fill="url(#planetGrad)" />
+
       <circle cx="1500" cy="250" r="120" fill="url(#planetGrad)" />
       <ellipse
         cx="1500"

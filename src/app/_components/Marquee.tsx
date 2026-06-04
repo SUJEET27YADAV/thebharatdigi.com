@@ -1,12 +1,15 @@
+import { CheckCircle, Users, Globe, Heart } from "lucide-react";
+
 const STATS = [
-  "500+ Projects Delivered",
-  "200+ Happy Clients",
-  "15+ Countries Served",
-  "99% Client Satisfaction",
+  { icon: CheckCircle, label: "500+ Projects Delivered" },
+  { icon: Users, label: "200+ Happy Clients" },
+  { icon: Globe, label: "15+ Countries Served" },
+  { icon: Heart, label: "99% Client Satisfaction" },
 ];
 
-export default function Marquee() {
+const ICONS = [CheckCircle, Users, Globe, Heart];
 
+export default function Marquee() {
   return (
     <section
       aria-label="Company highlights"
@@ -16,17 +19,21 @@ export default function Marquee() {
         {Array.from({ length: 3 }, (_, copy) => (
           <div
             key={copy}
-            className="flex gap-20 items-center px-8"
-            aria-hidden={copy === 1 || copy === 2}
+            className="flex items-center gap-16 px-8"
+            aria-hidden={copy > 0}
           >
-            {STATS.map((stat) => (
-              <span
-                key={`${copy}-${stat}`}
-                className="text-base md:text-xl tracking-wide font-medium text-indigo-600 dark:text-indigo-400"
-              >
-                {stat}
-              </span>
-            ))}
+            {STATS.map((stat, i) => {
+              const Icon = ICONS[i];
+              return (
+                <span
+                  key={`${copy}-${stat.label}`}
+                  className="inline-flex items-center gap-2 text-base md:text-xl tracking-wide font-medium text-indigo-600 dark:text-indigo-400"
+                >
+                  <Icon className="size-4 md:size-5 shrink-0" aria-hidden />
+                  {stat.label}
+                </span>
+              );
+            })}
           </div>
         ))}
       </div>

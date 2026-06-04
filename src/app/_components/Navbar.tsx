@@ -1,8 +1,10 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 import Home from "@mui/icons-material/Home";
 import About from "@mui/icons-material/Description";
 import Contact from "@mui/icons-material/ContactPage";
@@ -34,11 +36,20 @@ interface NavLink {
 }
 
 export default function Navbar() {
+  const pathname = usePathname();
   const router = useRouter();
   const { cart } = useCartStore();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const dref = useRef<HTMLDivElement>(null);
   const dbref = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     if (!drawerOpen) return;
@@ -68,15 +79,21 @@ export default function Navbar() {
 
   useEffect(() => {
     document.body.style.overflow = drawerOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    return () => { document.body.style.overflow = ""; };
   }, [drawerOpen]);
+
+  useEffect(() => {
+    setDrawerOpen(false);
+  }, [pathname]);
 
   return (
     <nav
       aria-label="Main navigation"
-      className="fixed w-full z-50 py-2 border-b border-slate-200 dark:border-[#444444] bg-slate-50/95 dark:bg-slate-900/95"
+      className={`fixed w-full z-50 py-2 border-b transition-colors duration-200 ${
+        scrolled
+          ? "bg-slate-50/90 dark:bg-slate-900/90 border-slate-200 dark:border-[#444444]"
+          : "bg-slate-50/70 dark:bg-slate-900/70 border-transparent"
+      }`}
     >
       <div className="relative max-w-7xl mx-auto h-16 px-4 md:px-5 flex items-center justify-between">
         <button
@@ -87,7 +104,7 @@ export default function Navbar() {
           onClick={() => setDrawerOpen(!drawerOpen)}
           className="max-md:flex md:hidden text-2xl items-center justify-center btn-ghost p-2"
         >
-          <MenuIcon fontSize="inherit" />
+          {drawerOpen ? <CloseIcon fontSize="inherit" /> : <MenuIcon fontSize="inherit" />}
         </button>
 
         <Link
@@ -100,33 +117,39 @@ export default function Navbar() {
 
         <div
           ref={dref}
-          className={`max-md:fixed max-md:inset-x-0 max-md:top-[4.5rem] max-md:bottom-0 max-md:w-full max-md:bg-slate-50 dark:max-md:bg-slate-900 max-md:border-t max-md:border-slate-200 dark:max-md:border-[#444444] max-md:p-4 max-md:z-30 max-md:overflow-y-auto ${
-            drawerOpen ? "max-md:block" : "max-md:hidden"
+          className={`max-md:fixed max-md:inset-x-0 max-md:top-[4.5rem] max-md:bottom-0 max-md:w-full max-md:bg-slate-50 dark:max-md:bg-slate-900 max-md:border-t max-md:border-slate-200 dark:max-md:border-[#444444] max-md:p-4 max-md:z-30 max-md:overflow-y-auto max-md:transition-transform max-md:duration-200 max-md:ease-out ${
+            drawerOpen ? "max-md:translate-x-0" : "max-md:-translate-x-full"
           }`}
         >
           <ul
             id="list"
-            className="flex max-md:flex-col items-stretch md:items-center md:justify-center max-md:gap-1 md:gap-8 list-none"
+            className="flex max-md:flex-col items-stretch md:items-center md:justify-center max-md:gap-1 md:gap-1 list-none"
           >
-            {LINKS.map((l) => (
-              <li key={l.path} className="max-md:w-full">
-                <Link
-                  href={l.path}
-                  onClick={() => setDrawerOpen(false)}
-                  className="w-full p-3 flex items-center font-medium justify-between md:p-0 md:py-1 max-xs:text-sm rounded hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-150"
-                >
-                  <span className="w-full flex items-center gap-2 capitalize">
-                    <span className="md:hidden text-indigo-600 dark:text-indigo-400">
-                      {l.icon}
+            {LINKS.map((l) => {
+              const isActive = pathname === l.path;
+              return (
+                <li key={l.path} className="max-md:w-full">
+                  <Link
+                    href={l.path}
+                    className={`w-full p-3 flex items-center font-medium justify-between md:px-3 md:py-1.5 max-xs:text-sm rounded transition-colors duration-150 ${
+                      isActive
+                        ? "text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-500/10"
+                        : "text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100 dark:hover:bg-slate-800/50"
+                    }`}
+                  >
+                    <span className="w-full flex items-center gap-2 capitalize">
+                      <span className="md:hidden text-indigo-600 dark:text-indigo-400">
+                        {l.icon}
+                      </span>
+                      {l.label}
                     </span>
-                    {l.label}
-                  </span>
-                  <span className="md:hidden text-slate-400">
-                    <ChevronRightIcon fontSize="inherit" />
-                  </span>
-                </Link>
-              </li>
-            ))}
+                    <span className="md:hidden text-slate-400">
+                      <ChevronRightIcon fontSize="inherit" />
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
 

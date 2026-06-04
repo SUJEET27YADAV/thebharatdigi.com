@@ -60,7 +60,7 @@ export default function Testimonials() {
                 delay: staggerDelay(prefersReducedMotion, i),
                 ease: easeOut,
               }}
-              className="card p-6 md:p-8 flex flex-col"
+              className="card-hover card p-6 md:p-8 flex flex-col border-l-4 border-l-transparent hover:border-l-indigo-500 dark:hover:border-l-[#ac4bff]"
             >
               <div className="flex gap-0.5 mb-4" aria-label="5 out of 5 stars">
                 {Array.from({ length: 5 }, (_, j) => (

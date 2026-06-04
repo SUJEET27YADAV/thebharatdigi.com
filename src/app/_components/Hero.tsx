@@ -17,29 +17,38 @@ const words = [
 export default function Hero() {
   const prefersReducedMotion = useReducedMotion();
   const fadeUp = enterFade(prefersReducedMotion);
-  const currentWordIndexRef = useRef(0);
+  const wordIndex = useRef(0);
+  const isDeleting = useRef(false);
   const [displayText, setDisplayText] = useState("");
-  const isDeletingRef = useRef(false);
+  const [tick, setTick] = useState(0);
 
   useEffect(() => {
-    const word = words[currentWordIndexRef.current];
-    const speed = isDeletingRef.current ? 50 : 150;
+    const word = words[wordIndex.current];
+    const speed = isDeleting.current ? 50 : 150;
 
     const timer = setTimeout(() => {
-      if (!isDeletingRef.current && displayText !== word) {
-        setDisplayText(word.substring(0, displayText.length + 1));
-      } else if (isDeletingRef.current && displayText !== "") {
-        setDisplayText(word.substring(0, displayText.length - 1));
-      } else if (!isDeletingRef.current && displayText === word) {
-        setTimeout(() => { isDeletingRef.current = true; }, 2000);
-      } else if (isDeletingRef.current && displayText === "") {
-        isDeletingRef.current = false;
-        currentWordIndexRef.current = (currentWordIndexRef.current + 1) % words.length;
+      if (!isDeleting.current) {
+        if (displayText.length < word.length) {
+          setDisplayText(word.slice(0, displayText.length + 1));
+        } else {
+          setTimeout(() => {
+            isDeleting.current = true;
+            setTick(t => t + 1);
+          }, 2000);
+        }
+      } else {
+        if (displayText.length > 0) {
+          setDisplayText(word.slice(0, displayText.length - 1));
+        } else {
+          isDeleting.current = false;
+          wordIndex.current = (wordIndex.current + 1) % words.length;
+          setTick(t => t + 1);
+        }
       }
     }, speed);
 
     return () => clearTimeout(timer);
-  }, [displayText]);
+  }, [displayText, tick]);
 
   return (
     <LazyMotion features={domAnimation}>

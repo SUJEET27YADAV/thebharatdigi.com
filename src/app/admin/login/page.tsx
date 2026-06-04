@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, SubmitEvent } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { hashPassword } from "@/utils/admin/auth";
+import { Loader2 } from "lucide-react";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -12,7 +12,7 @@ export default function AdminLoginPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = async (e: SubmitEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
     setLoading(true);
@@ -42,67 +42,77 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="h-[calc(100vh-200px)] flex items-center justify-center p-4">
-      <div className="w-full max-w-md p-8 rounded border border-[#444444] bg-slate-200/60 dark:bg-black/30">
-        <h1 className="text-2xl font-bold mb-2 text-center tracking-wide">
-          Admin Panel
-        </h1>
-        {/* {hashPassword("Mahadev#tru3QAZXSW")} */}
-        <p className="text-center mb-8 text-sm">
-          Sign in to manage your business
-        </p>
+    <div className="min-h-[calc(100vh-200px)] flex items-center justify-center p-4">
+      <div className="w-full max-w-md">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold gradient-text mb-2">Admin Panel</h1>
+          <p className="text-[#314158] dark:text-gray-400 text-sm">
+            Sign in to manage your business
+          </p>
+        </div>
 
-        {error && (
-          <div className="p-3 rounded mb-6 text-sm bg-[#fb2c36] text-white">
-            {error}
+        <div className="card p-8">
+          {error && (
+            <div className="p-3 rounded mb-6 text-sm bg-[#fb2c36]/10 border border-[#fb2c36]/30 text-[#fb2c36]">
+              {error}
+            </div>
+          )}
+
+          <form onSubmit={handleLogin} className="space-y-5">
+            <div>
+              <label htmlFor="login-email" className="block text-sm font-medium mb-1.5 text-slate-700 dark:text-slate-300">
+                Email Address
+              </label>
+              <input
+                id="login-email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                autoComplete="email"
+                className="input"
+                placeholder="admin@example.com"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="login-password" className="block text-sm font-medium mb-1.5 text-slate-700 dark:text-slate-300">
+                Password
+              </label>
+              <input
+                id="login-password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                autoComplete="current-password"
+                className="input"
+                placeholder="Enter your password"
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="btn-primary w-full py-3 text-base"
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="size-5 animate-spin" aria-hidden />
+                  <span>Signing in...</span>
+                </>
+              ) : (
+                "Sign In"
+              )}
+            </button>
+          </form>
+
+          <div className="text-center mt-6 text-xs text-[#314158] dark:text-gray-500">
+            Need help?{" "}
+            <Link href="/" className="text-indigo-600 dark:text-[#ac4bff] hover:underline">
+              Go to home
+            </Link>
           </div>
-        )}
-
-        <form onSubmit={handleLogin} className="space-y-4">
-          <div>
-            <label htmlFor="login-email" className="block text-sm font-medium mb-2">
-              Email Address
-            </label>
-            <input
-              id="login-email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full px-3 py-2 rounded text-sm outline-none border border-[#444444] focus:ring-2 focus:border-[#ac4bff] placeholder:text-[#888888]"
-              placeholder="admin@example.com"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="login-password" className="block text-sm font-medium mb-2">Password</label>
-            <input
-              id="login-password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="w-full px-3 py-2 rounded text-sm outline-none border border-[#444444] focus:ring-2 focus:border-[#ac4bff] placeholder:text-[#888888]"
-              placeholder="••••••••"
-            />
-          </div>
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-2 rounded font-medium transition-opacity text-sm mt-6 bg-indigo-600 hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-600 outline-none disabled:bg-indigo-600/70 disabled:hover:bg-indigo-600/70 cursor-pointer disabled:cursor-not-allowed"
-          >
-            {loading ? "Signing in..." : "Sign In"}
-          </button>
-        </form>
-
-        <div className="text-center mt-6 text-xs">
-          <span>Need help?{"  "}</span>
-          <Link
-            href="/"
-            className="text-[#ac4bff] hover:underline text-decoration-none"
-          >
-            Go to home
-          </Link>
         </div>
       </div>
     </div>

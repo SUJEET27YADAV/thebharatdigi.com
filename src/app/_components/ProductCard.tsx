@@ -32,7 +32,7 @@ export default function ProductCard({ product }: { product: Product }) {
   return (
     <Link
       href={`/product/${product.serial}`}
-      className="card-interactive group relative flex flex-col overflow-hidden cursor-pointer"
+      className="card-interactive card-hover group relative flex flex-col overflow-hidden cursor-pointer"
       aria-label={`View ${product.name}`}
     >
       <div className="absolute top-4 right-4 z-10 bg-indigo-600 dark:bg-[#ac4bff] text-white text-xs font-semibold px-2.5 py-1 rounded">
@@ -46,7 +46,7 @@ export default function ProductCard({ product }: { product: Product }) {
           width={500}
           height={500}
           loading="lazy"
-          className="w-full h-full object-cover card-image"
+          className="w-full h-full object-cover transition-transform duration-400 group-hover:scale-105"
         />
       </div>
 
@@ -88,10 +88,13 @@ export default function ProductCard({ product }: { product: Product }) {
               type="button"
               aria-label={`Add ${product.name} to cart`}
               onClick={(e) => handleAddToCart(e, product)}
-              className="btn-primary px-4 py-2 text-sm"
+              className="btn-primary px-4 py-2 text-sm relative overflow-hidden group/btn"
             >
-              <ShoppingCart size={16} aria-hidden />
-              Add to Cart
+              <span className="relative z-10 flex items-center gap-1">
+                <ShoppingCart size={16} aria-hidden />
+                Add to Cart
+              </span>
+              <span className="absolute inset-0 bg-white/10 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200" aria-hidden />
             </button>
           )}
         </div>
