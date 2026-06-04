@@ -17,5 +17,37 @@ export default async function Page() {
       services = result.data;
     }
   } catch {}
-  return <ServicesPage services={services} />;
+
+  const serviceSchema = services.map((s, i) => ({
+    "@type": "Service",
+    name: s.title,
+    description: s.shortdesc,
+    provider: {
+      "@type": "Organization",
+      name: "The Bharat Digital",
+    },
+  }));
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+      >
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { "@type": "ListItem", position: 1, name: "Home", item: "https://thebharatdigi.com" },
+                { "@type": "ListItem", position: 2, name: "Services", item: "https://thebharatdigi.com/services" },
+              ],
+            },
+            ...serviceSchema,
+          ],
+        })}
+      </script>
+      <ServicesPage services={services} />
+    </>
+  );
 }

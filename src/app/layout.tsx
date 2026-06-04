@@ -3,14 +3,15 @@ import dynamic from "next/dynamic";
 import Navbar from "@/app/_components/Navbar";
 import Footer from "@/app/_components/Footer";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
-import { ThemeProvider } from "@/contexts/ThemeContext";
 
 const CustomCursor = dynamic(() => import("./_components/CustomCursor"));
 const ToastContainer = dynamic(() =>
   import("react-toastify").then((m) => m.ToastContainer),
 );
+const WhatsAppButton = dynamic(() => import("./_components/WhatsAppButton"));
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -77,11 +78,10 @@ export default function RootLayout({
           <Navbar />
           {children}
           <Footer />
+          <WhatsAppButton />
           <ToastContainer />
         </ThemeProvider>
-        <script
-          type="application/ld+json"
-        >
+        <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Organization",
@@ -90,13 +90,80 @@ export default function RootLayout({
             logo: "https://thebharatdigi.com/logo.png",
             description:
               "Premium Web Development Company that offers SEO, e-commerce solutions, IT support & much more across the globe. 500+ projects delivered worldwide.",
+            foundingDate: "2015",
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: "1848, Ward-17, Arun Vihar, Sector -37",
+              addressLocality: "Noida",
+              addressRegion: "Uttar Pradesh",
+              postalCode: "201301",
+              addressCountry: "IN",
+            },
             contactPoint: {
               "@type": "ContactPoint",
               telephone: "+91-9999239307",
               contactType: "sales",
               email: "support@thebharatdigi.com",
+              availableLanguage: ["English", "Hindi"],
             },
             sameAs: ["https://thebharatdigi.com"],
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "The Bharat Digital",
+            url: "https://thebharatdigi.com",
+            description:
+              "Premium Web Development Company that offers SEO, e-commerce solutions, IT support & much more across the globe.",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: {
+                "@type": "EntryPoint",
+                urlTemplate:
+                  "https://thebharatdigi.com/search?q={search_term_string}",
+              },
+              "query-input": "required name=search_term_string",
+            },
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://thebharatdigi.com",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Services",
+                item: "https://thebharatdigi.com/services",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Portfolio",
+                item: "https://thebharatdigi.com/portfolio",
+              },
+              {
+                "@type": "ListItem",
+                position: 4,
+                name: "Shop",
+                item: "https://thebharatdigi.com/shop",
+              },
+              {
+                "@type": "ListItem",
+                position: 5,
+                name: "Contact",
+                item: "https://thebharatdigi.com/contactus",
+              },
+            ],
           })}
         </script>
       </body>

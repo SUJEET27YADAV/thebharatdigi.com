@@ -2,6 +2,11 @@
 
 # dependencies
 /node_modules
+/beyond-seo
+/.agents
+/.claude
+/.vscode
+/.next
 /.pnp
 .pnp.*
 .yarn/*

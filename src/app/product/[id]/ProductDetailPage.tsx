@@ -39,6 +39,25 @@ export default function ProductDetailPage({
       {!product ? (
         <p className="text-red-500 text-center">Product not found.</p>
       ) : (
+        <>
+          <script
+            type="application/ld+json"
+          >
+            {JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Product",
+              name: product.name,
+              description: product.description,
+              image: product.image_url,
+              offers: {
+                "@type": "Offer",
+                price: product.price,
+                priceCurrency: "INR",
+                availability: "https://schema.org/InStock",
+              },
+            })}
+          </script>
+          
           <div className="w-full flex flex-col md:flex-row gap-10">
             <div className="w-full h-fit md:w-4xl border-2 border-slate-300 rounded p-4">
               <Image
@@ -105,6 +124,7 @@ export default function ProductDetailPage({
               </div>
             </div>
           </div>
+        </>
       )}
     </div>
   );

@@ -38,7 +38,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${BASE_URL}/contactus`,
       lastModified: new Date(),
       changeFrequency: "monthly",
-      priority: 0.7,
+      priority: 0.8,
     },
     {
       url: `${BASE_URL}/shop`,
@@ -49,14 +49,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: `${BASE_URL}/services`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
+      changeFrequency: "weekly",
+      priority: 0.9,
     },
     {
       url: `${BASE_URL}/portfolio`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
+      changeFrequency: "weekly",
+      priority: 0.8,
     },
     {
       url: `${BASE_URL}/tutorials`,
@@ -65,10 +65,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.6,
     },
     {
-      url: `${BASE_URL}/cart`,
+      url: `${BASE_URL}/seo-audit-pro`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.4,
+      changeFrequency: "weekly",
+      priority: 0.8,
     },
     {
       url: `${BASE_URL}/nodemailer`,
@@ -83,16 +83,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.5,
     },
     {
-      url: `${BASE_URL}/seo-audit-pro`,
+      url: `${BASE_URL}/cart`,
       lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.7,
+      changeFrequency: "monthly",
+      priority: 0.3,
     },
     {
       url: `${BASE_URL}/payment-confirmation`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.3,
+      changeFrequency: "yearly",
+      priority: 0.1,
     },
     {
       url: `${BASE_URL}/privacypolicy`,
