@@ -16,7 +16,6 @@ import {
   ArrowRight,
   ShoppingCart,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { Product } from "@/types/types";
 import { useCartStore } from "@/store/cartStore";
 import { toast } from "react-toastify";

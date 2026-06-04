@@ -5,16 +5,17 @@ import { Product } from "@/types/types";
 import { ShoppingCart, Trash } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
 import { toast } from "react-toastify";
+import { redirect } from "next/navigation";
 
 export default function ProductCard({ product }: { product: Product }) {
   const { cart, addToCart, removeFromCart } = useCartStore();
-  const isInCart = (serial: number) =>
-    cart.some((p) => p.serial === serial);
+  const isInCart = (serial: number) => cart.some((p) => p.serial === serial);
 
   const handleAddToCart = (
     e: React.MouseEvent<HTMLButtonElement>,
     item: Product,
   ) => {
+    e.preventDefault();
     e.stopPropagation();
     addToCart(item);
     toast.success("Product added to cart");
@@ -24,6 +25,7 @@ export default function ProductCard({ product }: { product: Product }) {
     e: React.MouseEvent<HTMLButtonElement>,
     productId: string,
   ) => {
+    e.preventDefault();
     e.stopPropagation();
     removeFromCart(productId);
     toast.info("Product removed from cart");
@@ -85,6 +87,7 @@ export default function ProductCard({ product }: { product: Product }) {
             </button>
           ) : (
             <button
+              id="addToCart"
               type="button"
               aria-label={`Add ${product.name} to cart`}
               onClick={(e) => handleAddToCart(e, product)}
@@ -94,7 +97,10 @@ export default function ProductCard({ product }: { product: Product }) {
                 <ShoppingCart size={16} aria-hidden />
                 Add to Cart
               </span>
-              <span className="absolute inset-0 bg-white/10 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200" aria-hidden />
+              <span
+                className="absolute inset-0 bg-white/10 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200"
+                aria-hidden
+              />
             </button>
           )}
         </div>

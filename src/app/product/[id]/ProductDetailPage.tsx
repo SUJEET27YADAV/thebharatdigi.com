@@ -40,9 +40,7 @@ export default function ProductDetailPage({
         <p className="text-red-500 text-center">Product not found.</p>
       ) : (
         <>
-          <script
-            type="application/ld+json"
-          >
+          <script type="application/ld+json">
             {JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Product",
@@ -57,7 +55,7 @@ export default function ProductDetailPage({
               },
             })}
           </script>
-          
+
           <div className="w-full flex flex-col md:flex-row gap-10">
             <div className="w-full h-fit md:w-4xl border-2 border-slate-300 rounded p-4">
               <Image
@@ -65,15 +63,15 @@ export default function ProductDetailPage({
                 alt={product.name}
                 width={1024}
                 height={1024}
-                loading="lazy"
+                loading="eager"
                 className="object-contain"
               />
             </div>
             <div className="w-full md:w-3xl space-y-8">
               <h1 className="sr-only">
-                The Bharat Digital: "Premium Web Development Company that
-                offers SEO Audit Tools, e-commerce solutions, IT support & much
-                more for Businesses all over the world.
+                The Bharat Digital: "Premium Web Development Company that offers
+                SEO Audit Tools, e-commerce solutions, IT support & much more
+                for Businesses all over the world.
               </h1>
               <h2 className="text-4xl font-bold">{product.name}</h2>
               <p className="text-lg">{product.description}</p>

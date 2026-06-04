@@ -8,13 +8,15 @@ export async function generateMetadata({
   params: { id: string };
 }): Promise<Metadata> {
   const supabase = createServerClient();
-  const { data: product } = await supabase
+  const { id } = await params;
+  const { data: product, error } = await supabase
     .from("products")
     .select("*")
-    .eq("serial", Number(params.id))
+    .eq("serial", id)
     .single();
 
-  if (!product) {
+  if (error || !product) {
+    console.error(error);
     return {
       title: "Product Not Found | The Bharat Digital",
     };
@@ -41,17 +43,14 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default async function Page({ params }: { params: { id: number } }) {
+  const { id } = await params;
   const supabase = createServerClient();
-  const { data } = await supabase
+  const { data: product } = await supabase
     .from("products")
     .select("*")
-    .eq("serial", Number(params.id))
+    .eq("serial", id)
     .single();
 
-  return <ProductDetailPage product={data} />;
+  return <ProductDetailPage product={product} />;
 }

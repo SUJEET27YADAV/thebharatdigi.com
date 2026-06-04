@@ -250,19 +250,5 @@
   <rect x="100" y="522" width="600" height="4" rx="2" fill="#314158" />
   <rect x="100" y="522" width="360" height="4" rx="2" fill="#f99c00" />
   <rect x="100" y="534" width="600" height="4" rx="2" fill="#314158" />
-  <rect x="100" y="534" width="540" height="4" rx="2" fill="#00c758" />
-
-  <!-- Badge -->
-  <rect x="620" y="32" width="120" height="32" rx="16" fill="#ac4bff" />
-  <text
-    x="680"
-    y="52"
-    text-anchor="middle"
-    fill="#fff"
-    font-family="Inter, sans-serif"
-    font-size="12"
-    font-weight="600"
-  >
-    v1.0.0
-  </text>
+  <rect x="100" y="534" width="540" height="4" rx="2" fill="#00c758" />  
 </svg>

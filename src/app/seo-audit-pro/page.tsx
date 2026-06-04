@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import SEOAuditProClient from "./SEOAuditProClient";
 import { Product } from "@/types/types";
+import { createServerClient } from "@/utils/supabase/server";
 
 export const metadata: Metadata = {
   title: "SEO Audit Pro | SEO Tool | The Bharat Digital",
@@ -11,17 +12,13 @@ export const metadata: Metadata = {
 export default async function Page() {
   let product: Product | null = null;
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-    let res = await fetch(`${baseUrl}/api/getProducts`, { cache: "no-store" });
-    let result = await res.json();
-    if (result.success) {
-      const seoProduct = result.data.find(
-        (p: Product) => p.name === "SEO Audit Pro",
-      );
-      if (seoProduct) {
-        product = seoProduct;
-      }
-    }
+    const supabase = createServerClient();
+    const { data } = await supabase
+      .from("products")
+      .select("*")
+      .eq("name", "SEO Audit Pro")
+      .single();
+    product = data;
   } catch (error) {
     console.error(error);
   }
