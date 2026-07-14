@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useReducer, useState } from "react";
-import AdminTable from "@/app/_components/admin/AdminTable";
+import AdminTable from "@/components/admin/AdminTable";
 import { Loader2, Plus, Search } from "lucide-react";
 import { Project } from "@/types/types";
 import { toast } from "react-toastify";
@@ -165,7 +165,9 @@ export default function PortfolioPage() {
           aria-label="Search portfolio"
           placeholder="Search portfolio..."
           value={state.searchTerm}
-          onChange={(e) => dispatch({ type: "SET_SEARCH", payload: e.target.value })}
+          onChange={(e) =>
+            dispatch({ type: "SET_SEARCH", payload: e.target.value })
+          }
           className="flex-1 bg-transparent outline-none text-sm"
         />
       </div>

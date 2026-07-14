@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
-import Navbar from "@/app/_components/Navbar";
-import Footer from "@/app/_components/Footer";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 
-const CustomCursor = dynamic(() => import("./_components/CustomCursor"));
+const CustomCursor = dynamic(() => import("../components/CustomCursor"));
 const ToastContainer = dynamic(() =>
   import("react-toastify").then((m) => m.ToastContainer),
 );
-const WhatsAppButton = dynamic(() => import("./_components/WhatsAppButton"));
+const WhatsAppButton = dynamic(() => import("../components/WhatsAppButton"));
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -126,44 +126,6 @@ export default function RootLayout({
               },
               "query-input": "required name=search_term_string",
             },
-          })}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              {
-                "@type": "ListItem",
-                position: 1,
-                name: "Home",
-                item: "https://thebharatdigi.com",
-              },
-              {
-                "@type": "ListItem",
-                position: 2,
-                name: "Services",
-                item: "https://thebharatdigi.com/services",
-              },
-              {
-                "@type": "ListItem",
-                position: 3,
-                name: "Portfolio",
-                item: "https://thebharatdigi.com/portfolio",
-              },
-              {
-                "@type": "ListItem",
-                position: 4,
-                name: "Shop",
-                item: "https://thebharatdigi.com/shop",
-              },
-              {
-                "@type": "ListItem",
-                position: 5,
-                name: "Contact",
-                item: "https://thebharatdigi.com/contactus",
-              },
-            ],
           })}
         </script>
       </body>

@@ -1,4 +1,4 @@
-import Modal from "@/app/_components/ui/modal";
+import Modal from "@/components/ui/modal";
 import { X } from "lucide-react";
 import { SubmitEvent, useState } from "react";
 import { toast } from "react-toastify";
@@ -53,10 +53,10 @@ export default function EditProjectModal({
     }
   };
   const inputClass =
-    "w-full p-2 border border-slate-500 rounded outline-none focus:ring-2 focus:ring-indigo-600 transition-colors";
+    "w-full p-2 text-slate-900 dark:text-white border border-slate-500 rounded outline-none focus:ring-2 focus:ring-indigo-600 transition-colors";
   return (
     <Modal>
-      <div className="relative w-full max-w-md p-6 flex flex-col items-center gap-4 bg-white/60 dark:bg-black/30 rounded">
+      <div className="relative w-full max-w-md p-6 text-slate-900 dark:text-white flex flex-col items-center gap-4 bg-white/90 dark:bg-black/90 rounded">
         <button
           type="button"
           className="absolute top-4 right-4 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"

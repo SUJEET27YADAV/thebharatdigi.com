@@ -17,6 +17,8 @@ import {
   Building,
   Star,
 } from "lucide-react";
+import FaqSection from "@/components/FaqSection";
+import { faqs } from "@/lib/faq-data";
 
 const Counter = ({
   target,
@@ -187,8 +189,8 @@ function MissionVisionSection() {
           desc: (
             <>
               To become the most trusted <strong>digital partner</strong> for
-              businesses worldwide, known for our <strong>innovation</strong> and{" "}
-              <strong>reliability</strong>.
+              businesses worldwide, known for our <strong>innovation</strong>{" "}
+              and <strong>reliability</strong>.
             </>
           ),
           color: "purple",
@@ -263,288 +265,294 @@ export default function About() {
 
   return (
     <LazyMotion features={domAnimation}>
-    <section
-      id="about"
-      className="relative py-24 overflow-hidden bg-slate-50 dark:bg-slate-800/30"
-    >
-      {/* Background */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-40 left-10 size-72 rounded-full bg-indigo-200/50 dark:bg-indigo-500/5" />
-        <div className="absolute bottom-40 right-10 size-96 rounded-full bg-purple-200/50 dark:bg-purple-500/5" />
-      </div>
-
-      <div className="relative max-w-7xl mx-auto px-4 md:px-6">
-        {/* Header */}
-        <div className="text-center mb-20">
-          <m.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded border mb-6
-                       bg-indigo-50 dark:bg-indigo-500/10 border-indigo-200 dark:border-indigo-500/20"
-          >
-            <Sparkles className="size-4 text-indigo-600 dark:text-indigo-400" />
-            <span className="text-indigo-600 dark:text-indigo-400 text-sm font-medium">
-              Our Story
-            </span>
-          </m.div>
-          <h1 className="sr-only">
-            The Bharat Digital: "Premium Web Development Company that offers
-            SEO Audit Tools, e-commerce solutions, IT support & much more for
-            Businesses all over the world.
-          </h1>
-          <m.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-slate-900 dark:text-white"
-          >
-            Web Development &amp; Digital{" "}
-            <span className="gradient-text">Excellence Since 2015</span>
-          </m.h2>
+      <section
+        id="about"
+        className="relative pt-24 overflow-hidden bg-slate-50 dark:bg-slate-800/30"
+      >
+        {/* Background */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-40 left-10 size-72 rounded-full bg-indigo-200/50 dark:bg-indigo-500/5" />
+          <div className="absolute bottom-40 right-10 size-96 rounded-full bg-purple-200/50 dark:bg-purple-500/5" />
         </div>
 
-        <MissionVisionSection />
-        <StatsSection />
-
-        {/* Values */}
-        <m.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-20"
-        >
-          <div className="text-center mb-12">
-            <h4 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
-              Our Core <span className="gradient-text">Values</span>
-            </h4>
+        <div className="relative max-w-7xl mx-auto px-4 md:px-6">
+          {/* Header */}
+          <div className="text-center mb-20">
+            <m.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded border mb-6
+                       bg-indigo-50 dark:bg-indigo-500/10 border-indigo-200 dark:border-indigo-500/20"
+            >
+              <Sparkles className="size-4 text-indigo-600 dark:text-indigo-400" />
+              <span className="text-indigo-600 dark:text-indigo-400 text-sm font-medium">
+                Our Story
+              </span>
+            </m.div>
+            <h1 className="sr-only">
+              The Bharat Digital: "Premium Web Development Company that offers
+              SEO Audit Tools, e-commerce solutions, IT support & much more for
+              Businesses all over the world.
+            </h1>
+            <m.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-slate-900 dark:text-white"
+            >
+              Web Development &amp; Digital{" "}
+              <span className="gradient-text">Excellence Since 2015</span>
+            </m.h2>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {values.map((value, i) => (
-              <m.div
-                key={value.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group p-6 rounded border text-center transition-all
-                            bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50
-                            hover:bg-white dark:hover:bg-slate-800/60"
-              >
-                <div
-                  className={`size-14 rounded border flex items-center justify-center mx-auto mb-4
-                                group-hover:scale-110 transition-transform ${colorStyles[value.color]}`}
-                >
-                  <value.icon className="size-7" />
-                </div>
-                <h5 className="text-xl font-bold mb-2 text-slate-900 dark:text-white">
-                  {value.title}
-                </h5>
-                <p className="text-sm text-slate-600 dark:text-gray-400">
-                  {value.desc}
-                </p>
-              </m.div>
-            ))}
-          </div>
-        </m.div>
+          <MissionVisionSection />
+          <StatsSection />
 
-        {/* Timeline */}
-        <m.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-20"
-        >
-          <div className="text-center mb-12">
-            <h6 className="text-3xl md:text-4xl font-bold mb-4">
-              Our <span className="gradient-text">Journey</span>
-            </h6>
-            <p className="text-gray-400 max-w-2xl mx-auto">
-              A decade of growth, learning, and creating digital excellence
-            </p>
-          </div>
+          {/* Values */}
+          <m.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-20"
+          >
+            <div className="text-center mb-12">
+              <h4 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
+                Our Core <span className="gradient-text">Values</span>
+              </h4>
+            </div>
 
-          {/* Timeline Desktop */}
-          <div className="hidden md:block relative">
-            {/* Timeline line */}
-            <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-slate-700 -translate-y-1/2" />
-            <div
-              className="absolute top-1/2 left-0 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-500 -translate-y-1/2 transition-all duration-500"
-              style={{
-                width: `${((activeTimeline + 1) / timeline.length) * 100}%`,
-              }}
-            />
-
-            <div className="grid grid-cols-5 gap-4">
-              {timeline.map((item, index) => (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {values.map((value, i) => (
                 <m.div
-                  key={item.year}
+                  key={value.title}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="relative pt-8 cursor-pointer"
-                  onMouseEnter={() => setActiveTimeline(index)}
+                  transition={{ delay: i * 0.1 }}
+                  className="group p-6 rounded border text-center transition-all
+                            bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50
+                            hover:bg-white dark:hover:bg-slate-800/60"
                 >
-                  {/* Node */}
                   <div
-                    className={`absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 size-10 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
-                      index <= activeTimeline
-                        ? "bg-indigo-500 border-indigo-400"
-                        : "bg-slate-800 border-slate-600"
-                    }`}
+                    className={`size-14 rounded border flex items-center justify-center mx-auto mb-4
+                                group-hover:scale-110 transition-transform ${colorStyles[value.color]}`}
                   >
-                    <item.icon
-                      className={`size-4 ${
-                        index <= activeTimeline ? "text-white" : "text-gray-500"
-                      }`}
-                    />
+                    <value.icon className="size-7" />
                   </div>
+                  <h5 className="text-xl font-bold mb-2 text-slate-900 dark:text-white">
+                    {value.title}
+                  </h5>
+                  <p className="text-sm text-slate-600 dark:text-gray-400">
+                    {value.desc}
+                  </p>
+                </m.div>
+              ))}
+            </div>
+          </m.div>
 
-                  {/* Content */}
-                  <div
-                    className={`text-center p-4 rounded transition-all duration-300 ${
-                      index === activeTimeline
-                        ? "bg-slate-800/60 border border-indigo-500/30"
-                        : "hover:bg-slate-800/40"
-                    }`}
+          {/* Timeline */}
+          <m.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-20"
+          >
+            <div className="text-center mb-12">
+              <h6 className="text-3xl md:text-4xl font-bold mb-4">
+                Our <span className="gradient-text">Journey</span>
+              </h6>
+              <p className="text-gray-400 max-w-2xl mx-auto">
+                A decade of growth, learning, and creating digital excellence
+              </p>
+            </div>
+
+            {/* Timeline Desktop */}
+            <div className="hidden md:block relative">
+              {/* Timeline line */}
+              <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-slate-700 -translate-y-1/2" />
+              <div
+                className="absolute top-1/2 left-0 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-500 -translate-y-1/2 transition-all duration-500"
+                style={{
+                  width: `${((activeTimeline + 1) / timeline.length) * 100}%`,
+                }}
+              />
+
+              <div className="grid grid-cols-5 gap-4">
+                {timeline.map((item, index) => (
+                  <m.div
+                    key={item.year}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="relative pt-8 cursor-pointer"
+                    onMouseEnter={() => setActiveTimeline(index)}
                   >
-                    <span
-                      className={`text-sm font-bold ${
+                    {/* Node */}
+                    <div
+                      className={`absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 size-10 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
                         index <= activeTimeline
-                          ? "text-indigo-400"
-                          : "text-gray-500"
+                          ? "bg-indigo-500 border-indigo-400"
+                          : "bg-slate-800 border-slate-600"
                       }`}
                     >
+                      <item.icon
+                        className={`size-4 ${
+                          index <= activeTimeline
+                            ? "text-white"
+                            : "text-gray-500"
+                        }`}
+                      />
+                    </div>
+
+                    {/* Content */}
+                    <div
+                      className={`text-center p-4 rounded transition-all duration-300 ${
+                        index === activeTimeline
+                          ? "bg-slate-800/60 border border-indigo-500/30"
+                          : "hover:bg-slate-800/40"
+                      }`}
+                    >
+                      <span
+                        className={`text-sm font-bold ${
+                          index <= activeTimeline
+                            ? "text-indigo-400"
+                            : "text-gray-500"
+                        }`}
+                      >
+                        {item.year}
+                      </span>
+                      <h6
+                        className={`font-semibold mt-8 mb-1 ${
+                          index <= activeTimeline
+                            ? "text-black dark:text-white"
+                            : "text-gray-500"
+                        }`}
+                      >
+                        {item.title}
+                      </h6>
+                      <p
+                        className={`text-xs leading-relaxed ${
+                          index === activeTimeline
+                            ? "text-white dark:text-gray-400"
+                            : "text-gray-600"
+                        }`}
+                      >
+                        {item.desc}
+                      </p>
+                    </div>
+                  </m.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Timeline Mobile */}
+            <div className="md:hidden space-y-4">
+              {timeline.map((item, index) => (
+                <m.div
+                  key={item.year}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="flex gap-4"
+                >
+                  <div className="flex flex-col items-center">
+                    <div className="size-10 rounded-full bg-indigo-500 flex items-center justify-center">
+                      <item.icon className="size-4 text-white" />
+                    </div>
+                    {index < timeline.length - 1 && (
+                      <div className="w-0.5 h-full bg-slate-700 mt-2" />
+                    )}
+                  </div>
+                  <div className="pb-8">
+                    <span className="text-indigo-400 text-sm font-bold">
                       {item.year}
                     </span>
-                    <h6
-                      className={`font-semibold mt-8 mb-1 ${
-                        index <= activeTimeline
-                          ? "text-black dark:text-white"
-                          : "text-gray-500"
-                      }`}
-                    >
-                      {item.title}
-                    </h6>
-                    <p
-                      className={`text-xs leading-relaxed ${
-                        index === activeTimeline
-                          ? "text-white dark:text-gray-400"
-                          : "text-gray-600"
-                      }`}
-                    >
-                      {item.desc}
-                    </p>
+                    <h6 className="font-semibold">{item.title}</h6>
+                    <p className="text-gray-400 text-sm">{item.desc}</p>
                   </div>
                 </m.div>
               ))}
             </div>
-          </div>
+          </m.div>
 
-          {/* Timeline Mobile */}
-          <div className="md:hidden space-y-4">
-            {timeline.map((item, index) => (
-              <m.div
-                key={item.year}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="flex gap-4"
-              >
-                <div className="flex flex-col items-center">
-                  <div className="size-10 rounded-full bg-indigo-500 flex items-center justify-center">
-                    <item.icon className="size-4 text-white" />
-                  </div>
-                  {index < timeline.length - 1 && (
-                    <div className="w-0.5 h-full bg-slate-700 mt-2" />
-                  )}
-                </div>
-                <div className="pb-8">
-                  <span className="text-indigo-400 text-sm font-bold">
-                    {item.year}
-                  </span>
-                  <h6 className="font-semibold">{item.title}</h6>
-                  <p className="text-gray-400 text-sm">{item.desc}</p>
-                </div>
-              </m.div>
-            ))}
-          </div>
-        </m.div>
-
-        {/* Testimonial */}
-        <m.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-20"
-        >
-          <div className="relative max-w-3xl mx-auto">
-            <div className="absolute inset-0 rounded opacity-20 bg-gradient-to-r from-indigo-600 to-purple-600" />
-            <div
-              className="relative rounded p-8 border
+          {/* Testimonial */}
+          <m.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-20"
+          >
+            <div className="relative max-w-3xl mx-auto">
+              <div className="absolute inset-0 rounded opacity-20 bg-gradient-to-r from-indigo-600 to-purple-600" />
+              <div
+                className="relative rounded p-8 border
                              bg-white dark:bg-slate-800/60 border-slate-200 dark:border-slate-700/50"
-            >
-              <div className="flex gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="size-5 text-yellow-400 fill-yellow-400"
-                  />
-                ))}
-              </div>
-              <blockquote className="text-lg mb-6 italic text-slate-700 dark:text-gray-300">
-                &quot;The Bharat Digital transformed our online presence
-                completely. Their attention to detail was exceptional!&quot;
-              </blockquote>
-              <div className="flex items-center gap-4">
-                <div className="size-12 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold">
-                  RS
+              >
+                <div className="flex gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      className="size-5 text-yellow-400 fill-yellow-400"
+                    />
+                  ))}
                 </div>
-                <div>
-                  <div className="font-semibold text-slate-900 dark:text-white">
-                    Rahul Sharma
+                <blockquote className="text-lg mb-6 italic text-slate-700 dark:text-gray-300">
+                  &quot;The Bharat Digital transformed our online presence
+                  completely. Their attention to detail was exceptional!&quot;
+                </blockquote>
+                <div className="flex items-center gap-4">
+                  <div className="size-12 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold">
+                    RS
                   </div>
-                  <div className="text-sm text-slate-500 dark:text-gray-400">
-                    CEO, TechStart India
+                  <div>
+                    <div className="font-semibold text-slate-900 dark:text-white">
+                      Rahul Sharma
+                    </div>
+                    <div className="text-sm text-slate-500 dark:text-gray-400">
+                      CEO, TechStart India
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </m.div>
+          </m.div>
 
-        {/* CTA */}
-        <m.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="relative rounded overflow-hidden"
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600" />
-          <div className="relative px-6 py-16 md:py-20 text-center">
-            <h6 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
-              Ready to Work With Us?
-            </h6>
-            <p className="text-indigo-100 text-lg md:text-xl max-w-2xl mx-auto mb-10">
-              Let&apos;s create something extraordinary together. Your success
-              story starts with a simple conversation.
-            </p>
-            <a
-              href="#contact"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded
+          {/* CTA */}
+          <m.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative rounded overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600" />
+            <div className="relative px-6 py-16 md:py-20 text-center">
+              <h6 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
+                Ready to Work With Us?
+              </h6>
+              <p className="text-indigo-100 text-lg md:text-xl max-w-2xl mx-auto mb-10">
+                Let&apos;s create something extraordinary together. Your success
+                story starts with a simple conversation.
+              </p>
+              <a
+                href="#contact"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded
                          bg-white text-indigo-600 font-bold text-lg hover:bg-gray-100 transition-all"
-            >
-              Start a Project
-              <ArrowRight className="size-5" />
-            </a>
-          </div>
-        </m.div>
-      </div>
-    </section>
-  </LazyMotion>
+              >
+                Start a Project
+                <ArrowRight className="size-5" />
+              </a>
+            </div>
+          </m.div>
+        </div>
+
+        <div className="mt-16">
+          <FaqSection faqs={faqs["aboutus"]} title="About Us — FAQs" />
+        </div>
+      </section>
+    </LazyMotion>
   );
 }

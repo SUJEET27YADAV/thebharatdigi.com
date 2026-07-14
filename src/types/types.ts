@@ -59,6 +59,25 @@ export interface AdminStats {
   }[];
 }
 
+export interface AdminDashboardStats {
+  totalOrders: {
+    value: number;
+    trend: { value: number; direction: "up" | "down" };
+  };
+  totalCustomers: {
+    value: number;
+    trend: { value: number; direction: "up" | "down" };
+  };
+  totalRevenue: {
+    value: number;
+    trend: { value: number; direction: "up" | "down" };
+  };
+  totalSales: {
+    value: number;
+    trend: { value: number; direction: "up" | "down" };
+  };
+}
+
 export type Product = {
   id: string;
   serial: number;

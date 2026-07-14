@@ -1,4 +1,4 @@
-import Modal from "@/app/_components/ui/modal";
+import Modal from "@/components/ui/modal";
 import { X } from "lucide-react";
 import { SubmitEvent, useState } from "react";
 import { toast } from "react-toastify";

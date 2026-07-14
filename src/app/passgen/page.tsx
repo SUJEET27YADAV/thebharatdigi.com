@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { generateSecurePassword } from "@/utils/passwordgen";
-import PassgenPage from "../_components/passgenPage";
+import PassgenPage from "../../components/passgenPage";
 
 export const metadata: Metadata = {
   title: "Password Generator | The Bharat Digital",

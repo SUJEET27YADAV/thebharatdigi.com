@@ -19,6 +19,8 @@ import {
 import { Product } from "@/types/types";
 import { useCartStore } from "@/store/cartStore";
 import { toast } from "react-toastify";
+import FaqSection from "@/components/FaqSection";
+import { faqs } from "@/lib/faq-data";
 
 const features = [
   {
@@ -423,6 +425,10 @@ export default function SEOAuditProClient({ product }: SEOAuditProClientProps) {
             </m.div>
           </div>
         </section>
+
+        <div className="mt-16">
+          <FaqSection faqs={faqs["seo-audit-pro"]} title="SEO Audit Pro — FAQs" />
+        </div>
       </div>
     </LazyMotion>
   );

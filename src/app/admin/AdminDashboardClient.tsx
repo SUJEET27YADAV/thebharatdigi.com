@@ -1,16 +1,11 @@
 "use client";
 
-import {
-  IndianRupee,
-  ShoppingCart,
-  Users,
-  TrendingUp,
-} from "lucide-react";
-import StatsCard from "@/app/_components/admin/StatsCard";
-import AdminTable from "@/app/_components/admin/AdminTable";
+import { IndianRupee, ShoppingCart, Users, TrendingUp } from "lucide-react";
+import StatsCard from "@/components/admin/StatsCard";
+import AdminTable from "@/components/admin/AdminTable";
 import Link from "next/link";
 import { useAdmin } from "@/contexts/AdminAuthContext";
-import { Order } from "@/types/types";
+import { AdminDashboardStats, Order } from "@/types/types";
 
 const TABLE_COLUMNS = [
   { key: "name", label: "Customer", width: "max-w-[200px]" },
@@ -20,19 +15,15 @@ const TABLE_COLUMNS = [
   { key: "created_at", label: "Date", width: "max-w-[200px]" },
 ];
 
-interface AdminStats {
-  totalOrders: { value: number; trend: { value: number; direction: "up" | "down" } };
-  totalCustomers: { value: number; trend: { value: number; direction: "up" | "down" } };
-  totalRevenue: { value: number; trend: { value: number; direction: "up" | "down" } };
-  totalSales: { value: number; trend: { value: number; direction: "up" | "down" } };
-}
-
 interface AdminDashboardClientProps {
-  stats: AdminStats;
+  stats: AdminDashboardStats;
   recentOrders: Order[];
 }
 
-export default function AdminDashboardClient({ stats, recentOrders }: AdminDashboardClientProps) {
+export default function AdminDashboardClient({
+  stats,
+  recentOrders,
+}: AdminDashboardClientProps) {
   const { user } = useAdmin();
 
   const tableData = recentOrders.map((order) => ({
@@ -51,7 +42,8 @@ export default function AdminDashboardClient({ stats, recentOrders }: AdminDashb
       <div>
         <h1 className="text-3xl font-bold mb-2">Dashboard</h1>
         <p className="text-sm text-[#314158] dark:text-gray-400">
-          Welcome back, {user?.name || "Admin"}. Here&apos;s your business overview.
+          Welcome back, {user?.name || "Admin"}. Here&apos;s your business
+          overview.
         </p>
       </div>
 

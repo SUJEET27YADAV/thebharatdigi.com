@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useReducer, useState } from "react";
-import AdminTable from "@/app/_components/admin/AdminTable";
+import AdminTable from "@/components/admin/AdminTable";
 import { Search, Filter, Loader2 } from "lucide-react";
 import { toast } from "react-toastify";
 import { Order } from "@/types/types";
@@ -175,7 +175,9 @@ export default function OrdersPage() {
             aria-label="Search orders"
             placeholder="Search by customer name or email..."
             value={state.searchTerm}
-            onChange={(e) => dispatch({ type: "SET_SEARCH", payload: e.target.value })}
+            onChange={(e) =>
+              dispatch({ type: "SET_SEARCH", payload: e.target.value })
+            }
             className="flex-1 bg-transparent outline-none text-sm"
           />
         </div>
@@ -185,7 +187,10 @@ export default function OrdersPage() {
           <select
             value={state.statusFilter}
             onChange={(e) =>
-              dispatch({ type: "SET_STATUS_FILTER", payload: e.target.value as "all" | "completed" | "pending" })
+              dispatch({
+                type: "SET_STATUS_FILTER",
+                payload: e.target.value as "all" | "completed" | "pending",
+              })
             }
             className="w-full px-10 py-3 bg-transparent outline-none text-sm"
           >

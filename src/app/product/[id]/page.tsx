@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import ProductDetailPage from "./ProductDetailPage";
 import { createServerClient } from "@/utils/supabase/server";
+import { Product } from "@/types/types";
 
 export async function generateMetadata({
   params,
@@ -45,12 +46,17 @@ export async function generateMetadata({
 
 export default async function Page({ params }: { params: { id: number } }) {
   const { id } = await params;
-  const supabase = createServerClient();
-  const { data: product } = await supabase
-    .from("products")
-    .select("*")
-    .eq("serial", id)
-    .single();
-
+  let product: Product | null = null;
+  try {
+    const supabase = createServerClient();
+    const { data } = await supabase
+      .from("products")
+      .select("*")
+      .eq("serial", id)
+      .single();
+    product = data;
+  } catch (error) {
+    console.error(error);
+  }
   return <ProductDetailPage product={product} />;
 }

@@ -1,7 +1,7 @@
 "use client";
 import { AdminAuthProvider } from "@/contexts/AdminAuthContext";
-import AdminSidebar from "@/app/_components/admin/AdminSidebar";
-import AdminHeader from "@/app/_components/admin/AdminHeader";
+import AdminSidebar from "@/components/admin/AdminSidebar";
+import AdminHeader from "@/components/admin/AdminHeader";
 import { useState } from "react";
 
 export default function AdminLayoutClient({

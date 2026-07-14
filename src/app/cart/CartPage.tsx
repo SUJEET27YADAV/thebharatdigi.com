@@ -1,7 +1,7 @@
 "use client";
 import { useCartStore } from "@/store/cartStore";
 import { ShoppingBag, Trash } from "lucide-react";
-import CheckoutModal from "../_components/CheckoutModal";
+import CheckoutModal from "@/components/CheckoutModal";
 import { useState } from "react";
 import Link from "next/link";
 
@@ -79,14 +79,20 @@ export default function CartPage() {
             <dl className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800 space-y-2 text-sm">
               <div className="flex items-center justify-between">
                 <dt className="text-slate-600 dark:text-slate-400">Subtotal</dt>
-                <dd className="font-medium tabular-nums">₹{subtotal.toFixed(2)}</dd>
+                <dd className="font-medium tabular-nums">
+                  ₹{subtotal.toFixed(2)}
+                </dd>
               </div>
               <div className="flex items-center justify-between">
-                <dt className="text-slate-600 dark:text-slate-400">GST (18%)</dt>
+                <dt className="text-slate-600 dark:text-slate-400">
+                  GST (18%)
+                </dt>
                 <dd className="font-medium tabular-nums">₹{gst.toFixed(2)}</dd>
               </div>
               <div className="flex items-center justify-between pt-2 border-t border-slate-200 dark:border-slate-800">
-                <dt className="font-semibold text-slate-900 dark:text-white">Total</dt>
+                <dt className="font-semibold text-slate-900 dark:text-white">
+                  Total
+                </dt>
                 <dd className="text-lg font-bold tabular-nums text-slate-900 dark:text-white">
                   ₹{getCartTotal().toFixed(2)}
                 </dd>
