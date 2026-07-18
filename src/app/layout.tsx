@@ -6,6 +6,7 @@ import { Geist, Geist_Mono, Inter } from "next/font/google";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const CustomCursor = dynamic(() => import("../components/CustomCursor"));
 const ToastContainer = dynamic(() =>
@@ -81,6 +82,7 @@ export default function RootLayout({
           <WhatsAppButton />
           <ToastContainer />
         </ThemeProvider>
+        <SpeedInsights />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
