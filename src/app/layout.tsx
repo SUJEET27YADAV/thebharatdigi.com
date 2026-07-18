@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/contexts/ThemeContext";
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 
 const CustomCursor = dynamic(() => import("../components/CustomCursor"));
 const ToastContainer = dynamic(() =>
@@ -83,6 +84,7 @@ export default function RootLayout({
           <ToastContainer />
         </ThemeProvider>
         <SpeedInsights />
+        <Analytics />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
