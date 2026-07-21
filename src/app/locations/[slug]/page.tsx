@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import CityPageTemplate from "@/components/CityPageTemplate";
+import CityPageTemplate from "@/app/locations/CityPageTemplate";
 import { getLocationBySlug, LOCATION_SLUGS } from "@/lib/location-data";
 import { faqs } from "@/lib/faq-data";
 

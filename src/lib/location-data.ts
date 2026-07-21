@@ -1,4 +1,4 @@
-import type { CityPageData } from "@/components/CityPageTemplate";
+import type { CityPageData } from "@/app/locations/CityPageTemplate";
 
 export const locations: CityPageData[] = [
   {
@@ -15,10 +15,19 @@ export const locations: CityPageData[] = [
       "Our Delhi clients benefit from competitive pricing (no Delhi-Noida premium), fast turnaround times, and modern tech stacks that outperform traditional agency builds. Every project includes SEO optimisation, performance tuning, and 30 days of free support post-launch.",
     ],
     services: [
-      { name: "Custom Web Development", path: "/services/custom-web-development" },
-      { name: "E-commerce Development", path: "/services/ecommerce-development" },
+      {
+        name: "Custom Web Development",
+        path: "/services/custom-web-development",
+      },
+      {
+        name: "E-commerce Development",
+        path: "/services/ecommerce-development",
+      },
       { name: "Web App Development", path: "/services/web-app-development" },
-      { name: "Performance Optimization", path: "/services/performance-optimization" },
+      {
+        name: "Performance Optimization",
+        path: "/services/performance-optimization",
+      },
       { name: "UI/UX Design", path: "/services/ui-ux-design" },
       { name: "SEO & Marketing", path: "/services/seo-marketing" },
     ],
@@ -49,9 +58,15 @@ export const locations: CityPageData[] = [
       "From responsive business websites to custom web applications, mobile apps, and SEO — we offer end-to-end digital services tailored for Noida-based businesses. All our projects include free hosting setup, basic SEO optimisation, and 30 days of post-launch support.",
     ],
     services: [
-      { name: "Custom Web Development", path: "/services/custom-web-development" },
+      {
+        name: "Custom Web Development",
+        path: "/services/custom-web-development",
+      },
       { name: "MVP Development", path: "/services/mvp-development" },
-      { name: "E-commerce Development", path: "/services/ecommerce-development" },
+      {
+        name: "E-commerce Development",
+        path: "/services/ecommerce-development",
+      },
       { name: "Web App Development", path: "/services/web-app-development" },
       { name: "UI/UX Design", path: "/services/ui-ux-design" },
       { name: "SEO & Marketing", path: "/services/seo-marketing" },
@@ -84,11 +99,17 @@ export const locations: CityPageData[] = [
       "We understand the Gurugram market's competitive landscape and design websites that help businesses stand out. Our services include SEO optimisation specifically for Gurugram-based searches, helping you capture local traffic from people searching for 'web developer in Gurugram' and related queries.",
     ],
     services: [
-      { name: "Custom Web Development", path: "/services/custom-web-development" },
+      {
+        name: "Custom Web Development",
+        path: "/services/custom-web-development",
+      },
       { name: "Web App Development", path: "/services/web-app-development" },
       { name: "MVP Development", path: "/services/mvp-development" },
       { name: "UI/UX Design", path: "/services/ui-ux-design" },
-      { name: "Performance Optimization", path: "/services/performance-optimization" },
+      {
+        name: "Performance Optimization",
+        path: "/services/performance-optimization",
+      },
       { name: "SEO & Marketing", path: "/services/seo-marketing" },
     ],
     industries: [
@@ -118,11 +139,20 @@ export const locations: CityPageData[] = [
       "We're available for in-person consultations in Faridabad and provide ongoing support throughout the project lifecycle. Our Faridabad clients appreciate the combination of global-quality development with local accessibility and competitive pricing.",
     ],
     services: [
-      { name: "Custom Web Development", path: "/services/custom-web-development" },
+      {
+        name: "Custom Web Development",
+        path: "/services/custom-web-development",
+      },
       { name: "MVP Development", path: "/services/mvp-development" },
-      { name: "E-commerce Development", path: "/services/ecommerce-development" },
+      {
+        name: "E-commerce Development",
+        path: "/services/ecommerce-development",
+      },
       { name: "Responsive Design", path: "/services/responsive-design" },
-      { name: "Performance Optimization", path: "/services/performance-optimization" },
+      {
+        name: "Performance Optimization",
+        path: "/services/performance-optimization",
+      },
       { name: "SEO & Marketing", path: "/services/seo-marketing" },
     ],
     industries: [
@@ -130,7 +160,10 @@ export const locations: CityPageData[] = [
       { name: "Legal Services", path: "/industries/legal" },
       { name: "Real Estate", path: "/industries/real-estate" },
       { name: "E-commerce", path: "/industries/ecommerce-retail" },
-      { name: "Manufacturing & Industrial", path: "/services/custom-web-development" },
+      {
+        name: "Manufacturing & Industrial",
+        path: "/services/custom-web-development",
+      },
     ],
     latitude: 28.4089,
     longitude: 77.3178,
@@ -151,10 +184,19 @@ export const locations: CityPageData[] = [
       "We're accessible for in-person meetings in Ghaziabad and committed to building long-term relationships with local businesses. Our post-launch support ensures your website stays updated, secure, and performing well. Contact us for a free consultation and quote.",
     ],
     services: [
-      { name: "Custom Web Development", path: "/services/custom-web-development" },
-      { name: "E-commerce Development", path: "/services/ecommerce-development" },
+      {
+        name: "Custom Web Development",
+        path: "/services/custom-web-development",
+      },
+      {
+        name: "E-commerce Development",
+        path: "/services/ecommerce-development",
+      },
       { name: "Responsive Design", path: "/services/responsive-design" },
-      { name: "Performance Optimization", path: "/services/performance-optimization" },
+      {
+        name: "Performance Optimization",
+        path: "/services/performance-optimization",
+      },
       { name: "UI/UX Design", path: "/services/ui-ux-design" },
       { name: "SEO & Marketing", path: "/services/seo-marketing" },
     ],
@@ -163,7 +205,10 @@ export const locations: CityPageData[] = [
       { name: "Legal Services", path: "/industries/legal" },
       { name: "Real Estate", path: "/industries/real-estate" },
       { name: "E-commerce", path: "/industries/ecommerce-retail" },
-      { name: "Retail & Local Services", path: "/services/custom-web-development" },
+      {
+        name: "Retail & Local Services",
+        path: "/services/custom-web-development",
+      },
     ],
     latitude: 28.6692,
     longitude: 77.4538,

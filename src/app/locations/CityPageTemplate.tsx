@@ -3,6 +3,7 @@ import { ArrowRight, MapPin, Phone, Mail } from "lucide-react";
 import JsonLd from "@/components/JsonLd";
 import FaqSection from "@/components/FaqSection";
 import type { FaqItem } from "@/lib/faq-data";
+import Locationbar from "@/components/Locationbar";
 
 export interface CityPageData {
   slug: string;
@@ -81,12 +82,12 @@ export default function CityPageTemplate({
       />
 
       {/* Hero */}
-      <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden bg-white dark:bg-slate-900">
+      <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none opacity-30">
           <div className="absolute top-20 left-10 size-72 rounded-full bg-indigo-100 dark:bg-indigo-500/5" />
           <div className="absolute bottom-10 right-10 size-96 rounded-full bg-purple-100 dark:bg-purple-500/5" />
         </div>
-        <div className="relative max-w-4xl mx-auto px-4 md:px-6 text-center">
+        <div className="relative max-w-7xl mx-auto px-4 md:px-6 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded border mb-5 bg-indigo-50 dark:bg-indigo-500/10 border-indigo-200 dark:border-indigo-500/20">
             <MapPin className="size-4 text-indigo-600 dark:text-indigo-400" />
             <span className="text-indigo-600 dark:text-indigo-400 text-sm font-medium">
@@ -109,9 +110,12 @@ export default function CityPageTemplate({
         </div>
       </section>
 
+      {/* Other available locations */}
+      <Locationbar />
+
       {/* Content */}
-      <section className="py-16 bg-slate-50 dark:bg-slate-800/50">
-        <div className="max-w-4xl mx-auto px-4 md:px-6">
+      <section className="py-16">
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
           <div className="prose prose-slate dark:prose-invert max-w-none">
             {data.contentParagraphs.map((p, i) => (
               <p
@@ -127,7 +131,7 @@ export default function CityPageTemplate({
 
       {/* Services Offered */}
       <section className="py-16 bg-white dark:bg-slate-900">
-        <div className="max-w-4xl mx-auto px-4 md:px-6">
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-slate-900 dark:text-white">
             Web Development Services in {data.city}
           </h2>
@@ -152,8 +156,8 @@ export default function CityPageTemplate({
       </section>
 
       {/* Industries Served */}
-      <section className="py-16 bg-slate-50 dark:bg-slate-800/50">
-        <div className="max-w-4xl mx-auto px-4 md:px-6">
+      <section className="py-16 bg-slate-150 dark:bg-slate-900/50">
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-slate-900 dark:text-white">
             Local Industries We Serve
           </h2>
@@ -179,7 +183,7 @@ export default function CityPageTemplate({
       {/* Contact Info */}
       {(data.phone || data.email || data.address) && (
         <section className="py-16 bg-white dark:bg-slate-800">
-          <div className="max-w-4xl mx-auto px-4 md:px-6">
+          <div className="max-w-7xl mx-auto px-4 md:px-6">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-slate-900 dark:text-white">
               Get in Touch
             </h2>
@@ -225,7 +229,7 @@ export default function CityPageTemplate({
 
       {/* CTA */}
       <section className="py-16 bg-gradient-to-r from-indigo-600 to-purple-600">
-        <div className="max-w-3xl mx-auto px-4 md:px-6 text-center">
+        <div className="max-w-4xl mx-auto px-4 md:px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Let&apos;s Build Your Digital Presence in {data.city}
           </h2>
