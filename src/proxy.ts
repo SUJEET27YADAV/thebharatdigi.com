@@ -4,7 +4,7 @@ import { verifyAdminToken } from "@/utils/admin/auth";
 const allowedOrigins = [
   "https://www.thebharatdigi.com",
   "https://thebharatdigi.com",
-  "http://localhost:3000", // Optional: for local development
+  "http://localhost:3000",
 ];
 
 export async function proxy(request: NextRequest) {
@@ -12,35 +12,41 @@ export async function proxy(request: NextRequest) {
   const origin = request.headers.get("origin");
 
   // Create base response
-  let response = NextResponse.next();
+  const response = NextResponse.next();
 
   // ----------------------------------------------------
-  // 1. Dynamic CORS Handling (for /api routes)
+  // 1. Dynamic CORS Handling (Runs for all /api routes)
   // ----------------------------------------------------
   if (pathname.startsWith("/api")) {
-    // Check if incoming origin matches allowed list
+    // If request comes from an allowed origin, set that specific origin
     if (origin && allowedOrigins.includes(origin)) {
       response.headers.set("Access-Control-Allow-Origin", origin);
+    } else {
+      // Fallback for direct browser calls or non-browser fetch
+      response.headers.set(
+        "Access-Control-Allow-Origin",
+        "https://www.thebharatdigi.com",
+      );
     }
 
+    response.headers.set("Access-Control-Allow-Credentials", "true");
     response.headers.set(
       "Access-Control-Allow-Methods",
       "GET, POST, PUT, DELETE, OPTIONS",
     );
     response.headers.set(
       "Access-Control-Allow-Headers",
-      "Content-Type, Authorization, X-Requested-With",
+      "Content-Type, Authorization, X-Requested-With, Accept",
     );
-    response.headers.set("Access-Control-Allow-Credentials", "true");
 
-    // Immediately handle browser OPTIONS preflight requests
+    // CRITICAL: Return status 200 for browser CORS preflight checks (OPTIONS)
     if (request.method === "OPTIONS") {
       return new NextResponse(null, { status: 200, headers: response.headers });
     }
   }
 
   // ----------------------------------------------------
-  // 2. Admin Auth Protection (for /admin routes)
+  // 2. Admin Auth Protection (/admin routes)
   // ----------------------------------------------------
   if (pathname.startsWith("/admin") && !pathname.startsWith("/admin/login")) {
     const token = request.cookies.get("admin_token")?.value;
@@ -77,7 +83,7 @@ export async function proxy(request: NextRequest) {
   return response;
 }
 
-// Ensure the matcher catches BOTH your admin routes AND your API routes
+// Intercept both admin routes AND api routes
 export const config = {
   matcher: ["/admin/:path*", "/api/:path*"],
 };
