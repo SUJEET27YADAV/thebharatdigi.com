@@ -2,7 +2,6 @@
 import client from "@/utils/phonepeClient";
 import { sendEmail } from "@/utils/mailHelper";
 import jwt from "jsonwebtoken";
-import { cookies } from "next/headers";
 import { createServerClient } from "@/utils/supabase/server";
 import { auth } from "@/utils/auth";
 
@@ -12,7 +11,6 @@ export default async function paymentConfirmationAction(
 ) {
   const session = await auth();
   if (!session) return { msg: "Unauthorized", status: "FAILED", amount: 0, paymentMode: "", transactionId: "" };
-  const cookieStore = await cookies();
   const supabase = createServerClient();
   try {
     const JWT_SECRET = process.env.JWT_SECRET || "";

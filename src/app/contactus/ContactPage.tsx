@@ -1,9 +1,6 @@
 "use client";
 import { useActionState, useEffect, useState } from "react";
-import { LazyMotion, m, domAnimation } from "framer-motion";
-import Facebook from "@mui/icons-material/Facebook";
-import LinkedIn from "@mui/icons-material/LinkedIn";
-import Instagram from "@mui/icons-material/Instagram";
+import { m } from "framer-motion";
 import {
   Phone,
   Mail,
@@ -19,8 +16,11 @@ import {
   Zap,
   Shield,
   ChevronDown,
+  Facebook,
+  Linkedin,
+  Instagram,
+  X,
 } from "lucide-react";
-import { CloseOutlined } from "@mui/icons-material";
 import SubmitAction from "@/actions/formsubmitAction";
 
 const initState = { msg: "" };
@@ -122,7 +122,7 @@ const faqs: FaqItem[] = [
     q: "What is your pricing structure?",
     a: (
       <>
-        We offer flexible pricing structure based on client's requirements.
+        We offer flexible pricing structure based on client&apos;s requirements.
         Contact us to get a <strong>free quote</strong> tailored for your needs.
       </>
     ),
@@ -153,7 +153,7 @@ const faqs: FaqItem[] = [
 
 const socials = [
   { icon: Facebook, label: "Facebook", href: "#", rel: "nofollow" },
-  { icon: LinkedIn, label: "LinkedIn", href: "#", rel: "nofollow" },
+  { icon: Linkedin, label: "LinkedIn", href: "#", rel: "nofollow" },
   { icon: Instagram, label: "Instagram", href: "#", rel: "nofollow" },
 ];
 
@@ -232,7 +232,7 @@ function ContactFormSection({
                        bg-white/95 dark:bg-slate-900/95"
           >
             <div className="size-20 rounded-full bg-green-500/20 flex items-center justify-center mb-6 text-5xl font-extrabold">
-              <CloseOutlined fontSize="inherit" className="text-red-400" />
+              <X className="size-8 text-red-400" />
             </div>
             <h3 className="text-2xl font-bold mb-2 text-slate-900 dark:text-white">
               Failed to send your Message!
@@ -348,7 +348,6 @@ export default function Contact() {
   }, [formSuccess]);
 
   return (
-    <LazyMotion features={domAnimation}>
     <section className="relative py-24 overflow-hidden bg-slate-50 dark:bg-slate-900">
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
@@ -372,7 +371,7 @@ export default function Contact() {
             </span>
           </m.div>
           <h1 className="sr-only">
-            The Bharat Digital: "Premium Web Development Company that offers
+            The Bharat Digital: &quot;Premium Web Development Company that offers
             SEO Audit Tools, e-commerce solutions, IT support & much more for
             Businesses all over the world.
           </h1>
@@ -601,6 +600,5 @@ export default function Contact() {
         </m.div>
       </div>
     </section>
-  </LazyMotion>
   );
 }

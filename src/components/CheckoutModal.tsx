@@ -3,7 +3,6 @@ import { useActionState, useEffect } from "react";
 import Modal from "./ui/modal";
 import { CheckoutAction } from "@/actions/checkoutAction";
 import { FormState } from "@/types/types";
-import { X } from "lucide-react";
 import { redirect } from "next/navigation";
 import { toast } from "react-toastify";
 

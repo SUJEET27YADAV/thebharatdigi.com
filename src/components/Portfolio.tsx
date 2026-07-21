@@ -1,42 +1,20 @@
 "use client";
 import Link from "next/link";
-import { LazyMotion, m, domAnimation, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { easeOut, staggerDelay, viewFade } from "@/utils/motion";
 import { Project } from "@/types/types";
-import { useEffect, useState } from "react";
 import { LucideIcon } from "./ui/lucideIcon";
 import { ArrowUpRight } from "lucide-react";
 
-export default function Portfolio() {
-  const [projects, setProjects] = useState<Project[]>([]);
+interface PortfolioProps {
+  initialProjects?: Project[];
+}
+
+export default function Portfolio({ initialProjects = [] }: PortfolioProps) {
   const prefersReducedMotion = useReducedMotion();
   const itemMotion = viewFade(prefersReducedMotion, 0.5, "-40px");
 
-  const fetchProjects = async () => {
-    try {
-      const res = await fetch("/api/getProjects", {
-        cache: "no-store",
-      });
-      const result = await res.json();
-      if (result.success) {
-        setProjects(
-          result.data
-            .filter((p: Project) => p.featured === true)
-            .sort((a: Project, b: Project) =>
-              b.created_at.localeCompare(a.created_at),
-            ),
-        );
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  useEffect(() => {
-    fetchProjects();
-  }, []);
-
   return (
-    <LazyMotion features={domAnimation}>
       <section
         id="portfolio"
         className="py-24 bg-white dark:bg-slate-900/50 relative overflow-hidden"
@@ -71,7 +49,7 @@ export default function Portfolio() {
           </header>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project, index) => {
+            {initialProjects.map((project, index) => {
               const Icon = project.icon;
               return (
                 <m.article
@@ -134,6 +112,5 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
-    </LazyMotion>
   );
 }

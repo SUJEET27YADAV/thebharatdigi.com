@@ -1,9 +1,9 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { LazyMotion, m, domAnimation, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { ChevronDown, ArrowRight } from "lucide-react";
 import HeroBg from "./ui/hero_bg";
-import { easeOut, enterFade, spring } from "@/utils/motion";
+import { easeOut, enterFade } from "@/utils/motion";
 
 const words = [
   "Innovative Web Solutions",
@@ -51,7 +51,6 @@ export default function Hero() {
   }, [displayText, tick]);
 
   return (
-    <LazyMotion features={domAnimation}>
       <section
         id="home"
         className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-slate-50 dark:bg-[#050208]"
@@ -191,6 +190,5 @@ export default function Hero() {
           <ChevronDown className="size-6 motion-safe:animate-[bounce_2s_ease-in-out_infinite]" />
         </button>
       </section>
-    </LazyMotion>
   );
 }

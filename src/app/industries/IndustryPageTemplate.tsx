@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AlertTriangle, Search, CheckCircle, ArrowRight } from "lucide-react";
+import { AlertTriangle, Search, ArrowRight } from "lucide-react";
 import JsonLd from "@/components/JsonLd";
 import FaqSection from "@/components/FaqSection";
 import type { FaqItem } from "@/lib/faq-data";

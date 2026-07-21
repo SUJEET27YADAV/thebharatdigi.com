@@ -1,6 +1,5 @@
 import Link from "next/link";
 import {
-  Check,
   ArrowRight,
   Clock,
   Code,

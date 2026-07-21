@@ -3,10 +3,10 @@
 import Link from "next/link";
 
 export default function ShopError({
-  error,
+  _error,
   reset,
 }: {
-  error: Error & { digest?: string };
+  _error: Error & { digest?: string };
   reset: () => void;
 }) {
   return (

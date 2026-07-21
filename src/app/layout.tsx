@@ -2,17 +2,15 @@ import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import MotionProvider from "@/components/MotionProvider";
 import "./globals.css";
-import "react-toastify/dist/ReactToastify.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 
 const CustomCursor = dynamic(() => import("../components/CustomCursor"));
-const ToastContainer = dynamic(() =>
-  import("react-toastify").then((m) => m.ToastContainer),
-);
+const ToastContainer = dynamic(() => import("../components/ToastProvider"));
 const WhatsAppButton = dynamic(() => import("../components/WhatsAppButton"));
 
 const geistSans = Geist({
@@ -22,11 +20,6 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const inter = Inter({
-  variable: "--font-inter",
   subsets: ["latin"],
 });
 
@@ -73,13 +66,15 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${inter.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider>
-          <CustomCursor />
-          <Navbar />
-          {children}
-          <Footer />
+          <MotionProvider>
+            <CustomCursor />
+            <Navbar />
+            {children}
+            <Footer />
+          </MotionProvider>
           <WhatsAppButton />
           <ToastContainer />
         </ThemeProvider>

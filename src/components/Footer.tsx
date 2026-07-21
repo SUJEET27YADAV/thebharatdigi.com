@@ -1,23 +1,20 @@
 import Link from "next/link";
-import Facebook from "@mui/icons-material/Facebook";
-import Instagram from "@mui/icons-material/Instagram";
-import LinkedIn from "@mui/icons-material/LinkedIn";
-import { Phone, Mail, Globe, ArrowUpRight, Heart } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Phone, Mail, Globe, ArrowUpRight, Heart } from "lucide-react";
 
 const SOCIAL_LINKS = [
   {
     name: "facebook",
-    icon: <Facebook fontSize="large" />,
+    icon: <Facebook size={24} />,
     href: "#",
   },
   {
     name: "linkedin",
-    icon: <LinkedIn fontSize="large" />,
+    icon: <Linkedin size={24} />,
     href: "#",
   },
   {
     name: "instagram",
-    icon: <Instagram fontSize="large" />,
+    icon: <Instagram size={24} />,
     href: "#",
   },
 ];

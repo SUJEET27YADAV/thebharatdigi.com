@@ -3,7 +3,6 @@ import { CreateSdkOrderRequest } from "@phonepe-pg/pg-sdk-node";
 import client from "@/utils/phonepeClient";
 import { FormState } from "@/types/types";
 import { CheckoutSchema } from "@/utils/zodSchema";
-import { cookies } from "next/headers";
 import { createServerClient } from "@/utils/supabase/server";
 import { auth } from "@/utils/auth";
 
@@ -13,7 +12,6 @@ export async function CheckoutAction(
 ) {
   const session = await auth();
   if (!session) return { success: false, message: "Unauthorized" };
-  const cookieStore = await cookies();
   const supabase = createServerClient();
   try {
     const validData = CheckoutSchema.safeParse({

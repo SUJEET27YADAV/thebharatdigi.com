@@ -60,7 +60,7 @@ export async function proxy(request: NextRequest) {
       if (!payload) {
         return NextResponse.redirect(new URL("/admin/login", request.url));
       }
-    } catch (err) {
+    } catch {
       return NextResponse.redirect(new URL("/admin/login", request.url));
     }
   }
@@ -74,7 +74,7 @@ export async function proxy(request: NextRequest) {
         if (payload) {
           return NextResponse.redirect(new URL("/admin", request.url));
         }
-      } catch (err) {
+      } catch {
         // Continue to login page
       }
     }

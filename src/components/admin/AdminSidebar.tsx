@@ -49,7 +49,7 @@ export default function AdminSidebar({ isOpen, setIsOpen }: AdminSidebarProps) {
     {
       label: "Portfolio",
       href: "/admin/portfolio",
-      icon: <Image size={18} />,
+      icon: <Image size={18} aria-hidden />, // eslint-disable-line jsx-a11y/alt-text
     },
     {
       label: "Settings",

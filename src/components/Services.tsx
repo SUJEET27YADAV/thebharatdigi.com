@@ -1,5 +1,5 @@
 "use client";
-import { LazyMotion, m, domAnimation, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import {
   Brain,
   ShoppingCart,
@@ -71,7 +71,6 @@ export default function Services() {
   const itemMotion = viewFade(prefersReducedMotion, 0.5, "-40px");
 
   return (
-    <LazyMotion features={domAnimation}>
       <section
         id="services"
         className="py-24 bg-slate-100/80 dark:bg-slate-900/50 relative overflow-hidden"
@@ -157,6 +156,5 @@ export default function Services() {
           </div>
         </div>
       </section>
-    </LazyMotion>
   );
 }

@@ -1,8 +1,6 @@
 "use client";
-import React, { useActionState, useEffect, useState } from "react";
-import CopyIcon from "@mui/icons-material/ContentCopy";
-import ShowIcon from "@mui/icons-material/Visibility";
-import HideIcon from "@mui/icons-material/VisibilityOff";
+import React, { useActionState, useState } from "react";
+import { Copy, Eye, EyeOff } from "lucide-react";
 
 interface PassgenPageProps {
   action: (
@@ -14,13 +12,13 @@ interface PassgenPageProps {
 const initialState = { message: "", password: "" };
 
 export default function PassgenPage({ action }: PassgenPageProps) {
-  const [state, formAction, pending] = useActionState(action, initialState);
+  const [state, formAction, _pending] = useActionState(action, initialState);
   const [showPass, setShowPass] = useState(false);
 
   return (
     <main className="w-full flex flex-col items-center gap-4 px-6 py-24 sm:py-33">
       <h1 className="sr-only">
-        The Bharat Digital: "Premium Web Development Company that offers SEO
+        The Bharat Digital: &quot;Premium Web Development Company that offers SEO
         Audit Tools, e-commerce solutions, IT support & much more for Businesses
         all over the world.
       </h1>
@@ -67,7 +65,7 @@ export default function PassgenPage({ action }: PassgenPageProps) {
             }}
             className="p-2 flex items-center justify-center text-xl cursor-pointer bg-gray-300 dark:bg-zinc-900 hover:bg-zinc-600 rounded"
           >
-            <CopyIcon fontSize="inherit" />
+            <Copy size={20} />
           </button>
         </h2>
         <div className="relative w-full border border-zinc-600 rounded">
@@ -88,9 +86,9 @@ export default function PassgenPage({ action }: PassgenPageProps) {
             className="absolute top-0 right-0 h-full p-2 flex items-center justify-center text-xl cursor-pointer bg-gray-300 dark:bg-zinc-900 hover:bg-zinc-600 rounded"
           >
             {showPass ? (
-              <HideIcon fontSize="inherit" />
+              <EyeOff size={20} />
             ) : (
-              <ShowIcon fontSize="inherit" />
+              <Eye size={20} />
             )}
           </button>
         </div>

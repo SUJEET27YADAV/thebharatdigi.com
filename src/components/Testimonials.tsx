@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { LazyMotion, m, domAnimation, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { Star, Quote, ArrowUpRight } from "lucide-react";
 import { easeOut, staggerDelay, viewFade } from "@/utils/motion";
 
@@ -36,7 +36,6 @@ export default function Testimonials() {
   const itemMotion = viewFade(prefersReducedMotion, 0.5, "-40px");
 
   return (
-    <LazyMotion features={domAnimation}>
       <section
         className="py-24 bg-slate-100/80 dark:bg-slate-800/50 relative overflow-hidden"
         aria-labelledby="testimonials-heading"
@@ -120,6 +119,5 @@ export default function Testimonials() {
           </div>
         </div>
       </section>
-    </LazyMotion>
   );
 }

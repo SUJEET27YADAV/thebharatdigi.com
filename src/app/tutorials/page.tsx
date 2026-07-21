@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import PassIcon from "@mui/icons-material/Password";
+import { KeyRound } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <main className="w-full max-w-7xl mx-auto overflow-x-hidden font-sans flex flex-col items-center gap-6 px-6 py-20 sm:p-20">
       <h1 className="sr-only">
-        The Bharat Digital: "Premium Web Development Company that offers SEO
+        The Bharat Digital: &quot;Premium Web Development Company that offers SEO
         Audit Tools, e-commerce solutions, IT support & much more for Businesses
         all over the world.
       </h1>
@@ -32,7 +32,7 @@ export default function Home() {
         <ul className="w-full max-w-xl list-none pl-2 xs:pl-4 flex flex-col gap-y-1 *:w-full *:h-14 *:p-2 *:rounded *:border *:border-zinc-600 *:hover:bg-zinc-600 *:transition-all *:duration-200 *:flex *:items-center *:justify-center *:text-xl *:2xs:text-2xl *:xs:text-3xl *:sm:text-4xl *:*:w-full *:*:h-full *:*:flex *:*:items-center *:*:justify-center *:*:gap-5">
           <li>
             <Link href="/passgen">
-              <PassIcon fontSize="inherit" />
+              <KeyRound />
               <span>Password Generator</span>
             </Link>
           </li>

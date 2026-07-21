@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { LazyMotion, m, domAnimation, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 
 export default function CustomCursor() {
   const prefersReducedMotion = useReducedMotion();
@@ -47,7 +47,6 @@ export default function CustomCursor() {
   if (!mousePos.visible || !isFinePointer || prefersReducedMotion) return null;
 
   return (
-    <LazyMotion features={domAnimation}>
     <>
       <m.div
         className="fixed top-0 left-0 size-5 border-2 border-indigo-500 rounded-full pointer-events-none z-[999999]"
@@ -75,6 +74,5 @@ export default function CustomCursor() {
         }
       `}</style>
     </>
-  </LazyMotion>
   );
 }

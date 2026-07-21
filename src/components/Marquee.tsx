@@ -21,7 +21,7 @@ export default function Marquee() {
             className="flex items-center gap-12 md:gap-16 px-8"
             aria-hidden={copy > 0}
           >
-            {STATS.map((stat, i) => {
+            {STATS.map((stat, _i) => {
               const Icon = stat.icon;
               return (
                 <span

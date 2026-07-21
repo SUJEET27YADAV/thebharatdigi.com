@@ -165,7 +165,7 @@ export default function SEOAuditProClient({ product }: SEOAuditProClientProps) {
               </span>
             </m.div>
             <h1 className="sr-only">
-              The Bharat Digital: "Premium Web Development Company that offers
+              The Bharat Digital: &quot;Premium Web Development Company that offers
               SEO Audit Tools, e-commerce solutions, IT support & much more for
               Businesses all over the world.
             </h1>

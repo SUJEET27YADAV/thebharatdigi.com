@@ -2,7 +2,6 @@
 
 import { useReducer } from "react";
 import {
-  Calculator,
   Globe,
   Smartphone,
   ShoppingCart,

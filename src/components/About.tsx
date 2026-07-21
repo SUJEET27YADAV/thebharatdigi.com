@@ -2,13 +2,11 @@
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import {
-  LazyMotion,
   m,
-  domAnimation,
   useInView,
   useReducedMotion,
 } from "framer-motion";
-import { Check, Sparkles, TrendingUp, Globe, Clock } from "lucide-react";
+import { Sparkles, TrendingUp, Globe, Clock } from "lucide-react";
 import { easeOut, viewFade, staggerDelay } from "@/utils/motion";
 
 function Counter({
@@ -93,7 +91,6 @@ export default function About() {
   const slideIn = viewFade(prefersReducedMotion, 0.5);
 
   return (
-    <LazyMotion features={domAnimation}>
       <section
         id="about"
         className="py-24 w-full overflow-x-hidden bg-slate-200/80 dark:bg-slate-800/50 relative"
@@ -214,6 +211,5 @@ export default function About() {
           </div>
         </div>
       </section>
-    </LazyMotion>
   );
 }

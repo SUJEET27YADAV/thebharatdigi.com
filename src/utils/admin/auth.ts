@@ -35,7 +35,7 @@ export async function verifyAdminToken(token: string) {
   try {
     const verified = await jwtVerify(token, JWT_SECRET);
     return verified.payload;
-  } catch (err) {
+  } catch {
     return null;
   }
 }

@@ -69,7 +69,7 @@ export default function ProductDetailPage({
             </div>
             <div className="w-full md:w-3xl space-y-8">
               <h1 className="sr-only">
-                The Bharat Digital: "Premium Web Development Company that offers
+                The Bharat Digital: &quot;Premium Web Development Company that offers
                 SEO Audit Tools, e-commerce solutions, IT support & much more
                 for Businesses all over the world.
               </h1>

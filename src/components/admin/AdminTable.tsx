@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import { Edit2, Trash2 } from "lucide-react";
 
 interface Column {
@@ -9,9 +8,9 @@ interface Column {
 
 interface AdminTableProps {
   columns: Column[];
-  data: Record<string, any>[];
-  onEdit?: (row: Record<string, string | boolean | number>) => void;
-  onDelete?: (row: Record<string, string | boolean | number>) => void;
+  data: Record<string, any>[]; // eslint-disable-line @typescript-eslint/no-explicit-any
+  onEdit?: (row: Record<string, any>) => void; // eslint-disable-line @typescript-eslint/no-explicit-any
+  onDelete?: (row: Record<string, any>) => void; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 export default function AdminTable({
@@ -39,7 +38,7 @@ export default function AdminTable({
           </tr>
         </thead>
         <tbody>
-          {data.map((row, idx) => (
+          {data.map((row, _idx) => (
             <tr
               key={row.id}
               className="border-b border-[#444444] hover:bg-opacity-50 hover:bg-gray-400 hover:dark:bg-[#1d293d] transition-colors"

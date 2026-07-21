@@ -25,7 +25,7 @@ async function verifyTransport(): Promise<{
       success: true,
       msg: "Server is ready to take our messages",
     };
-  } catch (e) {
+  } catch {
     return {
       success: false,
       msg: "Error, Server not ready to take our messages",
@@ -87,7 +87,7 @@ export async function sendEmail(
         error: null,
       };
     }
-  } catch (err) {
+  } catch {
     return {
       success: false,
       msg: "Error sending Email",

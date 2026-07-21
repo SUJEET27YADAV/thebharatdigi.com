@@ -1,7 +1,7 @@
 "use client";
 import { useActionState, useEffect } from "react";
-import { LazyMotion, m, domAnimation, useReducedMotion } from "framer-motion";
-import { Phone, Mail, MapPin, Send, Loader2, ArrowUpRight } from "lucide-react";
+import { m, useReducedMotion } from "framer-motion";
+import { Phone, Mail, MapPin, Send, Loader2 } from "lucide-react";
 import { toast } from "react-toastify";
 import SubmitAction from "@/actions/formsubmitAction";
 import { easeOut, viewFade, staggerDelay } from "@/utils/motion";
@@ -75,7 +75,6 @@ export default function Contact() {
   }, [formState]);
 
   return (
-    <LazyMotion features={domAnimation}>
       <section
         id="contact"
         className="py-24 w-full overflow-x-hidden bg-slate-100/80 dark:bg-slate-900/50 relative"
@@ -295,6 +294,5 @@ export default function Contact() {
           </div>
         </div>
       </section>
-    </LazyMotion>
   );
 }

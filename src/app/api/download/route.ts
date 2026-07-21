@@ -41,7 +41,7 @@ export async function GET(request: NextRequest) {
         "Content-Disposition": `attachment; filename="${safeFilename}"`,
       },
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { success: false, error: "Download link has expired or is invalid." },
       { status: 410 },

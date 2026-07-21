@@ -103,8 +103,8 @@ export default function Navbar() {
       aria-label="Main navigation"
       className={`fixed w-full z-50 py-2 border-b transition-all duration-300 ${
         scrolled
-          ? "bg-white/80 dark:bg-slate-900/80 border-gray-300/50 dark:border-[#444444]/50 backdrop-blur-xl shadow-sm dark:shadow-indigo-500/5"
-          : "bg-white/50 dark:bg-slate-900/50 border-transparent backdrop-blur-sm"
+          ? "bg-white/80 dark:bg-slate-800/80 border-gray-300/50 dark:border-[#444444]/50 backdrop-blur-xl shadow-sm dark:shadow-indigo-500/5"
+          : "bg-white/50 dark:bg-slate-800/50 border-transparent backdrop-blur-sm"
       }`}
     >
       {/* Gradient accent line at top */}
@@ -251,7 +251,7 @@ export default function Navbar() {
 
       <div
         ref={drawerRef}
-        className={`md:hidden fixed inset-x-0 top-[4.5rem] bottom-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-t border-gray-300/50 dark:border-[#444444]/50 p-4 z-30 overflow-y-auto transition-transform duration-300 ${
+        className={`md:hidden fixed inset-x-0 top-[4.5rem] bottom-0 bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl border-t border-gray-300/50 dark:border-[#444444]/50 p-4 z-30 overflow-y-auto transition-transform duration-300 ${
           drawerOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >

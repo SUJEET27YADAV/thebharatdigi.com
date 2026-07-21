@@ -1,5 +1,5 @@
 "use client";
-import { Celebration } from "@mui/icons-material";
+import { PartyPopper } from "lucide-react";
 import { Circle, Cross } from "lucide-react";
 import Image from "next/image";
 import SMTPTransport from "nodemailer/lib/smtp-transport";
@@ -92,14 +92,14 @@ export default function Home() {
       .catch((e) => dispatch({ type: "SET_RES", payload: e }))
       .finally(() => {
         dispatch({ type: "SET_LOADING", payload: false });
-        (e.target as HTMLFormElement).reset;
+        void (e.target as HTMLFormElement).reset();
       });
   }
 
   return (
     <main className="w-full flex flex-col items-center justify-center p-10 pt-24 gap-4 font-sans">
       <h1 className="sr-only">
-        The Bharat Digital: "Premium Web Development Company that offers SEO
+        The Bharat Digital: &quot;Premium Web Development Company that offers SEO
         Audit Tools, e-commerce solutions, IT support & much more for Businesses
         all over the world.
       </h1>
@@ -221,7 +221,7 @@ export default function Home() {
                   )}
                   <span>{state.res.msg}</span>
                   {state.res.success ? (
-                    <Celebration fontSize="medium" />
+                    <PartyPopper size={24} />
                   ) : (
                     <Cross size={20} className="text-red-500" />
                   )}

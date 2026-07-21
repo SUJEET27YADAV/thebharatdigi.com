@@ -1,7 +1,7 @@
 // components/Portfolio.tsx
 "use client";
 import { useState } from "react";
-import { LazyMotion, m, domAnimation, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import {
   ExternalLink,
   ArrowRight,
@@ -106,8 +106,7 @@ export default function Portfolio({ projects }: PortfolioPageProps) {
       ? projects
       : projects.filter((p) => p.category.toLowerCase() === activeCategory);
   return (
-    <LazyMotion features={domAnimation}>
-      <section
+    <section
         id="portfolio"
         className="relative py-24 overflow-hidden bg-white dark:bg-slate-900"
       >
@@ -133,7 +132,7 @@ export default function Portfolio({ projects }: PortfolioPageProps) {
               </span>
             </m.div>
             <h1 className="sr-only">
-              The Bharat Digital: "Premium Web Development Company that offers
+              The Bharat Digital: &quot;Premium Web Development Company that offers
               SEO Audit Tools, e-commerce solutions, IT support & much more for
               Businesses all over the world.
             </h1>
@@ -389,6 +388,5 @@ export default function Portfolio({ projects }: PortfolioPageProps) {
           </m.div>
         </div>
       </section>
-    </LazyMotion>
   );
 }

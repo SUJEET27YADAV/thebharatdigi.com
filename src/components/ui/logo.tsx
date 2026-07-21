@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 
 export default function Logo({ className }: { className?: string }) {
@@ -8,9 +7,10 @@ export default function Logo({ className }: { className?: string }) {
       <Image
         src="/logo.png"
         alt="The Bharat Digital"
-        width={1200}
-        height={1200}
+        width={200}
+        height={200}
         priority
+        quality={80}
         className="h-full w-auto object-contain rounded"
       />
     </div>

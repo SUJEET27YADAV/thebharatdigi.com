@@ -93,13 +93,14 @@ export const NAV_GROUPS: RouteGroup[] = [
   },
   {
     label: "Locations",
+    path: "/locations",
     icon: "map",
     children: [
-      { label: "Noida", path: "/noida-web-development-company" },
-      { label: "Delhi", path: "/delhi-web-development-company" },
-      { label: "Faridabad", path: "/faridabad-web-development-company" },
-      { label: "Gurugram", path: "/gurugram-web-development-company" },
-      { label: "Ghaziabad", path: "/ghaziabad-web-development-company" },
+      { label: "Delhi", path: "/locations/delhi" },
+      { label: "Noida", path: "/locations/noida" },
+      { label: "Gurugram", path: "/locations/gurugram" },
+      { label: "Faridabad", path: "/locations/faridabad" },
+      { label: "Ghaziabad", path: "/locations/ghaziabad" },
     ],
   },
 ];
