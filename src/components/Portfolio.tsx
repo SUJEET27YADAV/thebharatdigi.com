@@ -14,9 +14,7 @@ export default function Portfolio() {
 
   const fetchProjects = async () => {
     try {
-      const baseUrl =
-        process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
-      const res = await fetch(`${baseUrl}/api/getProjects`, {
+      const res = await fetch("/api/getProjects", {
         cache: "no-store",
       });
       const result = await res.json();
@@ -45,7 +43,10 @@ export default function Portfolio() {
         aria-labelledby="portfolio-heading"
       >
         {/* Background decoration */}
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500/5 dark:bg-purple-500/8 rounded-full blur-3xl pointer-events-none" aria-hidden />
+        <div
+          className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500/5 dark:bg-purple-500/8 rounded-full blur-3xl pointer-events-none"
+          aria-hidden
+        />
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <header className="text-center mb-12 md:mb-16">
