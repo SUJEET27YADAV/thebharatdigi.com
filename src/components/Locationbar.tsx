@@ -8,7 +8,7 @@ export default function Locationbar() {
   const pathname = usePathname();
 
   return (
-    <div className="w-fit mx-auto p-3 border border-slate-400/40 rounded-md shadow-lg shadow-white/10">
+    <div className="w-fit mx-auto p-3 border border-slate-400/40 rounded-md shadow-lg shadow-black/30 dark:shadow-white/10">
       <div className="flex items-center gap-2 px-3">
         <div className="size-8 rounded-lg bg-indigo-100 dark:bg-indigo-500/10 flex items-center justify-center">
           <MapPin className="size-4 text-indigo-600 dark:text-indigo-400" />
