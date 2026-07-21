@@ -3,7 +3,6 @@ import Link from "next/link";
 import { MapPin, ArrowRight } from "lucide-react";
 import { locations } from "@/lib/location-data";
 import JsonLd from "@/components/JsonLd";
-import LocationSidebar from "@/components/Locationbar";
 
 export const metadata: Metadata = {
   title: "Locations — Web Development Across Delhi NCR | The Bharat Digital",
