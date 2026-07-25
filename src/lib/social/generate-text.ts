@@ -90,12 +90,12 @@ async function callDeepSeek(prompt: string): Promise<string> {
 }
 
 async function callPollinationsText(prompt: string): Promise<string> {
-  const response = await fetch("https://text.pollinations.ai/", {
+  const response = await fetch("https://text.pollinations.ai/openai/chat/completions", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      messages: [{ role: "user", content: prompt }],
       model: "openai",
+      messages: [{ role: "user", content: prompt }],
       seed: Math.floor(Math.random() * 100000),
     }),
   });
@@ -105,7 +105,8 @@ async function callPollinationsText(prompt: string): Promise<string> {
     throw new Error(`Pollinations text API error ${response.status}: ${err}`);
   }
 
-  const text = await response.text();
+  const data = await response.json();
+  const text = data.choices?.[0]?.message?.content;
   if (!text || text.length < 10) throw new Error("Pollinations returned empty response");
   return text;
 }
