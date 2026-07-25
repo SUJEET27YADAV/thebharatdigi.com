@@ -14,35 +14,50 @@ interface GeminiResponse {
   }>;
 }
 
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 async function callGemini(prompt: string): Promise<string> {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) throw new Error("GEMINI_API_KEY not set");
 
-  const response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: {
-          temperature: 0.8,
-          topP: 0.9,
-          maxOutputTokens: 500,
-        },
-      }),
-    }
-  );
+  for (let attempt = 0; attempt < 3; attempt++) {
+    if (attempt > 0) await sleep(5000 * attempt);
 
-  if (!response.ok) {
-    const err = await response.text();
-    throw new Error(`Gemini API error ${response.status}: ${err}`);
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: {
+            temperature: 0.8,
+            topP: 0.9,
+            maxOutputTokens: 500,
+          },
+        }),
+      }
+    );
+
+    if (response.status === 429) {
+      console.warn(`[Social] Gemini rate limited, retrying (attempt ${attempt + 2}/3)...`);
+      continue;
+    }
+
+    if (!response.ok) {
+      const err = await response.text();
+      throw new Error(`Gemini API error ${response.status}: ${err}`);
+    }
+
+    const data: GeminiResponse = await response.json();
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    if (!text) throw new Error("Gemini returned empty response");
+    return text;
   }
 
-  const data: GeminiResponse = await response.json();
-  const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-  if (!text) throw new Error("Gemini returned empty response");
-  return text;
+  throw new Error("Gemini rate limited after 3 retries");
 }
 
 async function callDeepSeek(prompt: string): Promise<string> {
@@ -74,45 +89,55 @@ async function callDeepSeek(prompt: string): Promise<string> {
   return text;
 }
 
+async function callPollinationsText(prompt: string): Promise<string> {
+  const response = await fetch("https://text.pollinations.ai/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      messages: [{ role: "user", content: prompt }],
+      model: "openai",
+      seed: Math.floor(Math.random() * 100000),
+    }),
+  });
+
+  if (!response.ok) {
+    const err = await response.text();
+    throw new Error(`Pollinations text API error ${response.status}: ${err}`);
+  }
+
+  const text = await response.text();
+  if (!text || text.length < 10) throw new Error("Pollinations returned empty response");
+  return text;
+}
+
 async function generateWithFallback(prompt: string): Promise<string> {
-  const geminiKey = process.env.GEMINI_API_KEY;
-  const deepseekKey = process.env.DEEPSEEK_API_KEY;
+  const errors: string[] = [];
 
-  if (!geminiKey && !deepseekKey) {
-    throw new Error("Neither GEMINI_API_KEY nor DEEPSEEK_API_KEY is set in environment variables");
+  try {
+    return await callGemini(prompt);
+  } catch (error) {
+    const msg = error instanceof Error ? error.message : String(error);
+    console.warn("[Social] Gemini failed:", msg);
+    errors.push(`Gemini: ${msg}`);
   }
 
-  let geminiError: Error | null = null;
-  let deepseekError: Error | null = null;
-
-  if (geminiKey) {
-    try {
-      return await callGemini(prompt);
-    } catch (error) {
-      geminiError = error instanceof Error ? error : new Error(String(error));
-      console.warn("[Social] Gemini failed:", geminiError.message);
-    }
-  } else {
-    console.warn("[Social] GEMINI_API_KEY not set, skipping Gemini");
+  try {
+    return await callDeepSeek(prompt);
+  } catch (error) {
+    const msg = error instanceof Error ? error.message : String(error);
+    console.warn("[Social] DeepSeek failed:", msg);
+    errors.push(`DeepSeek: ${msg}`);
   }
 
-  if (deepseekKey) {
-    try {
-      return await callDeepSeek(prompt);
-    } catch (error) {
-      deepseekError = error instanceof Error ? error : new Error(String(error));
-      console.warn("[Social] DeepSeek failed:", deepseekError.message);
-    }
-  } else {
-    console.warn("[Social] DEEPSEEK_API_KEY not set, skipping DeepSeek");
+  try {
+    return await callPollinationsText(prompt);
+  } catch (error) {
+    const msg = error instanceof Error ? error.message : String(error);
+    console.warn("[Social] Pollinations text failed:", msg);
+    errors.push(`Pollinations: ${msg}`);
   }
 
-  const details = [
-    geminiError ? `Gemini: ${geminiError.message}` : "Gemini: skipped (no key)",
-    deepseekError ? `DeepSeek: ${deepseekError.message}` : "DeepSeek: skipped (no key)",
-  ].join(" | ");
-
-  throw new Error(`All AI text providers failed — ${details}`);
+  throw new Error(`All AI text providers failed — ${errors.join(" | ")}`);
 }
 
 export async function generatePostText(
