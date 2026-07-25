@@ -1,5 +1,5 @@
 import { createServerClient } from "@/utils/supabase/server";
-import { getRandomTopic, ALL_TOPICS, type ContentTopic } from "./topics";
+import { getRandomTopic, type ContentTopic } from "./topics";
 import { generatePostText } from "./generate-text";
 import { generateImage } from "./generate-image";
 import { postToFacebook } from "./facebook";
@@ -17,7 +17,7 @@ export interface PostResult {
   topicId: string;
   topicTitle: string;
   platforms: PlatformResult[];
-  imageUrl: string;
+  imageUrl: string | null;
   timestamp: string;
 }
 
@@ -42,7 +42,7 @@ async function logPost(
     platform: string;
     topic_id: string;
     caption: string;
-    image_url: string;
+    image_url: string | null;
     hashtags: string[];
     status: string;
     platform_post_id?: string;
@@ -76,18 +76,24 @@ export async function runPost(): Promise<PostResult> {
 
   console.log("[Social] Text generated for all platforms");
 
-  const image = await generateImage(topic);
-  console.log(`[Social] Image generated: ${image.url.substring(0, 80)}...`);
+  let imageUrl: string | null = null;
+  try {
+    const image = await generateImage(topic);
+    imageUrl = image.url;
+    console.log(`[Social] Image generated: ${imageUrl.substring(0, 80)}...`);
+  } catch (error) {
+    console.warn("[Social] Image generation failed, continuing without image:", error);
+  }
 
   const platforms: PlatformResult[] = [];
 
-  const facebookResult = await postToFacebook(facebookText.caption, image.url);
+  const facebookResult = await postToFacebook(facebookText.caption, imageUrl || "https://www.thebharatdigi.com/og.png");
   platforms.push({ platform: "facebook", ...facebookResult });
   await logPost(supabase, {
     platform: "facebook",
     topic_id: topic.id,
     caption: facebookText.caption,
-    image_url: image.url,
+    image_url: imageUrl,
     hashtags: facebookText.hashtags,
     status: facebookResult.success ? "posted" : "failed",
     platform_post_id: facebookResult.postId,
@@ -95,18 +101,26 @@ export async function runPost(): Promise<PostResult> {
   });
 
   if (process.env.INSTAGRAM_ACCOUNT_ID) {
-    const instagramResult = await postToInstagram(instagramText.caption, image.url);
-    platforms.push({ platform: "instagram", ...instagramResult });
-    await logPost(supabase, {
-      platform: "instagram",
-      topic_id: topic.id,
-      caption: instagramText.caption,
-      image_url: image.url,
-      hashtags: instagramText.hashtags,
-      status: instagramResult.success ? "posted" : "failed",
-      platform_post_id: instagramResult.mediaId,
-      error_message: instagramResult.error,
-    });
+    if (imageUrl) {
+      const instagramResult = await postToInstagram(instagramText.caption, imageUrl);
+      platforms.push({ platform: "instagram", ...instagramResult });
+      await logPost(supabase, {
+        platform: "instagram",
+        topic_id: topic.id,
+        caption: instagramText.caption,
+        image_url: imageUrl,
+        hashtags: instagramText.hashtags,
+        status: instagramResult.success ? "posted" : "failed",
+        platform_post_id: instagramResult.mediaId,
+        error_message: instagramResult.error,
+      });
+    } else {
+      platforms.push({
+        platform: "instagram",
+        success: false,
+        error: "Skipped: image generation failed (Instagram requires an image)",
+      });
+    }
   } else {
     platforms.push({
       platform: "instagram",
@@ -116,13 +130,13 @@ export async function runPost(): Promise<PostResult> {
   }
 
   if (process.env.LINKEDIN_ACCESS_TOKEN) {
-    const linkedinResult = await postToLinkedIn(linkedinText.caption, image.url);
+    const linkedinResult = await postToLinkedIn(linkedinText.caption, imageUrl || undefined);
     platforms.push({ platform: "linkedin", ...linkedinResult });
     await logPost(supabase, {
       platform: "linkedin",
       topic_id: topic.id,
       caption: linkedinText.caption,
-      image_url: image.url,
+      image_url: imageUrl,
       hashtags: linkedinText.hashtags,
       status: linkedinResult.success ? "posted" : "failed",
       platform_post_id: linkedinResult.postId,
@@ -140,7 +154,7 @@ export async function runPost(): Promise<PostResult> {
     topicId: topic.id,
     topicTitle: topic.title,
     platforms,
-    imageUrl: image.url,
+    imageUrl,
     timestamp: new Date().toISOString(),
   };
 }

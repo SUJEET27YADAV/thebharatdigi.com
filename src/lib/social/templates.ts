@@ -35,7 +35,7 @@ Return ONLY the post text, nothing else. No quotes around it.`;
 }
 
 export function buildImagePrompt(topic: ContentTopic): string {
-  return `Professional social media marketing image for a digital agency called "${BRAND_NAME}". ${topic.imagePromptBase}. Clean, modern, corporate aesthetic with subtle brand colors (deep blue #1e3a5f and vibrant cyan #06b6d4). No text or watermarks in the image. High quality, photorealistic, 4K. Aspect ratio 16:9.`;
+  return `${topic.imagePromptBase}, professional corporate style, clean modern design, no text, high quality`;
 }
 
 export function adaptForPlatform(
