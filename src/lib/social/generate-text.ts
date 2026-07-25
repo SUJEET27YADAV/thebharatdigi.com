@@ -60,35 +60,6 @@ async function callGemini(prompt: string): Promise<string> {
   throw new Error("Gemini rate limited after 3 retries");
 }
 
-async function callDeepSeek(prompt: string): Promise<string> {
-  const apiKey = process.env.DEEPSEEK_API_KEY;
-  if (!apiKey) throw new Error("DEEPSEEK_API_KEY not set");
-
-  const response = await fetch("https://api.deepseek.com/chat/completions", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      model: "deepseek-chat",
-      messages: [{ role: "user", content: prompt }],
-      temperature: 0.8,
-      max_tokens: 500,
-    }),
-  });
-
-  if (!response.ok) {
-    const err = await response.text();
-    throw new Error(`DeepSeek API error ${response.status}: ${err}`);
-  }
-
-  const data = await response.json();
-  const text = data.choices?.[0]?.message?.content;
-  if (!text) throw new Error("DeepSeek returned empty response");
-  return text;
-}
-
 async function callPollinationsText(prompt: string): Promise<string> {
   const response = await fetch("https://text.pollinations.ai/openai/chat/completions", {
     method: "POST",
@@ -120,14 +91,6 @@ async function generateWithFallback(prompt: string): Promise<string> {
     const msg = error instanceof Error ? error.message : String(error);
     console.warn("[Social] Gemini failed:", msg);
     errors.push(`Gemini: ${msg}`);
-  }
-
-  try {
-    return await callDeepSeek(prompt);
-  } catch (error) {
-    const msg = error instanceof Error ? error.message : String(error);
-    console.warn("[Social] DeepSeek failed:", msg);
-    errors.push(`DeepSeek: ${msg}`);
   }
 
   try {
