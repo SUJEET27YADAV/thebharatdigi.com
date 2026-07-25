@@ -75,17 +75,44 @@ async function callDeepSeek(prompt: string): Promise<string> {
 }
 
 async function generateWithFallback(prompt: string): Promise<string> {
-  try {
-    return await callGemini(prompt);
-  } catch (geminiError) {
-    console.warn("[Social] Gemini failed, trying DeepSeek:", geminiError);
+  const geminiKey = process.env.GEMINI_API_KEY;
+  const deepseekKey = process.env.DEEPSEEK_API_KEY;
+
+  if (!geminiKey && !deepseekKey) {
+    throw new Error("Neither GEMINI_API_KEY nor DEEPSEEK_API_KEY is set in environment variables");
+  }
+
+  let geminiError: Error | null = null;
+  let deepseekError: Error | null = null;
+
+  if (geminiKey) {
+    try {
+      return await callGemini(prompt);
+    } catch (error) {
+      geminiError = error instanceof Error ? error : new Error(String(error));
+      console.warn("[Social] Gemini failed:", geminiError.message);
+    }
+  } else {
+    console.warn("[Social] GEMINI_API_KEY not set, skipping Gemini");
+  }
+
+  if (deepseekKey) {
     try {
       return await callDeepSeek(prompt);
-    } catch (deepseekError) {
-      console.error("[Social] Both AI providers failed:", { geminiError, deepseekError });
-      throw new Error("All AI text providers failed");
+    } catch (error) {
+      deepseekError = error instanceof Error ? error : new Error(String(error));
+      console.warn("[Social] DeepSeek failed:", deepseekError.message);
     }
+  } else {
+    console.warn("[Social] DEEPSEEK_API_KEY not set, skipping DeepSeek");
   }
+
+  const details = [
+    geminiError ? `Gemini: ${geminiError.message}` : "Gemini: skipped (no key)",
+    deepseekError ? `DeepSeek: ${deepseekError.message}` : "DeepSeek: skipped (no key)",
+  ].join(" | ");
+
+  throw new Error(`All AI text providers failed — ${details}`);
 }
 
 export async function generatePostText(
