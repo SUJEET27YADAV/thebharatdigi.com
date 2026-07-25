@@ -2,7 +2,10 @@ import type { ContentTopic } from "./topics";
 
 const BRAND_NAME = "The Bharat Digital";
 const WEBSITE = "https://www.thebharatdigi.com";
+const PHONE = "+91 99992 39307";
 const TAGLINE = "Transforming ideas into digital reality";
+
+const CONTACT_FOOTER = `\n\n📞 Call/WhatsApp: ${PHONE}\n🌐 ${WEBSITE}`;
 
 export function buildTextPrompt(topic: ContentTopic, platform: "facebook" | "instagram" | "linkedin"): string {
   const platformGuidelines: Record<string, string> = {
@@ -25,11 +28,11 @@ Write a social media post about this topic:
 **Rules:**
 1. Start with a hook that grabs attention
 2. Provide value or insight
-3. End with a clear CTA (visit website, contact us, etc.)
-4. Website URL: ${WEBSITE}
-5. Never mention competitors
-6. Never use false claims or statistics
-7. Make it feel authentic, not salesy
+3. End with a clear CTA encouraging people to call/WhatsApp or visit the website
+4. Never mention competitors
+5. Never use false claims or statistics
+6. Make it feel authentic, not salesy
+7. IMPORTANT: The post MUST end with contact details — phone/WhatsApp and website. This is non-negotiable for lead generation.
 
 Return ONLY the post text, nothing else. No quotes around it.`;
 }
@@ -44,20 +47,18 @@ export function adaptForPlatform(
 ): string {
   let adapted = text.trim();
 
-  if (platform === "instagram") {
-    if (!adapted.includes("#")) {
-      adapted += "\n\n#WebDevelopment #DigitalMarketing #TheBharatDigital #WebDesign #TechSolutions";
-    }
-  }
-
   if (platform === "linkedin") {
     adapted = adapted.replace(/😊|🎉|🚀|💡|🔥|✨|🎯|💪|🙌|🌟/g, "");
     adapted = adapted.replace(/\n{3,}/g, "\n\n");
   }
 
-  if (platform === "facebook") {
-    if (!adapted.includes(WEBSITE)) {
-      adapted += `\n\nVisit us: ${WEBSITE}`;
+  if (!adapted.includes(PHONE)) {
+    adapted += CONTACT_FOOTER;
+  }
+
+  if (platform === "instagram") {
+    if (!adapted.includes("#")) {
+      adapted += "\n\n#WebDevelopment #DigitalMarketing #TheBharatDigital #WebDesign #TechSolutions";
     }
   }
 
