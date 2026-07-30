@@ -60,56 +60,12 @@ async function callGemini(prompt: string): Promise<string> {
   throw new Error("Gemini rate limited after 3 retries");
 }
 
-async function callPollinationsText(prompt: string): Promise<string> {
-  const response = await fetch("https://text.pollinations.ai/openai/chat/completions", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      model: "openai",
-      messages: [{ role: "user", content: prompt }],
-      seed: Math.floor(Math.random() * 100000),
-    }),
-  });
-
-  if (!response.ok) {
-    const err = await response.text();
-    throw new Error(`Pollinations text API error ${response.status}: ${err}`);
-  }
-
-  const data = await response.json();
-  const text = data.choices?.[0]?.message?.content;
-  if (!text || text.length < 10) throw new Error("Pollinations returned empty response");
-  return text;
-}
-
-async function generateWithFallback(prompt: string): Promise<string> {
-  const errors: string[] = [];
-
-  try {
-    return await callGemini(prompt);
-  } catch (error) {
-    const msg = error instanceof Error ? error.message : String(error);
-    console.warn("[Social] Gemini failed:", msg);
-    errors.push(`Gemini: ${msg}`);
-  }
-
-  try {
-    return await callPollinationsText(prompt);
-  } catch (error) {
-    const msg = error instanceof Error ? error.message : String(error);
-    console.warn("[Social] Pollinations text failed:", msg);
-    errors.push(`Pollinations: ${msg}`);
-  }
-
-  throw new Error(`All AI text providers failed — ${errors.join(" | ")}`);
-}
-
 export async function generatePostText(
   topic: ContentTopic,
   platform: "facebook" | "instagram" | "linkedin"
 ): Promise<GeneratedText> {
   const prompt = buildTextPrompt(topic, platform);
-  const rawText = await generateWithFallback(prompt);
+  const rawText = await callGemini(prompt);
 
   const cleanedText = rawText
     .replace(/^["']|["']$/g, "")

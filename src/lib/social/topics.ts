@@ -1,12 +1,12 @@
 export interface ContentTopic {
   id: string;
-  category: "service" | "industry" | "tip" | "fact" | "testimonial" | "behindthescenes";
+  category: "service" | "industry" | "tip" | "fact";
   title: string;
   description: string;
   imagePromptBase: string;
 }
 
-export const SERVICES: ContentTopic[] = [
+const SERVICES: ContentTopic[] = [
   {
     id: "mvp-development",
     category: "service",
@@ -97,7 +97,7 @@ export const SERVICES: ContentTopic[] = [
   },
 ];
 
-export const INDUSTRIES: ContentTopic[] = [
+const INDUSTRIES: ContentTopic[] = [
   {
     id: "healthcare",
     category: "industry",
@@ -148,7 +148,7 @@ export const INDUSTRIES: ContentTopic[] = [
   },
 ];
 
-export const TIPS: ContentTopic[] = [
+const TIPS: ContentTopic[] = [
   {
     id: "tip-core-web-vitals",
     category: "tip",
@@ -199,7 +199,7 @@ export const TIPS: ContentTopic[] = [
   },
 ];
 
-export const FACTS: ContentTopic[] = [
+const FACTS: ContentTopic[] = [
   {
     id: "fact-load-time",
     category: "fact",
@@ -234,23 +234,15 @@ export const FACTS: ContentTopic[] = [
   },
 ];
 
-export const ALL_TOPICS: ContentTopic[] = [
+const ALL_TOPICS: ContentTopic[] = [
   ...SERVICES,
   ...INDUSTRIES,
   ...TIPS,
   ...FACTS,
 ];
 
-export function getTopicById(id: string): ContentTopic | undefined {
-  return ALL_TOPICS.find((t) => t.id === id);
-}
-
 export function getRandomTopic(excludeIds: string[] = []): ContentTopic {
   const available = ALL_TOPICS.filter((t) => !excludeIds.includes(t.id));
   if (available.length === 0) return ALL_TOPICS[Math.floor(Math.random() * ALL_TOPICS.length)];
   return available[Math.floor(Math.random() * available.length)];
-}
-
-export function getTopicsByCategory(category: ContentTopic["category"]): ContentTopic[] {
-  return ALL_TOPICS.filter((t) => t.category === category);
 }

@@ -3,8 +3,6 @@ import type { ContentTopic } from "./topics";
 const BRAND_NAME = "The Bharat Digital";
 const WEBSITE = "https://www.thebharatdigi.com";
 const PHONE = "+91 99992 39307";
-const TAGLINE = "Transforming ideas into digital reality";
-
 const CONTACT_FOOTER = `\n\n📞 Call/WhatsApp: ${PHONE}\n🌐 ${WEBSITE}`;
 
 export function buildTextPrompt(topic: ContentTopic, platform: "facebook" | "instagram" | "linkedin"): string {

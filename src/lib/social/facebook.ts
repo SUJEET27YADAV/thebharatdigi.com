@@ -55,43 +55,4 @@ export async function postToFacebook(
   }
 }
 
-export async function postImageToFacebook(
-  caption: string,
-  imageBuffer: Buffer,
-  filename: string,
-  mimeType: string
-): Promise<FacebookPostResult> {
-  const pageId = getPageId();
-  const accessToken = getAccessToken();
 
-  try {
-    const formData = new FormData();
-    formData.append("message", caption);
-    formData.append("source", new Blob([new Uint8Array(imageBuffer)], { type: mimeType }), filename);
-    formData.append("access_token", accessToken);
-
-    const postResponse = await fetch(
-      `https://graph.facebook.com/v21.0/${pageId}/photos`,
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
-
-    const postData = await postResponse.json();
-
-    if (!postResponse.ok || !postData.id) {
-      return {
-        success: false,
-        error: `Facebook photo API error: ${JSON.stringify(postData)}`,
-      };
-    }
-
-    return { success: true, postId: postData.id };
-  } catch (error) {
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : "Unknown Facebook error",
-    };
-  }
-}
