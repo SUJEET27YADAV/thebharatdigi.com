@@ -1,40 +1,21 @@
 import { createServerClient } from "@/utils/supabase/server";
-import { getRandomTopic, type ContentTopic } from "./topics";
-import { generatePostText } from "./generate-text";
-import { generateImage } from "./generate-image";
 import { postToFacebook } from "./facebook";
 import { postToInstagram } from "./instagram";
 import { postToLinkedIn } from "./linkedin";
+import type { PlatformResult, PostResult } from "./post";
 
-export interface PlatformResult {
-  platform: string;
-  success: boolean;
-  postId?: string;
-  error?: string;
-}
-
-export interface PostResult {
-  topicId: string;
-  topicTitle: string;
-  platforms: PlatformResult[];
-  imageUrl: string | null;
-  timestamp: string;
-  alreadyPosted?: boolean;
-}
-
-async function getRecentTopicIds(supabase: ReturnType<typeof createServerClient>): Promise<string[]> {
-  const { data } = await supabase
-    .from("social_posts")
-    .select("topic_id")
-    .order("created_at", { ascending: false })
-    .limit(10);
-
-  return (data || []).map((row: { topic_id: string }) => row.topic_id);
-}
-
-async function pickTopic(supabase: ReturnType<typeof createServerClient>): Promise<ContentTopic> {
-  const recentIds = await getRecentTopicIds(supabase);
-  return getRandomTopic(recentIds);
+interface SocialJobRow {
+  id: string;
+  topic_id: string;
+  topic_title: string;
+  facebook_text: string;
+  instagram_text: string;
+  linkedin_text: string;
+  facebook_hashtags: string[] | null;
+  instagram_hashtags: string[] | null;
+  linkedin_hashtags: string[] | null;
+  image_url: string | null;
+  status: string;
 }
 
 async function logPost(
@@ -63,39 +44,42 @@ async function logPost(
   });
 }
 
-export async function runPost(): Promise<PostResult> {
+export async function completePost(rowId: string): Promise<PostResult> {
   const supabase = createServerClient();
-  const topic = await pickTopic(supabase);
 
-  console.log(`[Social] Topic selected: ${topic.title} (${topic.id})`);
+  const { data: job, error } = await supabase
+    .from("social_jobs")
+    .select("*")
+    .eq("id", rowId)
+    .single();
 
-  const [facebookText, instagramText, linkedinText] = await Promise.all([
-    generatePostText(topic, "facebook"),
-    generatePostText(topic, "instagram"),
-    generatePostText(topic, "linkedin"),
-  ]);
+  if (error || !job) throw new Error(`Social job not found: ${error?.message || rowId}`);
 
-  console.log("[Social] Text generated for all platforms");
+  const row = job as SocialJobRow;
 
-  let imageUrl: string | null = null;
-  try {
-    const image = await generateImage(topic);
-    imageUrl = image.url;
-    console.log(`[Social] Image generated: ${imageUrl.substring(0, 80)}...`);
-  } catch (error) {
-    console.warn("[Social] Image generation failed, continuing without image:", error);
+  if (row.status === "completed") {
+    console.log(`[Social] Job ${rowId} already completed, skipping`);
+    return {
+      topicId: row.topic_id,
+      topicTitle: row.topic_title,
+      platforms: [],
+      imageUrl: row.image_url,
+      timestamp: new Date().toISOString(),
+      alreadyPosted: true,
+    };
   }
 
+  const imageUrl = row.image_url;
   const platforms: PlatformResult[] = [];
 
-  const facebookResult = await postToFacebook(facebookText.caption, imageUrl);
+  const facebookResult = await postToFacebook(row.facebook_text, imageUrl);
   platforms.push({ platform: "facebook", ...facebookResult });
   await logPost(supabase, {
     platform: "facebook",
-    topic_id: topic.id,
-    caption: facebookText.caption,
+    topic_id: row.topic_id,
+    caption: row.facebook_text,
     image_url: imageUrl,
-    hashtags: facebookText.hashtags,
+    hashtags: row.facebook_hashtags || [],
     status: facebookResult.success ? "posted" : "failed",
     platform_post_id: facebookResult.postId,
     error_message: facebookResult.error,
@@ -103,14 +87,14 @@ export async function runPost(): Promise<PostResult> {
 
   if (process.env.INSTAGRAM_ACCOUNT_ID) {
     if (imageUrl) {
-      const instagramResult = await postToInstagram(instagramText.caption, imageUrl);
+      const instagramResult = await postToInstagram(row.instagram_text, imageUrl);
       platforms.push({ platform: "instagram", ...instagramResult });
       await logPost(supabase, {
         platform: "instagram",
-        topic_id: topic.id,
-        caption: instagramText.caption,
+        topic_id: row.topic_id,
+        caption: row.instagram_text,
         image_url: imageUrl,
-        hashtags: instagramText.hashtags,
+        hashtags: row.instagram_hashtags || [],
         status: instagramResult.success ? "posted" : "failed",
         platform_post_id: instagramResult.mediaId,
         error_message: instagramResult.error,
@@ -119,7 +103,7 @@ export async function runPost(): Promise<PostResult> {
       platforms.push({
         platform: "instagram",
         success: false,
-        error: "Skipped: image generation failed (Instagram requires an image)",
+        error: "Skipped: no image (Instagram requires an image)",
       });
     }
   } else {
@@ -131,14 +115,14 @@ export async function runPost(): Promise<PostResult> {
   }
 
   if (process.env.LINKEDIN_ACCESS_TOKEN) {
-    const linkedinResult = await postToLinkedIn(linkedinText.caption, imageUrl || undefined);
+    const linkedinResult = await postToLinkedIn(row.linkedin_text, imageUrl || undefined);
     platforms.push({ platform: "linkedin", ...linkedinResult });
     await logPost(supabase, {
       platform: "linkedin",
-      topic_id: topic.id,
-      caption: linkedinText.caption,
+      topic_id: row.topic_id,
+      caption: row.linkedin_text,
       image_url: imageUrl,
-      hashtags: linkedinText.hashtags,
+      hashtags: row.linkedin_hashtags || [],
       status: linkedinResult.success ? "posted" : "failed",
       platform_post_id: linkedinResult.postId,
       error_message: linkedinResult.error,
@@ -151,9 +135,26 @@ export async function runPost(): Promise<PostResult> {
     });
   }
 
+  const allSuccess = platforms.every((p) => p.success);
+
+  await supabase
+    .from("social_jobs")
+    .update({
+      status: "completed",
+      posted_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+      error_message: allSuccess
+        ? null
+        : platforms
+            .filter((p) => !p.success)
+            .map((p) => `${p.platform}: ${p.error}`)
+            .join("; "),
+    })
+    .eq("id", rowId);
+
   return {
-    topicId: topic.id,
-    topicTitle: topic.title,
+    topicId: row.topic_id,
+    topicTitle: row.topic_title,
     platforms,
     imageUrl,
     timestamp: new Date().toISOString(),

@@ -35,10 +35,6 @@ Write a social media post about this topic:
 Return ONLY the post text, nothing else. No quotes around it.`;
 }
 
-export function buildImagePrompt(topic: ContentTopic): string {
-  return `${topic.imagePromptBase}, professional corporate style, clean modern design, no text, high quality`;
-}
-
 export function adaptForPlatform(
   text: string,
   platform: "facebook" | "instagram" | "linkedin"

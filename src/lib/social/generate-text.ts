@@ -26,7 +26,7 @@ async function callGemini(prompt: string): Promise<string> {
     if (attempt > 0) await sleep(5000 * attempt);
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -35,7 +35,7 @@ async function callGemini(prompt: string): Promise<string> {
           generationConfig: {
             temperature: 0.8,
             topP: 0.9,
-            maxOutputTokens: 500,
+            maxOutputTokens: 2000,
           },
         }),
       }
