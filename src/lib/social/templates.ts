@@ -30,7 +30,6 @@ Write a social media post about this topic:
 4. Never mention competitors
 5. Never use false claims or statistics
 6. Make it feel authentic, not salesy
-7. IMPORTANT: The post MUST end with contact details — phone/WhatsApp and website. This is non-negotiable for lead generation.
 
 Return ONLY the post text, nothing else. No quotes around it.`;
 }
@@ -41,14 +40,18 @@ export function adaptForPlatform(
 ): string {
   let adapted = text.trim();
 
+  // Strip any AI-generated contact details or placeholders to prevent duplication
+  adapted = adapted.replace(/📞[\s\S]*$/i, "").trim();
+  adapted = adapted.replace(/Call\/WhatsApp[\s\S]*$/i, "").trim();
+  adapted = adapted.replace(/\[Insert[^\]]*\]/gi, "").trim();
+  adapted = adapted.replace(/(Phone|Contact|Website|Link):?\s*\[?[^\]\n]*\]?/gi, "").trim();
+
   if (platform === "linkedin") {
     adapted = adapted.replace(/😊|🎉|🚀|💡|🔥|✨|🎯|💪|🙌|🌟/g, "");
     adapted = adapted.replace(/\n{3,}/g, "\n\n");
   }
 
-  if (!adapted.includes(PHONE)) {
-    adapted += CONTACT_FOOTER;
-  }
+  adapted += CONTACT_FOOTER;
 
   if (platform === "instagram") {
     if (!adapted.includes("#")) {
