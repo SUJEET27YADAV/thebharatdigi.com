@@ -5,7 +5,10 @@ const WEBSITE = "https://www.thebharatdigi.com";
 const PHONE = "+91 99992 39307";
 const CONTACT_FOOTER = `\n\n📞 Call/WhatsApp: ${PHONE}\n🌐 ${WEBSITE}`;
 
-export function buildTextPrompt(topic: ContentTopic, platform: "facebook" | "instagram" | "linkedin"): string {
+export function buildTextPrompt(
+  topic: ContentTopic,
+  platform: "facebook" | "instagram" | "linkedin",
+): string {
   const platformGuidelines: Record<string, string> = {
     facebook: `Write for Facebook: conversational, friendly, use emojis moderately, include a clear call-to-action. Keep it under 280 characters for best engagement. Include 3-5 relevant hashtags at the end.`,
     instagram: `Write for Instagram: engaging, visual language, use emojis generously, storytelling tone. Include 15-20 relevant hashtags at the end (mix of popular and niche). Keep caption under 300 characters for the hook, then expand.`,
@@ -30,13 +33,16 @@ Write a social media post about this topic:
 4. Never mention competitors
 5. Never use false claims or statistics
 6. Make it feel authentic, not salesy
+7. Use emojis appropriately based on the platform
+8. There should not be any contact details in the post text itself. No phone numbers, no website links, nothing.
+9. The post should be concise, engaging, and tailored to the platform's audience.
 
 Return ONLY the post text, nothing else. No quotes around it.`;
 }
 
 export function adaptForPlatform(
   text: string,
-  platform: "facebook" | "instagram" | "linkedin"
+  platform: "facebook" | "instagram" | "linkedin",
 ): string {
   let adapted = text.trim();
 
@@ -44,7 +50,9 @@ export function adaptForPlatform(
   adapted = adapted.replace(/📞[\s\S]*$/i, "").trim();
   adapted = adapted.replace(/Call\/WhatsApp[\s\S]*$/i, "").trim();
   adapted = adapted.replace(/\[Insert[^\]]*\]/gi, "").trim();
-  adapted = adapted.replace(/(Phone|Contact|Website|Link):?\s*\[?[^\]\n]*\]?/gi, "").trim();
+  adapted = adapted
+    .replace(/(Phone|Contact|Website|Link):?\s*\[?[^\]\n]*\]?/gi, "")
+    .trim();
 
   if (platform === "linkedin") {
     adapted = adapted.replace(/😊|🎉|🚀|💡|🔥|✨|🎯|💪|🙌|🌟/g, "");
@@ -55,7 +63,8 @@ export function adaptForPlatform(
 
   if (platform === "instagram") {
     if (!adapted.includes("#")) {
-      adapted += "\n\n#WebDevelopment #DigitalMarketing #TheBharatDigital #WebDesign #TechSolutions";
+      adapted +=
+        "\n\n#WebDevelopment #DigitalMarketing #TheBharatDigital #WebDesign #TechSolutions";
     }
   }
 
@@ -66,14 +75,51 @@ export function generateHashtags(topic: ContentTopic): string[] {
   const base = ["TheBharatDigital", "WebDevelopment", "DigitalSolutions"];
 
   const topicHashtags: Record<string, string[]> = {
-    "mvp-development": ["MVP", "StartupLife", "LaunchFast", "ProductDevelopment"],
-    "ai-development": ["ArtificialIntelligence", "AI", "MachineLearning", "TechInnovation"],
-    automation: ["BusinessAutomation", "Workflow", "Efficiency", "ProductivityHack"],
-    ecommerce: ["Ecommerce", "OnlineStore", "Shopify", "WooCommerce", "DigitalStore"],
-    "seo-marketing": ["SEO", "DigitalMarketing", "GoogleRanking", "MarketingStrategy"],
-    "mobile-apps": ["MobileApp", "AppDevelopment", "iOS", "Android", "ReactNative"],
+    "mvp-development": [
+      "MVP",
+      "StartupLife",
+      "LaunchFast",
+      "ProductDevelopment",
+    ],
+    "ai-development": [
+      "ArtificialIntelligence",
+      "AI",
+      "MachineLearning",
+      "TechInnovation",
+    ],
+    automation: [
+      "BusinessAutomation",
+      "Workflow",
+      "Efficiency",
+      "ProductivityHack",
+    ],
+    ecommerce: [
+      "Ecommerce",
+      "OnlineStore",
+      "Shopify",
+      "WooCommerce",
+      "DigitalStore",
+    ],
+    "seo-marketing": [
+      "SEO",
+      "DigitalMarketing",
+      "GoogleRanking",
+      "MarketingStrategy",
+    ],
+    "mobile-apps": [
+      "MobileApp",
+      "AppDevelopment",
+      "iOS",
+      "Android",
+      "ReactNative",
+    ],
     "custom-web": ["WebDevelopment", "NextJS", "ReactJS", "CustomWebsite"],
-    performance: ["WebsiteSpeed", "CoreWebVitals", "PerformanceOptimization", "FastWebsite"],
+    performance: [
+      "WebsiteSpeed",
+      "CoreWebVitals",
+      "PerformanceOptimization",
+      "FastWebsite",
+    ],
     "web-apps": ["WebApp", "SaaS", "Dashboard", "FullStack"],
     uiux: ["UIUX", "DesignThinking", "UserExperience", "FigmaDesign"],
     "responsive-design": ["ResponsiveDesign", "MobileFirst", "WebDesign"],
@@ -81,8 +127,18 @@ export function generateHashtags(topic: ContentTopic): string[] {
     legal: ["LegalTech", "LawFirm", "LegalInnovation", "CaseManagement"],
     "real-estate": ["RealEstate", "PropTech", "PropertyTech", "RealEstateTech"],
     "ecommerce-retail": ["RetailTech", "EcommerceSolutions", "OnlineRetail"],
-    travel: ["TravelTech", "HospitalityTech", "BookingPlatform", "TravelDigital"],
-    "luxury-automotive": ["LuxuryBrands", "AutomotiveWeb", "PremiumDesign", "LuxuryDigital"],
+    travel: [
+      "TravelTech",
+      "HospitalityTech",
+      "BookingPlatform",
+      "TravelDigital",
+    ],
+    "luxury-automotive": [
+      "LuxuryBrands",
+      "AutomotiveWeb",
+      "PremiumDesign",
+      "LuxuryDigital",
+    ],
   };
 
   const extra = topicHashtags[topic.id] || [];
