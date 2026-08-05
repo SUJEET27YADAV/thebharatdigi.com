@@ -30,8 +30,25 @@ export async function CheckoutAction(
     const name = validData.data.name;
     const email = validData.data.email;
     const phone = validData.data.phone;
-    const amount = validData.data.amount * 100; // Convert to paise
     const productIds = validData.data.productIds;
+
+    const { data: products, error: productsError } = await supabase
+      .from("products")
+      .select("id, price")
+      .in("id", productIds);
+
+    if (productsError || !products || products.length !== productIds.length) {
+      return {
+        success: false,
+        message: "Invalid request. Please check your inputs.",
+      };
+    }
+
+    const baseAmount = products.reduce(
+      (sum, product) => sum + Number(product.price),
+      0,
+    );
+    const amount = Math.round(baseAmount * 1.18 * 100); // Convert to paise (incl. 18% GST)
 
     const { data: customerData, error } = await supabase
       .from("customers")
@@ -67,24 +84,30 @@ export async function CheckoutAction(
 
     const response = await client.pay(orderRequest);
     if (response.redirectUrl) {
-      const { data: dbexists, error } = await supabase
+      const { data: dbexists } = await supabase
         .from("payments")
-        .select("*")
+        .select("id")
         .eq("customer_id", customerData.id)
-        .select()
-        .single();
+        .maybeSingle();
 
-      if (dbexists && error === null) {
-        await supabase
+      if (dbexists) {
+        const { error: updateError } = await supabase
           .from("payments")
           .update({
             amount: amount.toString(),
             transaction_id: merchantOrderId,
             payment_date: new Date(),
-            Payment_method: "PhonePePG",
+            payment_method: "PhonePePG",
             gateway_response: JSON.stringify(response),
           })
           .eq("customer_id", customerData.id);
+
+        if (updateError) {
+          return {
+            success: false,
+            message: "Failed to initiate payment process",
+          };
+        }
       } else {
         const { data: dbres, error: err } = await supabase
           .from("payments")

@@ -1,8 +1,7 @@
 import { jwtVerify, SignJWT } from 'jose';
+import { requireEnv } from '@/utils/env';
 
-const JWT_SECRET = new TextEncoder().encode(
-  process.env.JWT_SECRET || 'admin-secret-key-change-in-production'
-);
+const JWT_SECRET = new TextEncoder().encode(requireEnv('JWT_SECRET'));
 
 export async function hashPassword(password: string): Promise<string> {
   const encoder = new TextEncoder();

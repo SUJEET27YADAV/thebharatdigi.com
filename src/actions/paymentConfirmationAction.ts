@@ -4,6 +4,7 @@ import { sendEmail } from "@/utils/mailHelper";
 import jwt from "jsonwebtoken";
 import { createServerClient } from "@/utils/supabase/server";
 import { auth } from "@/utils/auth";
+import { requireEnv } from "@/utils/env";
 
 export default async function paymentConfirmationAction(
   previousState: { msg: string },
@@ -13,7 +14,7 @@ export default async function paymentConfirmationAction(
   if (!session) return { msg: "Unauthorized", status: "FAILED", amount: 0, paymentMode: "", transactionId: "" };
   const supabase = createServerClient();
   try {
-    const JWT_SECRET = process.env.JWT_SECRET || "";
+    const JWT_SECRET = requireEnv("JWT_SECRET");
     const BASE_URL =
       process.env.NEXT_PUBLIC_APP_URL || "https://thebharatdigi.com";
     const merchantOrderId = formData.get("merchantOrderId") as string;

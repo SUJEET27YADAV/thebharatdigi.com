@@ -2,8 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import path from "path";
 import { readProductFile } from "@/utils/productFileReader";
+import { requireEnv } from "@/utils/env";
 
-const JWT_SECRET = process.env.JWT_SECRET || "";
+const JWT_SECRET = requireEnv("JWT_SECRET");
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);

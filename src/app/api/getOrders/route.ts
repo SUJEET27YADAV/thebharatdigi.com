@@ -1,7 +1,9 @@
 import { createServerClient } from "@/utils/supabase/server";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { isAdminRequest, unauthorized } from "@/utils/admin/guard";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  if (!(await isAdminRequest(req))) return unauthorized();
   const supabase = createServerClient();
   try {
     const { data, error } = await supabase.from("customers").select("*");

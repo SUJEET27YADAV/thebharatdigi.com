@@ -2,6 +2,19 @@
 import { sendEmail } from "@/utils/mailHelper";
 import { auth } from "@/utils/auth";
 
+function escapeHtml(value: unknown): string {
+  return String(value ?? "").replace(/[&<>"']/g, (char) => {
+    const entities: Record<string, string> = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;",
+    };
+    return entities[char];
+  });
+}
+
 export default async function SubmitAction(
   PrevState: { msg: string },
   formData: FormData,
@@ -9,14 +22,14 @@ export default async function SubmitAction(
   const session = await auth();
   if (!session) return { msg: "Unauthorized" };
   try {
-    const name = formData.get("name");
-    const email = formData.get("email");
-    const pType = formData.get("pType");
-    const message = formData.get("message");
+    const name = String(formData.get("name") ?? "");
+    const email = String(formData.get("email") ?? "");
+    const pType = String(formData.get("pType") ?? "");
+    const message = String(formData.get("message") ?? "");
     const mail = {
       subject: "Query from website",
       text: `${name} (${email}) has sent a query regarding ${pType} project category. Their message is: "${message}"`,
-      html: `<p>${name} (${email}) has sent a query regarding ${pType} project category.</p><p>Their message is:<br>${message}</p>`,
+      html: `<p>${escapeHtml(name)} (${escapeHtml(email)}) has sent a query regarding ${escapeHtml(pType)} project category.</p><p>Their message is:<br>${escapeHtml(message)}</p>`,
     };
     await sendEmail(
       [{ name: "TheBharatDigital", address: "tdbhelpcenter@gmail.com" }],

@@ -1,7 +1,9 @@
 import { sendEmail } from '@/utils/mailHelper';
 import { NextRequest, NextResponse } from 'next/server';
+import { isAdminRequest, unauthorized } from '@/utils/admin/guard';
 
 export async function POST(req: NextRequest) {
+  if (!(await isAdminRequest(req))) return unauthorized();
   const { recipients, email } = await req.json();
   const { success, error, info, msg } = await sendEmail(recipients, email);
   if (!success) {

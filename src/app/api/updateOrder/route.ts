@@ -1,7 +1,9 @@
 import { createServerClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
+import { isAdminRequest, unauthorized } from "@/utils/admin/guard";
 
 export async function POST(req: NextRequest) {
+  if (!(await isAdminRequest(req))) return unauthorized();
   const supabase = createServerClient();
   try {
     const { id, name, email, phone, amount, product_id, paid, created_at } =

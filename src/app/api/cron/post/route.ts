@@ -1,12 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { planPost } from "@/lib/social/plan-post";
 import { completePost } from "@/lib/social/complete-post";
+import { isCronRequest } from "@/utils/cron";
 
 export async function GET(req: NextRequest) {
-  const authHeader = req.headers.get("authorization");
-  const cronSecret = process.env.CRON_SECRET;
-
-  if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
+  if (!isCronRequest(req)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@/utils/supabase/server";
 import { pollImageJob, uploadImageToSupabase } from "@/lib/social/sd-server";
 import { completePost } from "@/lib/social/complete-post";
+import { isCronRequest } from "@/utils/cron";
 
 type ImageStatus =
   | "pending"
@@ -62,11 +63,37 @@ async function finishPendingImage(row: { id: string; job_id: string }): Promise<
   throw new Error(`unknown sd-server job status: ${poll.status}`);
 }
 
-export async function GET(req: NextRequest) {
-  const authHeader = req.headers.get("authorization");
-  const cronSecret = process.env.CRON_SECRET;
+async function processRow(row: {
+  id: string;
+  job_id: string | null;
+  status: string;
+}): Promise<{ id: string; status: ImageStatus }> {
+  try {
+    let status: ImageStatus = row.status as ImageStatus;
 
-  if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
+    if (status === "pending") {
+      const jobId = row.job_id;
+      if (!jobId) return { id: row.id, status };
+      status = await finishPendingImage({ id: row.id, job_id: jobId });
+    }
+
+    if (status === "image_ready" || status === "failed" || status === "text_only") {
+      const result = await completePost(row.id);
+      status = result.alreadyPosted ? "already_posted" : "posted";
+      console.log(
+        `[Social Finalize] job ${row.id} ${result.alreadyPosted ? "already posted" : "posted"} (${status})`
+      );
+    }
+
+    return { id: row.id, status };
+  } catch (err) {
+    console.error(`[Social Finalize] row ${row.id} failed: ${err instanceof Error ? err.message : err}`);
+    return { id: row.id, status: "failed" };
+  }
+}
+
+export async function GET(req: NextRequest) {
+  if (!isCronRequest(req)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -82,30 +109,7 @@ export async function GET(req: NextRequest) {
 
     if (error) throw new Error(`Failed to fetch social jobs: ${error.message}`);
 
-    const processed: { id: string; status: ImageStatus }[] = [];
-
-    for (const row of rows || []) {
-      try {
-        let status: ImageStatus = row.status;
-
-        if (status === "pending") {
-          if (!row.job_id) continue;
-          status = await finishPendingImage(row);
-        }
-
-        if (status === "image_ready" || status === "failed" || status === "text_only") {
-          const result = await completePost(row.id);
-          status = result.alreadyPosted ? "already_posted" : "posted";
-          console.log(
-            `[Social Finalize] job ${row.id} ${result.alreadyPosted ? "already posted" : "posted"} (${status})`
-          );
-        }
-
-        processed.push({ id: row.id, status });
-      } catch (err) {
-        console.error(`[Social Finalize] row ${row.id} failed: ${err instanceof Error ? err.message : err}`);
-      }
-    }
+    const processed = await Promise.all((rows || []).map(processRow));
 
     return NextResponse.json({ success: true, processed });
   } catch (error) {
