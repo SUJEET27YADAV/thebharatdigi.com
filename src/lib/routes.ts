@@ -113,8 +113,3 @@ export const TOP_LINKS: RouteGroup[] = [
   { label: "Shop", path: "/shop" },
   { label: "Contact", path: "/contactus" },
 ];
-
-export const ALL_ROUTES = [
-  ...TOP_LINKS,
-  ...NAV_GROUPS.flatMap((g) => g.children),
-];

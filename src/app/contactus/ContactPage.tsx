@@ -403,7 +403,7 @@ export default function Contact() {
               key={method.title}
               href={method.href}
               rel={method.rel}
-              className={`group p-6 rounded border transition-all duration-300
+              className={`group p-6 rounded border transition-colors duration-300
                          bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50
                          hover:bg-white dark:hover:bg-slate-800/60`}
             >
@@ -479,7 +479,7 @@ export default function Contact() {
                     href={s.href}
                     rel={s.rel}
                     aria-label={s.label}
-                    className="size-11 rounded border flex items-center justify-center transition-all
+                    className="size-11 rounded border flex items-center justify-center transition-colors
                                bg-slate-100 dark:bg-slate-700/50 border-slate-200 dark:border-slate-600/50
                                text-indigo-600 dark:text-white hover:text-indigo-600 dark:hover:text-white
                                hover:bg-indigo-50 dark:hover:bg-indigo-500/20 hover:border-indigo-200 dark:hover:border-indigo-500/30"
@@ -505,7 +505,7 @@ export default function Contact() {
               <a
                 href="https://wa.me/919999239307"
                 rel="nofollow"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded bg-green-500 text-white font-semibold hover:bg-green-600 transition-all"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded bg-green-500 text-white font-semibold hover:bg-green-600 transition-colors"
               >
                 <MessageSquare className="size-4" />
                 WhatsApp Us
@@ -582,7 +582,7 @@ export default function Contact() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="tel:+919999239307"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded bg-green-600 font-semibold hover:bg-indigo-700 transition-all"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded bg-green-600 font-semibold hover:bg-indigo-700 transition-colors"
               >
                 <Phone className="size-4" />
                 Call Us Now
@@ -590,7 +590,7 @@ export default function Contact() {
               <a
                 href="https://wa.me/919999239307"
                 rel="nofollow"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded border border-slate-600 font-semibold hover:bg-slate-800 transition-all"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded border border-slate-600 font-semibold hover:bg-slate-800 transition-colors"
               >
                 <MessageSquare className="size-4" />
                 Live Chat

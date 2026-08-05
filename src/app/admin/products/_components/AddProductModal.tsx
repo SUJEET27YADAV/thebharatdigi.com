@@ -30,6 +30,9 @@ export default function AddProductModal({ onClose }: AddProductModalProps) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
+      if (!response.ok) {
+        throw new Error(`Request failed: ${response.status}`);
+      }
       const res = await response.json();
       if (res.success) {
         toast.success(res.msg || "Product added successfully!");
@@ -51,6 +54,7 @@ export default function AddProductModal({ onClose }: AddProductModalProps) {
       <div className="relative w-full max-w-md p-6 flex flex-col items-center gap-4 bg-white/60 dark:bg-black/30 rounded">
         <button
           type="button"
+          aria-label="Close"
           className="absolute top-4 right-4 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"
           onClick={() => onClose()}
         >

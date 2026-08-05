@@ -81,6 +81,11 @@ async function uploadPhotoPost(
     }
   );
 
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(`Facebook API error: ${JSON.stringify(errorData)}`);
+  }
+
   return response.json();
 }
 
@@ -100,6 +105,11 @@ async function createTextPost(
       }),
     }
   );
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(`Facebook API error: ${JSON.stringify(errorData)}`);
+  }
 
   return response.json();
 }

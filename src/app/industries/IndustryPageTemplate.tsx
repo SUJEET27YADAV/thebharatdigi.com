@@ -126,8 +126,8 @@ export default function IndustryPageTemplate({
             off-the-shelf solutions can&apos;t solve.
           </p>
           <div className="grid md:grid-cols-2 gap-6">
-            {data.painPoints.map((p, i) => (
-              <div key={i} className="card-interactive p-6">
+            {data.painPoints.map((p) => (
+              <div key={p.problem} className="card-interactive p-6">
                 <div className="flex items-start gap-3">
                   <AlertTriangle className="size-5 text-amber-500 shrink-0 mt-0.5" />
                   <div>
@@ -159,9 +159,9 @@ export default function IndustryPageTemplate({
             looking for digital solutions.
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {data.searchQueries.map((q, i) => (
+            {data.searchQueries.map((q) => (
               <div
-                key={i}
+                key={q.query}
                 className="border border-slate-200 dark:border-slate-700 rounded p-4 bg-slate-50 dark:bg-slate-800/50"
               >
                 <p className="font-mono text-sm text-indigo-600 dark:text-indigo-400 mb-1">
@@ -186,7 +186,7 @@ export default function IndustryPageTemplate({
           <div className="space-y-4">
             {data.solutions.map((s, i) => (
               <div
-                key={i}
+                key={s.problem}
                 className="flex items-start gap-4 p-5 rounded bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700"
               >
                 <div className="size-10 shrink-0 rounded-full bg-amber-100 dark:bg-amber-500/10 flex items-center justify-center">
@@ -219,8 +219,8 @@ export default function IndustryPageTemplate({
             adjacent industries.
           </p>
           <div className="grid md:grid-cols-2 gap-6">
-            {data.portfolioItems.map((item, i) => (
-              <div key={i} className="card p-6">
+            {data.portfolioItems.map((item) => (
+              <div key={item.name} className="card p-6">
                 <h3 className="font-bold text-slate-900 dark:text-white mb-2">
                   {item.name}
                 </h3>

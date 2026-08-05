@@ -75,7 +75,7 @@ export default function Home() {
       dispatch({ type: "ADD_RECIPIENT", payload: { name, address } });
     }
   }
-  function sendMail(e: React.FormEvent) {
+  async function sendMail(e: React.FormEvent) {
     e.preventDefault();
     if (state.recipients.length === 0)
       return dispatch({ type: "SET_ERR", payload: "Please add a recipient to send Email !" });
@@ -83,17 +83,24 @@ export default function Home() {
       return dispatch({ type: "SET_ERR", payload: "Add Some text to Email body to send Email !" });
     if (!emailRef.current.subject) return dispatch({ type: "SET_ERR", payload: "Add a Subject to describe your Email !" });
     dispatch({ type: "SET_LOADING", payload: true });
-    fetch("/api/email", {
-      method: "POST",
-      body: JSON.stringify({ recipients: state.recipients, email: emailRef.current }),
-    })
-      .then((res) => res.json())
-      .then((r) => dispatch({ type: "SET_RES", payload: r }))
-      .catch((e) => dispatch({ type: "SET_RES", payload: e }))
-      .finally(() => {
-        dispatch({ type: "SET_LOADING", payload: false });
-        void (e.target as HTMLFormElement).reset();
+    try {
+      const res = await fetch("/api/email", {
+        method: "POST",
+        body: JSON.stringify({ recipients: state.recipients, email: emailRef.current }),
       });
+      if (!res.ok) {
+        const errData = await res.json();
+        dispatch({ type: "SET_RES", payload: { ...errData, success: false } });
+        return;
+      }
+      const r = (await res.json()) as ApiResponse;
+      dispatch({ type: "SET_RES", payload: r });
+    } catch (e) {
+      dispatch({ type: "SET_RES", payload: e as ApiResponse });
+    } finally {
+      dispatch({ type: "SET_LOADING", payload: false });
+      void (e.target as HTMLFormElement).reset();
+    }
   }
 
   return (

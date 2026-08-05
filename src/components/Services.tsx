@@ -121,7 +121,7 @@ export default function Services() {
                     <h3 className="text-slate-900 dark:text-white text-xl font-bold mb-3 flex items-center gap-2">
                       {service.title}
                       <ArrowUpRight
-                        className="size-4 opacity-0 -translate-x-2 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0 text-indigo-500 dark:text-indigo-400"
+                        className="size-4 opacity-0 -translate-x-2 transition-[opacity,transform] duration-200 group-hover:opacity-100 group-hover:translate-x-0 text-indigo-500 dark:text-indigo-400"
                         aria-hidden
                       />
                     </h3>
@@ -138,7 +138,7 @@ export default function Services() {
               className="group card-interactive card-hover p-8 h-full flex flex-col"
             >
               <m.div {...itemMotion} className="flex flex-col h-full">
-                <div className="size-14 bg-slate-100 dark:bg-slate-800 rounded-xl flex items-center justify-center mb-5 transition-all duration-200 group-hover:scale-110 group-hover:bg-indigo-50 dark:group-hover:bg-indigo-600/10">
+                <div className="size-14 bg-slate-100 dark:bg-slate-800 rounded-xl flex items-center justify-center mb-5 transition-[transform,background-color] duration-200 group-hover:scale-110 group-hover:bg-indigo-50 dark:group-hover:bg-indigo-600/10">
                   <MoreHorizontal className="size-7 text-slate-500 dark:text-slate-400 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors duration-200" />
                 </div>
                 <h3 className="text-slate-900 dark:text-white flex items-center gap-1 text-xl font-bold mb-3">

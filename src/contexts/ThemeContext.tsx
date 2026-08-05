@@ -1,6 +1,6 @@
 // contexts/ThemeContext.tsx
 "use client";
-import { createContext, use, useState, useEffect, useCallback, useMemo, useSyncExternalStore } from "react";
+import { createContext, use, useState, useLayoutEffect, useCallback, useMemo, useSyncExternalStore } from "react";
 
 type Theme = "dark" | "light";
 
@@ -11,22 +11,42 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
+function subscribePrefersDark(callback: () => void) {
+  const mq = window.matchMedia("(prefers-color-scheme: dark)");
+  mq.addEventListener("change", callback);
+  return () => mq.removeEventListener("change", callback);
+}
+
+function getPrefersDarkSnapshot() {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches;
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("theme") as Theme;
-      if (saved) return saved;
-      if (window.matchMedia("(prefers-color-scheme: dark)").matches) return "dark";
-    }
-    return "light";
-  });
+  const prefersDark = useSyncExternalStore(
+    subscribePrefersDark,
+    getPrefersDarkSnapshot,
+    () => false,
+  );
+  const [theme, setTheme] = useState<Theme>("light");
   const mounted = useSyncExternalStore(
     () => () => {},
     () => true,
     () => false,
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    if (!mounted) return;
+    const saved = localStorage.getItem("theme") as Theme | null;
+    const initial: Theme =
+      saved === "dark" || saved === "light"
+        ? saved
+        : prefersDark
+          ? "dark"
+          : "light";
+    setTheme(initial);
+  }, [mounted, prefersDark]);
+
+  useLayoutEffect(() => {
     if (!mounted) return;
     const root = document.documentElement;
     root.classList.add(theme);

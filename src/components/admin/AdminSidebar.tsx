@@ -83,8 +83,7 @@ export default function AdminSidebar({ isOpen, setIsOpen }: AdminSidebarProps) {
                 <>
                   <span>{user.name.split(" ")[0].charAt(0)}</span>
                   <span>
-                    {user.name.split(" ")[1] &&
-                      user.name.split(" ")[1].charAt(0)}
+                    {user.name.split(" ")[1]?.charAt(0)}
                   </span>
                 </>
               ) : (
@@ -95,6 +94,7 @@ export default function AdminSidebar({ isOpen, setIsOpen }: AdminSidebarProps) {
           </Link>
           <button
             type="button"
+            aria-label="Close sidebar"
             onClick={() => setIsOpen(false)}
             className="md:hidden p-2 rounded dark:bg-[#0f172b] border border-[#444444] text-[#0f172b] dark:text-white"
           >

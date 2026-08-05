@@ -131,6 +131,176 @@ function ScorePreviewCards() {
   );
 }
 
+function AuditFeaturesSection() {
+  return (
+    <section id="features" className="py-20 px-4">
+      <div className="max-w-5xl mx-auto">
+        <m.h2
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="text-3xl md:text-4xl font-bold text-[#020617] dark:text-white text-center mb-4"
+        >
+          8-Category <span className="gradient-text">Deep Analysis</span>
+        </m.h2>
+        <m.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="text-slate-500 dark:text-[#314158] text-center mb-12 max-w-xl mx-auto"
+        >
+          Every category includes automated checks with specific, actionable
+          fix instructions
+        </m.p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {features.map((feature, i) => (
+            <m.div
+              key={feature.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.05 }}
+              className="card-interactive p-5 group"
+            >
+              <div className="size-10 rounded bg-indigo-100 dark:bg-[#ac4bff]/10 flex items-center justify-center mb-3 transition-colors duration-200 group-hover:bg-indigo-200 dark:group-hover:bg-[#ac4bff]/20">
+                <feature.icon
+                  size={18}
+                  className="text-indigo-600 dark:text-[#ac4bff]"
+                />
+              </div>
+              <h3 className="text-[#020617] dark:text-white font-semibold mb-1 text-sm">
+                {feature.title}
+              </h3>
+              <p className="text-slate-500 dark:text-[#314158] text-xs leading-relaxed">
+                {feature.desc}
+              </p>
+            </m.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AuditWhatYouGetSection() {
+  return (
+    <section className="py-20 px-4 bg-slate-200/50 dark:bg-[#0f172b]/50 border-t border-slate-200 dark:border-[#314158]/30">
+      <div className="max-w-5xl mx-auto">
+        <m.h2
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="text-3xl md:text-4xl font-bold text-[#020617] dark:text-white text-center mb-12"
+        >
+          What You <span className="gradient-text">Get</span>
+        </m.h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {checks.map((c, i) => (
+            <m.div
+              key={c}
+              initial={{ opacity: 0, x: -10 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.05 }}
+              className="flex items-start gap-3"
+            >
+              <CheckCircle
+                size={18}
+                className="text-[#00c758] mt-0.5 shrink-0"
+              />
+              <span className="text-slate-500 dark:text-[#90a1b9] text-sm">
+                {c}
+              </span>
+            </m.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AuditOutputPreviewSection() {
+  return (
+    <section className="py-20 px-4">
+      <div className="max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+          {[
+            {
+              icon: FileText,
+              title: "JSON Report",
+              desc: "Machine-readable data for CI/CD pipelines and programmatic analysis",
+            },
+            {
+              icon: Code,
+              title: "HTML Report",
+              desc: "Beautiful branded report with scores, findings, and charts — ready for clients",
+            },
+            {
+              icon: Star,
+              title: "AI Skill (SKILL.md)",
+              desc: "Agent-ready fix instructions in the format AI coding agents understand natively",
+            },
+          ].map((item, i) => (
+            <m.div
+              key={item.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="bg-white dark:bg-[#0f172b] border border-slate-200 dark:border-[#314158]/30 rounded p-6 text-center"
+            >
+              <div className="size-12 rounded-full bg-indigo-100 dark:bg-[#ac4bff]/10 flex items-center justify-center mx-auto mb-4">
+                <item.icon
+                  size={24}
+                  className="text-indigo-600 dark:text-[#ac4bff]"
+                />
+              </div>
+              <h3 className="text-[#020617] dark:text-white font-semibold mb-2">
+                {item.title}
+              </h3>
+              <p className="text-slate-500 dark:text-[#314158] text-sm">
+                {item.desc}
+              </p>
+            </m.div>
+          ))}
+        </div>
+
+        {/* Code preview */}
+        <m.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="bg-[#1e293b] dark:bg-[#0f172b] border border-slate-200 dark:border-[#314158]/30 rounded overflow-hidden"
+        >
+          <div className="flex items-center gap-2 px-4 py-3 border-b border-slate-200 dark:border-[#314158]/30">
+            <div className="size-3 rounded-full bg-[#fb2c36]" />
+            <div className="size-3 rounded-full bg-[#f99c00]" />
+            <div className="size-3 rounded-full bg-[#00c758]" />
+            <span className="text-slate-400 dark:text-[#314158] text-xs ml-2">
+              SKILL.md: AI Agent Output
+            </span>
+          </div>
+          <pre className="p-4 text-sm text-slate-300 dark:text-[#90a1b9] overflow-x-auto font-mono leading-relaxed">
+            {`# SEO Audit Pro — AI Agent Skill
+> Target: https://yoursite.com
+> Overall Score: 74/100
+
+## 🔴 Critical Fixes
+### 1. Missing meta description
+**Fix:** Add a unique meta description
+### 2. 5 images without alt text
+**Fix:** Add descriptive alt text
+
+## 🟡 Warnings
+### 1. No HSTS header detected
+**Fix:** Add Strict-Transport-Security header`}
+          </pre>
+        </m.div>
+      </div>
+    </section>
+  );
+}
+
 export default function SEOAuditProClient({ product }: SEOAuditProClientProps) {
   const { cart, addToCart, removeFromCart } = useCartStore();
 
@@ -219,166 +389,9 @@ export default function SEOAuditProClient({ product }: SEOAuditProClientProps) {
 
         <ScorePreviewCards />
 
-        {/* Features */}
-        <section id="features" className="py-20 px-4">
-          <div className="max-w-5xl mx-auto">
-            <m.h2
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="text-3xl md:text-4xl font-bold text-[#020617] dark:text-white text-center mb-4"
-            >
-              8-Category <span className="gradient-text">Deep Analysis</span>
-            </m.h2>
-            <m.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="text-slate-500 dark:text-[#314158] text-center mb-12 max-w-xl mx-auto"
-            >
-              Every category includes automated checks with specific, actionable
-              fix instructions
-            </m.p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {features.map((f, i) => (
-                <m.div
-                  key={f.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.05 }}
-                  className="card-interactive p-5 group"
-                >
-                  <div className="size-10 rounded bg-indigo-100 dark:bg-[#ac4bff]/10 flex items-center justify-center mb-3 transition-colors duration-200 group-hover:bg-indigo-200 dark:group-hover:bg-[#ac4bff]/20">
-                    <f.icon
-                      size={18}
-                      className="text-indigo-600 dark:text-[#ac4bff]"
-                    />
-                  </div>
-                  <h3 className="text-[#020617] dark:text-white font-semibold mb-1 text-sm">
-                    {f.title}
-                  </h3>
-                  <p className="text-slate-500 dark:text-[#314158] text-xs leading-relaxed">
-                    {f.desc}
-                  </p>
-                </m.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* What You Get */}
-        <section className="py-20 px-4 bg-slate-200/50 dark:bg-[#0f172b]/50 border-t border-slate-200 dark:border-[#314158]/30">
-          <div className="max-w-5xl mx-auto">
-            <m.h2
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="text-3xl md:text-4xl font-bold text-[#020617] dark:text-white text-center mb-12"
-            >
-              What You <span className="gradient-text">Get</span>
-            </m.h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {checks.map((c, i) => (
-                <m.div
-                  key={c}
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.05 }}
-                  className="flex items-start gap-3"
-                >
-                  <CheckCircle
-                    size={18}
-                    className="text-[#00c758] mt-0.5 shrink-0"
-                  />
-                  <span className="text-slate-500 dark:text-[#90a1b9] text-sm">
-                    {c}
-                  </span>
-                </m.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* AI Skill Output Preview */}
-        <section className="py-20 px-4">
-          <div className="max-w-5xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
-              {[
-                {
-                  icon: FileText,
-                  title: "JSON Report",
-                  desc: "Machine-readable data for CI/CD pipelines and programmatic analysis",
-                },
-                {
-                  icon: Code,
-                  title: "HTML Report",
-                  desc: "Beautiful branded report with scores, findings, and charts — ready for clients",
-                },
-                {
-                  icon: Star,
-                  title: "AI Skill (SKILL.md)",
-                  desc: "Agent-ready fix instructions in the format AI coding agents understand natively",
-                },
-              ].map((item, i) => (
-                <m.div
-                  key={item.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="bg-white dark:bg-[#0f172b] border border-slate-200 dark:border-[#314158]/30 rounded p-6 text-center"
-                >
-                  <div className="size-12 rounded-full bg-indigo-100 dark:bg-[#ac4bff]/10 flex items-center justify-center mx-auto mb-4">
-                    <item.icon
-                      size={24}
-                      className="text-indigo-600 dark:text-[#ac4bff]"
-                    />
-                  </div>
-                  <h3 className="text-[#020617] dark:text-white font-semibold mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-slate-500 dark:text-[#314158] text-sm">
-                    {item.desc}
-                  </p>
-                </m.div>
-              ))}
-            </div>
-
-            {/* Code preview */}
-            <m.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="bg-[#1e293b] dark:bg-[#0f172b] border border-slate-200 dark:border-[#314158]/30 rounded overflow-hidden"
-            >
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-slate-200 dark:border-[#314158]/30">
-                <div className="size-3 rounded-full bg-[#fb2c36]" />
-                <div className="size-3 rounded-full bg-[#f99c00]" />
-                <div className="size-3 rounded-full bg-[#00c758]" />
-                <span className="text-slate-400 dark:text-[#314158] text-xs ml-2">
-                  SKILL.md: AI Agent Output
-                </span>
-              </div>
-              <pre className="p-4 text-sm text-slate-300 dark:text-[#90a1b9] overflow-x-auto font-mono leading-relaxed">
-                {`# SEO Audit Pro — AI Agent Skill
-> Target: https://yoursite.com
-> Overall Score: 74/100
-
-## 🔴 Critical Fixes
-### 1. Missing meta description
-**Fix:** Add a unique meta description
-### 2. 5 images without alt text
-**Fix:** Add descriptive alt text
-
-## 🟡 Warnings
-### 1. No HSTS header detected
-**Fix:** Add Strict-Transport-Security header`}
-              </pre>
-            </m.div>
-          </div>
-        </section>
+        <AuditFeaturesSection />
+        <AuditWhatYouGetSection />
+        <AuditOutputPreviewSection />
 
         {/* CTA */}
         <section className="py-20 px-4 border-t border-slate-200 dark:border-[#314158]/30">

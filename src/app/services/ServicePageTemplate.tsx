@@ -138,8 +138,8 @@ export default function ServicePageTemplate({
             {data.title.toLowerCase()} services.
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {data.subServices.map((s, i) => (
-              <div key={i} className="card-interactive p-6">
+            {data.subServices.map((s) => (
+              <div key={s.title} className="card-interactive p-6">
                 <h3 className="text-xl font-bold mb-2 text-slate-900 dark:text-white">
                   {s.title}
                 </h3>
@@ -224,8 +224,8 @@ export default function ServicePageTemplate({
             Projects we&apos;ve delivered that are similar to what you need.
           </p>
           <div className="grid md:grid-cols-2 gap-6">
-            {data.portfolioItems.map((item, i) => (
-              <div key={i} className="card p-6">
+            {data.portfolioItems.map((item) => (
+              <div key={item.name} className="card p-6">
                 <h3 className="font-bold text-slate-900 dark:text-white mb-2">
                   {item.name}
                 </h3>

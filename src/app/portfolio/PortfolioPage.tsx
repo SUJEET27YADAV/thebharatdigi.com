@@ -184,7 +184,7 @@ export default function Portfolio({ projects }: PortfolioPageProps) {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.9 }}
                     transition={{ duration: 0.3, delay: index * 0.05 }}
-                    className="group relative rounded overflow-hidden border transition-all duration-300
+                    className="group relative rounded overflow-hidden border transition-colors duration-300
                             bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50
                             hover:border-slate-300 dark:hover:border-slate-600/50"
                   >
@@ -209,6 +209,7 @@ export default function Portfolio({ projects }: PortfolioPageProps) {
                         <a
                           href={project.link || "#"}
                           target={project.link ? "_blank" : undefined}
+                          aria-label={`Open ${project.title} in a new tab`}
                           className="size-9 rounded bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
                         >
                           <ExternalLink className="size-4" />
@@ -321,13 +322,14 @@ export default function Portfolio({ projects }: PortfolioPageProps) {
                 <div className="flex items-center justify-center gap-4 mt-8 pt-8 border-t border-slate-200 dark:border-slate-700/50">
                   <button
                     type="button"
+                    aria-label="Previous testimonial"
                     onClick={() =>
                       setTestimonialIndex(
                         (p) =>
                           (p - 1 + testimonials.length) % testimonials.length,
                       )
                     }
-                    className="size-10 rounded-full border flex items-center justify-center transition-all
+                    className="size-10 rounded-full border flex items-center justify-center transition-colors
                              bg-white dark:bg-slate-700/50 border-slate-200 dark:border-slate-600/50
                              text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white"
                   >
@@ -350,10 +352,11 @@ export default function Portfolio({ projects }: PortfolioPageProps) {
                   </div>
                   <button
                     type="button"
+                    aria-label="Next testimonial"
                     onClick={() =>
                       setTestimonialIndex((p) => (p + 1) % testimonials.length)
                     }
-                    className="size-10 rounded-full border flex items-center justify-center transition-all
+                    className="size-10 rounded-full border flex items-center justify-center transition-colors
                              bg-white dark:bg-slate-700/50 border-slate-200 dark:border-slate-600/50
                              text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white"
                   >
@@ -379,7 +382,7 @@ export default function Portfolio({ projects }: PortfolioPageProps) {
               <a
                 href="#contact"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded
-                          bg-white text-indigo-600 font-bold text-lg hover:bg-gray-100 transition-all"
+                          bg-white text-indigo-600 font-bold text-lg hover:bg-gray-100 transition-colors"
               >
                 Start a Project
                 <ArrowRight className="size-5" />

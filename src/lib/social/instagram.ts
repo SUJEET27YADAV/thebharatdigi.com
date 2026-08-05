@@ -41,9 +41,17 @@ export async function postToInstagram(
       }
     );
 
+    if (!createResponse.ok) {
+      const createData = await createResponse.json();
+      return {
+        success: false,
+        error: `Instagram container creation error: ${JSON.stringify(createData)}`,
+      };
+    }
+
     const createData = await createResponse.json();
 
-    if (!createResponse.ok || !createData.id) {
+    if (!createData.id) {
       return {
         success: false,
         error: `Instagram container creation error: ${JSON.stringify(createData)}`,
@@ -58,6 +66,13 @@ export async function postToInstagram(
       const statusResponse = await fetch(
         `https://graph.facebook.com/v21.0/${containerId}?fields=status_code&access_token=${accessToken}`
       );
+      if (!statusResponse.ok) {
+        const statusError = await statusResponse.json();
+        return {
+          success: false,
+          error: `Instagram container status error: ${JSON.stringify(statusError)}`,
+        };
+      }
       const statusData = await statusResponse.json();
 
       if (statusData.status_code === "FINISHED") break;
@@ -81,9 +96,17 @@ export async function postToInstagram(
       }
     );
 
+    if (!publishResponse.ok) {
+      const publishData = await publishResponse.json();
+      return {
+        success: false,
+        error: `Instagram publish error: ${JSON.stringify(publishData)}`,
+      };
+    }
+
     const publishData = await publishResponse.json();
 
-    if (!publishResponse.ok || !publishData.id) {
+    if (!publishData.id) {
       return {
         success: false,
         error: `Instagram publish error: ${JSON.stringify(publishData)}`,

@@ -12,11 +12,13 @@ export default async function Page() {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
     const res = await fetch(`${baseUrl}/api/getProjects`, { cache: "no-store" });
-    const result = await res.json();
-    if (result.success) {
-      projects = result.data.sort((a: Project, b: Project) =>
-        b.created_at.localeCompare(a.created_at),
-      );
+    if (res.ok) {
+      const result = await res.json();
+      if (result.success) {
+        projects = result.data.sort((a: Project, b: Project) =>
+          b.created_at.localeCompare(a.created_at),
+        );
+      }
     }
   } catch {}
   return <PortfolioPage projects={projects} />;

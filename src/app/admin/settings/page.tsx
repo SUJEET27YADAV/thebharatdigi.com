@@ -51,6 +51,12 @@ export default function SettingsPage() {
         }),
       });
 
+      if (!res.ok) {
+        const data = await res.json();
+        toast.error(data.message || "Failed to update profile");
+        return;
+      }
+
       const data = await res.json();
       if (data.success) {
         toast.success("Profile updated successfully");

@@ -29,7 +29,7 @@ export default function Home() {
       </p>
       <div className="w-full max-w-xl flex flex-col gap-3 items-center">
         <h2 className="w-full text-2xl font-semibold">Tutorials with Demo :</h2>
-        <ul className="w-full max-w-xl list-none pl-2 xs:pl-4 flex flex-col gap-y-1 *:w-full *:h-14 *:p-2 *:rounded *:border *:border-zinc-600 *:hover:bg-zinc-600 *:transition-all *:duration-200 *:flex *:items-center *:justify-center *:text-xl *:2xs:text-2xl *:xs:text-3xl *:sm:text-4xl *:*:w-full *:*:h-full *:*:flex *:*:items-center *:*:justify-center *:*:gap-5">
+        <ul className="w-full max-w-xl list-none pl-2 xs:pl-4 flex flex-col gap-y-1 *:w-full *:h-14 *:p-2 *:rounded *:border *:border-zinc-600 *:hover:bg-zinc-600 *:transition-colors *:duration-200 *:flex *:items-center *:justify-center *:text-xl *:2xs:text-2xl *:xs:text-3xl *:sm:text-4xl *:*:w-full *:*:h-full *:*:flex *:*:items-center *:*:justify-center *:*:gap-5">
           <li>
             <Link href="/passgen">
               <KeyRound />

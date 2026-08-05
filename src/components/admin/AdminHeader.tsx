@@ -20,6 +20,7 @@ export default function AdminHeader({ isOpen, setIsOpen }: AdminHeaderProps) {
         <div className="flex items-center gap-3">
           <button
             type="button"
+            aria-label="Open sidebar menu"
             onClick={() => setIsOpen(true)}
             className={`${isOpen && "hidden"} md:hidden p-2 rounded border border-[#444444] text-[#444444] dark:text-white`}
           >

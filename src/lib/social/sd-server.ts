@@ -136,22 +136,6 @@ export async function pollImageJob(jobId: string, baseUrl?: string): Promise<Ima
   }
 }
 
-export async function generateImageSdServer(topic: ContentTopic): Promise<string> {
-  const { jobId } = await submitImageJob(topic);
-
-  for (;;) {
-    await new Promise((resolve) => setTimeout(resolve, 5000));
-    const poll = await pollImageJob(jobId);
-
-    if (poll.status === "completed" && poll.imageBase64) {
-      return uploadImageToSupabase(Buffer.from(poll.imageBase64, "base64"), "image/png");
-    }
-    if (poll.status === "failed" || poll.status === "cancelled") {
-      throw new Error(`sd-server generation ${poll.status}: ${poll.error || "unknown error"}`);
-    }
-  }
-}
-
 export async function uploadImageToSupabase(buffer: Buffer, mimeType: string): Promise<string> {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   if (!supabaseUrl) throw new Error("NEXT_PUBLIC_SUPABASE_URL not set");

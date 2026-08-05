@@ -44,8 +44,7 @@ export default function Navbar() {
   const flatLinks = TOP_LINKS.filter((l) => !DROPDOWN_LABELS.has(l.label));
   const links = flatLinks
     .toSpliced(2, 0, ...NAV_GROUPS)
-    .filter((l) => l.label !== "Locations")
-    .filter((l) => l.label !== "Shop");
+    .filter((l) => l.label !== "Locations" && l.label !== "Shop");
   const navLinks = links.toSpliced(
     links.length,
     0,
@@ -205,7 +204,7 @@ export default function Navbar() {
           <button
             type="button"
             aria-label="Storefront to buy digital products."
-            className="p-2 flex items-center justify-center rounded border border-gray-300 dark:border-[#444444] bg-white/80 dark:bg-slate-900/80 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:border-indigo-300 dark:hover:border-indigo-500/30 transition-all duration-200"
+            className="p-2 flex items-center justify-center rounded border border-gray-300 dark:border-[#444444] bg-white/80 dark:bg-slate-900/80 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:border-indigo-300 dark:hover:border-indigo-500/30 transition-colors duration-200"
             onClick={() => router.push("/shop")}
           >
             <Store className="size-5" />
@@ -213,7 +212,7 @@ export default function Navbar() {
           <button
             type="button"
             aria-label={`Shopping cart, ${cart.length} items`}
-            className="relative p-2 flex items-center justify-center rounded border border-gray-300 dark:border-[#444444] bg-white/80 dark:bg-slate-900/80 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:border-indigo-300 dark:hover:border-indigo-500/30 transition-all duration-200"
+            className="relative p-2 flex items-center justify-center rounded border border-gray-300 dark:border-[#444444] bg-white/80 dark:bg-slate-900/80 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:border-indigo-300 dark:hover:border-indigo-500/30 transition-colors duration-200"
             onClick={() => {
               if (cart.length === 0) {
                 toast.info(
@@ -238,7 +237,7 @@ export default function Navbar() {
             aria-expanded={drawerOpen}
             ref={menuBtnRef}
             onClick={() => setDrawerOpen(!drawerOpen)}
-            className="md:hidden p-2 flex items-center justify-center rounded border border-gray-300 dark:border-[#444444] bg-white/80 dark:bg-slate-900/80 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-all duration-200"
+            className="md:hidden p-2 flex items-center justify-center rounded border border-gray-300 dark:border-[#444444] bg-white/80 dark:bg-slate-900/80 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors duration-200"
           >
             {drawerOpen ? (
               <X className="size-5" />

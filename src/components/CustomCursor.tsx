@@ -6,12 +6,11 @@ export default function CustomCursor() {
   const prefersReducedMotion = useReducedMotion();
   const [mousePos, setMousePos] = useState({ x: 0, y: 0, visible: false });
   const [isHovering, setIsHovering] = useState(false);
-  const [isFinePointer, setIsFinePointer] = useState(
-    () => typeof window !== "undefined" && window.matchMedia("(hover: hover) and (pointer: fine)").matches,
-  );
+  const [isFinePointer, setIsFinePointer] = useState(false);
 
   useEffect(() => {
     const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+    setIsFinePointer(finePointer.matches);
     const onChange = (e: MediaQueryListEvent) => setIsFinePointer(e.matches);
     finePointer.addEventListener("change", onChange);
     return () => finePointer.removeEventListener("change", onChange);

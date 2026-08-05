@@ -25,27 +25,28 @@ export default function Hero() {
   useEffect(() => {
     const word = words[wordIndex.current];
     const speed = isDeleting.current ? 40 : 120;
+    let timer: ReturnType<typeof setTimeout>;
 
-    const timer = setTimeout(() => {
-      if (!isDeleting.current) {
-        if (displayText.length < word.length) {
-          setDisplayText(word.slice(0, displayText.length + 1));
-        } else {
-          setTimeout(() => {
-            isDeleting.current = true;
-            setTick((t) => t + 1);
-          }, 2200);
-        }
-      } else {
-        if (displayText.length > 0) {
+    if (!isDeleting.current && displayText.length >= word.length) {
+      timer = setTimeout(() => {
+        isDeleting.current = true;
+        setTick((t) => t + 1);
+      }, 2200);
+    } else {
+      timer = setTimeout(() => {
+        if (!isDeleting.current) {
+          if (displayText.length < word.length) {
+            setDisplayText(word.slice(0, displayText.length + 1));
+          }
+        } else if (displayText.length > 0) {
           setDisplayText(word.slice(0, displayText.length - 1));
         } else {
           isDeleting.current = false;
           wordIndex.current = (wordIndex.current + 1) % words.length;
           setTick((t) => t + 1);
         }
-      }
-    }, speed);
+      }, speed);
+    }
 
     return () => clearTimeout(timer);
   }, [displayText, tick]);

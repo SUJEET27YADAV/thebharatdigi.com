@@ -238,7 +238,7 @@ function StatsSection() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ delay: i * 0.05 }}
-          className="text-center p-6 rounded border transition-all group
+          className="text-center p-6 rounded border transition-colors group
                        bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50
                        hover:bg-white dark:hover:bg-slate-800/60"
         >
@@ -331,7 +331,7 @@ export default function About() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="group p-6 rounded border text-center transition-all
+                  className="group p-6 rounded border text-center transition-colors
                             bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/50
                             hover:bg-white dark:hover:bg-slate-800/60"
                 >
@@ -373,7 +373,7 @@ export default function About() {
               {/* Timeline line */}
               <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-slate-700 -translate-y-1/2" />
               <div
-                className="absolute top-1/2 left-0 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-500 -translate-y-1/2 transition-all duration-500"
+                className="absolute top-1/2 left-0 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-500 -translate-y-1/2 transition-[width] duration-500"
                 style={{
                   width: `${((activeTimeline + 1) / timeline.length) * 100}%`,
                 }}
@@ -540,7 +540,7 @@ export default function About() {
               <a
                 href="#contact"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded
-                         bg-white text-indigo-600 font-bold text-lg hover:bg-gray-100 transition-all"
+                         bg-white text-indigo-600 font-bold text-lg hover:bg-gray-100 transition-colors"
               >
                 Start a Project
                 <ArrowRight className="size-5" />

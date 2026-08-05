@@ -116,7 +116,7 @@ export default function Contact() {
                     >
                       <Wrapper
                         {...wrapperProps}
-                        className="flex items-center gap-4 group rounded-xl p-3 hover:bg-white/60 dark:hover:bg-slate-800/40 transition-all duration-200"
+                        className="flex items-center gap-4 group rounded-xl p-3 hover:bg-white/60 dark:hover:bg-slate-800/40 transition-colors duration-200"
                       >
                         <div
                           className={`relative size-12 shrink-0 ${method.bgLight} rounded-xl flex items-center justify-center transition-transform duration-200 group-hover:scale-110`}

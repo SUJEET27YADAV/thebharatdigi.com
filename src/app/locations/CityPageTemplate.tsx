@@ -117,9 +117,9 @@ export default function CityPageTemplate({
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 md:px-6">
           <div className="prose prose-slate dark:prose-invert max-w-none">
-            {data.contentParagraphs.map((p, i) => (
+            {data.contentParagraphs.map((p) => (
               <p
-                key={i}
+                key={p}
                 className="text-slate-600 dark:text-gray-400 leading-relaxed mb-4 text-justify"
               >
                 {p}

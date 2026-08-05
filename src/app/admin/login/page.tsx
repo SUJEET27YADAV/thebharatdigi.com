@@ -25,9 +25,8 @@ export default function AdminLoginPage() {
         credentials: "include",
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
+        const data = await response.json();
         setError(data.message || "Login failed");
         return;
       }

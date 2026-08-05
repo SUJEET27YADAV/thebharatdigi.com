@@ -85,7 +85,7 @@ export default function Portfolio({ initialProjects = [] }: PortfolioProps) {
                     )}
 
                     {/* Arrow icon on hover */}
-                    <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-all duration-200 -translate-y-2 group-hover:translate-y-0">
+                    <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-200 -translate-y-2 group-hover:translate-y-0">
                       <div className="size-8 rounded-lg bg-white/90 dark:bg-slate-900/90 flex items-center justify-center">
                         <ArrowUpRight className="size-4 text-slate-900 dark:text-white" />
                       </div>

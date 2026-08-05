@@ -177,18 +177,27 @@ function GuideCard({ guide }: { guide: (typeof GUIDES)[number] }) {
       </div>
 
       {/* Email capture CTA */}
-      <div className="flex items-center gap-2">
-        <input
-          type="email"
-          placeholder="Enter your email"
-          className="input flex-1 !rounded-lg !px-3 !py-2 !text-sm"
-        />
-        <button
-          className={`flex items-center gap-2 rounded-lg bg-gradient-to-r ${guide.color} px-4 py-2 text-sm font-medium text-white transition-all hover:opacity-90 hover:shadow-lg`}
+      <div>
+        <label
+          htmlFor={`guide-email-${guide.id}`}
+          className="mb-1.5 block text-xs font-medium text-slate-600 dark:text-slate-400"
         >
-          <Download className="h-4 w-4" />
-          <span className="hidden sm:inline">Get</span>
-        </button>
+          Email to receive this guide
+        </label>
+        <div className="flex items-center gap-2">
+          <input
+            id={`guide-email-${guide.id}`}
+            type="email"
+            placeholder="you@example.com"
+            className="input flex-1 !rounded-lg !px-3 !py-2 !text-sm"
+          />
+          <button
+            className={`flex items-center gap-2 rounded-lg bg-gradient-to-r ${guide.color} px-4 py-2 text-sm font-medium text-white transition-all hover:opacity-90 hover:shadow-lg`}
+          >
+            <Download className="h-4 w-4" />
+            <span className="hidden sm:inline">Get</span>
+          </button>
+        </div>
       </div>
     </article>
   );

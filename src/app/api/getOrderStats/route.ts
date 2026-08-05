@@ -39,28 +39,20 @@ export async function GET(req: NextRequest) {
       direction:
         (thisMonthOrders.length / data.length) * 100 >= 0 ? "up" : "down",
     };
-    const uniqueCustomers = [] as string[];
-    data.map(
-      (c) =>
-        !uniqueCustomers.includes(c.email) && uniqueCustomers.push(c.email),
-    );
-    const uniqueCustomersBeforeThisMonth = [] as string[];
-    pastOrders.map(
-      (c) =>
-        !uniqueCustomersBeforeThisMonth.includes(c.email) &&
-        uniqueCustomersBeforeThisMonth.push(c.email),
-    );
-    const uniqueCustomersThisMonth = [] as string[];
-    thisMonthOrders.map(
-      (c) =>
-        !uniqueCustomersBeforeThisMonth.includes(c.email) &&
-        !uniqueCustomersThisMonth.includes(c.email) &&
-        uniqueCustomersThisMonth.push(c.email),
-    );
+    const uniqueCustomers = new Set<string>();
+    data.forEach((c) => uniqueCustomers.add(c.email));
+    const uniqueCustomersBeforeThisMonth = new Set<string>();
+    pastOrders.forEach((c) => uniqueCustomersBeforeThisMonth.add(c.email));
+    const uniqueCustomersThisMonth = new Set<string>();
+    thisMonthOrders.forEach((c) => {
+      if (!uniqueCustomersBeforeThisMonth.has(c.email)) {
+        uniqueCustomersThisMonth.add(c.email);
+      }
+    });
     const uniqueCustomersTrend = {
-      value: (uniqueCustomersThisMonth.length / uniqueCustomers.length) * 100,
+      value: (uniqueCustomersThisMonth.size / uniqueCustomers.size) * 100,
       direction:
-        (uniqueCustomersThisMonth.length / uniqueCustomers.length) * 100 >= 0
+        (uniqueCustomersThisMonth.size / uniqueCustomers.size) * 100 >= 0
           ? "up"
           : "down",
     };
@@ -93,7 +85,7 @@ export async function GET(req: NextRequest) {
         trend: totalOrderstrend,
       },
       totalCustomers: {
-        value: uniqueCustomers.length,
+        value: uniqueCustomers.size,
         trend: uniqueCustomersTrend,
       },
       totalRevenue: {

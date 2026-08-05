@@ -1,6 +1,7 @@
 "use client";
 
-import { useReducer } from "react";
+import { useMemo, useReducer } from "react";
+import Link from "next/link";
 import {
   Globe,
   Smartphone,
@@ -158,6 +159,10 @@ function calculateEstimate(state: CalculatorState) {
 export default function CostCalculatorClient() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const estimate = calculateEstimate(state);
+  const selectedFeatures = useMemo(
+    () => new Set(state.features),
+    [state.features],
+  );
 
   return (
     <div className="space-y-8">
@@ -196,13 +201,13 @@ export default function CostCalculatorClient() {
                 key={feat.id}
                 onClick={() => dispatch({ type: "TOGGLE_FEATURE", payload: feat.id })}
                 className={`flex items-center justify-between rounded-xl border p-4 text-left text-sm transition-all ${
-                  state.features.includes(feat.id)
+                  selectedFeatures.has(feat.id)
                     ? "border-indigo-300 bg-indigo-50 text-indigo-700 dark:border-indigo-500/50 dark:bg-indigo-500/10 dark:text-indigo-300"
                     : "border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50 dark:border-slate-700 dark:bg-white/5 dark:text-slate-400 dark:hover:border-white/20 dark:hover:bg-white/10"
                 }`}
               >
                 <span className="flex items-center gap-2">
-                  {state.features.includes(feat.id) && (
+                  {selectedFeatures.has(feat.id) && (
                     <CheckCircle className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
                   )}
                   {feat.label}
@@ -332,13 +337,13 @@ export default function CostCalculatorClient() {
             </span>
           </div>
 
-          <a
+          <Link
             href="/contactus"
             className="btn-primary w-full sm:w-auto"
           >
             Get Exact Quote
             <ArrowRight className="h-4 w-4" />
-          </a>
+          </Link>
         </section>
       )}
 

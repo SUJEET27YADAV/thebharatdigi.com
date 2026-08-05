@@ -146,8 +146,9 @@ export async function completePost(rowId: string): Promise<PostResult> {
       error_message: allSuccess
         ? null
         : platforms
-            .filter((p) => !p.success)
-            .map((p) => `${p.platform}: ${p.error}`)
+            .flatMap((p) =>
+              p.success ? [] : [`${p.platform}: ${p.error}`],
+            )
             .join("; "),
     })
     .eq("id", rowId);
