@@ -49,7 +49,7 @@ export default function AdminSidebar({ isOpen, setIsOpen }: AdminSidebarProps) {
     {
       label: "Portfolio",
       href: "/admin/portfolio",
-      icon: <Image size={18} aria-hidden />, // eslint-disable-line jsx-a11y/alt-text
+      icon: <Image size={18} aria-hidden />, // eslint-disable-line jsx-a11y/alt-text -- decorative lucide icon, aria-hidden
     },
     {
       label: "Settings",
@@ -104,6 +104,11 @@ export default function AdminSidebar({ isOpen, setIsOpen }: AdminSidebarProps) {
 
         <nav className="px-4 space-y-2">
           {navItems.map((item) => {
+            const navItemClass = `w-full flex items-center gap-3 px-4 py-3 rounded transition-colors text-sm ${
+              pathname === item.href
+                ? "bg-slate-300 dark:bg-[#1d293d] text-[#ac4bff] border-l-3 border-[#ac4bff]"
+                : "hover:bg-gray-100 dark:hover:bg-[#1d293d] text-[#314158]"
+            }`;
             if (item.label === "Logout") {
               if (user) {
                 return (
@@ -111,7 +116,7 @@ export default function AdminSidebar({ isOpen, setIsOpen }: AdminSidebarProps) {
                     type="button"
                     key={item.label}
                     onClick={item.onClick}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded transition-colors text-sm ${pathname === item.href ? "bg-slate-300 dark:bg-[#1d293d] text-[#ac4bff] border-l-3 border-[#ac4bff]" : "hover:bg-gray-100 dark:hover:bg-[#1d293d] text-[#314158]"} `}
+                    className={navItemClass}
                   >
                     <span>{item.icon}</span>
                     <span>{item.label}</span>
@@ -126,7 +131,7 @@ export default function AdminSidebar({ isOpen, setIsOpen }: AdminSidebarProps) {
                   key={item.label}
                   href={item.href!}
                   onClick={() => setIsOpen(false)}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded transition-colors text-sm ${pathname === item.href ? "bg-slate-300 dark:bg-[#1d293d] text-[#ac4bff] border-l-3 border-[#ac4bff]" : "hover:bg-gray-100 dark:hover:bg-[#1d293d] text-[#314158]"} `}
+                  className={navItemClass}
                 >
                   <span>{item.icon}</span>
                   <span>{item.label}</span>

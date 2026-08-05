@@ -6,6 +6,7 @@ import AdminTable from "@/components/admin/AdminTable";
 import Link from "next/link";
 import { useAdmin } from "@/contexts/AdminAuthContext";
 import { AdminDashboardStats, Order } from "@/types/types";
+import { paiseToRupees } from "@/utils/format";
 
 const TABLE_COLUMNS = [
   { key: "name", label: "Customer", width: "max-w-[200px]" },
@@ -28,6 +29,7 @@ export default function AdminDashboardClient({
 
   const tableData = recentOrders.map((order) => ({
     ...order,
+    amount: paiseToRupees(order.amount),
     paid: (
       <span
         className={`px-3 py-1 rounded text-xs font-medium ${order.paid ? "bg-[#00c75820] text-[#00c758]" : "bg-[#f99c0020] text-[#f99c00]"}`}

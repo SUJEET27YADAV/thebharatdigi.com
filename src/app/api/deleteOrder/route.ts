@@ -1,40 +1,10 @@
-import { createServerClient } from "@/utils/supabase/server";
-import { NextRequest, NextResponse } from "next/server";
-import { isAdminRequest, unauthorized } from "@/utils/admin/guard";
+import { NextRequest } from "next/server";
+import { adminDelete } from "@/utils/admin/crud";
 
 export async function DELETE(req: NextRequest) {
-  if (!(await isAdminRequest(req))) return unauthorized();
-  const supabase = createServerClient();
-  try {
-    const { id } = await req.json();
-    const { data, error } = await supabase
-      .from("customers")
-      .delete()
-      .eq("id", id)
-      .select("*")
-      .single();
-    if (error) {
-      console.error(error);
-      return NextResponse.json(
-        { success: false, msg: "Error deleting order." },
-        { status: 404 },
-      );
-    }
-    if (!data) {
-      return NextResponse.json(
-        { success: false, msg: "Order not found." },
-        { status: 404 },
-      );
-    }
-    return NextResponse.json(
-      { success: true, msg: "Order deleted successfully." },
-      { status: 200 },
-    );
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json(
-      { success: false, msg: "Error deleting order." },
-      { status: 500 },
-    );
-  }
+  return adminDelete(req, "customers", {
+    error: "Error deleting order.",
+    notFound: "Order not found.",
+    success: "Order deleted successfully.",
+  });
 }

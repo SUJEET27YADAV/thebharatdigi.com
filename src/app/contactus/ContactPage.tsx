@@ -22,6 +22,7 @@ import {
   X,
 } from "lucide-react";
 import SubmitAction from "@/actions/formsubmitAction";
+import { PROJECT_TYPES, BUDGET_RANGES } from "@/lib/contact";
 
 const initState = { msg: "" };
 
@@ -167,26 +168,6 @@ const colorStyles: Record<string, string> = {
   pink: "bg-pink-100 dark:bg-pink-500/10 text-pink-600 dark:text-pink-400 border-pink-200 dark:border-pink-500/30 hover:shadow-xl hover:shadow-pink-500/30",
 };
 
-const projectTypes = [
-  "Custom Website Development",
-  "E-Commerce Store",
-  "Web Application",
-  "Mobile App Development",
-  "UI/UX Design",
-  "IT Support & Maintenance",
-  "Other",
-];
-
-const budgetRanges = [
-  "₹10,000 - ₹25,000",
-  "₹25,000 - ₹50,000",
-  "₹50,000 - ₹1,00,000",
-  "₹1,00,000 - ₹2,50,000",
-  "₹2,50,000 - ₹5,00,000",
-  "₹5,00,000+",
-  "Not sure yet",
-];
-
 function ContactFormSection({
   formAction,
   isPending,
@@ -286,7 +267,7 @@ function ContactFormSection({
               </label>
               <select id="contact-project-type" name="pType" required className="select">
                 <option value="" className="bg-slate-400 dark:bg-slate-900">Select a project type</option>
-                {projectTypes.map((type) => (
+                {PROJECT_TYPES.map((type) => (
                   <option key={type} value={type} className="bg-slate-400 dark:bg-slate-900">{type}</option>
                 ))}
               </select>
@@ -295,7 +276,7 @@ function ContactFormSection({
               <label htmlFor="contact-budget" className="block text-sm font-medium dark:text-gray-300">Budget Range</label>
               <select id="contact-budget" name="budget" className="select">
                 <option value="" className="bg-slate-400 dark:bg-slate-900">Select budget range</option>
-                {budgetRanges.map((range) => (
+                {BUDGET_RANGES.map((range) => (
                   <option key={range} value={range} className="bg-slate-400 dark:bg-slate-900">{range}</option>
                 ))}
               </select>

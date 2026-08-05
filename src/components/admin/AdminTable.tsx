@@ -1,4 +1,7 @@
+import type { ReactNode } from "react";
 import { Edit2, Trash2 } from "lucide-react";
+
+export type AdminRow = Record<string, ReactNode> & { id: string };
 
 interface Column {
   key: string;
@@ -8,9 +11,9 @@ interface Column {
 
 interface AdminTableProps {
   columns: Column[];
-  data: Record<string, any>[]; // eslint-disable-line @typescript-eslint/no-explicit-any
-  onEdit?: (row: Record<string, any>) => void; // eslint-disable-line @typescript-eslint/no-explicit-any
-  onDelete?: (row: Record<string, any>) => void; // eslint-disable-line @typescript-eslint/no-explicit-any
+  data: AdminRow[];
+  onEdit?: (row: AdminRow) => void;
+  onDelete?: (row: AdminRow) => void;
 }
 
 export default function AdminTable({
@@ -38,7 +41,7 @@ export default function AdminTable({
           </tr>
         </thead>
         <tbody>
-          {data.map((row, _idx) => (
+          {data.map((row) => (
             <tr
               key={row.id}
               className="border-b border-[#444444] hover:bg-opacity-50 hover:bg-gray-400 hover:dark:bg-[#1d293d] transition-colors"

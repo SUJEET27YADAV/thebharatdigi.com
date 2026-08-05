@@ -1,7 +1,37 @@
 import { MetadataRoute } from "next";
 import { createServerClient } from "@/utils/supabase/server";
+import { PUBLIC_PATHS } from "@/lib/routes";
 
 const BASE_URL = "https://www.thebharatdigi.com";
+
+const STATIC_METADATA: Record<
+  string,
+  {
+    changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
+    priority: number;
+  }
+> = {
+  "/": { changeFrequency: "weekly", priority: 1.0 },
+  "/aboutus": { changeFrequency: "monthly", priority: 0.8 },
+  "/contactus": { changeFrequency: "monthly", priority: 0.8 },
+  "/shop": { changeFrequency: "weekly", priority: 0.9 },
+  "/services": { changeFrequency: "weekly", priority: 0.9 },
+  "/portfolio": { changeFrequency: "weekly", priority: 0.8 },
+  "/tutorials": { changeFrequency: "monthly", priority: 0.6 },
+  "/locations": { changeFrequency: "monthly", priority: 0.8 },
+  "/locations/delhi": { changeFrequency: "monthly", priority: 0.7 },
+  "/locations/noida": { changeFrequency: "monthly", priority: 0.7 },
+  "/locations/gurugram": { changeFrequency: "monthly", priority: 0.7 },
+  "/locations/faridabad": { changeFrequency: "monthly", priority: 0.7 },
+  "/locations/ghaziabad": { changeFrequency: "monthly", priority: 0.7 },
+  "/seo-audit-pro": { changeFrequency: "weekly", priority: 0.8 },
+  "/nodemailer": { changeFrequency: "monthly", priority: 0.5 },
+  "/passgen": { changeFrequency: "monthly", priority: 0.5 },
+  "/cart": { changeFrequency: "monthly", priority: 0.3 },
+  "/payment-confirmation": { changeFrequency: "yearly", priority: 0.1 },
+  "/privacypolicy": { changeFrequency: "yearly", priority: 0.3 },
+  "/termsandconditions": { changeFrequency: "yearly", priority: 0.3 },
+};
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const supabase = createServerClient();
@@ -21,128 +51,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }),
   );
 
-  const staticRoutes: MetadataRoute.Sitemap = [
-    {
-      url: BASE_URL,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1.0,
-    },
-    {
-      url: `${BASE_URL}/aboutus`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/contactus`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/shop`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/services`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/portfolio`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/tutorials`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
-    {
-      url: `${BASE_URL}/locations`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/locations/delhi`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/locations/noida`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/locations/gurugram`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/locations/faridabad`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/locations/ghaziabad`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/seo-audit-pro`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/nodemailer`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
+  const staticRoutes: MetadataRoute.Sitemap = PUBLIC_PATHS.map((path) => {
+    const meta = STATIC_METADATA[path] ?? {
+      changeFrequency: "monthly" as const,
       priority: 0.5,
-    },
-    {
-      url: `${BASE_URL}/passgen`,
+    };
+    return {
+      url: `${BASE_URL}${path === "/" ? "" : path}`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
-      url: `${BASE_URL}/cart`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.3,
-    },
-    {
-      url: `${BASE_URL}/payment-confirmation`,
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.1,
-    },
-    {
-      url: `${BASE_URL}/privacypolicy`,
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
-    {
-      url: `${BASE_URL}/termsandconditions`,
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
-  ];
+      ...meta,
+    };
+  });
 
   return [...staticRoutes, ...productEntries];
 }

@@ -1,10 +1,10 @@
 "use client";
 
-import { useMemo, useReducer, useState } from "react";
-import AdminTable from "@/components/admin/AdminTable";
+import { useMemo, useState } from "react";
+import AdminTable, { type AdminRow } from "@/components/admin/AdminTable";
+import { useAdminList } from "@/components/admin/useAdminList";
 import { Loader2, Plus, Search } from "lucide-react";
 import { Project } from "@/types/types";
-import { toast } from "react-toastify";
 import AddProjectModal from "./AddProjectModal";
 import EditProjectModal from "./EditProjectModal";
 
@@ -20,118 +20,42 @@ const TABLE_COLUMNS = [
   { key: "link", label: "Link", width: "max-w-[200px]" },
 ];
 
-type State = {
-  portfolio: Project[];
-  searchTerm: string;
-  loading: boolean;
-};
-
-type Action =
-  | { type: "SET_DATA"; payload: Project[] }
-  | { type: "SET_SEARCH"; payload: string }
-  | { type: "SET_LOADING"; payload: boolean };
-
-function reducer(state: State, action: Action): State {
-  switch (action.type) {
-    case "SET_DATA":
-      return { ...state, portfolio: action.payload, loading: false };
-    case "SET_SEARCH":
-      return { ...state, searchTerm: action.payload };
-    case "SET_LOADING":
-      return { ...state, loading: action.payload };
-    default:
-      return state;
-  }
-}
-
 export default function PortfolioManager({ projects }: { projects: Project[] }) {
-  const [state, dispatch] = useReducer(reducer, {
-    portfolio: projects,
-    searchTerm: "",
-    loading: false,
-  });
-  const [project, setProject] = useState<Record<
-    string,
-    string | boolean | number
-  > | null>(null);
+  const [project, setProject] = useState<Project | null>(null);
   const [showAddModal, setShowAddModal] = useState(false);
-  const [showEditModal, setShowEditModal] = useState(false);
+
+  const { items, searchTerm, loading, setSearchTerm, fetchItems, removeItem } =
+    useAdminList({
+      initialItems: projects,
+      listPath: "/api/getProjects",
+      deletePath: "/api/deleteProject",
+      deleteConfirm: (item) => `Are you sure you want to delete "${item.title}"?`,
+      messages: {
+        success: "Project deleted successfully!",
+        deleteError: "Failed to delete project, please try again.",
+        loadError: "Failed to fetch portfolio items",
+      },
+    });
 
   const filteredPortfolio = useMemo(() => {
-    return state.portfolio.filter((item) =>
-      item.title.toLowerCase().includes(state.searchTerm.toLowerCase()),
+    return items.filter((item) =>
+      item.title.toLowerCase().includes(searchTerm.toLowerCase()),
     );
-  }, [state.portfolio, state.searchTerm]);
+  }, [items, searchTerm]);
 
-  const fetchPortfolio = async () => {
-    try {
-      const response = await fetch("/api/getProjects");
-      if (response.ok) {
-        const res = await response.json();
-        if (res.success) {
-          dispatch({ type: "SET_DATA", payload: res.data });
-        } else {
-          dispatch({ type: "SET_DATA", payload: [] });
-          toast.error(res.msg || "Failed to fetch portfolio items");
-        }
-      } else {
-        const res = await response.json();
-        if (Array.isArray(res.data)) {
-          dispatch({ type: "SET_DATA", payload: res.data });
-        } else {
-          throw new Error("Failed to fetch portfolio items");
-        }
-      }
-    } catch (err) {
-      console.error("Failed to fetch portfolio items:", err);
-      toast.error("Failed to fetch portfolio items");
-    } finally {
-      dispatch({ type: "SET_LOADING", payload: false });
-    }
-  };
-
-  const handleEdit = (project: Record<string, string | boolean | number>) => {
-    setProject(project);
-    setShowEditModal(true);
-  };
-
-  const handleDelete = async (
-    project: Record<string, string | boolean | number>,
-  ) => {
-    if (confirm(`Are you sure you want to delete "${project.title}"?`)) {
-      try {
-        const response = await fetch("/api/deleteProject", {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id: project.id }),
-        });
-        if (!response.ok) {
-          const res = await response.json();
-          toast.error(res.msg || "Failed to delete project, please try again.");
-          return;
-        }
-        const res = await response.json();
-        if (res.success) {
-          toast.success(res.msg || "Project deleted successfully!");
-          fetchPortfolio();
-        } else {
-          toast.error(res.msg || "Failed to delete project, please try again.");
-        }
-      } catch (err) {
-        console.error(err);
-        toast.error("Failed to delete project. Please try again.");
-      }
-    }
+  const handleEdit = (row: AdminRow) => {
+    const item = items.find((p) => p.id === row.id);
+    if (item) setProject(item);
   };
 
   const onAddModalClose = () => {
     setShowAddModal(false);
-    fetchPortfolio();
+    fetchItems();
   };
 
   const onEditModalClose = () => {
-    setShowEditModal(false);
-    fetchPortfolio();
+    setProject(null);
+    fetchItems();
   };
 
   const tableData = filteredPortfolio.map((project) => ({
@@ -140,7 +64,7 @@ export default function PortfolioManager({ projects }: { projects: Project[] }) 
     featured: project.featured ? "Yes" : "No",
   }));
 
-  if (state.loading) {
+  if (loading) {
     return (
       <div className="flex flex-col items-center justify-center h-[calc(100dvh-160px)] text-[#314158] dark:text-white text-lg font-medium">
         <Loader2 size={40} className="animate-spin" />
@@ -174,10 +98,8 @@ export default function PortfolioManager({ projects }: { projects: Project[] }) 
           type="text"
           aria-label="Search portfolio"
           placeholder="Search portfolio..."
-          value={state.searchTerm}
-          onChange={(e) =>
-            dispatch({ type: "SET_SEARCH", payload: e.target.value })
-          }
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
           className="flex-1 bg-transparent outline-none text-sm"
         />
       </div>
@@ -186,13 +108,13 @@ export default function PortfolioManager({ projects }: { projects: Project[] }) 
         columns={TABLE_COLUMNS}
         data={tableData}
         onEdit={handleEdit}
-        onDelete={handleDelete}
+        onDelete={removeItem}
       />
       {/* New Project Modal */}
       {showAddModal && <AddProjectModal onClose={onAddModalClose} />}
       {/* Edit Project Modal */}
-      {showEditModal && (
-        <EditProjectModal project={project!} onClose={onEditModalClose} />
+      {project && (
+        <EditProjectModal project={project} onClose={onEditModalClose} />
       )}
     </div>
   );

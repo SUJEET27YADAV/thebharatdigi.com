@@ -1,5 +1,6 @@
 import type { ContentTopic } from "./topics";
 import { buildTextPrompt, adaptForPlatform, generateHashtags } from "./templates";
+import { sleep } from "@/utils/async";
 
 export interface GeneratedText {
   caption: string;
@@ -12,10 +13,6 @@ interface GeminiResponse {
       parts?: Array<{ text?: string }>;
     };
   }>;
-}
-
-function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function callGemini(prompt: string): Promise<string> {

@@ -1,32 +1,9 @@
-import { createServerClient } from "@/utils/supabase/server";
-import { NextResponse } from "next/server";
+import { adminFetch } from "@/utils/admin/crud";
 
 export async function GET() {
-  const supabase = createServerClient();
-  try {
-    const { data, error } = await supabase.from("projects").select("*");
-    if (error) {
-      console.error(error);
-      return NextResponse.json(
-        { success: false, msg: "Error fetching projects", data: [] },
-        { status: 404 },
-      );
-    }
-    if (!data || data.length === 0) {
-      return NextResponse.json(
-        { success: false, msg: "No projects found", data: [] },
-        { status: 404 },
-      );
-    }
-    return NextResponse.json(
-      { success: true, msg: "Projects fetched successfully", data: data },
-      { status: 200 },
-    );
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json(
-      { success: false, msg: "Error fetching projects" },
-      { status: 500 },
-    );
-  }
+  return adminFetch(null, "projects", {
+    error: "Error fetching projects",
+    empty: "No projects found",
+    success: "Projects fetched successfully",
+  });
 }

@@ -1,6 +1,18 @@
 import { createServerClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 import { isAdminRequest, unauthorized } from "@/utils/admin/guard";
+import { paiseToRupees } from "@/utils/format";
+
+const trend = (current: number, previous: number, total: number) => ({
+  value: total > 0 ? (current / total) * 100 : 0,
+  direction: current >= previous ? ("up" as const) : ("down" as const),
+});
+
+const distinctEmails = (orders: { email: string }[]) => {
+  const emails = new Set<string>();
+  orders.forEach((o) => emails.add(o.email));
+  return emails;
+};
 
 export async function GET(req: NextRequest) {
   if (!(await isAdminRequest(req))) return unauthorized();
@@ -28,44 +40,55 @@ export async function GET(req: NextRequest) {
       0,
       0,
     );
+    const firstOfLastMonth = new Date(
+      firstOfThisMonth.getFullYear(),
+      firstOfThisMonth.getMonth() - 1,
+      1,
+      0,
+      0,
+      0,
+    );
     const thisMonthOrders = data.filter(
       (o) => new Date(o.created_at) >= firstOfThisMonth,
+    );
+    const lastMonthOrders = data.filter(
+      (o) =>
+        new Date(o.created_at) >= firstOfLastMonth &&
+        new Date(o.created_at) < firstOfThisMonth,
     );
     const pastOrders = data.filter(
       (o) => new Date(o.created_at) < firstOfThisMonth,
     );
-    const totalOrderstrend = {
-      value: (thisMonthOrders.length / data.length) * 100,
-      direction:
-        (thisMonthOrders.length / data.length) * 100 >= 0 ? "up" : "down",
-    };
-    const uniqueCustomers = new Set<string>();
-    data.forEach((c) => uniqueCustomers.add(c.email));
-    const uniqueCustomersBeforeThisMonth = new Set<string>();
-    pastOrders.forEach((c) => uniqueCustomersBeforeThisMonth.add(c.email));
-    const uniqueCustomersThisMonth = new Set<string>();
-    thisMonthOrders.forEach((c) => {
-      if (!uniqueCustomersBeforeThisMonth.has(c.email)) {
-        uniqueCustomersThisMonth.add(c.email);
-      }
-    });
-    const uniqueCustomersTrend = {
-      value: (uniqueCustomersThisMonth.size / uniqueCustomers.size) * 100,
-      direction:
-        (uniqueCustomersThisMonth.size / uniqueCustomers.size) * 100 >= 0
-          ? "up"
-          : "down",
-    };
-    const totalRevenue =
-      data.reduce((acc, order) => acc + order.amount, 0) / 100;
-    const totalRevenueThisMonth = thisMonthOrders.reduce(
-      (acc, order) => acc + order.amount,
+
+    const customersBeforeThisMonth = distinctEmails(pastOrders);
+    const uniqueCustomersThisMonth = new Set(
+      [...distinctEmails(thisMonthOrders)].filter(
+        (email) => !customersBeforeThisMonth.has(email),
+      ),
+    );
+    const customersBeforeLastMonth = distinctEmails(
+      data.filter((o) => new Date(o.created_at) < firstOfLastMonth),
+    );
+    const uniqueCustomersLastMonth = new Set(
+      [...distinctEmails(lastMonthOrders)].filter(
+        (email) => !customersBeforeLastMonth.has(email),
+      ),
+    );
+    const uniqueCustomers = distinctEmails(data);
+
+    const totalRevenue = data.reduce(
+      (acc, order) => acc + paiseToRupees(order.amount),
       0,
     );
-    const totalRevenueTrend = {
-      value: totalRevenueThisMonth / totalRevenue,
-      direction: totalRevenueThisMonth / totalRevenue >= 0 ? "up" : "down",
-    };
+    const totalRevenueThisMonth = thisMonthOrders.reduce(
+      (acc, order) => acc + paiseToRupees(order.amount),
+      0,
+    );
+    const totalRevenueLastMonth = lastMonthOrders.reduce(
+      (acc, order) => acc + paiseToRupees(order.amount),
+      0,
+    );
+
     const totalSales = data.reduce(
       (acc, order) => acc + order.product_id.length,
       0,
@@ -74,27 +97,35 @@ export async function GET(req: NextRequest) {
       (acc, order) => acc + order.product_id.length,
       0,
     );
-    const totalSalesTrend = {
-      value: (totalSalesThisMonth / totalSales) * 100,
-      direction: (totalSalesThisMonth / totalSales) * 100 >= 0 ? "up" : "down",
-    };
+    const totalSalesLastMonth = lastMonthOrders.reduce(
+      (acc, order) => acc + order.product_id.length,
+      0,
+    );
 
     const orderStats = {
       totalOrders: {
         value: data.length,
-        trend: totalOrderstrend,
+        trend: trend(
+          thisMonthOrders.length,
+          lastMonthOrders.length,
+          data.length,
+        ),
       },
       totalCustomers: {
         value: uniqueCustomers.size,
-        trend: uniqueCustomersTrend,
+        trend: trend(
+          uniqueCustomersThisMonth.size,
+          uniqueCustomersLastMonth.size,
+          uniqueCustomers.size,
+        ),
       },
       totalRevenue: {
         value: totalRevenue,
-        trend: totalRevenueTrend,
+        trend: trend(totalRevenueThisMonth, totalRevenueLastMonth, totalRevenue),
       },
       totalSales: {
         value: totalSales,
-        trend: totalSalesTrend,
+        trend: trend(totalSalesThisMonth, totalSalesLastMonth, totalSales),
       },
     };
     return NextResponse.json(

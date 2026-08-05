@@ -4,6 +4,7 @@ import JsonLd from "@/components/JsonLd";
 import FaqSection from "@/components/FaqSection";
 import type { FaqItem } from "@/lib/faq-data";
 import Locationbar from "@/components/Locationbar";
+import { appUrl } from "@/utils/env";
 
 export interface CityPageData {
   slug: string;
@@ -27,8 +28,7 @@ export default function CityPageTemplate({
   data: CityPageData;
   faqs: FaqItem[];
 }) {
-  const baseUrl =
-    process.env.NEXT_PUBLIC_APP_URL || "https://thebharatdigi.com";
+  const baseUrl = appUrl();
 
   return (
     <>

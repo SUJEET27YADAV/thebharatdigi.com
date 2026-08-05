@@ -4,14 +4,12 @@ import client from "@/utils/phonepeClient";
 import { FormState } from "@/types/types";
 import { CheckoutSchema } from "@/utils/zodSchema";
 import { createServerClient } from "@/utils/supabase/server";
-import { auth } from "@/utils/auth";
 
+// oxlint-disable-next-line react-doctor/server-auth-actions -- public store checkout, no session concept
 export async function CheckoutAction(
   previousState: FormState,
   formData: FormData,
 ) {
-  const session = await auth();
-  if (!session) return { success: false, message: "Unauthorized" };
   const supabase = createServerClient();
   try {
     const validData = CheckoutSchema.safeParse({

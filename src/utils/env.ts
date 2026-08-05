@@ -5,3 +5,7 @@ export function requireEnv(name: string): string {
   }
   return value;
 }
+
+export function appUrl(fallback = "https://thebharatdigi.com"): string {
+  return process.env.NEXT_PUBLIC_APP_URL || fallback;
+}

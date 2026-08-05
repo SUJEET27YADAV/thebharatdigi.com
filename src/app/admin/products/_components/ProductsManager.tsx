@@ -1,12 +1,12 @@
 "use client";
 
-import { useMemo, useReducer, useState } from "react";
-import AdminTable from "@/components/admin/AdminTable";
+import { useMemo, useState } from "react";
+import AdminTable, { type AdminRow } from "@/components/admin/AdminTable";
+import { useAdminList } from "@/components/admin/useAdminList";
 import { Loader2, Plus, Search } from "lucide-react";
 import { Product } from "@/types/types";
 import AddProductModal from "./AddProductModal";
 import EditProductModal from "./EditProductModal";
-import { toast } from "react-toastify";
 
 const TABLE_COLUMNS = [
   { key: "serial", label: "S.No.", width: "max-w-[200px]" },
@@ -17,120 +17,44 @@ const TABLE_COLUMNS = [
   { key: "features", label: "Features", width: "max-w-[200px]" },
 ];
 
-type State = {
-  products: Product[];
-  searchTerm: string;
-  loading: boolean;
-};
-
-type Action =
-  | { type: "SET_DATA"; payload: Product[] }
-  | { type: "SET_SEARCH"; payload: string }
-  | { type: "SET_LOADING"; payload: boolean };
-
-function reducer(state: State, action: Action): State {
-  switch (action.type) {
-    case "SET_DATA":
-      return { ...state, products: action.payload, loading: false };
-    case "SET_SEARCH":
-      return { ...state, searchTerm: action.payload };
-    case "SET_LOADING":
-      return { ...state, loading: action.payload };
-    default:
-      return state;
-  }
-}
-
 export default function ProductsManager({ products }: { products: Product[] }) {
-  const [state, dispatch] = useReducer(reducer, {
-    products,
-    searchTerm: "",
-    loading: false,
-  });
-  const [product, setProduct] = useState<Record<
-    string,
-    string | number | boolean
-  > | null>(null);
+  const [product, setProduct] = useState<Product | null>(null);
   const [showAddModal, setShowAddModal] = useState(false);
-  const [showEditModal, setShowEditModal] = useState(false);
+
+  const { items, searchTerm, loading, setSearchTerm, fetchItems, removeItem } =
+    useAdminList({
+      initialItems: products,
+      listPath: "/api/getProducts",
+      deletePath: "/api/deleteProduct",
+      deleteConfirm: (item) => `Are you sure you want to delete "${item.name}"?`,
+      messages: {
+        success: "Product deleted successfully!",
+        deleteError: "Failed to delete product, please try again.",
+        loadError: "Failed to fetch products",
+      },
+    });
 
   const filteredProducts = useMemo(() => {
-    return state.products.filter(
+    return items.filter(
       (product) =>
-        product.name.toLowerCase().includes(state.searchTerm.toLowerCase()) ||
-        product.tag.toLowerCase().includes(state.searchTerm.toLowerCase()),
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.tag.toLowerCase().includes(searchTerm.toLowerCase()),
     );
-  }, [state.products, state.searchTerm]);
+  }, [items, searchTerm]);
 
-  const fetchProducts = async () => {
-    try {
-      const response = await fetch("/api/getProducts");
-      if (response.ok) {
-        const res = await response.json();
-        if (res.success) {
-          dispatch({ type: "SET_DATA", payload: res.data || [] });
-        } else {
-          dispatch({ type: "SET_DATA", payload: [] });
-          toast.error(res.msg || "Failed to fetch products");
-        }
-      } else {
-        const res = await response.json();
-        if (Array.isArray(res.data)) {
-          dispatch({ type: "SET_DATA", payload: res.data });
-        } else {
-          throw new Error("Failed to fetch products");
-        }
-      }
-    } catch (err) {
-      console.error("Failed to fetch products:", err);
-      toast.error("Failed to fetch products");
-    } finally {
-      dispatch({ type: "SET_LOADING", payload: false });
-    }
-  };
-
-  const handleEdit = (product: Record<string, string | number | boolean>) => {
-    setProduct(product);
-    setShowEditModal(true);
-  };
-
-  const handleDelete = async (
-    product: Record<string, string | number | boolean>,
-  ) => {
-    if (confirm(`Are you sure you want to delete "${product.name}"?`)) {
-      try {
-        const response = await fetch("/api/deleteProduct", {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id: product.id }),
-        });
-        if (!response.ok) {
-          const res = await response.json();
-          toast.error(res.msg || "Failed to delete product, please try again.");
-          return;
-        }
-        const res = await response.json();
-        if (res.success) {
-          toast.success(res.msg || "Product deleted successfully!");
-          fetchProducts();
-        } else {
-          toast.error(res.msg || "Failed to delete product, please try again.");
-        }
-      } catch (err) {
-        console.error(err);
-        toast.error("Failed to delete product. Please try again.");
-      }
-    }
+  const handleEdit = (row: AdminRow) => {
+    const item = items.find((p) => p.id === row.id);
+    if (item) setProduct(item);
   };
 
   const onAddModalClose = () => {
     setShowAddModal(false);
-    fetchProducts();
+    fetchItems();
   };
 
   const onEditModalClose = () => {
-    setShowEditModal(false);
-    fetchProducts();
+    setProduct(null);
+    fetchItems();
   };
 
   const tableData = filteredProducts.map((product) => ({
@@ -138,7 +62,7 @@ export default function ProductsManager({ products }: { products: Product[] }) {
     features: product.features.join(", "),
   }));
 
-  if (state.loading) {
+  if (loading) {
     return (
       <div className="flex flex-col items-center justify-center h-[calc(100dvh-160px)] text-[#314158] dark:text-white text-lg font-medium">
         <Loader2 size={40} className="animate-spin" />
@@ -173,10 +97,8 @@ export default function ProductsManager({ products }: { products: Product[] }) {
           type="text"
           aria-label="Search products"
           placeholder="Search products..."
-          value={state.searchTerm}
-          onChange={(e) =>
-            dispatch({ type: "SET_SEARCH", payload: e.target.value })
-          }
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
           className="flex-1 bg-transparent outline-none text-sm"
         />
       </div>
@@ -186,13 +108,13 @@ export default function ProductsManager({ products }: { products: Product[] }) {
         columns={TABLE_COLUMNS}
         data={tableData}
         onEdit={handleEdit}
-        onDelete={handleDelete}
+        onDelete={removeItem}
       />
       {/* New Product Modal */}
       {showAddModal && <AddProductModal onClose={onAddModalClose} />}
       {/* Edit Product Modal */}
-      {showEditModal && (
-        <EditProductModal product={product!} onClose={onEditModalClose} />
+      {product && (
+        <EditProductModal product={product} onClose={onEditModalClose} />
       )}
     </div>
   );

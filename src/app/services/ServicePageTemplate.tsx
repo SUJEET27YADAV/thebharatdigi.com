@@ -10,15 +10,7 @@ import {
 import JsonLd from "@/components/JsonLd";
 import FaqSection from "@/components/FaqSection";
 import type { FaqItem } from "@/lib/faq-data";
-
-function splitTitle(title: string) {
-  const words = title.split(" ");
-  const mid = Math.ceil(words.length / 2);
-  return {
-    first: words.slice(0, mid).join(" "),
-    rest: words.slice(mid).join(" "),
-  };
-}
+import { splitTitle } from "@/utils/title";
 
 interface SubService {
   title: string;

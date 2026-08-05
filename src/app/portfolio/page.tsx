@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PortfolioPage from "./PortfolioPage";
 import { Project } from "@/types/types";
+import { fetchApiList } from "@/utils/api-fetch";
 
 export const metadata: Metadata = {
   title: "Portfolio | Web Development Projects | The Bharat Digital",
@@ -8,18 +9,8 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  let projects: Project[] = [];
-  try {
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
-    const res = await fetch(`${baseUrl}/api/getProjects`, { cache: "no-store" });
-    if (res.ok) {
-      const result = await res.json();
-      if (result.success) {
-        projects = result.data.sort((a: Project, b: Project) =>
-          b.created_at.localeCompare(a.created_at),
-        );
-      }
-    }
-  } catch {}
+  const projects = (await fetchApiList<Project>("/api/getProjects")).sort((a, b) =>
+    b.created_at.localeCompare(a.created_at),
+  );
   return <PortfolioPage projects={projects} />;
 }

@@ -458,10 +458,18 @@ const iconMap: Record<string, React.ComponentType<{ className?: string; size?: n
   Sparkles,
 };
 
+function toComponentName(name: string): string {
+  return name
+    .split(/[-_\s]+/)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join("");
+}
+
 export const LucideIcon = ({ name, className, size = 24 }: LucideIconProps) => {
-  const IconComponent = iconMap[name];
+  const IconComponent = iconMap[toComponentName(name)];
 
   if (!IconComponent) {
+    console.warn(`[LucideIcon] No icon found for "${name}"`);
     return <HelpCircle className={className} size={size} />;
   }
 

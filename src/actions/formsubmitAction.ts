@@ -1,6 +1,5 @@
 "use server";
 import { sendEmail } from "@/utils/mailHelper";
-import { auth } from "@/utils/auth";
 
 function escapeHtml(value: unknown): string {
   return String(value ?? "").replace(/[&<>"']/g, (char) => {
@@ -19,8 +18,6 @@ export default async function SubmitAction(
   PrevState: { msg: string },
   formData: FormData,
 ) {
-  const session = await auth();
-  if (!session) return { msg: "Unauthorized" };
   try {
     const name = String(formData.get("name") ?? "");
     const email = String(formData.get("email") ?? "");

@@ -48,7 +48,7 @@ function ConfirmationPageContent() {
   const params = useSearchParams();
   const merchantOrderId = params.get("merchantOrderId");
   const SubmitRef = useRef<HTMLButtonElement>(null);
-  const { cart, clearCart } = useCartStore();
+  const { clearCart } = useCartStore();
   const [state, formAction, pending] = useActionState(
     paymentConfirmationAction,
     initialState,
@@ -93,14 +93,6 @@ function ConfirmationPageContent() {
     <div className="min-h-[calc(100dvh-80px)] flex items-center justify-center px-4 py-24">
       <form action={formAction} className="hidden">
         <input type="hidden" name="merchantOrderId" value={merchantOrderId} />
-        {cart.map((item) => (
-          <input
-            key={item.id}
-            type="hidden"
-            name="product"
-            value={`${item.id}~${item.name}`}
-          />
-        ))}
         <button ref={SubmitRef} type="submit">
           Confirm Payment
         </button>

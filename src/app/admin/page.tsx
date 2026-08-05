@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import AdminDashboardClient from "./AdminDashboardClient";
 import { AdminDashboardStats, Order } from "@/types/types";
-import { cookies } from "next/headers";
+import { fetchApiData, fetchApiList } from "@/utils/api-fetch";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard | The Bharat Digital",
@@ -17,34 +17,14 @@ const defaultStats: AdminDashboardStats = {
 };
 
 export default async function Page() {
-  let stats: AdminDashboardStats = defaultStats;
-  let recentOrders: Order[] = [];
-  try {
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
-    const cookieHeader = (await cookies()).toString();
-    const response = await fetch(`${baseUrl}/api/getOrderStats`, {
-      cache: "no-store",
-      headers: { cookie: cookieHeader },
-    });
-    if (response.ok) {
-      const res = await response.json();
-      if (res.success) {
-        stats = res.data;
-      }
-    }
-    const respo = await fetch(`${baseUrl}/api/getOrders`, {
-      cache: "no-store",
-      headers: { cookie: cookieHeader },
-    });
-    if (respo.ok) {
-      const resp = await respo.json();
-      if (resp.success) {
-        recentOrders = resp.data.map((o: Order) => ({
-          ...o,
-          amount: Number(o.amount) / 100,
-        }));
-      }
-    }
-  } catch {}
-  return <AdminDashboardClient stats={stats} recentOrders={recentOrders} />;
+  const [stats, recentOrders] = await Promise.all([
+    fetchApiData<AdminDashboardStats>("/api/getOrderStats"),
+    fetchApiList<Order>("/api/getOrders"),
+  ]);
+  return (
+    <AdminDashboardClient
+      stats={stats ?? defaultStats}
+      recentOrders={recentOrders}
+    />
+  );
 }

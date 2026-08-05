@@ -96,7 +96,15 @@ export default function Home() {
       const r = (await res.json()) as ApiResponse;
       dispatch({ type: "SET_RES", payload: r });
     } catch (e) {
-      dispatch({ type: "SET_RES", payload: e as ApiResponse });
+      dispatch({
+        type: "SET_RES",
+        payload: {
+          success: false,
+          msg: e instanceof Error ? e.message : "Request failed",
+          error: e,
+          info: null,
+        },
+      });
     } finally {
       dispatch({ type: "SET_LOADING", payload: false });
       void (e.target as HTMLFormElement).reset();

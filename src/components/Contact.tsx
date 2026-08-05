@@ -5,30 +5,11 @@ import { Phone, Mail, MapPin, Send, Loader2 } from "lucide-react";
 import { toast } from "react-toastify";
 import SubmitAction from "@/actions/formsubmitAction";
 import { easeOut, viewFade, staggerDelay } from "@/utils/motion";
+import { PROJECT_TYPES, BUDGET_RANGES } from "@/lib/contact";
 
 const initState = {
   msg: "",
 };
-
-const projectTypes = [
-  "Custom Website Development",
-  "E-Commerce Store",
-  "Web Application",
-  "Mobile App Development",
-  "UI/UX Design",
-  "IT Support & Maintenance",
-  "Other",
-];
-
-const budgetRanges = [
-  "₹10,000 - ₹25,000",
-  "₹25,000 - ₹50,000",
-  "₹50,000 - ₹1,00,000",
-  "₹1,00,000 - ₹2,50,000",
-  "₹2,50,000 - ₹5,00,000",
-  "₹5,00,000+",
-  "Not sure yet",
-];
 
 const CONTACT_METHODS = [
   {
@@ -220,7 +201,7 @@ export default function Contact() {
                       </label>
                       <select id="contact-ptype" name="pType" required className="select">
                         <option value="">Select a project type</option>
-                        {projectTypes.map((type) => (
+                        {PROJECT_TYPES.map((type) => (
                           <option key={type} value={type}>
                             {type}
                           </option>
@@ -233,7 +214,7 @@ export default function Contact() {
                       </label>
                       <select id="contact-budget" name="budget" className="select">
                         <option value="">Select budget range</option>
-                        {budgetRanges.map((range) => (
+                        {BUDGET_RANGES.map((range) => (
                           <option key={range} value={range}>
                             {range}
                           </option>

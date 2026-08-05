@@ -18,8 +18,20 @@ interface SocialJobRow {
   status: string;
 }
 
+type SupabaseClient = ReturnType<typeof createServerClient>;
+
+type PlatformPostResult = { success: boolean; postId?: string; error?: string };
+
+interface PlatformConfig {
+  name: string;
+  caption: string;
+  hashtags: string[];
+  canPost: () => { ok: boolean; reason?: string };
+  post: () => Promise<PlatformPostResult>;
+}
+
 async function logPost(
-  supabase: ReturnType<typeof createServerClient>,
+  supabase: SupabaseClient,
   data: {
     platform: string;
     topic_id: string;
@@ -42,6 +54,30 @@ async function logPost(
     error_message: data.error_message || null,
     posted_at: data.status === "posted" ? new Date().toISOString() : null,
   });
+}
+
+async function postAndLog(
+  supabase: SupabaseClient,
+  row: SocialJobRow,
+  config: PlatformConfig,
+): Promise<PlatformResult> {
+  const gate = config.canPost();
+  if (!gate.ok) {
+    return { platform: config.name, success: false, error: gate.reason };
+  }
+
+  const result = await config.post();
+  await logPost(supabase, {
+    platform: config.name,
+    topic_id: row.topic_id,
+    caption: config.caption,
+    image_url: row.image_url,
+    hashtags: config.hashtags,
+    status: result.success ? "posted" : "failed",
+    platform_post_id: result.postId,
+    error_message: result.error,
+  });
+  return { platform: config.name, ...result };
 }
 
 export async function completePost(rowId: string): Promise<PostResult> {
@@ -70,70 +106,47 @@ export async function completePost(rowId: string): Promise<PostResult> {
   }
 
   const imageUrl = row.image_url;
-  const platforms: PlatformResult[] = [];
-
-  const facebookResult = await postToFacebook(row.facebook_text, imageUrl);
-  platforms.push({ platform: "facebook", ...facebookResult });
-  await logPost(supabase, {
-    platform: "facebook",
-    topic_id: row.topic_id,
-    caption: row.facebook_text,
-    image_url: imageUrl,
-    hashtags: row.facebook_hashtags || [],
-    status: facebookResult.success ? "posted" : "failed",
-    platform_post_id: facebookResult.postId,
-    error_message: facebookResult.error,
-  });
-
-  if (process.env.INSTAGRAM_ACCOUNT_ID) {
-    if (imageUrl) {
-      const instagramResult = await postToInstagram(row.instagram_text, imageUrl);
-      platforms.push({ platform: "instagram", ...instagramResult });
-      await logPost(supabase, {
-        platform: "instagram",
-        topic_id: row.topic_id,
-        caption: row.instagram_text,
-        image_url: imageUrl,
-        hashtags: row.instagram_hashtags || [],
-        status: instagramResult.success ? "posted" : "failed",
-        platform_post_id: instagramResult.mediaId,
-        error_message: instagramResult.error,
-      });
-    } else {
-      platforms.push({
-        platform: "instagram",
-        success: false,
-        error: "Skipped: no image (Instagram requires an image)",
-      });
-    }
-  } else {
-    platforms.push({
-      platform: "instagram",
-      success: false,
-      error: "INSTAGRAM_ACCOUNT_ID not configured",
-    });
-  }
-
-  if (process.env.LINKEDIN_ACCESS_TOKEN) {
-    const linkedinResult = await postToLinkedIn(row.linkedin_text, imageUrl || undefined);
-    platforms.push({ platform: "linkedin", ...linkedinResult });
-    await logPost(supabase, {
-      platform: "linkedin",
-      topic_id: row.topic_id,
+  const platformConfigs: PlatformConfig[] = [
+    {
+      name: "facebook",
+      caption: row.facebook_text,
+      hashtags: row.facebook_hashtags || [],
+      canPost: () => ({ ok: true }),
+      post: () => postToFacebook(row.facebook_text, imageUrl),
+    },
+    {
+      name: "instagram",
+      caption: row.instagram_text,
+      hashtags: row.instagram_hashtags || [],
+      canPost: () => {
+        if (!process.env.INSTAGRAM_ACCOUNT_ID) {
+          return { ok: false, reason: "INSTAGRAM_ACCOUNT_ID not configured" };
+        }
+        if (!imageUrl) {
+          return {
+            ok: false,
+            reason: "Skipped: no image (Instagram requires an image)",
+          };
+        }
+        return { ok: true };
+      },
+      post: () => postToInstagram(row.instagram_text, imageUrl!),
+    },
+    {
+      name: "linkedin",
       caption: row.linkedin_text,
-      image_url: imageUrl,
       hashtags: row.linkedin_hashtags || [],
-      status: linkedinResult.success ? "posted" : "failed",
-      platform_post_id: linkedinResult.postId,
-      error_message: linkedinResult.error,
-    });
-  } else {
-    platforms.push({
-      platform: "linkedin",
-      success: false,
-      error: "LINKEDIN_ACCESS_TOKEN not configured",
-    });
-  }
+      canPost: () =>
+        process.env.LINKEDIN_ACCESS_TOKEN
+          ? { ok: true }
+          : { ok: false, reason: "LINKEDIN_ACCESS_TOKEN not configured" },
+      post: () => postToLinkedIn(row.linkedin_text, imageUrl || undefined),
+    },
+  ];
+
+  const platforms: PlatformResult[] = await Promise.all(
+    platformConfigs.map((config) => postAndLog(supabase, row, config)),
+  );
 
   const allSuccess = platforms.every((p) => p.success);
 

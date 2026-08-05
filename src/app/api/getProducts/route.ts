@@ -1,34 +1,10 @@
-import { createServerClient } from "@/utils/supabase/server";
-import { NextRequest, NextResponse } from "next/server";
-import { isAdminRequest, unauthorized } from "@/utils/admin/guard";
+import { NextRequest } from "next/server";
+import { adminFetch } from "@/utils/admin/crud";
 
 export async function GET(req: NextRequest) {
-  if (!(await isAdminRequest(req))) return unauthorized();
-  const supabase = createServerClient();
-  try {
-    const { data, error } = await supabase.from("products").select("*");
-    if (error) {
-      console.error(error);
-      return NextResponse.json(
-        { success: false, msg: "Error fetching products", data: [] },
-        { status: 404 },
-      );
-    }
-    if (!data || data.length === 0) {
-      return NextResponse.json(
-        { success: false, msg: "No products found", data: [] },
-        { status: 404 },
-      );
-    }
-    return NextResponse.json(
-      { success: true, msg: "Products fetched successfully", data: data },
-      { status: 200 },
-    );
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json(
-      { success: false, msg: "Error fetching products" },
-      { status: 500 },
-    );
-  }
+  return adminFetch(req, "products", {
+    error: "Error fetching products",
+    empty: "No products found",
+    success: "Products fetched successfully",
+  });
 }

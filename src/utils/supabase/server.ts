@@ -1,7 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
+import { requireEnv } from "@/utils/env";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const supabaseUrl = requireEnv("NEXT_PUBLIC_SUPABASE_URL");
+const supabaseKey = requireEnv("SUPABASE_SERVICE_ROLE_KEY");
 
 export const createServerClient = () =>
-  createClient(supabaseUrl!, supabaseKey!);
+  createClient(supabaseUrl, supabaseKey);

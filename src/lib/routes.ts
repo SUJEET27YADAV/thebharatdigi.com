@@ -113,3 +113,26 @@ export const TOP_LINKS: RouteGroup[] = [
   { label: "Shop", path: "/shop" },
   { label: "Contact", path: "/contactus" },
 ];
+
+export const PUBLIC_PATHS: string[] = [
+  "/",
+  "/aboutus",
+  "/contactus",
+  "/shop",
+  "/services",
+  "/portfolio",
+  "/seo-audit-pro",
+  "/tutorials",
+  "/locations",
+  "/locations/delhi",
+  "/locations/noida",
+  "/locations/gurugram",
+  "/locations/faridabad",
+  "/locations/ghaziabad",
+  "/nodemailer",
+  "/passgen",
+  "/cart",
+  "/payment-confirmation",
+  "/privacypolicy",
+  "/termsandconditions",
+];

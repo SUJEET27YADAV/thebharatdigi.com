@@ -1,19 +1,18 @@
 "use server";
-import nodemailer, { TransportOptions } from "nodemailer";
+import nodemailer from "nodemailer";
 import SMTPTransport from "nodemailer/lib/smtp-transport";
-import { auth } from "@/utils/auth";
 
 const sec = process.env.NODE_ENV !== "development";
 
 const transport = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   secure: sec,
-  port: sec ? process.env.SEC_PORT : process.env.NSEC_PORT,
+  port: Number(sec ? process.env.SEC_PORT : process.env.NSEC_PORT),
   auth: {
     user: process.env.APP_USER,
     pass: process.env.APP_PASS,
   },
-} as TransportOptions);
+});
 
 async function verifyTransport(): Promise<{
   success: boolean;
@@ -52,8 +51,6 @@ export async function sendEmail(
   info: SMTPTransport.SentMessageInfo | null;
   error: string | null;
 }> {
-  const session = await auth();
-  if (!session) return { success: false, msg: "Unauthorized", info: null, error: "Unauthorized" };
   try {
     const { success, msg } = await verifyTransport();
     if (!success) {
@@ -65,7 +62,7 @@ export async function sendEmail(
       };
     }
     const info = await transport.sendMail({
-      from: { name: "TheBharatDigi", address: process.env.APP_USER! },
+      from: { name: "TheBharatDigi", address: process.env.APP_USER ?? "" },
       to: recipients,
       subject: email.subject,
       text: email.text,

@@ -1,6 +1,8 @@
+import { sleep } from "@/utils/async";
+
 export interface InstagramPostResult {
   success: boolean;
-  mediaId?: string;
+  postId?: string;
   error?: string;
 }
 
@@ -14,10 +16,6 @@ function getAccessToken(): string {
   const token = process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
   if (!token) throw new Error("FACEBOOK_PAGE_ACCESS_TOKEN not set (Instagram uses the same token)");
   return token as string;
-}
-
-function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 export async function postToInstagram(
@@ -113,7 +111,7 @@ export async function postToInstagram(
       };
     }
 
-    return { success: true, mediaId: publishData.id };
+    return { success: true, postId: publishData.id };
   } catch (error) {
     return {
       success: false,

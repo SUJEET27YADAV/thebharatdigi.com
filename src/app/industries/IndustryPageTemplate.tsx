@@ -3,15 +3,8 @@ import { AlertTriangle, Search, ArrowRight } from "lucide-react";
 import JsonLd from "@/components/JsonLd";
 import FaqSection from "@/components/FaqSection";
 import type { FaqItem } from "@/lib/faq-data";
-
-function splitTitle(title: string) {
-  const words = title.split(" ");
-  const mid = Math.ceil(words.length / 2);
-  return {
-    first: words.slice(0, mid).join(" "),
-    rest: words.slice(mid).join(" "),
-  };
-}
+import { appUrl } from "@/utils/env";
+import { splitTitle } from "@/utils/title";
 
 interface PainPoint {
   problem: string;
@@ -53,6 +46,7 @@ export default function IndustryPageTemplate({
   faqs: FaqItem[];
 }) {
   const titleParts = splitTitle(data.subtitle);
+  const baseUrl = appUrl();
   return (
     <>
       <JsonLd
@@ -73,19 +67,19 @@ export default function IndustryPageTemplate({
               "@type": "ListItem",
               position: 1,
               name: "Home",
-              item: `${process.env.NEXT_PUBLIC_APP_URL || "https://thebharatdigi.com"}`,
+              item: baseUrl,
             },
             {
               "@type": "ListItem",
               position: 2,
               name: "Industries",
-              item: `${process.env.NEXT_PUBLIC_APP_URL || "https://thebharatdigi.com"}/industries`,
+              item: `${baseUrl}/industries`,
             },
             {
               "@type": "ListItem",
               position: 3,
               name: data.title,
-              item: `${process.env.NEXT_PUBLIC_APP_URL || "https://thebharatdigi.com"}/industries/${data.slug}`,
+              item: `${baseUrl}/industries/${data.slug}`,
             },
           ],
         }}

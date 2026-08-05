@@ -1,10 +1,10 @@
-import Modal from "@/components/ui/modal";
-import { X } from "lucide-react";
-import { SubmitEvent, useState } from "react";
-import { toast } from "react-toastify";
+import AdminModal, { adminInputClass } from "@/components/admin/AdminModal";
+import { submitAdminForm } from "@/components/admin/submitAdminForm";
+import { Order } from "@/types/types";
+import { paiseToRupees } from "@/utils/format";
 
 interface EditOrderModalProps {
-  order: Record<string, string | boolean | number>;
+  order: Order;
   onClose: () => void;
 }
 
@@ -12,133 +12,96 @@ export default function EditOrderModal({
   order,
   onClose,
 }: EditOrderModalProps) {
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      const formData = new FormData(e.currentTarget);
-      const data = {
+  const handleSubmit = async (formData: FormData) => {
+    return submitAdminForm(
+      "/api/updateOrder",
+      "POST",
+      {
         id: order.id,
-        name: formData.get("name") as string,
-        email: formData.get("email") as string,
-        phone: formData.get("phone") as string,
-        amount: Number(formData.get("amount") as string) * 100,
-        product_id: (formData.get("product_id") as string)
+        name: String(formData.get("name") ?? ""),
+        email: String(formData.get("email") ?? ""),
+        phone: String(formData.get("phone") ?? ""),
+        amount: Number(String(formData.get("amount") ?? "")) * 100,
+        product_id: String(formData.get("product_id") ?? "")
           .split("\\")
           .map((f) => f.trim()),
-        created_at: formData.get("created_at") as string,
+        created_at: String(formData.get("created_at") ?? ""),
         paid: formData.get("paid") === "on",
-      };
-      const response = await fetch("/api/updateOrder", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      if (!response.ok) {
-        throw new Error(`Request failed: ${response.status}`);
-      }
-      const res = await response.json();
-      if (res.success) {
-        toast.success(res.msg || "Order updated successfully!");
-        onClose();
-      } else {
-        toast.error(res.msg || "Failed to update order, please try again.");
-      }
-    } catch (err) {
-      console.error(err);
-      toast.error("Failed to update order. Please try again.");
-    } finally {
-      setLoading(false);
-    }
+      },
+      {
+        success: "Order updated successfully!",
+        error: "Failed to update order, please try again.",
+      },
+    );
   };
-  console.log("Order Paid:", order.paid);
-  const inputClass =
-    "w-full p-2 border border-slate-500 rounded outline-none focus:ring-2 focus:ring-indigo-600 transition-colors";
+
   return (
-    <Modal>
-      <div className="relative w-full max-w-md p-6 flex flex-col items-center gap-4 bg-white/60 dark:bg-black/30 rounded">
-        <button
-          type="button"
-          aria-label="Close"
-          className="absolute top-4 right-4 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"
-          onClick={() => onClose()}
-        >
-          <X size={24} />
-        </button>
-        <h2 className="text-xl font-bold">Edit Order</h2>
-        {/* Add your form fields here */}
-        <form className="w-full flex flex-col gap-4" onSubmit={handleSubmit}>
-          <label htmlFor="name">Customer Name</label>
-          <input
-            id="name"
-            name="name"
-            placeholder="Enter customer name"
-            defaultValue={order.name as string}
-            className={inputClass}
-          />
-          <label htmlFor="email">Customer Email</label>
-          <input
-            id="email"
-            name="email"
-            placeholder="Enter customer email"
-            defaultValue={order.email as string}
-            className={inputClass}
-          />
-          <label htmlFor="phone">Customer Phone</label>
-          <input
-            id="phone"
-            name="phone"
-            placeholder="Enter customer phone"
-            defaultValue={order.phone as string}
-            className={inputClass}
-          />
-          <label htmlFor="amount">Order Amount</label>
-          <input
-            id="amount"
-            name="amount"
-            placeholder="Enter order amount"
-            defaultValue={order.amount as string}
-            className={inputClass}
-          />
-          <label htmlFor="product_id">
-            Product IDs{" "}
-            <span className="text-sm">(Backslash-separated ( \ ))</span>
-          </label>
-          <input
-            id="product_id"
-            name="product_id"
-            placeholder="Enter Product IDs (backslash-separated)"
-            defaultValue={(order.product_id as string).split(", ").join("\\")}
-            className={inputClass}
-          />
-          <label htmlFor="created_at">Created At</label>
-          <input
-            id="created_at"
-            name="created_at"
-            placeholder="Enter created at"
-            defaultValue={order.created_at as string}
-            className={inputClass}
-          />
-          <div className="flex items-center gap-2">
-            <label htmlFor="paid">Paid</label>
-            <input
-              id="paid"
-              name="paid"
-              type="checkbox"
-              defaultChecked={order.paid as boolean}
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700"
-            disabled={loading}
-          >
-            {loading ? "Updating Order..." : "Update Order"}
-          </button>
-        </form>
+    <AdminModal
+      title="Edit Order"
+      onClose={onClose}
+      submit={handleSubmit}
+      submitLabel="Update Order"
+      submittingLabel="Updating Order..."
+    >
+      <label htmlFor="name">Customer Name</label>
+      <input
+        id="name"
+        name="name"
+        placeholder="Enter customer name"
+        defaultValue={order.name}
+        className={adminInputClass}
+      />
+      <label htmlFor="email">Customer Email</label>
+      <input
+        id="email"
+        name="email"
+        placeholder="Enter customer email"
+        defaultValue={order.email}
+        className={adminInputClass}
+      />
+      <label htmlFor="phone">Customer Phone</label>
+      <input
+        id="phone"
+        name="phone"
+        placeholder="Enter customer phone"
+        defaultValue={order.phone}
+        className={adminInputClass}
+      />
+      <label htmlFor="amount">Order Amount</label>
+      <input
+        id="amount"
+        name="amount"
+        placeholder="Enter order amount"
+        defaultValue={paiseToRupees(order.amount).toString()}
+        className={adminInputClass}
+      />
+      <label htmlFor="product_id">
+        Product IDs <span className="text-sm">(Backslash-separated ( \ ))</span>
+      </label>
+      <input
+        id="product_id"
+        name="product_id"
+        placeholder="Enter Product IDs (backslash-separated)"
+        defaultValue={order.product_id.join("\\")}
+        className={adminInputClass}
+      />
+      <label htmlFor="created_at">Created At</label>
+      <input
+        id="created_at"
+        name="created_at"
+        placeholder="Enter created at"
+        defaultValue={order.created_at}
+        className={adminInputClass}
+      />
+      <div className="flex items-center gap-2">
+        <label htmlFor="paid">Paid</label>
+        <input
+          id="paid"
+          name="paid"
+          type="checkbox"
+          defaultChecked={order.paid}
+        />
       </div>
-    </Modal>
+    </AdminModal>
   );
 }
