@@ -30,7 +30,7 @@ export async function GET(req: NextRequest) {
     }
 
     console.log(
-      `[Social Cron] Image job ${plan.imageJob.jobId} submitted for "${plan.topicTitle}"; posting completes when the local poller finishes the image`
+      `[Social Cron] Image job ${plan.imageJob.jobId} submitted for "${plan.topicTitle}"; posting completes on the next finalize cron`
     );
 
     return NextResponse.json(
