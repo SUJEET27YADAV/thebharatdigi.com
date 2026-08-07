@@ -5,109 +5,108 @@ import { createServerClient } from "@/utils/supabase/server";
 
 const BRAND_NAME = "The Bharat Digital";
 
-// Core styling fine-tuned for Z-Image Turbo to render ultra-crisp, high-converting social ad graphics and marketing posters
+// Refined style string prioritizing clean lighting, sharp 3D render styles, and clear focal depth
 const MARKETING_BANNER_STYLE =
-  "professional digital marketing ad poster design, corporate banner layout, clean graphic background with subtle tech grid pattern, " +
-  "3D glossy glassmorphic vector icons floating, modern laptop and smartphone mockup displaying colorful high-resolution UI dashboard, " +
-  "infographic badge elements, studio rim lighting, vibrant tech color palette with electric blue and emerald green accents, " +
-  "bold stylized graphic typography artwork, masterpiece, 8k resolution, photorealistic material textures, crisp edge detail, commercial advertising grade";
+  "professional commercial ad graphic for " +
+  BRAND_NAME +
+  ", 3D glassmorphism aesthetic, " +
+  "hyper-detailed laptop and smartphone screen mockups showing modern tech dashboards, " +
+  "vibrant electric blue and emerald green ambient glow, polished glass and metal surfaces, " +
+  "floating glossy 3D icons, soft studio lighting, sharp focus, octane render style, 8k resolution, ultra-clean composition";
 
-// Filter out artifacts and ensure pristine vector and text rendering for Z-Image Turbo
+// Focused negative prompt to prevent blurriness, fog, and visual clutter
 const NEGATIVE_PROMPT =
-  "garbled small text, messy handwriting, microtext, low resolution, blurry, dark messy background, " +
-  "deformed hands, distorted fingers, ugly faces, photorealistic skin pores, realistic photography, " +
-  "oversaturated noise, cluttered composition, cropped header, non-English text, Hindi text, Arabic text, JPEG artifacts, watermark";
+  "blurry, foggy, low detail, out of focus, noise, grainy, distorted devices, warped screens, " +
+  "messy composition, oversaturated, dark shadows, low quality, draft, duplicate objects, cropped";
 
 interface BannerPromptConfig {
-  headlineText: string;
+  headlineConcept: string;
   visualSubject: string;
   floatingIcons: string;
 }
 
 /**
- * Maps each topic ID to dynamic headlines, 3D devices, and floating icons
- * matching high-converting ad formats.
+ * Maps each topic ID to refined subject visuals tailored for clean AI rendering.
  */
 function getTopicBannerConfig(topic: ContentTopic): BannerPromptConfig {
   const configs: Record<string, BannerPromptConfig> = {
     "mvp-development": {
-      headlineText: '"LAUNCH FAST"',
+      headlineConcept: "LAUNCH FAST",
       visualSubject:
-        "sleek modern laptop showing a startup product launch analytics dashboard",
+        "sleek modern laptop displaying a modern SaaS analytics dashboard with green growth charts",
       floatingIcons:
-        "floating 3D rocket icon, target icon, and glowing checkmark badges",
+        "glowing 3D rocket badge, target icon, and floating checkmarks",
     },
     "ai-development": {
-      headlineText: '"AI POWERED"',
+      headlineConcept: "AI POWERED",
       visualSubject:
-        "futuristic tablet display showing neural network node diagrams and AI automation UI",
+        "futuristic tablet screen displaying glowing neural network nodes and AI chat interface",
       floatingIcons:
-        "floating glossy 3D brain icon, glowing AI chat bubble, and data chip icons",
+        "glossy 3D brain icon, glowing AI chat badge, and futuristic data chip",
     },
     automation: {
-      headlineText: '"AUTOMATE"',
+      headlineConcept: "AUTOMATE",
       visualSubject:
-        "digital workspace with floating workflow chart cards and automated task connections",
+        "clean workspace screen rendering a visual workflow automation diagram with connected nodes",
       floatingIcons:
-        "floating 3D gear icons, speed clock badge, and connected node icons",
+        "3D gear icons, speed clock badge, and glowing connection lines",
     },
     ecommerce: {
-      headlineText: '"BOOST SALES"',
+      headlineConcept: "BOOST SALES",
       visualSubject:
-        "smartphone mockup displaying a vibrant online store product page with green buy button",
+        "sleek laptop and smartphone mockup showing high-converting e-commerce checkout page with green Buy button",
       floatingIcons:
-        "floating glossy 3D shopping cart icon, discount badge, and credit card icon",
+        "3D glossy shopping cart, discount badge, and glowing credit card",
     },
     "seo-marketing": {
-      headlineText: '"RANK #1"',
+      headlineConcept: "RANK #1",
       visualSubject:
-        "desktop monitor screen showing rising organic traffic line graph and search engine UI",
+        "desktop monitor displaying rising organic traffic graphs and search engine rank position dashboard",
       floatingIcons:
-        "floating 3D Google logo icon, magnifying glass badge, and rising arrow graph",
+        "3D search glass badge, upward trend arrow, and verified checkmark",
     },
     "mobile-apps": {
-      headlineText: '"APP GROWTH"',
+      headlineConcept: "APP GROWTH",
       visualSubject:
-        "two modern smartphones displaying colorful iOS and Android app user interfaces side by side",
+        "two sleek modern smartphones displaying polished mobile app user interfaces",
       floatingIcons:
-        "floating glossy 3D star rating badge, mobile app icons, and notification bell",
+        "3D star rating badge, mobile app icons, and notification bell",
     },
     "custom-web": {
-      headlineText: '"WEB DESIGN"',
+      headlineConcept: "WEB DESIGN",
       visualSubject:
-        "clean desk setup with ultra-wide monitor rendering a modern responsive business website",
+        "ultra-wide screen displaying a modern responsive agency landing page",
       floatingIcons:
-        "floating 3D code tag icons, security shield badge, and lightning speed icon",
+        "3D code tag icon, security shield badge, and lightning bolt",
     },
     performance: {
-      headlineText: '"3X SPEED"',
+      headlineConcept: "3X SPEED",
       visualSubject:
-        "dashboard display showing 100/100 Core Web Vitals speed score and instant page load speedometer",
+        "tech dashboard showing 100/100 Core Web Vitals speed score and performance gauges",
       floatingIcons:
-        "floating 3D lightning bolt icon, fast forward badge, and stopwatch",
+        "3D lightning bolt, fast-forward badge, and glowing speedometer",
     },
     "web-apps": {
-      headlineText: '"SCALE NOW"',
+      headlineConcept: "SCALE NOW",
       visualSubject:
-        "SaaS platform web app dashboard displayed on a sleek tablet with interactive chart cards",
-      floatingIcons:
-        "floating glossy 3D cloud icon, user growth badge, and database icon",
+        "cloud SaaS platform interface displayed on a modern glass tablet",
+      floatingIcons: "3D cloud icon, user growth badge, and database icon",
     },
     uiux: {
-      headlineText: '"UI/UX DESIGN"',
+      headlineConcept: "UI/UX DESIGN",
       visualSubject:
-        "Figma style design interface canvas with wireframe cards and sleek mobile app layouts",
+        "figma style design canvas rendering crisp app wireframes and color design tokens",
       floatingIcons:
-        "floating 3D stylus pen, color palette badge, and heart reaction icon",
+        "3D design stylus, color palette badge, and heart reaction icon",
     },
   };
 
   return (
     configs[topic.id] || {
-      headlineText: '"DIGITAL GROWTH"',
-      visualSubject: `modern laptop and smartphone displaying sleek IT company website for ${topic.title}`,
+      headlineConcept: "DIGITAL GROWTH",
+      visualSubject: `sleek laptop displaying high-tech digital website for ${topic.title}`,
       floatingIcons:
-        "floating 3D web icon, phone icon, and verified checkmark badge",
+        "floating 3D web icon, smartphone icon, and verified checkmark badge",
     }
   );
 }
@@ -115,12 +114,11 @@ function getTopicBannerConfig(topic: ContentTopic): BannerPromptConfig {
 function buildRichPrompt(topic: ContentTopic): string {
   const config = getTopicBannerConfig(topic);
 
+  // Simplified prompt flow: Focal Point -> Supporting Elements -> Style
   return (
-    `High-end commercial promotional banner for tech agency ${BRAND_NAME}. ` +
-    `At the top center, bold luminous 3D rendered typographic title reading ${config.headlineText} with glossy texture and drop shadow. ` +
-    `Central composition showcases ${config.visualSubject} with crystal clear interface details. ` +
-    `Surrounded by ${config.floatingIcons} floating gracefully in a balanced 3D isometric layout. ` +
-    `Bottom section features clean white frosted glass infographic cards and a prominent rounded call-to-action badge. ` +
+    `3D isometric promotional banner. Central focal point is ${config.visualSubject}. ` +
+    `Surrounded by ${config.floatingIcons} hovering with realistic glass shadows. ` +
+    `Clean gradient background with subtle isometric tech grid patterns. ` +
     `${MARKETING_BANNER_STYLE}`
   ).trim();
 }
@@ -209,9 +207,9 @@ export async function submitImageJob(
       width: 1080,
       height: 1080,
       sample_params: {
-        // Optimized for Z-Image Turbo model: fast high-fidelity generation at lower step counts
-        sample_steps: 6,
-        guidance: { txt_cfg: 2.0 },
+        // FIXED: Increased sampling steps and adjusted CFG scale for sharp rendering
+        sample_steps: 25,
+        guidance: { txt_cfg: 4.5 },
       },
     },
   );
