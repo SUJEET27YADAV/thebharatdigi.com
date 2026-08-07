@@ -5,17 +5,18 @@ import { createServerClient } from "@/utils/supabase/server";
 
 const BRAND_NAME = "The Bharat Digital";
 
-// Core styling fine-tuned for DreamShaper 8 to render high-converting social ad graphics
+// Core styling fine-tuned for Z-Image Turbo to render ultra-crisp, high-converting social ad graphics and marketing posters
 const MARKETING_BANNER_STYLE =
-  "professional digital marketing ad poster design, corporate banner layout, clean graphic background, " +
-  "3D glossy vector icons floating, modern laptop and smartphone mockup displaying colorful UI dashboard, " +
-  "infographic badge elements, high contrast studio lighting, vibrant tech colors, bold stylized graphic typography artwork, 8k resolution, crisp detail";
+  "professional digital marketing ad poster design, corporate banner layout, clean graphic background with subtle tech grid pattern, " +
+  "3D glossy glassmorphic vector icons floating, modern laptop and smartphone mockup displaying colorful high-resolution UI dashboard, " +
+  "infographic badge elements, studio rim lighting, vibrant tech color palette with electric blue and emerald green accents, " +
+  "bold stylized graphic typography artwork, masterpiece, 8k resolution, photorealistic material textures, crisp edge detail, commercial advertising grade";
 
-// Filter out artifacts common in SD1.5, but allow clean graphic/vector elements
+// Filter out artifacts and ensure pristine vector and text rendering for Z-Image Turbo
 const NEGATIVE_PROMPT =
   "garbled small text, messy handwriting, microtext, low resolution, blurry, dark messy background, " +
   "deformed hands, distorted fingers, ugly faces, photorealistic skin pores, realistic photography, " +
-  "oversaturated noise, cluttered composition, cropped header, non-English text, Hindi text, Arabic text";
+  "oversaturated noise, cluttered composition, cropped header, non-English text, Hindi text, Arabic text, JPEG artifacts, watermark";
 
 interface BannerPromptConfig {
   headlineText: string;
@@ -115,11 +116,11 @@ function buildRichPrompt(topic: ContentTopic): string {
   const config = getTopicBannerConfig(topic);
 
   return (
-    `Marketing poster ad for ${BRAND_NAME}. ` +
-    `Bold stylized text reading ${config.headlineText} in dynamic 3D typography art at top. ` +
-    `Main scene features ${config.visualSubject}. ` +
-    `Accented with ${config.floatingIcons} around the layout. ` +
-    `Includes clean white infographic service cards and rounded call-to-action badges at the bottom. ` +
+    `High-end commercial promotional banner for tech agency ${BRAND_NAME}. ` +
+    `At the top center, bold luminous 3D rendered typographic title reading ${config.headlineText} with glossy texture and drop shadow. ` +
+    `Central composition showcases ${config.visualSubject} with crystal clear interface details. ` +
+    `Surrounded by ${config.floatingIcons} floating gracefully in a balanced 3D isometric layout. ` +
+    `Bottom section features clean white frosted glass infographic cards and a prominent rounded call-to-action badge. ` +
     `${MARKETING_BANNER_STYLE}`
   ).trim();
 }
@@ -202,14 +203,15 @@ export async function submitImageJob(
     "POST",
     `${serverBaseUrl()}/sdcpp/v1/img_gen`,
     {
+      model: "Z-Image Turbo",
       prompt: buildRichPrompt(topic),
       negative_prompt: NEGATIVE_PROMPT,
       width: 1080,
       height: 1080,
       sample_params: {
-        // Increased to 22 steps for sharper vector icons and cleaner typography art
-        sample_steps: 22,
-        guidance: { txt_cfg: 7.5 },
+        // Optimized for Z-Image Turbo model: fast high-fidelity generation at lower step counts
+        sample_steps: 6,
+        guidance: { txt_cfg: 2.0 },
       },
     },
   );
