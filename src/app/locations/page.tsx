@@ -40,7 +40,7 @@ export default function LocationsPage() {
       />
 
       <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden">
-        <div className="max-w-7xl mx-auto flex flex-col items-center gap-10">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 flex flex-col items-center gap-10">
           <div className="absolute inset-0 pointer-events-none opacity-30">
             <div className="absolute top-20 left-10 size-72 rounded-full bg-indigo-100 dark:bg-indigo-500/5" />
             <div className="absolute bottom-10 right-10 size-96 rounded-full bg-purple-100 dark:bg-purple-500/5" />

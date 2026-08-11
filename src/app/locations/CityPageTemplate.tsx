@@ -111,8 +111,9 @@ export default function CityPageTemplate({
       </section>
 
       {/* Other available locations */}
-      <Locationbar />
-
+      <div className="max-w-7xl mx-auto px-4 md:px-6 py-5 overflow-hidden">
+        <Locationbar />
+      </div>
       {/* Content */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 md:px-6">

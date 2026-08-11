@@ -1,7 +1,7 @@
 export interface RouteGroup {
   label: string;
-  path?: string;
-  icon?: string;
+  path: string;
+  icon: string;
   children?: { label: string; path: string; description?: string }[];
 }
 
@@ -9,7 +9,7 @@ export const NAV_GROUPS: RouteGroup[] = [
   {
     label: "Services",
     path: "/services",
-    icon: "code",
+    icon: "Code",
     children: [
       {
         label: "MVP Development",
@@ -71,7 +71,7 @@ export const NAV_GROUPS: RouteGroup[] = [
   {
     label: "Industries",
     path: "/industries",
-    icon: "building",
+    icon: "Building",
     children: [
       { label: "Healthcare", path: "/industries/healthcare" },
       { label: "Legal", path: "/industries/legal" },
@@ -84,7 +84,7 @@ export const NAV_GROUPS: RouteGroup[] = [
   {
     label: "Resources",
     path: "/blog",
-    icon: "book",
+    icon: "Book",
     children: [
       { label: "Blog", path: "/blog" },
       { label: "Guides", path: "/guides" },
@@ -94,7 +94,7 @@ export const NAV_GROUPS: RouteGroup[] = [
   {
     label: "Locations",
     path: "/locations",
-    icon: "map",
+    icon: "Map",
     children: [
       { label: "Delhi", path: "/locations/delhi" },
       { label: "Noida", path: "/locations/noida" },
@@ -105,13 +105,13 @@ export const NAV_GROUPS: RouteGroup[] = [
   },
 ];
 
-export const TOP_LINKS: RouteGroup[] = [
-  { label: "Services", path: "/services" },
-  { label: "About", path: "/aboutus" },
-  { label: "Portfolio", path: "/portfolio" },
-  { label: "SEO Audit Pro", path: "/seo-audit-pro" },
-  { label: "Shop", path: "/shop" },
-  { label: "Contact", path: "/contactus" },
+export const NAV_LINKS: RouteGroup[] = [
+  { label: "Services", path: "/services", icon: "Code" },
+  { label: "About", path: "/aboutus", icon: "BookUser" },
+  { label: "Portfolio", path: "/portfolio", icon: "GalleryHorizontalEnd" },
+  { label: "SEO Audit Pro", path: "/seo-audit-pro", icon: "SearchCode" },
+  { label: "Shop", path: "/shop", icon: "Store" },
+  { label: "Contact", path: "/contactus", icon: "Contact" },
 ];
 
 export const PUBLIC_PATHS: string[] = [

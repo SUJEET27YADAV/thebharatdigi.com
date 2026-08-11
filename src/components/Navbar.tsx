@@ -12,22 +12,28 @@ import {
   Building,
   Map,
   Book,
+  BookUser,
   Store,
+  SearchCode,
+  GalleryHorizontalEnd,
+  Contact,
 } from "lucide-react";
 import Logo from "./ui/logo";
 import ThemeToggle from "./ThemeToggle";
 import { useCartStore } from "@/store/cartStore";
 import { toast } from "react-toastify";
-import { NAV_GROUPS, TOP_LINKS } from "@/lib/routes";
+import { NAV_GROUPS, NAV_LINKS } from "@/lib/routes";
 
 const GROUP_ICONS: Record<string, React.ElementType> = {
+  About: BookUser,
+  Portfolio: GalleryHorizontalEnd,
   Services: Code,
   Industries: Building,
-  Locations: Map,
   Resources: Book,
+  "SEO Audit Pro": SearchCode,
+  Contact: Contact,
+  Locations: Map,
 };
-
-const DROPDOWN_LABELS = new Set(NAV_GROUPS.map((g) => g.label));
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -41,7 +47,8 @@ export default function Navbar() {
   const menuBtnRef = useRef<HTMLButtonElement>(null);
   const closeTimeout = useRef<ReturnType<typeof setTimeout>>(null);
 
-  const flatLinks = TOP_LINKS.filter((l) => !DROPDOWN_LABELS.has(l.label));
+  const NAV_GROUP_LABELS = new Set(NAV_GROUPS.map((g) => g.label));
+  const flatLinks = NAV_LINKS.filter((l) => !NAV_GROUP_LABELS.has(l.label));
   const links = flatLinks
     .toSpliced(2, 0, ...NAV_GROUPS)
     .filter((l) => l.label !== "Locations" && l.label !== "Shop");
@@ -100,7 +107,7 @@ export default function Navbar() {
   return (
     <nav
       aria-label="Main navigation"
-      className={`fixed w-full z-50 py-2 border-b transition-all duration-300 ${
+      className={`fixed w-full z-50 p-2 border-b transition-all duration-300 ${
         scrolled
           ? "bg-white/80 dark:bg-slate-800/80 border-gray-300/50 dark:border-[#444444]/50 backdrop-blur-xl shadow-sm dark:shadow-indigo-500/5"
           : "bg-white/50 dark:bg-slate-800/50 border-transparent backdrop-blur-sm"
@@ -108,7 +115,10 @@ export default function Navbar() {
     >
       {/* Gradient accent line at top */}
       {scrolled && (
-        <div className="absolute top-0 left-0 right-0 h-[1px] gradient-line" aria-hidden />
+        <div
+          className="absolute top-0 left-0 right-0 h-[1px] gradient-line"
+          aria-hidden
+        />
       )}
 
       <div className="max-w-7xl mx-auto h-16 flex items-center justify-between gap-4">
@@ -250,7 +260,7 @@ export default function Navbar() {
 
       <div
         ref={drawerRef}
-        className={`md:hidden fixed inset-x-0 top-[4.5rem] bottom-0 bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl border-t border-gray-300/50 dark:border-[#444444]/50 p-4 z-30 overflow-y-auto transition-transform duration-300 ${
+        className={`md:hidden fixed top-[4.5rem] left-0 right-0 bottom-0 min-h-[calc(100vh-4.5rem)] bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl border-t border-gray-300/50 dark:border-[#444444]/50 p-4 z-30 overflow-y-auto transition-transform duration-300 ${
           drawerOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -262,22 +272,31 @@ export default function Navbar() {
             if (l.children) {
               return (
                 <li key={l.label}>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (isOpen && l.path) router.push(l.path);
-                      else setOpenMobileGroup(isOpen ? null : l.label);
-                    }}
-                    className="w-full p-3 flex items-center justify-between font-medium text-slate-600 dark:text-slate-300 rounded hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors duration-150"
+                  <div
+                    className={`w-full p-3 flex items-center justify-between font-medium text-slate-600 dark:text-slate-300 rounded hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors duration-150 ${
+                      isActive
+                        ? "text-indigo-600 dark:text-[#ac4bff] bg-indigo-50 dark:bg-[#ac4bff]/10"
+                        : "text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-[#ac4bff] hover:bg-slate-100 dark:hover:bg-slate-800/50"
+                    }`}
                   >
-                    <span className="flex items-center gap-2">
-                      {Icon && <Icon className="size-4" />}
-                      {l.label}
-                    </span>
-                    <ChevronDown
-                      className={`size-4 text-slate-400 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
-                    />
-                  </button>
+                    <button type="button" onClick={() => router.push(l.path)}>
+                      <span className="flex items-center gap-2">
+                        {Icon && <Icon className="size-4" />}
+                        {l.label}
+                      </span>
+                    </button>
+                    <button
+                      type="button"
+                      aria-label={isOpen ? "Collapse" : "Expand"}
+                      onClick={() =>
+                        setOpenMobileGroup(isOpen ? null : l.label)
+                      }
+                    >
+                      <ChevronDown
+                        className={`size-4 text-slate-400 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+                      />
+                    </button>
+                  </div>
                   {isOpen && (
                     <div className="ml-4 border-l-2 border-indigo-200 dark:border-[#ac4bff]/30 pl-3 space-y-1 mt-1 mb-2">
                       {l.children.map((child) => {
@@ -316,7 +335,10 @@ export default function Navbar() {
                       : "text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-[#ac4bff] hover:bg-slate-100 dark:hover:bg-slate-800/50"
                   }`}
                 >
-                  <span>{l.label}</span>
+                  <span className="flex items-center gap-2">
+                    {Icon && <Icon className="size-4" />}
+                    {l.label}
+                  </span>
                   <ChevronRight className="size-4 text-slate-400" />
                 </Link>
               </li>
