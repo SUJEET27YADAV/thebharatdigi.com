@@ -47,4 +47,4 @@ next-env.d.ts
 
 # custom
 .git-credentials
-abc.txt
+/social-media-automation
