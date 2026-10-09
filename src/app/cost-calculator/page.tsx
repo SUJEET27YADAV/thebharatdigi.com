@@ -1,18 +1,21 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Calculator } from "lucide-react";
 import JsonLd from "@/components/JsonLd";
-import CostCalculatorClient from "./client";
+import CostCalculatorClient, { Region } from "./client";
+
+export const dynamic = "force-dynamic";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://thebharatdigi.com";
 
 export const metadata: Metadata = {
   title: "Project Cost Calculator | Web & App Development Pricing | The Bharat Digital",
   description:
-    "Instant transparent cost calculator for websites, SaaS web apps, mobile apps, e-commerce stores, and AI automations. Tailored pricing for local businesses in India and global international brands.",
+    "Instant transparent cost calculator for websites, SaaS web apps, mobile apps, e-commerce stores, and AI automations. Automatically calibrated for your region.",
   openGraph: {
     title: "Project Cost Calculator | The Bharat Digital",
     description:
-      "Instant transparent cost calculator for websites, SaaS web apps, mobile apps, e-commerce stores, and AI automations. Tailored pricing for local businesses in India and global international brands.",
+      "Instant transparent cost calculator for websites, SaaS web apps, mobile apps, e-commerce stores, and AI automations. Automatically calibrated for your region.",
     url: `${SITE_URL}/cost-calculator`,
     siteName: "The Bharat Digital",
     type: "website",
@@ -20,7 +23,17 @@ export const metadata: Metadata = {
   alternates: { canonical: `${SITE_URL}/cost-calculator` },
 };
 
-export default function CostCalculatorPage() {
+export default async function CostCalculatorPage() {
+  const headerList = await headers();
+  const countryHeader =
+    headerList.get("x-vercel-ip-country") ||
+    headerList.get("cf-ipcountry") ||
+    headerList.get("x-country-code") ||
+    "";
+
+  // If country is India ("IN"), use INR, otherwise default to GLOBAL (USD)
+  const initialRegion: Region = countryHeader.toUpperCase() === "IN" ? "IN" : "GLOBAL";
+
   return (
     <>
       <JsonLd
@@ -28,14 +41,9 @@ export default function CostCalculatorPage() {
         data={{
           name: "Project Cost Calculator — The Bharat Digital",
           description:
-            "Instant cost estimate for web development projects — websites, web apps, e-commerce, mobile apps, and AI integrations with INR (₹) and USD ($) support.",
+            "Instant cost estimate for web development projects — websites, web apps, e-commerce, mobile apps, and AI integrations.",
           url: `${SITE_URL}/cost-calculator`,
           applicationCategory: "BusinessApplication",
-          offers: {
-            "@type": "Offer",
-            price: "7999",
-            priceCurrency: "INR",
-          },
         }}
       />
 
@@ -53,17 +61,17 @@ export default function CostCalculatorPage() {
               Instant 60-Second Estimator
             </span>
             <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white mb-4">
-              Transparent Development{" "}
+              Development{" "}
               <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
                 Cost Calculator
               </span>
             </h1>
             <p className="mt-2 max-w-2xl mx-auto text-sm sm:text-base text-slate-400 leading-relaxed">
-              Whether you are a local shop, a fast-growing startup, or a global enterprise, configure your scope below to see transparent ballpark budgets and sprint timelines.
+              Configure your project scope below to see transparent ballpark budgets, included tech capabilities, and delivery sprint timelines.
             </p>
           </div>
 
-          <CostCalculatorClient />
+          <CostCalculatorClient initialRegion={initialRegion} />
         </section>
       </main>
     </>

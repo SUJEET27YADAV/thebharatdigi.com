@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useReducer, useState } from "react";
+import { useMemo, useReducer, useEffect } from "react";
 import Link from "next/link";
 import {
   Globe,
@@ -20,8 +20,6 @@ import {
   Zap,
   ShieldCheck,
   MessageSquare,
-  Building2,
-  Rocket,
   Check,
 } from "lucide-react";
 
@@ -482,8 +480,36 @@ function calculateEstimate(state: CalculatorState) {
   };
 }
 
-export default function CostCalculatorClient() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+export default function CostCalculatorClient({
+  initialRegion = "IN",
+}: {
+  initialRegion?: Region;
+}) {
+  const [state, dispatch] = useReducer(reducer, {
+    ...initialState,
+    region: initialRegion,
+  });
+
+  useEffect(() => {
+    // If not set by server header, check browser timezone/language as fallback
+    try {
+      const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+      const isIndianTimeZone =
+        timeZone.includes("Calcutta") ||
+        timeZone.includes("Kolkata") ||
+        timeZone.includes("Colombo") ||
+        navigator.language === "en-IN" ||
+        navigator.language === "hi";
+
+      const detected: Region = isIndianTimeZone ? "IN" : "GLOBAL";
+      if (detected !== state.region) {
+        dispatch({ type: "SET_REGION", payload: detected });
+      }
+    } catch {
+      // Keep initialRegion
+    }
+  }, []);
+
   const estimate = calculateEstimate(state);
   const selectedFeatures = useMemo(
     () => new Set(state.features),
@@ -494,40 +520,27 @@ export default function CostCalculatorClient() {
 
   return (
     <div className="space-y-10">
-      {/* Top Region & Currency Switcher */}
+      {/* Automatic Region & Guarantee Banner */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-slate-900/90 border border-slate-800 backdrop-blur-xl shadow-lg shadow-black/40">
-        <div>
-          <div className="text-xs font-bold uppercase tracking-wider text-indigo-400">
-            Select Your Market / Currency
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 shrink-0">
+            {isIndia ? <IndianRupee className="w-5 h-5" /> : <Globe className="w-5 h-5" />}
           </div>
-          <div className="text-xs text-slate-400">
-            Tailored pricing for Indian MSMEs & International Global Businesses
+          <div>
+            <div className="text-xs font-bold text-white flex items-center gap-2">
+              {isIndia ? "Direct Domestic Pricing (INR ₹)" : "International Client Pricing (USD $)"}
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-extrabold border border-emerald-500/30">
+                Auto-Calibrated
+              </span>
+            </div>
+            <div className="text-xs text-slate-400 mt-0.5">
+              100% Fixed Quote Guarantee • Zero Hidden Overages • Free Project Manager
+            </div>
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5 p-1 bg-slate-950 rounded-xl border border-slate-800 w-full sm:w-auto">
-          <button
-            type="button"
-            onClick={() => dispatch({ type: "SET_REGION", payload: "IN" })}
-            className={`flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
-              isIndia
-                ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md shadow-indigo-600/30"
-                : "text-slate-400 hover:text-slate-200"
-            }`}
-          >
-            <IndianRupee className="w-3.5 h-3.5" /> India (INR ₹)
-          </button>
-          <button
-            type="button"
-            onClick={() => dispatch({ type: "SET_REGION", payload: "GLOBAL" })}
-            className={`flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
-              !isIndia
-                ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md shadow-indigo-600/30"
-                : "text-slate-400 hover:text-slate-200"
-            }`}
-          >
-            <DollarSign className="w-3.5 h-3.5" /> Global / US (USD $)
-          </button>
+        <div className="text-xs font-bold text-slate-400 bg-slate-950 px-3.5 py-2 rounded-xl border border-slate-800 shrink-0">
+          {isIndia ? "🇮🇳 Serving India & MSMEs" : "🌍 Serving Global Clients"}
         </div>
       </div>
 
