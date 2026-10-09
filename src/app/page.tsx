@@ -9,6 +9,8 @@ import Marquee from "../components/Marquee";
 import { createServerClient } from "@/utils/supabase/server";
 import { Project } from "@/types/types";
 
+export const revalidate = 60; // Refresh projects every 60 seconds
+
 export const metadata: Metadata = {
   title: "The Bharat Digital | Web Development, SEO & IT Solutions Company",
   description:
@@ -18,14 +20,16 @@ export const metadata: Metadata = {
 async function getFeaturedProjects(): Promise<Project[]> {
   try {
     const supabase = createServerClient();
-    const { data, error } = await supabase.from("projects").select("*");
+    const { data, error } = await supabase
+      .from("projects")
+      .select("*")
+      .eq("featured", true)
+      .order("created_at", { ascending: false });
+
     if (error || !data) return [];
-    return data
-      .filter((p: Project) => p.featured === true)
-      .sort((a: Project, b: Project) =>
-        b.created_at.localeCompare(a.created_at),
-      );
-  } catch {
+    return data;
+  } catch (error) {
+    console.error("Error fetching featured projects:", error);
     return [];
   }
 }

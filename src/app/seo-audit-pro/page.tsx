@@ -3,6 +3,9 @@ import SEOAuditProClient from "./SEOAuditProClient";
 import { Product } from "@/types/types";
 import { createServerClient } from "@/utils/supabase/server";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   title: "SEO Audit Pro | SEO Tool | The Bharat Digital",
   description:
@@ -16,11 +19,14 @@ export default async function Page() {
     const { data } = await supabase
       .from("products")
       .select("*")
-      .eq("name", "SEO Audit Pro")
-      .single();
-    product = data;
+      .ilike("name", "%SEO Audit Pro%")
+      .limit(1);
+
+    if (data && data.length > 0) {
+      product = data[0];
+    }
   } catch (error) {
-    console.error(error);
+    console.error("Error fetching SEO Audit Pro product:", error);
   }
   return <SEOAuditProClient product={product} />;
 }

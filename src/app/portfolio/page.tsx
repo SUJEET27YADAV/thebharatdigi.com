@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import PortfolioPage from "./PortfolioPage";
 import { Project } from "@/types/types";
-import { fetchApiList } from "@/utils/api-fetch";
+import { createServerClient } from "@/utils/supabase/server";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export const metadata: Metadata = {
   title: "Portfolio | Web Development Projects | The Bharat Digital",
@@ -9,8 +12,20 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const projects = (await fetchApiList<Project>("/api/getProjects")).sort((a, b) =>
-    b.created_at.localeCompare(a.created_at),
-  );
+  let projects: Project[] = [];
+  try {
+    const supabase = createServerClient();
+    const { data, error } = await supabase
+      .from("projects")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (data && !error) {
+      projects = data;
+    }
+  } catch (error) {
+    console.error("Error fetching projects for portfolio:", error);
+  }
+
   return <PortfolioPage projects={projects} />;
 }

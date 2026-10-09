@@ -58,22 +58,27 @@ const STATIC_METADATA: Record<
 };
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const supabase = createServerClient();
+  let productEntries: MetadataRoute.Sitemap = [];
 
-  const { data: products } = await supabase
-    .from("products")
-    .select("id, created_at");
+  try {
+    const supabase = createServerClient();
+    const { data: products } = await supabase
+      .from("products")
+      .select("id, serial, created_at");
 
-  const productEntries: MetadataRoute.Sitemap = (products ?? []).map(
-    (product) => ({
-      url: `${BASE_URL}/product/${product.id}`,
-      lastModified: product.created_at
-        ? new Date(product.created_at)
-        : new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
-    }),
-  );
+    if (products) {
+      productEntries = products.map((product) => ({
+        url: `${BASE_URL}/product/${product.serial ?? product.id}`,
+        lastModified: product.created_at
+          ? new Date(product.created_at)
+          : new Date(),
+        changeFrequency: "monthly" as const,
+        priority: 0.7,
+      }));
+    }
+  } catch (e) {
+    console.error("Sitemap product fetch error:", e);
+  }
 
   const staticRoutes: MetadataRoute.Sitemap = PUBLIC_PATHS.map((path) => {
     const meta = STATIC_METADATA[path] ?? {
