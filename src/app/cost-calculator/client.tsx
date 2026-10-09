@@ -372,17 +372,17 @@ const FEATURES: Record<
 
 const TIER_MULTIPLIERS: Record<BusinessTier, { multiplier: number; label: string; desc: string }> = {
   local: {
-    multiplier: 0.85,
+    multiplier: 1.0,
     label: "Small & Local Business",
     desc: "Budget-conscious, rapid turnaround, clean essentials",
   },
   growth: {
-    multiplier: 1.0,
+    multiplier: 1.25,
     label: "Growth Startup / SME",
     desc: "Full-scale custom engineering, scalable architecture",
   },
   enterprise: {
-    multiplier: 1.35,
+    multiplier: 1.6,
     label: "Enterprise & Global Brand",
     desc: "High security, multi-region cloud, dedicated SLA",
   },
@@ -429,13 +429,13 @@ function reducer(state: CalculatorState, action: CalculatorAction): CalculatorSt
 
 const initialState: CalculatorState = {
   region: "IN",
-  businessTier: "growth",
+  businessTier: "local",
   projectType: "landing",
-  features: ["whatsapp-btn", "local-seo", "speed-boost"],
+  features: [],
   timeline: "standard",
   hasDesign: false,
-  needsBackend: true,
-  needsSeoSetup: true,
+  needsBackend: false,
+  needsSeoSetup: false,
 };
 
 function calculateEstimate(state: CalculatorState) {
@@ -451,23 +451,22 @@ function calculateEstimate(state: CalculatorState) {
     return sum + (isIndia ? feat.inrCost : feat.usdCost);
   }, 0);
 
-  // Discounts & Addons
-  const designDiscount = state.hasDesign ? Math.round(base * 0.15) : 0;
+  // Design deduction & Backend add-ons
+  const designDiscount = state.hasDesign ? Math.round(base * 0.1) : 0;
   const backendCost =
-    state.needsBackend && state.projectType !== "landing" ? Math.round(base * 0.2) : 0;
-  const seoBonus = state.needsSeoSetup ? (isIndia ? 2500 : 60) : 0;
+    state.needsBackend && state.projectType !== "landing" ? Math.round(base * 0.15) : 0;
+  const seoBonus =
+    state.needsSeoSetup && state.projectType !== "landing" ? (isIndia ? 2500 : 60) : 0;
 
-  const subtotal = Math.max(
-    base * 0.7,
-    base + featureCost - designDiscount + backendCost + seoBonus
-  );
+  const rawSubtotal = base + featureCost - designDiscount + backendCost + seoBonus;
 
   const tierMult = TIER_MULTIPLIERS[state.businessTier].multiplier;
   const timeMult = TIMELINE_MULTIPLIER[state.timeline];
 
-  const total = Math.round(subtotal * tierMult * timeMult);
-  const low = Math.round(total * 0.9);
-  const high = Math.round(total * 1.15);
+  // Guaranteed base floor: estimate never drops below the published base starting price
+  const total = Math.max(base, Math.round(rawSubtotal * tierMult * timeMult));
+  const low = total;
+  const high = Math.round(total * 1.22);
 
   return {
     total,
