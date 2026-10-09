@@ -5,12 +5,12 @@ const SOCIAL_LINKS = [
   {
     name: "facebook",
     icon: <Facebook size={24} />,
-    href: "#",
+    href: "https://www.facebook.com/thebharatdigital",
   },
   {
     name: "linkedin",
     icon: <Linkedin size={24} />,
-    href: "#",
+    href: "https://www.linkedin.com/company/the-bharat-digital",
   },
   {
     name: "instagram",

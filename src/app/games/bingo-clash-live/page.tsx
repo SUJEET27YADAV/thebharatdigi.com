@@ -232,7 +232,7 @@ export default function BingoClashLivePage() {
               ₹100 / month (+500 Bonus Coins)
             </span>
             <span className="px-4 py-2 bg-slate-900/80 border border-emerald-500/30 rounded-xl text-emerald-300">
-              ₹900 / year (Save 25% + 6,000 Bonus Coins)
+              ₹900 / year (Save upto 25% + 6,000 Bonus Coins)
             </span>
           </div>
         </div>

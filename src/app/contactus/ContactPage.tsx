@@ -153,8 +153,8 @@ const faqs: FaqItem[] = [
 ];
 
 const socials = [
-  { icon: Facebook, label: "Facebook", href: "#", rel: "nofollow" },
-  { icon: Linkedin, label: "LinkedIn", href: "#", rel: "nofollow" },
+  { icon: Facebook, label: "Facebook", href: "https://www.facebook.com/thebharatdigital", rel: "noopener noreferrer" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/company/the-bharat-digital", rel: "noopener noreferrer" },
   { icon: Instagram, label: "Instagram", href: "#", rel: "nofollow" },
 ];
 

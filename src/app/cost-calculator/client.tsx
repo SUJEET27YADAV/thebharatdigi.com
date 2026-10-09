@@ -883,7 +883,7 @@ export default function CostCalculatorClient({
               </div>
               <div>
                 <div className="text-xs font-bold text-slate-200">I already have Figma / UI designs</div>
-                <div className="text-[11px] text-emerald-400 font-semibold">Saves 15% on total cost</div>
+                <div className="text-[11px] text-emerald-400 font-semibold">Saves upto 15% on total cost</div>
               </div>
             </div>
           </button>
