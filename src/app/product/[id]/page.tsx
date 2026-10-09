@@ -3,6 +3,9 @@ import ProductDetailPage from "./ProductDetailPage";
 import { createServerClient } from "@/utils/supabase/server";
 import { Product } from "@/types/types";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export async function generateMetadata({
   params,
 }: {

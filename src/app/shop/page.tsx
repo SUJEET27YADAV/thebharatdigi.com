@@ -3,6 +3,9 @@ import StorePage from "./StorePage";
 import { Product } from "@/types/types";
 import { createServerClient } from "@/utils/supabase/server";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   title: "Shop Digital Products | The Bharat Digital",
   description:
@@ -14,11 +17,20 @@ export default async function Page() {
   let err = "";
   try {
     const supabase = createServerClient();
-    const { data } = await supabase.from("products").select("*");
-    products = data;
-  } catch (error) {
-    console.error(error);
-    err = "Could not load products. Please try again.";
+    const { data, error } = await supabase
+      .from("products")
+      .select("*")
+      .order("serial", { ascending: true });
+
+    if (error) {
+      console.error("Supabase Error fetching products:", error);
+      err = `Error loading products: ${error.message}`;
+    } else {
+      products = data;
+    }
+  } catch (error: any) {
+    console.error("Shop page error:", error);
+    err = error?.message || "Could not load products. Please try again.";
   }
   return <StorePage products={products} err={err} />;
 }
