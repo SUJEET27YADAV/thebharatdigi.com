@@ -23,11 +23,20 @@ const CONTACT_METHODS = [
   },
   {
     icon: Mail,
-    label: "Email",
-    value: "support@thebharatdigi.com",
-    href: "mailto:support@thebharatdigi.com",
+    label: "General / Sales",
+    value: "info@thebharatdigi.com",
+    href: "mailto:info@thebharatdigi.com",
     color: "from-purple-500 to-purple-600",
     bgLight: "bg-purple-50 dark:bg-purple-600/10",
+    glow: false,
+  },
+  {
+    icon: Mail,
+    label: "Support & Help",
+    value: "support@thebharatdigi.com",
+    href: "mailto:support@thebharatdigi.com",
+    color: "from-blue-500 to-blue-600",
+    bgLight: "bg-blue-50 dark:bg-blue-600/10",
     glow: false,
   },
   {

@@ -167,11 +167,16 @@ export default function Page() {
         Nagar and Uttar Pradesh.
       </p>
 
-      <p className="w-full">
-        All concerns or communications relating to these Terms must be
-        communicated to us using the contact information provided on this
-        website.
-      </p>
+      <div className="w-full bg-slate-900 border border-slate-800 rounded-2xl p-6 mt-6">
+        <h2 className="text-xl font-bold mb-3 text-white">Contact &amp; Communications</h2>
+        <p className="text-sm text-slate-300">All formal notices, legal concerns, or inquiries regarding these Terms should be sent to:</p>
+        <p className="text-sm text-slate-300 mt-2"><strong>The Bharat Digital (TBD)</strong></p>
+        <p className="text-sm text-slate-300"><strong>Administrative &amp; Legal:</strong> admin@thebharatdigi.com</p>
+        <p className="text-sm text-slate-300"><strong>Customer Support:</strong> support@thebharatdigi.com</p>
+        <p className="text-sm text-slate-300"><strong>General Inquiries:</strong> info@thebharatdigi.com</p>
+        <p className="text-sm text-slate-300"><strong>Phone:</strong> +91 99992 39307</p>
+        <p className="text-sm text-slate-300"><strong>Registered Office:</strong> 1848, Ward-17, Arun Vihar, Sector-37, Noida, Uttar Pradesh, India - 201301</p>
+      </div>
     </main>
   );
 }

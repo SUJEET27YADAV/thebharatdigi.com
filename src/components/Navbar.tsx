@@ -17,6 +17,7 @@ import {
   SearchCode,
   GalleryHorizontalEnd,
   Contact,
+  Gamepad2,
 } from "lucide-react";
 import Logo from "./ui/logo";
 import ThemeToggle from "./ThemeToggle";
@@ -28,6 +29,7 @@ const GROUP_ICONS: Record<string, React.ElementType> = {
   About: BookUser,
   Portfolio: GalleryHorizontalEnd,
   Services: Code,
+  Games: Gamepad2,
   Industries: Building,
   Resources: Book,
   "SEO Audit Pro": SearchCode,

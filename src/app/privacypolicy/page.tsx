@@ -168,14 +168,15 @@ export default function Page() {
         the significant changes to the Privacy Policy, in the manner as may be
         required under applicable laws.
       </p>
-      <div className="w-full">
-        <h2>Grievance Officer</h2>
-        <p>Name of the Office: Sujeet Yadav</p>
-        <p>Designation: -----</p>
-        <p>Name and Address of the Company: </p>
-        <p>Contact us: support@thebharatdigi.com</p>
-        <p>Phone: 9999239307</p>
-        <p>Time: Monday - Friday(9:00 - 18:00)</p>
+      <div className="w-full bg-slate-900 border border-slate-800 rounded-2xl p-6 mt-6">
+        <h2 className="text-xl font-bold mb-3 text-white">Grievance &amp; Legal Officers</h2>
+        <p className="text-sm text-slate-300"><strong>Company:</strong> The Bharat Digital (TBD)</p>
+        <p className="text-sm text-slate-300"><strong>Address:</strong> 1848, Ward-17, Arun Vihar, Sector-37, Noida, Uttar Pradesh, India - 201301</p>
+        <p className="text-sm text-slate-300"><strong>General Inquiries:</strong> info@thebharatdigi.com</p>
+        <p className="text-sm text-slate-300"><strong>Customer Support:</strong> support@thebharatdigi.com</p>
+        <p className="text-sm text-slate-300"><strong>Legal &amp; Admin:</strong> admin@thebharatdigi.com</p>
+        <p className="text-sm text-slate-300"><strong>Phone:</strong> +91 99992 39307</p>
+        <p className="text-sm text-slate-300"><strong>Business Hours:</strong> Monday – Friday (9:00 AM – 6:00 PM IST)</p>
       </div>
       <h2 className="mt-16 text-4xl font-bold">
         Refund and Cancellation policy

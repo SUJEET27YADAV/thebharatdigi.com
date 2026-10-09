@@ -98,13 +98,22 @@ export default function RootLayout({
               postalCode: "201301",
               addressCountry: "IN",
             },
-            contactPoint: {
-              "@type": "ContactPoint",
-              telephone: "+91-9999239307",
-              contactType: "sales",
-              email: "support@thebharatdigi.com",
-              availableLanguage: ["English", "Hindi"],
-            },
+            contactPoint: [
+              {
+                "@type": "ContactPoint",
+                telephone: "+91-9999239307",
+                contactType: "customer support",
+                email: "support@thebharatdigi.com",
+                availableLanguage: ["English", "Hindi"],
+              },
+              {
+                "@type": "ContactPoint",
+                telephone: "+91-9999239307",
+                contactType: "sales and general inquiries",
+                email: "info@thebharatdigi.com",
+                availableLanguage: ["English", "Hindi"],
+              },
+            ],
             sameAs: ["https://thebharatdigi.com"],
           })}
         </script>

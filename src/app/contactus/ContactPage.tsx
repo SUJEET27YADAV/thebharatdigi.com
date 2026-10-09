@@ -29,7 +29,7 @@ const initState = { msg: "" };
 const contactMethods = [
   {
     icon: Phone,
-    title: "Phone",
+    title: "Phone & Call",
     value: "+91 99992 39307",
     href: "tel:+919999239307",
     rel: "nofollow",
@@ -37,11 +37,19 @@ const contactMethods = [
   },
   {
     icon: Mail,
-    title: "Email",
+    title: "General Inquiries",
+    value: "info@thebharatdigi.com",
+    href: "mailto:info@thebharatdigi.com",
+    rel: "nofollow",
+    color: "purple",
+  },
+  {
+    icon: Mail,
+    title: "Support & Helpdesk",
     value: "support@thebharatdigi.com",
     href: "mailto:support@thebharatdigi.com",
     rel: "nofollow",
-    color: "purple",
+    color: "pink",
   },
   {
     icon: MessageSquare,
@@ -50,14 +58,6 @@ const contactMethods = [
     href: "https://wa.me/919999239307",
     rel: "nofollow",
     color: "green",
-  },
-  {
-    icon: MapPin,
-    title: "Location",
-    value: "Global Services",
-    href: "#",
-    rel: "nofollow",
-    color: "pink",
   },
 ];
 

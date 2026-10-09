@@ -22,6 +22,7 @@ const SOCIAL_LINKS = [
 const QUICK_LINKS = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
+  { label: "Games & Apps", href: "/games" },
   { label: "About Us", href: "/aboutus" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Privacy Policy", href: "/privacypolicy" },
@@ -127,6 +128,17 @@ export default function Footer() {
                     <Phone size={14} className="text-indigo-400 relative z-10" />
                   </div>
                   <span className="text-sm">+91 99992 39307</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:info@thebharatdigi.com"
+                  className="flex items-center gap-3 hover:text-indigo-400 transition-colors duration-150 group"
+                >
+                  <div className="size-8 rounded-lg bg-indigo-500/10 flex items-center justify-center transition-colors duration-200 group-hover:bg-indigo-500/20">
+                    <Mail size={14} className="text-indigo-400" />
+                  </div>
+                  <span className="text-sm">info@thebharatdigi.com</span>
                 </a>
               </li>
               <li>
