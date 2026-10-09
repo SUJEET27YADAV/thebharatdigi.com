@@ -6,13 +6,13 @@ import CostCalculatorClient from "./client";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://thebharatdigi.com";
 
 export const metadata: Metadata = {
-  title: "Cost Calculator | Estimate Your Web Development Project Cost | The Bharat Digital",
+  title: "Project Cost Calculator | Web & App Development Pricing | The Bharat Digital",
   description:
-    "Get an instant estimate for your web development project. Calculate costs for websites, web apps, e-commerce stores, mobile apps, and AI integrations.",
+    "Instant transparent cost calculator for websites, SaaS web apps, mobile apps, e-commerce stores, and AI automations. Tailored pricing for local businesses in India and global international brands.",
   openGraph: {
-    title: "Cost Calculator | The Bharat Digital",
+    title: "Project Cost Calculator | The Bharat Digital",
     description:
-      "Get an instant estimate for your web development project. Calculate costs for websites, web apps, e-commerce stores, mobile apps, and AI integrations.",
+      "Instant transparent cost calculator for websites, SaaS web apps, mobile apps, e-commerce stores, and AI automations. Tailored pricing for local businesses in India and global international brands.",
     url: `${SITE_URL}/cost-calculator`,
     siteName: "The Bharat Digital",
     type: "website",
@@ -28,44 +28,42 @@ export default function CostCalculatorPage() {
         data={{
           name: "Project Cost Calculator — The Bharat Digital",
           description:
-            "Instant cost estimate for web development projects — websites, web apps, e-commerce, mobile apps, and AI integrations.",
+            "Instant cost estimate for web development projects — websites, web apps, e-commerce, mobile apps, and AI integrations with INR (₹) and USD ($) support.",
           url: `${SITE_URL}/cost-calculator`,
           applicationCategory: "BusinessApplication",
           offers: {
             "@type": "Offer",
-            price: "0",
+            price: "7999",
             priceCurrency: "INR",
           },
         }}
       />
 
-      <main className="relative min-h-screen overflow-hidden bg-[var(--color-background)]">
+      <main className="relative min-h-screen overflow-hidden bg-[#070b14] text-slate-100 selection:bg-indigo-500 selection:text-white pt-24 pb-20">
         {/* Gradient mesh bg */}
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-1/4 top-0 h-[500px] w-[500px] rounded-full bg-indigo-100 blur-[120px] dark:bg-indigo-500/5" />
-          <div className="absolute bottom-0 right-1/3 h-[400px] w-[400px] rounded-full bg-purple-100 blur-[120px] dark:bg-purple-500/5" />
+          <div className="absolute left-1/4 top-0 h-[500px] w-[500px] rounded-full bg-indigo-600/10 blur-[140px]" />
+          <div className="absolute bottom-0 right-1/3 h-[400px] w-[400px] rounded-full bg-purple-600/10 blur-[140px]" />
         </div>
 
-        <section className="relative px-4 pb-20 pt-24 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl">
-            <div className="mb-12">
-              <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-4 py-1.5 text-xs font-medium text-indigo-700 dark:border-indigo-500/20 dark:bg-indigo-500/10 dark:text-indigo-400">
-                <Calculator className="h-3 w-3" />
-                Instant Estimate
+        <section className="relative px-4 pb-20 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-indigo-500/20 bg-indigo-500/10 px-4 py-1.5 text-xs font-bold text-indigo-400">
+              <Calculator className="h-3.5 w-3.5" />
+              Instant 60-Second Estimator
+            </span>
+            <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white mb-4">
+              Transparent Development{" "}
+              <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                Cost Calculator
               </span>
-              <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl dark:text-white">
-                Project Cost{" "}
-                <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent dark:from-indigo-400 dark:to-purple-400">
-                  Calculator
-                </span>
-              </h1>
-              <p className="mt-4 max-w-2xl text-lg text-slate-600 dark:text-slate-400">
-                Get a ballpark estimate for your project in under 60 seconds. Select your project type, add features, and see the range.
-              </p>
-            </div>
-
-            <CostCalculatorClient />
+            </h1>
+            <p className="mt-2 max-w-2xl mx-auto text-sm sm:text-base text-slate-400 leading-relaxed">
+              Whether you are a local shop, a fast-growing startup, or a global enterprise, configure your scope below to see transparent ballpark budgets and sprint timelines.
+            </p>
           </div>
+
+          <CostCalculatorClient />
         </section>
       </main>
     </>
