@@ -21,6 +21,8 @@ import {
   ShieldCheck,
   MessageSquare,
   Check,
+  CalendarCheck,
+  GraduationCap,
 } from "lucide-react";
 
 export type Region = "IN" | "GLOBAL";
@@ -35,6 +37,7 @@ interface CalculatorState {
   hasDesign: boolean;
   needsBackend: boolean;
   needsSeoSetup: boolean;
+  needsPremiumBranding: boolean;
 }
 
 type CalculatorAction =
@@ -46,6 +49,7 @@ type CalculatorAction =
   | { type: "SET_HAS_DESIGN"; payload: boolean }
   | { type: "SET_NEEDS_BACKEND"; payload: boolean }
   | { type: "SET_NEEDS_SEO_SETUP"; payload: boolean }
+  | { type: "SET_NEEDS_PREMIUM_BRANDING"; payload: boolean }
   | { type: "RESET" };
 
 const PROJECT_TYPES = [
@@ -64,11 +68,25 @@ const PROJECT_TYPES = [
     badge: "Popular",
   },
   {
+    id: "booking",
+    label: "Appointment & Booking System",
+    sublabel: "Clinics, salons, consultants, astrologers & lawyers",
+    icon: CalendarCheck,
+    badge: "High Demand",
+  },
+  {
     id: "ecommerce",
     label: "E-Commerce Online Store",
     sublabel: "D2C store, payment gateways, product catalog",
     icon: ShoppingCart,
     badge: "High ROI",
+  },
+  {
+    id: "lms",
+    label: "E-Learning & Course LMS",
+    sublabel: "EdTech, coaches, trainers & academy platforms",
+    icon: GraduationCap,
+    badge: "Top Selling",
   },
   {
     id: "webapp",
@@ -96,20 +114,24 @@ const PROJECT_TYPES = [
 // Base Prices per region
 const BASE_PRICES: Record<Region, Record<string, number>> = {
   IN: {
-    landing: 7999, // ₹7,999 (~$95) - highly affordable for local shops & freelancers
-    website: 19999, // ₹19,999 (~$240) - standard business website
-    ecommerce: 34999, // ₹34,999 (~$420) - complete online store
-    webapp: 49999, // ₹49,999 (~$600) - custom SaaS/MVP
-    mobile: 69999, // ₹69,999 (~$840) - iOS/Android app
-    ai: 44999, // ₹44,999 (~$540) - AI integration
+    landing: 7999, // ₹7,999 (~$95)
+    website: 19999, // ₹19,999 (~$240)
+    booking: 24999, // ₹24,999 (~$300)
+    ecommerce: 34999, // ₹34,999 (~$420)
+    lms: 39999, // ₹39,999 (~$480)
+    webapp: 49999, // ₹49,999 (~$600)
+    mobile: 69999, // ₹69,999 (~$840)
+    ai: 44999, // ₹44,999 (~$540)
   },
   GLOBAL: {
-    landing: 299, // $299 USD
-    website: 699, // $699 USD
-    ecommerce: 1299, // $1,299 USD
-    webapp: 1799, // $1,799 USD
-    mobile: 2499, // $2,499 USD
-    ai: 1999, // $1,999 USD
+    landing: 299,
+    website: 699,
+    booking: 899,
+    ecommerce: 1299,
+    lms: 1499,
+    webapp: 1799,
+    mobile: 2499,
+    ai: 1999,
   },
 };
 
@@ -199,6 +221,50 @@ const FEATURES: Record<
       desc: "Smooth Framer Motion micro-interactions",
     },
   ],
+  booking: [
+    {
+      id: "realtime-slots",
+      label: "Real-Time Slot Booking Engine",
+      inrCost: 10000,
+      usdCost: 240,
+      desc: "Calendar date/time picker with seat availability",
+    },
+    {
+      id: "zoom-integration",
+      label: "Zoom / Google Meet Auto-Links",
+      inrCost: 7000,
+      usdCost: 180,
+      desc: "Auto-generates meeting links on booking",
+    },
+    {
+      id: "whatsapp-api",
+      label: "WhatsApp Business API Reminders",
+      inrCost: 9000,
+      usdCost: 220,
+      desc: "Automated confirmations & reminders",
+    },
+    {
+      id: "customer-dash",
+      label: "Customer Booking Dashboard",
+      inrCost: 9000,
+      usdCost: 220,
+      desc: "Cancel, reschedule & view past records",
+    },
+    {
+      id: "gst-invoice",
+      label: "GST Compliant Auto-Invoicing",
+      inrCost: 5000,
+      usdCost: 120,
+      desc: "Automated PDF generation for B2B billing",
+    },
+    {
+      id: "dual-gateway",
+      label: "Razorpay (INR) + Stripe (USD)",
+      inrCost: 13000,
+      usdCost: 320,
+      desc: "Accept local and international payments",
+    },
+  ],
   ecommerce: [
     {
       id: "payments",
@@ -241,6 +307,50 @@ const FEATURES: Record<
       inrCost: 6000,
       usdCost: 150,
       desc: "Recover lost sales via automated emails",
+    },
+  ],
+  lms: [
+    {
+      id: "video-player",
+      label: "Secure Course Video Player",
+      inrCost: 12000,
+      usdCost: 280,
+      desc: "Supports Vimeo, YouTube, AWS S3",
+    },
+    {
+      id: "progress-track",
+      label: "Student Progress Tracking",
+      inrCost: 9000,
+      usdCost: 220,
+      desc: "Visual percentage completion dashboards",
+    },
+    {
+      id: "quizzes-certs",
+      label: "Quizzes & Auto-PDF Certificates",
+      inrCost: 12000,
+      usdCost: 280,
+      desc: "Test students & issue branded certificates",
+    },
+    {
+      id: "study-materials",
+      label: "Downloadable Study Materials",
+      inrCost: 6000,
+      usdCost: 150,
+      desc: "Upload PDFs, notes, and assignments",
+    },
+    {
+      id: "community-board",
+      label: "Community Discussion Board",
+      inrCost: 15000,
+      usdCost: 350,
+      desc: "Q&A space between students & mentors",
+    },
+    {
+      id: "sms-otp-login",
+      label: "SMS OTP Passwordless Login",
+      inrCost: 5000,
+      usdCost: 120,
+      desc: "Fast mobile login verification",
     },
   ],
   webapp: [
@@ -420,6 +530,8 @@ function reducer(state: CalculatorState, action: CalculatorAction): CalculatorSt
       return { ...state, needsBackend: action.payload };
     case "SET_NEEDS_SEO_SETUP":
       return { ...state, needsSeoSetup: action.payload };
+    case "SET_NEEDS_PREMIUM_BRANDING":
+      return { ...state, needsPremiumBranding: action.payload };
     case "RESET":
       return { ...initialState, region: state.region };
     default:
@@ -436,6 +548,7 @@ const initialState: CalculatorState = {
   hasDesign: false,
   needsBackend: false,
   needsSeoSetup: false,
+  needsPremiumBranding: false,
 };
 
 function calculateEstimate(state: CalculatorState) {
@@ -458,7 +571,22 @@ function calculateEstimate(state: CalculatorState) {
   const seoBonus =
     state.needsSeoSetup && state.projectType !== "landing" ? (isIndia ? 2500 : 60) : 0;
 
-  const rawSubtotal = base + featureCost - designDiscount + backendCost + seoBonus;
+  // Premium Branding (Dynamic cost based on business tier to match real-world scale)
+  const brandingCost = state.needsPremiumBranding
+    ? isIndia
+      ? state.businessTier === "local"
+        ? 25000
+        : state.businessTier === "growth"
+        ? 50000
+        : 100000
+      : state.businessTier === "local"
+      ? 600
+      : state.businessTier === "growth"
+      ? 1200
+      : 2500
+    : 0;
+
+  const rawSubtotal = base + featureCost - designDiscount + backendCost + seoBonus + brandingCost;
 
   const tierMult = TIER_MULTIPLIERS[state.businessTier].multiplier;
   const timeMult = TIMELINE_MULTIPLIER[state.timeline];
@@ -784,6 +912,30 @@ export default function CostCalculatorClient({
             </div>
           </button>
         </div>
+
+        <button
+          type="button"
+          onClick={() => dispatch({ type: "SET_NEEDS_PREMIUM_BRANDING", payload: !state.needsPremiumBranding })}
+          className={`w-full mt-3 p-4 rounded-2xl border text-left transition-all flex items-center justify-between ${
+            state.needsPremiumBranding
+              ? "bg-amber-950/20 border-amber-500/50 text-white"
+              : "bg-slate-900/60 border-slate-800 text-slate-400 hover:border-slate-700 hover:bg-slate-900"
+          }`}
+        >
+          <div className="flex items-center gap-3">
+            <div
+              className={`w-5 h-5 rounded-md flex items-center justify-center shrink-0 ${
+                state.needsPremiumBranding ? "bg-amber-600 text-white" : "border border-slate-700 bg-slate-950"
+              }`}
+            >
+              {state.needsPremiumBranding && <Check className="w-3 h-3 stroke-[3]" />}
+            </div>
+            <div>
+              <div className="text-xs font-bold text-slate-200">Complete Premium Branding & Logo Kit</div>
+              <div className="text-[11px] text-amber-400 font-semibold">Includes Logo, Typography, Colors & Digital Assets</div>
+            </div>
+          </div>
+        </button>
       </section>
 
       {/* Result Estimate Card */}
