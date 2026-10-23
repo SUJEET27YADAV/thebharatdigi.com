@@ -65,12 +65,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <head>
-        <meta
-          name="p:domain_verify"
-          content="2b9f274908edfe3dff9a8067dc1ac981"
-        />
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
