@@ -12,14 +12,20 @@ const allowedOrigins = [
 export async function proxy(request: NextRequest) {
   const url = request.nextUrl.clone();
   const pathname = url.pathname;
-  const hostname = request.headers.get("host") || "";
+
+  // Check x-forwarded-host first for Vercel / Cloudflare proxy compatibility
+  const rawHost =
+    request.headers.get("x-forwarded-host") ||
+    request.headers.get("host") ||
+    "";
+  const hostname = rawHost.split(",")[0].trim().toLowerCase();
   const origin = request.headers.get("origin");
 
   // Create base response
   const response = NextResponse.next();
 
   // ----------------------------------------------------
-  // 1. Dynamic CORS Handling (Runs for all /api routes)
+  // 1. Dynamic CORS Handling (Runs & RETURNS for /api routes)
   // ----------------------------------------------------
   if (pathname.startsWith("/api")) {
     if (origin && allowedOrigins.includes(origin)) {
@@ -44,6 +50,10 @@ export async function proxy(request: NextRequest) {
     if (request.method === "OPTIONS") {
       return new NextResponse(null, { status: 200, headers: response.headers });
     }
+
+    // IMPORTANT: Return immediately so /api routes on the subdomain
+    // are NOT rewritten to /shri-amar-crafts/api/... in Step 3
+    return response;
   }
 
   // ----------------------------------------------------
@@ -64,6 +74,8 @@ export async function proxy(request: NextRequest) {
     } catch {
       return NextResponse.redirect(new URL("/admin/login", request.url));
     }
+
+    return response;
   }
 
   // Redirect /admin/login to dashboard if already authenticated
@@ -79,6 +91,7 @@ export async function proxy(request: NextRequest) {
         // Continue to login page
       }
     }
+    return response;
   }
 
   // ----------------------------------------------------
