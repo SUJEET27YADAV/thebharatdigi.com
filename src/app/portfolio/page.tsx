@@ -3,6 +3,8 @@ import PortfolioPage from "./PortfolioPage";
 import { Project } from "@/types/types";
 import { createServerClient } from "@/utils/supabase/server";
 
+import { withShriAmarCrafts } from "@/lib/portfolio-data";
+
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
@@ -27,5 +29,5 @@ export default async function Page() {
     console.error("Error fetching projects for portfolio:", error);
   }
 
-  return <PortfolioPage projects={projects} />;
+  return <PortfolioPage projects={withShriAmarCrafts(projects)} />;
 }

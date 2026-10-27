@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import AgencyChrome from "@/components/AgencyChrome";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import MotionProvider from "@/components/MotionProvider";
@@ -70,12 +71,16 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <MotionProvider>
-            <CustomCursor />
-            <Navbar />
+            <AgencyChrome>
+              <CustomCursor />
+              <Navbar />
+            </AgencyChrome>
             {children}
-            <Footer />
+            <AgencyChrome>
+              <Footer />
+              <WhatsAppButton />
+            </AgencyChrome>
           </MotionProvider>
-          <WhatsAppButton />
           <ToastContainer />
         </ThemeProvider>
         <SpeedInsights />

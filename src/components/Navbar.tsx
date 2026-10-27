@@ -108,6 +108,7 @@ export default function Navbar() {
 
   return (
     <nav
+      id="tbd-nav"
       aria-label="Main navigation"
       className={`fixed w-full z-50 p-2 border-b transition-all duration-300 ${
         scrolled

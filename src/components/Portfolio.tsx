@@ -62,43 +62,50 @@ export default function Portfolio({ initialProjects = [] }: PortfolioProps) {
                   }}
                   className="card-interactive overflow-hidden group"
                 >
-                  <div
-                    className="aspect-[4/3] relative overflow-hidden flex items-center justify-center"
-                    style={{ background: project.color }}
+                  <Link
+                    href={project.link || "/portfolio"}
+                    target={project.link?.startsWith("http") ? "_blank" : undefined}
+                    rel={project.link?.startsWith("http") ? "noopener noreferrer" : undefined}
+                    className="block size-full focus:outline-none"
                   >
-                    {/* Gradient overlay on hover */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
+                    <div
+                      className="aspect-[4/3] relative overflow-hidden flex items-center justify-center"
+                      style={{ background: project.color }}
+                    >
+                      {/* Gradient overlay on hover */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
 
-                    {Icon.length <= 2 ? (
-                      <span
-                        className="text-[60px] transition-transform duration-300 group-hover:scale-110"
-                        aria-hidden
-                      >
-                        {Icon}
-                      </span>
-                    ) : (
-                      <LucideIcon
-                        size={80}
-                        name={Icon}
-                        className="transition-transform duration-300 group-hover:scale-110"
-                      />
-                    )}
+                      {Icon.length <= 2 ? (
+                        <span
+                          className="text-[60px] transition-transform duration-300 group-hover:scale-110"
+                          aria-hidden
+                        >
+                          {Icon}
+                        </span>
+                      ) : (
+                        <LucideIcon
+                          size={80}
+                          name={Icon}
+                          className="transition-transform duration-300 group-hover:scale-110"
+                        />
+                      )}
 
-                    {/* Arrow icon on hover */}
-                    <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-200 -translate-y-2 group-hover:translate-y-0">
-                      <div className="size-8 rounded-lg bg-white/90 dark:bg-slate-900/90 flex items-center justify-center">
-                        <ArrowUpRight className="size-4 text-slate-900 dark:text-white" />
+                      {/* Arrow icon on hover */}
+                      <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-200 -translate-y-2 group-hover:translate-y-0">
+                        <div className="size-8 rounded-lg bg-white/90 dark:bg-slate-900/90 flex items-center justify-center">
+                          <ArrowUpRight className="size-4 text-slate-900 dark:text-white" />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="p-5">
-                    <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors duration-200">
-                      {project.title}
-                    </h3>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">
-                      {project.category}
-                    </p>
-                  </div>
+                    <div className="p-5">
+                      <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors duration-200">
+                        {project.title}
+                      </h3>
+                      <p className="text-sm text-slate-600 dark:text-slate-400">
+                        {project.category}
+                      </p>
+                    </div>
+                  </Link>
                 </m.article>
               );
             })}

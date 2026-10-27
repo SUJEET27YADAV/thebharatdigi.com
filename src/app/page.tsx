@@ -8,6 +8,7 @@ import Contact from "../components//Contact";
 import Marquee from "../components/Marquee";
 import { createServerClient } from "@/utils/supabase/server";
 import { Project } from "@/types/types";
+import { withShriAmarCrafts } from "@/lib/portfolio-data";
 
 export const revalidate = 60; // Refresh projects every 60 seconds
 
@@ -26,11 +27,11 @@ async function getFeaturedProjects(): Promise<Project[]> {
       .eq("featured", true)
       .order("created_at", { ascending: false });
 
-    if (error || !data) return [];
-    return data;
+    if (error || !data) return withShriAmarCrafts([]);
+    return withShriAmarCrafts(data);
   } catch (error) {
     console.error("Error fetching featured projects:", error);
-    return [];
+    return withShriAmarCrafts([]);
   }
 }
 
